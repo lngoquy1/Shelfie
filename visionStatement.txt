@@ -1,8 +1,2 @@
-Shelved is an android app that helps you manage your personal library. Shelve your books by scanning their ISBNs, and let
-the app manage the rest! You can drag your books into your own virtual bookshelves for easy retrieval, as well as retrieve
-information information by clicking on each book, such as other books in the series, suggested books, Goodreads ratings and
-reviews, sellback comparisons, author biographies, genre tags, and links to homework-help websites such as SparkNotes. Rate
-and tag your books for filtered searching. Create or import wish lists to get price information on any books you’re thinking
-about purchasing and get notified if anyone belonging your organizations has listed books on your wishlist for sale or lending.
-
+Shelved is an android app that helps you manage your personal library. Shelve your books by scanning their ISBNs or from pictures of shelves with book spines using OCR and OpenCV's shape detection, and let the app manage the rest! You can drag your books into your own virtual bookshelves for easy retrieval, as well as retrieve information information by clicking on each book, such as other books in the series, suggested books, Goodreads ratings and reviews, sellback comparisons, author biographies, genre tags, and links to homework-help websites such as SparkNotes. Rate and tag your books for filtered searching, and use this information to make book suggestions. Create or import wish lists to get price information on any books you’re thinking about purchasing and get notified if anyone belonging your organizations has listed books on your wishlist for sale or lending. 
 This app may also be used with CDs and DVDs for shelving, wish lists, local lending, and selling.
