@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lights Out</title>
+    <link rel="stylesheet" href="/lightsOut.css"/>
+</head>
+<body>
+<table>
+    #foreach ($y in [0..2])
+    <tr>
+    #foreach ($x in [0..2])
+    <td>
+        <a href="#thing">
+            #if ($model.getSpaceState($x,$y))
+            <div class="light off"/>
+            #else
+            <div class="light on"/>
+            #end
+        </a>
+    </td>
+    #end
+    </tr>
+    #end
+</table>
+</body>
+</html>
