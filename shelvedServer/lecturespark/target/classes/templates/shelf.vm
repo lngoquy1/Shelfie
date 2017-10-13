@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shelved</title>
+    <link rel="stylesheet" href="/shelf.css"/>
+</head>
+<body>
+
+You have: $shelf.getNumBooks() in this shelf
+<table width="500" border="0" cellpadding="5">
+
+<tr>
+
+<td align="center" valign="center">
+<img src="http://knopfdoubleday.com/marketing/covers/1Q84_binding.jpg" alt="description here" />
+<br />
+<a href="https://www.goodreads.com/book/show/10357575-1q84">
+$shelf.getBook1()
+</a>
+</td>
+
+<td align="center" valign="center">
+<img src="https://images.gr-assets.com/books/1386924361l/11297.jpg" alt="description here" />
+<br />
+<a href="https://www.goodreads.com/book/show/10357575-1q84">
+$shelf.getBook2()
+</a>
+</td>
+
+<td align="center" valign="center">
+<img src="http://press.huc.edu/wp-content/uploads/2014/01/the-book-thief.jpg" alt="description here" />
+<br />
+Book 3:
+$shelf.getBook3()
+</td>
+
+</tr>
+
+</table>
+
+
+</body>
+</html>
