@@ -17,9 +17,9 @@
 
         <Button
                 android:text="SCAN"
-                android:layout_width="166dp"
-                android:layout_height="166dp" android:id="@+id/SCAN" android:elevation="0dp"/>
-
+                android:layout_width="199dp"
+                android:layout_height="185dp" android:id="@+id/SCAN" android:elevation="0dp" android:layout_row="0"
+                android:layout_column="0"/>
     </FrameLayout>
 
 </LinearLayout>
