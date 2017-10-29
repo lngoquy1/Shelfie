@@ -65,15 +65,15 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
     @Override
     public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
 
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ViewGroup contentFrame = (ViewGroup) findViewById(R.id.scannerLayout);
-                    mScannerView = new ZBarScannerView(this);
-                    contentFrame.addView(mScannerView);
-                    mScannerView.setResultHandler(this);
-                    mScannerView.startCamera();
-                } else {
-                    Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
-                }
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            ViewGroup contentFrame = (ViewGroup) findViewById(R.id.scannerLayout);
+            mScannerView = new ZBarScannerView(this);
+            contentFrame.addView(mScannerView);
+            mScannerView.setResultHandler(this);
+            mScannerView.startCamera();
+        } else {
+            Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
