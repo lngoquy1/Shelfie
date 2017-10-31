@@ -1,16 +1,16 @@
 package edu.swarthmore.cs.cs71.group_shelved;
 
 public class Author {
-    private String authorName;
+    private String fullName;
     private String lastName;
 
     public Author(String authorName) {
-        this.authorName = authorName;
+        this.fullName = authorName;
         this.lastName = authorName.substring(authorName.lastIndexOf(" ") +1);
     }
 
     public String getAuthorName() {
-        return authorName;
+        return fullName;
     }
 
     public String getLastName() {
