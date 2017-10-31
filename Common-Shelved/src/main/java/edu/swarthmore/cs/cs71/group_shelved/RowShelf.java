@@ -12,5 +12,6 @@ public interface RowShelf {
     // book object from a specified position and moving it to a new given
     // position.
     void resetPosition(int oldPosition, int newPosition);
-}
 
+    ShelvedBook getBook(int position);
+}

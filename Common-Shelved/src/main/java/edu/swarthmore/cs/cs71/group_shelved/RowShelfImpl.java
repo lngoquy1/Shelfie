@@ -10,13 +10,18 @@ public class RowShelfImpl implements RowShelf {
     }
 
     @Override
-    public void removeBook(ShelvedBook shelvedBook) {
-        rowList.remove(shelvedBook);
+    public void removeBook(int position) {
+        rowList.remove(position);
     }
 
     @Override
-    public void resetPosition(ShelvedBook shelvedBook, int position) {
-        rowList.remove(shelvedBook);
-        rowList.add(position, shelvedBook);
+    public ShelvedBook getBook(int position){
+        return rowList.get(position);
+    }
+    @Override
+    public void resetPosition(int oldPosition, int newPosition) {
+        ShelvedBook shelvedBook = getBook(oldPosition);
+        removeBook(oldPosition);
+        addBook(shelvedBook, newPosition);
     }
 }
