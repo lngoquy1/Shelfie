@@ -20,11 +20,15 @@ public class BookImpl implements Book {
 
     @Override
     public List<Book> getRecBooks() {
+        //query Amazon's API
+        //http://docs.aws.amazon.com/AWSECommerceService/latest/DG/SuggestingSimilarItemstoBuy.html
         return null;
     }
 
     @Override
     public Dictionary<String, Double> getPrices() {
+        //query Amazon's API (and more)
+        //http://docs.aws.amazon.com/AWSECommerceService/latest/DG/EX_RetrievingPriceInformation.html
         return null;
     }
 }
