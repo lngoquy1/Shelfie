@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface Book {
     // Do we need to initialize these? How do we change the values? BookImpl already has these.
-    Author author;
-    Genre genre;
-    Title title;
-    int pages;
-    Publisher publisher;
+//    Author author;
+//    Genre genre;
+//    Title title;
+//    int pages;
+//    Publisher publisher;
 
     // Returns a list of recommended books based on current book object.
     List<Book> getRecBooks();
