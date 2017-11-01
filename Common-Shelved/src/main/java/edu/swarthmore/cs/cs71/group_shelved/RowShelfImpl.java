@@ -3,25 +3,41 @@ package edu.swarthmore.cs.cs71.group_shelved;
 import java.util.ArrayList;
 
 public class RowShelfImpl implements RowShelf {
-    ArrayList<ShelvedBook> rowList = new ArrayList<>();
+
+    private ArrayList<ShelvedBook> rowList = new ArrayList<>();
+    private int id;
+
+
+    public RowShelfImpl(ArrayList<ShelvedBook> rowList, int id) {
+        this.rowList = rowList;
+        this.id = id;
+    }
+
     @Override
     public void addBook(ShelvedBook shelvedBook, int position) {
-        rowList.add(position, shelvedBook);
+        this.rowList.add(position, shelvedBook);
     }
 
     @Override
     public void removeBook(int position) {
-        rowList.remove(position);
+        this.rowList.remove(position);
     }
 
     @Override
-    public ShelvedBook getBook(int position){
+    public ShelvedBook getBook(int position) {
         return rowList.get(position);
     }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
     @Override
     public void resetPosition(int oldPosition, int newPosition) {
         ShelvedBook shelvedBook = getBook(oldPosition);
         removeBook(oldPosition);
         addBook(shelvedBook, newPosition);
     }
+
 }
