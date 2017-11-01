@@ -29,17 +29,14 @@ public class WishList implements CreatedList {
 
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    //public void setName(String name) {
+    //    this.name = name;
+    //}
 
     public void setPublicStatus(boolean publicStatus) {
         this.publicStatus = publicStatus;
     }
 
-    public void setList(ArrayList<ShelvedBook> list) {
-        this.list = list;
-    }
 
     @Override
     public void addBook(ShelvedBook shelvedBook) {

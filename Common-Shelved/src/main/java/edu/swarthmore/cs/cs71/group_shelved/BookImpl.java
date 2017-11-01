@@ -18,6 +18,26 @@ public class BookImpl implements Book {
         this.publisher = new Publisher(publisher);
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
     @Override
     public List<Book> getRecBooks() {
         //query Amazon's API
