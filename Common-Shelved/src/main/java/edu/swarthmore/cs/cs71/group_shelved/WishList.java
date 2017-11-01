@@ -43,11 +43,11 @@ public class WishList implements CreatedList {
 
     @Override
     public void addBook(ShelvedBook shelvedBook) {
-        list.add(shelvedBook);
+        this.list.add(shelvedBook);
     }
 
     @Override
     public void removeBook(ShelvedBook shelvedBook) {
-        list.remove(shelvedBook);
+        this.list.remove(shelvedBook);
     }
 }

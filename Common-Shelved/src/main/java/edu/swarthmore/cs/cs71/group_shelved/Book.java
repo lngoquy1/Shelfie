@@ -10,5 +10,4 @@ public interface Book {
 
     // Returns a dictionary of book source mapped to accompanying price.
     Dictionary<String, Double> getPrices();
-
 }
