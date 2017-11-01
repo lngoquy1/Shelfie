@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.group_shelved;
+package edu.swarthmore.cs.cs71.group_shelved.common;
 
 public interface RowShelf {
 

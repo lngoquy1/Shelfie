@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.group_shelved.server;
 
-import edu.swarthmore.cs.cs71.group_shelved.*;
+import edu.swarthmore.cs.cs71.group_shelved.common.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

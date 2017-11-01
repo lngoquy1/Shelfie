@@ -2,30 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8e22f-73b8-4caf-9f29-494307a7a3d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__antlr_antlr_2_7_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_classmate_1_3_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__dom4j_dom4j_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_persistence_persistence_api_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hibernate_hibernate_core_5_2_12_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_javassist_javassist_3_20_0_GA.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_jandex_2_0_3_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_logging_jboss_logging_3_3_0_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_spec_javax_transaction_jboss_transaction_api_1_2_spec_1_0_1_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/Common-Shelved_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/Common-Shelved_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/Common-Shelved_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/Common-Shelved_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/AllShelves.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/AllShelves.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Author.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Author.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Book.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelf.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelfImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/CreatedList.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/CreatedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Genre.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Genre.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Position.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Position.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Publisher.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Publisher.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelf.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelf.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelfImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelfImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/ShelvedBook.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/ShelvedBook.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/ShelvedBookImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/ShelvedBookImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/SortType.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/SortType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Title.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Title.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/WishList.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/WishList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java" afterPath="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -52,79 +47,79 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file leaf-file-name="Book.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+            <state relative-caret-position="88">
+              <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="BookImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="10" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RowShelfImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelfImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+            <state relative-caret-position="88">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="AllShelves.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/AllShelves.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/AllShelves.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+            <state relative-caret-position="88">
+              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Author.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Author.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-9">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="BookShelf.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+            <state relative-caret-position="88">
+              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="BookShelfImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelfImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="110">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#218#219#0" expanded="true" />
-                <element signature="e#266#267#0" expanded="true" />
-                <element signature="e#322#323#0" expanded="true" />
-                <element signature="e#357#358#0" expanded="true" />
-                <element signature="e#402#403#0" expanded="true" />
-                <element signature="e#444#445#0" expanded="true" />
-                <element signature="e#519#520#0" expanded="true" />
-                <element signature="e#568#569#0" expanded="true" />
-                <element signature="e#635#636#0" expanded="true" />
-                <element signature="e#680#681#0" expanded="true" />
+                <element signature="e#225#226#0" expanded="true" />
+                <element signature="e#273#274#0" expanded="true" />
+                <element signature="e#329#330#0" expanded="true" />
+                <element signature="e#364#365#0" expanded="true" />
+                <element signature="e#409#410#0" expanded="true" />
+                <element signature="e#451#452#0" expanded="true" />
+                <element signature="e#526#527#0" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#642#643#0" expanded="true" />
+                <element signature="e#687#688#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="CreatedList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/CreatedList.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/CreatedList.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="44">
               <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
@@ -133,39 +128,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Title.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Title.java">
+      <file leaf-file-name="Genre.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Genre.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
+            <state relative-caret-position="-9">
               <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HibBook.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java">
+      <file leaf-file-name="Position.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#770#771#0" expanded="true" />
-                <element signature="e#800#801#0" expanded="true" />
-                <element signature="e#1004#1005#0" expanded="true" />
-                <element signature="e#1037#1038#0" expanded="true" />
-                <element signature="e#1350#1351#0" expanded="true" />
-                <element signature="e#1377#1378#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-9">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
+      <file leaf-file-name="Publisher.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Publisher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+            <state relative-caret-position="44">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -545,6 +532,7 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Publisher.java" />
       </list>
     </option>
   </component>
@@ -611,7 +599,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="group_shelved" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -739,6 +727,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="990" y="115" width="1570" height="1232" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -752,7 +741,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28656915" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28656915" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -809,13 +798,19 @@
           <line>12</line>
           <properties />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java</url>
+          <line>10</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Book.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
@@ -823,7 +818,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="41" column="11" lean-forward="false" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
@@ -831,7 +826,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelfImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelfImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
@@ -839,7 +834,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/AllShelves.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/AllShelves.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
@@ -847,7 +842,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelf.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
@@ -855,27 +850,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelfImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#218#219#0" expanded="true" />
-            <element signature="e#266#267#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#357#358#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#444#445#0" expanded="true" />
-            <element signature="e#519#520#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#635#636#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
+            <element signature="e#225#226#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/CreatedList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/CreatedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
@@ -883,7 +878,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Title.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Title.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
@@ -905,17 +900,17 @@
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Book.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
@@ -923,7 +918,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="41" column="11" lean-forward="true" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
@@ -931,7 +926,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelf.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelf.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
@@ -939,7 +934,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelfImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelfImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
@@ -947,7 +942,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/AllShelves.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/AllShelves.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
@@ -955,7 +950,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelf.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
@@ -963,27 +958,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelfImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#218#219#0" expanded="true" />
-            <element signature="e#266#267#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#357#358#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#444#445#0" expanded="true" />
-            <element signature="e#519#520#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#635#636#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
+            <element signature="e#225#226#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/CreatedList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/CreatedList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
@@ -991,7 +986,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Title.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Title.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
@@ -1005,38 +1000,18 @@
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Author.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding>
-            <marker date="1509462069682" expanded="false" signature="348:354" ph=" }" />
-            <marker date="1509462069682" expanded="false" signature="387:398" ph=" { " />
-            <marker date="1509462069682" expanded="false" signature="414:420" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Publisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/ShelvedBook.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/ShelvedBook.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
@@ -1044,7 +1019,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Position.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/SortType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
@@ -1052,23 +1027,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Genre.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="7" column="5" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/SortType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelf.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelf.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
@@ -1076,62 +1035,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/RowShelfImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/RowShelfImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="572">
+          <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookShelfImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#218#219#0" expanded="true" />
-            <element signature="e#266#267#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#357#358#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#444#445#0" expanded="true" />
-            <element signature="e#519#520#0" expanded="true" />
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#635#636#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/CreatedList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Title.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Title.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/AllShelves.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1145,35 +1060,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/BookImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="10" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/Book.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/server/HibBook.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1357#1358#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/AllShelves.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Author.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Book.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/BookShelfImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#225#226#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/CreatedList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Genre.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/swarthmore/cs/cs71/group_shelved/common/Publisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

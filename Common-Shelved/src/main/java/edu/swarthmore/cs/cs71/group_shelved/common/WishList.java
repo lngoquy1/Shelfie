@@ -1,6 +1,4 @@
-package edu.swarthmore.cs.cs71.group_shelved;
-
-import sun.security.provider.SHA;
+package edu.swarthmore.cs.cs71.group_shelved.common;
 
 import java.util.ArrayList;
 
