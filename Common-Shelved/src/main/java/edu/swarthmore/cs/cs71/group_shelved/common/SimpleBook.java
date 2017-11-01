@@ -9,6 +9,7 @@ public class SimpleBook implements Book {
     Title title;
     int pages;
     Publisher publisher;
+    int id;
 
 
 
@@ -37,6 +38,11 @@ public class SimpleBook implements Book {
 
     public Publisher getPublisher() {
         return publisher;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 
     @Override
