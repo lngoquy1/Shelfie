@@ -2,18 +2,21 @@ package edu.swarthmore.cs.cs71.group_shelved.server;
 
 import edu.swarthmore.cs.cs71.group_shelved.common.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Dictionary;
 import java.util.List;
 
 @Entity
 @Table(name="tbl_book")
 public class HibBook implements Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToOne
     private Author author;
+    @OneToOne
     private Genre genre;
+    @OneToOne
     private Title title;
     private int pages;
     private Publisher publisher;

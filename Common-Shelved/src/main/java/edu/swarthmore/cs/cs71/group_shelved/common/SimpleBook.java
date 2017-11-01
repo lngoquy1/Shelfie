@@ -4,14 +4,12 @@ import java.util.Dictionary;
 import java.util.List;
 
 public class SimpleBook implements Book {
-    Author author;
-    Genre genre;
-    Title title;
-    int pages;
-    Publisher publisher;
-    int id;
-
-
+    private int id;
+    private Author author;
+    private Genre genre;
+    private Title title;
+    private int pages;
+    private Publisher publisher;
 
     public SimpleBook(String author, String genre, String title, int pages, String publisher) {
         this.author = new Author(author);
