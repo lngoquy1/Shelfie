@@ -2,13 +2,13 @@ package edu.swarthmore.cs.cs71.group_shelved.common;
 
 import java.util.ArrayList;
 
-public class WishList implements CreatedList {
+public class ReadingList implements CreatedList {
     String name;
     boolean publicStatus;
     ArrayList<ShelvedBook> list;
 
-    public WishList(boolean publicStatus) {
-        this.name = "Wishlist";
+    public ReadingList(String name, boolean publicStatus) {
+        this.name = name;
         this.publicStatus = publicStatus;
         this.list = new ArrayList<>();
     }
@@ -26,11 +26,14 @@ public class WishList implements CreatedList {
         return list;
     }
 
-    // setters
+    //setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setPublicStatus(boolean publicStatus) {
         this.publicStatus = publicStatus;
     }
-
 
     @Override
     public void addBook(ShelvedBook shelvedBook) {
