@@ -10,6 +10,8 @@ public class BookImpl implements Book {
     int pages;
     Publisher publisher;
 
+
+
     public BookImpl(String author, String genre, String title, int pages, String publisher) {
         this.author = new Author(author);
         this.genre = new Genre(genre);
@@ -17,7 +19,25 @@ public class BookImpl implements Book {
         this.pages = pages;
         this.publisher = new Publisher(publisher);
     }
+    public Author getAuthor() {
+        return author;
+    }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
     @Override
     public List<Book> getRecBooks() {
         //query Amazon's API

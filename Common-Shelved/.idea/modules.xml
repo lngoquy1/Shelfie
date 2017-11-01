@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common-Shelved.iml" filepath="$PROJECT_DIR$/.idea/modules/Common-Shelved.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common-Shelved_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Common-Shelved_main.iml" group="Common-Shelved" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common-Shelved_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Common-Shelved_test.iml" group="Common-Shelved" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.group_shelved;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookShelfImpl implements BookShelf {
     private ArrayList<RowShelf> allRows;
@@ -10,8 +11,8 @@ public class BookShelfImpl implements BookShelf {
     }
 
     @Override
-    public RowShelf search(ShelvedBook book) {
-
+    public List<RowShelf> getAllRows() {
+        return this.allRows;
     }
 
     @Override
