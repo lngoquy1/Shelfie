@@ -9,12 +9,13 @@ public class WishList implements CreatedList {
     boolean publicStatus;
     ArrayList<ShelvedBook> list;
 
-    public WishList(String name, boolean publicStatus) {
-        this.name = name;
+    public WishList(boolean publicStatus) {
+        this.name = "Wishlist";
         this.publicStatus = publicStatus;
-        this.list = new ArrayList<ShelvedBook>();
+        this.list = new ArrayList<>();
     }
 
+    //getters
     public String getName() {
         return name;
     }
@@ -27,12 +28,7 @@ public class WishList implements CreatedList {
         return list;
     }
 
-
-
-    //public void setName(String name) {
-    //    this.name = name;
-    //}
-
+    // setters
     public void setPublicStatus(boolean publicStatus) {
         this.publicStatus = publicStatus;
     }
