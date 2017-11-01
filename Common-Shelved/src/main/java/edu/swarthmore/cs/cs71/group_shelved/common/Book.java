@@ -4,14 +4,16 @@ import java.util.Dictionary;
 import java.util.List;
 
 public interface Book {
-
+    // TODO: Need a method to signify that a book has been lent out
+    // TODO: Should a book know it location in row
     // Getters
+    int getId();
     Author getAuthor();
     Genre getGenre();
     Title getTitle();
     int getPages();
     Publisher getPublisher();
-    int getId();
+
 
     // Returns a list of recommended books based on current book object.
     List<Book> getRecBooks();
