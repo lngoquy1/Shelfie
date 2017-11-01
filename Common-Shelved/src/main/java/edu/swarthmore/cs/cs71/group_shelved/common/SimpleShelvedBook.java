@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.group_shelved.common;
 
-public class ShelvedBookImpl implements ShelvedBook {
+public class SimpleShelvedBook implements ShelvedBook {
 
     int bookMark;
     boolean forSale;
@@ -8,7 +8,7 @@ public class ShelvedBookImpl implements ShelvedBook {
     int position;
 
 
-    public ShelvedBookImpl(int bookMark, boolean forSale, boolean forLend, int position) {
+    public SimpleShelvedBook(int bookMark, boolean forSale, boolean forLend, int position) {
         this.bookMark = bookMark;
         this.forSale = forSale;
         this.forLend = forLend;

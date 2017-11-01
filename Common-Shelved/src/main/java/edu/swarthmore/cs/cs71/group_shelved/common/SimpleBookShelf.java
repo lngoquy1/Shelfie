@@ -3,10 +3,10 @@ package edu.swarthmore.cs.cs71.group_shelved.common;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookShelfImpl implements BookShelf {
+public class SimpleBookShelf implements BookShelf {
     private ArrayList<RowShelf> allRows;
 
-    public BookShelfImpl() {
+    public SimpleBookShelf() {
         this.allRows = new ArrayList<>();
     }
 

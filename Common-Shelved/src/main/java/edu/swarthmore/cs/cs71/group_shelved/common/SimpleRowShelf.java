@@ -2,13 +2,13 @@ package edu.swarthmore.cs.cs71.group_shelved.common;
 
 import java.util.ArrayList;
 
-public class RowShelfImpl implements RowShelf {
+public class SimpleRowShelf implements RowShelf {
 
     private ArrayList<ShelvedBook> rowList = new ArrayList<>();
     private int id;
 
 
-    public RowShelfImpl(ArrayList<ShelvedBook> rowList, int id) {
+    public SimpleRowShelf(ArrayList<ShelvedBook> rowList, int id) {
         this.rowList = rowList;
         this.id = id;
     }

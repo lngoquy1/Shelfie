@@ -3,7 +3,7 @@ package edu.swarthmore.cs.cs71.group_shelved.common;
 import java.util.Dictionary;
 import java.util.List;
 
-public class BookImpl implements Book {
+public class SimpleBook implements Book {
     Author author;
     Genre genre;
     Title title;
@@ -12,7 +12,7 @@ public class BookImpl implements Book {
 
 
 
-    public BookImpl(String author, String genre, String title, int pages, String publisher) {
+    public SimpleBook(String author, String genre, String title, int pages, String publisher) {
         this.author = new Author(author);
         this.genre = new Genre(genre);
         this.title = new Title(title);
