@@ -10,14 +10,14 @@ public class BookTests {
 
     @Test
     public void testGetAuthor() {
-        SimpleBook book = new SimpleBook("JK Rowling", "Fiction", "Harry Potter""HPPub");
+        SimpleBook book = new SimpleBook("JK Rowling", "Fiction", "Harry Potter",1, "HPPub");
         Author author = new Author("JK Rowling");
         Assert.assertEquals(author, book.getAuthor());
     }
 
     @Test
     public void testGetGenre() {
-        SimpleBook book = new SimpleBook("JK Rowling", "Fiction", "Harry Potter""HPPub");
+        SimpleBook book = new SimpleBook("JK Rowling", "Fiction", "Harry Potter",1, "HPPub");
         Genre genre = new Genre("Fiction");
         Assert.assertEquals(genre, book.getGenre());
     }

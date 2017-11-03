@@ -1,8 +1,5 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import edu.swarthmore.cs.cs71.group_shelved.common.CreatedList;
-import edu.swarthmore.cs.cs71.group_shelved.common.ShelvedBook;
-
 import java.util.ArrayList;
 
 public class ReadingList implements CreatedList {
