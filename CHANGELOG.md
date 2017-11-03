@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - WishList class
 - BookTests class
 - HibBook class
+- ItemOneFragment class
+- ItemTwoFragment class
+- ItemThree Fragment class 
+- MainActivity class
 
 
 
