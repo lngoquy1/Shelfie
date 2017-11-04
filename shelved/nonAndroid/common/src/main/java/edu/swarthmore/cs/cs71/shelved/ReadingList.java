@@ -1,17 +1,16 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingList implements CreatedList {
-    private String name;
-    private boolean publicStatus;
-    private ArrayList<SimpleShelvedBook> list;
+    private String name = "Untitled";
+    private boolean publicStatus = false;
+    private List<SimpleShelvedBook> list = new ArrayList<>();
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;
         this.publicStatus = publicStatus;
-        this.list = new ArrayList<SimpleShelvedBook>();
     }
 
     //getters
@@ -28,7 +27,7 @@ public class ReadingList implements CreatedList {
     }
 
     //setters
-    public void setName(String name) {
+    public void resetName(String name) {
         this.name = name;
     }
 
@@ -43,4 +42,5 @@ public class ReadingList implements CreatedList {
     public void removeBook(SimpleShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
+
 }
