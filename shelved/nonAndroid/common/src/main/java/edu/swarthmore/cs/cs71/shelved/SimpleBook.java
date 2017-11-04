@@ -31,8 +31,8 @@ public class SimpleBook implements Book {
         this.pages = pages;
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setPublisher(String publisher) {
+        this.publisher = new SimplePublisher(publisher);
     }
 
     public Author getAuthor() {

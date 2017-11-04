@@ -31,12 +31,12 @@ public class WishList implements CreatedList {
     }
 
     @Override
-    public void addBook(ShelvedBook shelvedBook) {
+    public void addBook(SimpleShelvedBook shelvedBook) {
         this.list.add(shelvedBook);
     }
 
     @Override
-    public void removeBook(ShelvedBook shelvedBook) {
+    public void removeBook(SimpleShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
 }
