@@ -52,7 +52,7 @@ public class User {
     public String getSalt() {
         return salt;
     }
-    
+
     //setters
     public void setBio(String bio) {
         this.bio = bio;
