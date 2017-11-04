@@ -9,7 +9,7 @@ public class Login {
         //     go to user in database
         //     lookup salt associated with user
         //     hash given password+salt
-        //     check against hashed password+salt stored in database
+        //     check against hashed password stored in database
         //     if match {
         //         login (return user data to have locally?)
         //     if not match {
