@@ -17,6 +17,10 @@ public class ContactList {
         this.contactList.add(user);
     }
 
+    public void removeContact(User user) {
+        this.contactList.remove(user);
+    }
+
     public Set<User> getContactList() {
         return contactList;
     }
