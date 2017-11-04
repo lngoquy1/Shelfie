@@ -1,5 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Login {
 
     public void login(String username, String password) {
@@ -14,7 +16,17 @@ public class Login {
         //         "invalid username or password
         //     }
         // } else {
-        //     create new user (hash password, c
+        //     createUser(username, password);
+    }
+
+    public void createUser(String username, String password, String name, String bio, String location) {
+        // if username in database {
+        // println("This username is already in use");
+        // } else {
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(password, salt);
+        User user = new User(username, hashedPassword, name, bio, location, salt);
+        // add user to database
     }
 
 }
