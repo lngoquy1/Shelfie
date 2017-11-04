@@ -9,6 +9,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.0] - 2017-11-03
 ### Added
 - AllShelves interface
+- Author class
+- Book interface
+- BookShelf interface
+- CreatedList interface
+- Genre class
+- Position class
+- Publisher class
+- ReadingList class
+- RowShelf interface
+- ShelvedBook interface
+- SimpleBook class
+- SimpleBookShelf class
+- SimpleRow class
+- SimpleShelvedBook class
+- SortType class
+- Title class
+- WishList class
+- BookTests class
+- HibBook class
+- ItemOneFragment class
+- ItemTwoFragment class
+- ItemThree Fragment class
+- MainActivity class
+
+### Removed
+- Position class
+
+### Renamed
+- HibernateTest class to HibTest
+- HibernateUtil class to HibUtil
+- renamed Title, Author, Genre, Publisher to SimpleTitle, SimpleAuthor, SimpleGenre, SimplePublisher
+
+### Current classes as of 2017-11-3, 9pm
+- AllShelves interface
 - Author interface
 - Book interface
 - BookShelf interface
@@ -43,10 +77,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ItemTwoFragment class
 - ItemThree Fragment class
 - MainActivity class
-
-### Removed
-- Position class
-
-### Renamed
-- HibernateTest class to HibTest
-- HibernateUtil class to HibUtil

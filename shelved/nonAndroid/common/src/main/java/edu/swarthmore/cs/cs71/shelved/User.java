@@ -6,6 +6,7 @@ public class User {
     private String name;
     private String bio;
     private String location;
+    private String salt;
 
     public User(String username, String password, String name, String bio, String location) {
         this.username = username;
@@ -13,11 +14,13 @@ public class User {
         this.name = name;
         this.bio = bio;
         this.location = location;
+        this.salt = salt;
+
     }
 
     public void changePassword(String oldPassword, String newPassword) {
         // if hash(oldPassword) = this.password {
-        //      this.password = hash(newPassoword)
+        //      this.password = hash(newPassword)
         // } else {
         //      notify user to try again
         // }
