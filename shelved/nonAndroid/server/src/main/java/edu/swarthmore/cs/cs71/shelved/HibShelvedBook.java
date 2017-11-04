@@ -1,10 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import edu.swarthmore.cs.cs71.shelved.common.*;
 
 import javax.persistence.*;
-import java.util.Dictionary;
-import java.util.List;
+
 
 @Entity
 @Table(name="shelvedBook")
@@ -25,9 +23,9 @@ public class HibShelvedBook implements ShelvedBook {
 
     @ManyToOne
     @PrimaryKeyJoinColumn
-    private Book book;
+    private HibBook book;
 
-    public HibShelvedBook(Book book) {
+    public HibShelvedBook(HibBook book) {
         this.book = book;
     }
 

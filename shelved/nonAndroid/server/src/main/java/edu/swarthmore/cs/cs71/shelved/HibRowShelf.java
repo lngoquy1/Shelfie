@@ -17,10 +17,6 @@ public class HibRowShelf implements RowShelf{
     public HibRowShelf() {
     }
 
-//
-//    public int getId() {
-//        return 0;
-//    }
 
     @Override
     public void addBook(ShelvedBook shelvedBook, int position) {

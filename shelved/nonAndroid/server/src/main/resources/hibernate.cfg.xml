@@ -6,7 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <!-- SQL Dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</property>
 
         <!-- Database Connection Settings -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
@@ -24,7 +24,7 @@
         <!-- Mapping With Model Class Containing Annotations -->
         <mapping class="edu.swarthmore.cs.cs71.shelved.HibBook" />
         <mapping class="edu.swarthmore.cs.cs71.shelved.HibShelvedBook" />
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibRowShelf" />
+        <!--<mapping class="edu.swarthmore.cs.cs71.shelved.HibRowShelf" />-->
         <mapping class="edu.swarthmore.cs.cs71.shelved.HibPublisher"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.HibAuthor"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.HibGenre"/>

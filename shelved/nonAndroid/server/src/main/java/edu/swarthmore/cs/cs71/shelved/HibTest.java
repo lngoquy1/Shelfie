@@ -11,10 +11,7 @@ import org.hibernate.cfg.Configuration;
 public class HibTest {
     public static void main(String[] args){
         System.out.println("Begin session Maven + Hibernate + MySQL");
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory factory = configuration.buildSessionFactory(builder.build());
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         HibBook book = new HibBook();
@@ -24,8 +21,9 @@ public class HibTest {
         book.setPages(296);
         book.setPublisher("Vintage International");
         session.save(book);
-        transaction.commit();
-        session.flush();
+//        HibTitle title = new HibTitle("1Q84");
+//        session.save(title);
+//        transaction.commit();
         session.close();
         System.out.println("Transaction Completed!");
     }
