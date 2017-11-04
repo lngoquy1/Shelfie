@@ -20,7 +20,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation_items);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
                 findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener
@@ -33,9 +35,15 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = ShelfFragment.newInstance();
                                 break;
                             case R.id.action_item2:
-                                selectedFragment = CameraFragment.newInstance();
+                                selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.action_item3:
+                                selectedFragment = CameraFragment.newInstance();
+                                break;
+                            case R.id.action_item4:
+                                selectedFragment = ConnectFragment.newInstance();
+                                break;
+                            case R.id.action_item5:
                                 selectedFragment = ProfileFragment.newInstance();
                                 break;
                         }
@@ -46,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, ShelfFragment.newInstance());
-        transaction.commit();
+        //transaction.commit();
 
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -57,15 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
 
     }
