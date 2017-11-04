@@ -1,11 +1,12 @@
 package edu.swarthmore.cs.cs71.shelved;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WishList implements CreatedList {
     private String name = "Wishlist";
     private boolean publicStatus;
-    private ArrayList<ShelvedBook> list = new ArrayList<>();
+    private List<ShelvedBook> list = new ArrayList<>();
 
     public WishList(boolean publicStatus) {
         this.publicStatus = publicStatus;
@@ -20,7 +21,7 @@ public class WishList implements CreatedList {
         return publicStatus;
     }
 
-    public ArrayList<ShelvedBook> getList() {
+    public List<ShelvedBook> getList() {
         return list;
     }
 
@@ -28,7 +29,6 @@ public class WishList implements CreatedList {
     public void setPublicStatus(boolean publicStatus) {
         this.publicStatus = publicStatus;
     }
-
 
     @Override
     public void addBook(ShelvedBook shelvedBook) {

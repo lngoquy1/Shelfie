@@ -22,7 +22,7 @@ public class ReadingList implements CreatedList {
         return publicStatus;
     }
 
-    public ArrayList<SimpleShelvedBook> getList() {
+    public List<SimpleShelvedBook> getList() {
         return list;
     }
 
@@ -35,10 +35,12 @@ public class ReadingList implements CreatedList {
         this.publicStatus = publicStatus;
     }
 
+    @Override
     public void addBook(SimpleShelvedBook shelvedBook) {
         this.list.add(shelvedBook);
     }
 
+    @Override
     public void removeBook(SimpleShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
