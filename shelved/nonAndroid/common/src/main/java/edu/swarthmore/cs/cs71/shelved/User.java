@@ -27,4 +27,38 @@ public class User {
         //      notify user to try again
         // }
     }
+
+    // getters
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+    
+    //setters
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
