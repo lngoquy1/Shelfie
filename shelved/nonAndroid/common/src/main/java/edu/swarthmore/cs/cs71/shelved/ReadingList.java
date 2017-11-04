@@ -1,11 +1,12 @@
 package edu.swarthmore.cs.cs71.shelved;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingList implements CreatedList {
     String name;
     boolean publicStatus;
-    ArrayList<ShelvedBook> list;
+    List<ShelvedBook> list;
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;
@@ -22,7 +23,7 @@ public class ReadingList implements CreatedList {
         return publicStatus;
     }
 
-    public ArrayList<ShelvedBook> getList() {
+    public List<ShelvedBook> getList() {
         return list;
     }
 
