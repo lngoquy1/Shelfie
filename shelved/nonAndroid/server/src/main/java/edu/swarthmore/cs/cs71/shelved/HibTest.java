@@ -16,7 +16,6 @@ public class HibTest {
         book.setTitle("Norweigian Wood");
         book.setPages(296);
         book.setPublisher("Vintage International");
-        book.setId(1);
         session.save(book);
 
         session.getTransaction().commit();
