@@ -1,5 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class User {
     private String username;
     private String password;
@@ -14,7 +16,7 @@ public class User {
         this.name = name;
         this.bio = bio;
         this.location = location;
-        this.salt = salt;
+        this.salt = BCrypt.gensalt();
 
     }
 
