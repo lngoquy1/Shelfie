@@ -7,10 +7,9 @@ import java.util.Set;
 
 public class ContactList {
     // List or array list???
-    private Set<User> contactList;
+    private Set<User> contactList = new HashSet<>();
 
     public ContactList() {
-        this.contactList = new HashSet<>();
     }
 
     public void addContact(User user) {

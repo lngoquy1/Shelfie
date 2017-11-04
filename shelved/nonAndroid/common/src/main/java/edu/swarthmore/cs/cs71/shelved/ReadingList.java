@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadingList implements CreatedList {
-    String name;
-    boolean publicStatus;
-    List<ShelvedBook> list;
+    private String name = "Untitled";
+    private boolean publicStatus = false;
+    private List<ShelvedBook> list = new ArrayList<>();
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;
         this.publicStatus = publicStatus;
-        this.list = new ArrayList<>();
     }
 
     //getters
@@ -28,7 +27,7 @@ public class ReadingList implements CreatedList {
     }
 
     //setters
-    public void setName(String name) {
+    public void resetName(String name) {
         this.name = name;
     }
 
@@ -45,4 +44,5 @@ public class ReadingList implements CreatedList {
     public void removeBook(ShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
+    
 }

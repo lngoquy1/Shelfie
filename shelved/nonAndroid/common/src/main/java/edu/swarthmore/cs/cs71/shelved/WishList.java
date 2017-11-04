@@ -3,14 +3,12 @@ package edu.swarthmore.cs.cs71.shelved;
 import java.util.ArrayList;
 
 public class WishList implements CreatedList {
-    String name;
-    boolean publicStatus;
-    ArrayList<ShelvedBook> list;
+    private String name = "Wishlist";
+    private boolean publicStatus;
+    private ArrayList<ShelvedBook> list = new ArrayList<>();
 
     public WishList(boolean publicStatus) {
-        this.name = "Wishlist";
         this.publicStatus = publicStatus;
-        this.list = new ArrayList<>();
     }
 
     //getters
@@ -18,7 +16,7 @@ public class WishList implements CreatedList {
         return name;
     }
 
-    public boolean isPublicStatus() {
+    public boolean getPublicStatus() {
         return publicStatus;
     }
 
