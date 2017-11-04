@@ -9,7 +9,7 @@ public class SimpleBook implements Book {
     private SimpleGenre genre;
     private SimpleTitle title;
     private int pages;
-    private Publisher publisher;
+    private SimplePublisher publisher;
 
     public SimpleBook(){
     }
@@ -31,19 +31,19 @@ public class SimpleBook implements Book {
         this.pages = pages;
     }
 
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setPublisher(String publisher) {
+        this.publisher = new SimplePublisher(publisher);
     }
 
-    public Author getAuthor() {
+    public SimpleAuthor getAuthor() {
         return author;
     }
 
-    public Genre getGenre() {
+    public SimpleGenre getGenre() {
         return genre;
     }
 
-    public Title getTitle() {
+    public SimpleTitle getTitle() {
         return title;
     }
 
@@ -51,7 +51,7 @@ public class SimpleBook implements Book {
         return pages;
     }
 
-    public Publisher getPublisher() {
+    public SimplePublisher getPublisher() {
         return publisher;
     }
 

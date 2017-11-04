@@ -7,57 +7,78 @@ import java.util.List;
 @Entity
 @Table(name="book")
 public class HibBook implements Book {
-    private int id;
-    private Author author;
-    private Genre genre;
-    private Title title;
-    private int pages;
-    private Publisher publisher;
-
-    public HibBook(Author author, Genre genre, Title title, int pages, Publisher publisher) {
-        this.author = author;
-        this.genre = genre;
-        this.title = title;
-        this.pages = pages;
-        this.publisher = publisher;
-    }
-
     @Id
     @Column(name="book_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return this.id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private HibAuthor author;
+    private HibGenre genre;
+    private HibTitle title;
+    private int pages;
+    private HibPublisher publisher;
+
+    public HibBook(){
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+//    public int getId() {
+//        return this.id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+
+    @Override
+    public void setAuthor(String author) {
+        this.author = new HibAuthor(author);
+    }
+
+    @Override
+    public void setGenre(String genre) {
+        this.genre = new HibGenre(genre);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = new HibTitle(title);
+    }
+
+    @Override
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    @Override
+    public void setPublisher(String publisher) {
+        this.publisher = new HibPublisher(publisher);
     }
 
     @Override
     public Author getAuthor() {
-        return null;
+        return this.author;
     }
 
     @Override
     public Genre getGenre() {
-        return null;
+        return this.genre;
     }
 
     @Override
     public Title getTitle() {
-        return null;
+        return this.title;
     }
 
     @Override
     public int getPages() {
-        return 0;
+        return this.pages;
     }
 
     @Override
     public Publisher getPublisher() {
-        return null;
+        return this.publisher;
     }
-
+    // TODO: What's the type of this method getRecBooks()
     @Override
     public List<Book> getRecBooks() {
         return null;

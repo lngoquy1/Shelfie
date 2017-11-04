@@ -11,6 +11,13 @@ public class HibTest {
 
         session.beginTransaction();
         HibBook book = new HibBook();
+        book.setAuthor("Haruki Murakami");
+        book.setGenre("Fiction");
+        book.setTitle("Norweigian Wood");
+        book.setPages(296);
+        book.setPublisher("Vintage International");
+        book.setId(1);
+        session.save(book);
 
         session.getTransaction().commit();
         session.close();

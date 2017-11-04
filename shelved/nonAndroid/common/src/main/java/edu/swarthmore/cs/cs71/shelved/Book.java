@@ -7,6 +7,11 @@ public interface Book {
     // TODO: Need a method to signify that a book has been lent out
     // TODO: Should a book know it location in row
     // Getters
+    void setAuthor(String author);
+    void setGenre(String genre);
+    void setTitle(String title);
+    void setPages(int pages);
+    void setPublisher(String publisher);
     Author getAuthor();
     Genre getGenre();
     Title getTitle();
