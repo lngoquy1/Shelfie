@@ -44,5 +44,5 @@ public class ReadingList implements CreatedList {
     public void removeBook(ShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
-    
+
 }
