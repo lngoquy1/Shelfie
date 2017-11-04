@@ -11,19 +11,19 @@ package edu.swarthmore.cs.cs71.shelved;
 //
 //}
 
-        import com.google.api.client.auth.oauth.OAuthAuthorizeTemporaryTokenUrl;
-        import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
-        import com.google.api.client.auth.oauth.OAuthGetAccessToken;
-        import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
-        import com.google.api.client.auth.oauth.OAuthHmacSigner;
-        import com.google.api.client.auth.oauth.OAuthParameters;
-        import com.google.api.client.http.GenericUrl;
-        import com.google.api.client.http.HttpRequestFactory;
-        import com.google.api.client.http.HttpResponse;
-        import com.google.api.client.http.apache.ApacheHttpTransport;
-        import com.google.api.client.http.javanet.NetHttpTransport;
+    import com.google.api.client.auth.oauth.OAuthAuthorizeTemporaryTokenUrl;
+    import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
+    import com.google.api.client.auth.oauth.OAuthGetAccessToken;
+    import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
+    import com.google.api.client.auth.oauth.OAuthHmacSigner;
+    import com.google.api.client.auth.oauth.OAuthParameters;
+    import com.google.api.client.http.GenericUrl;
+    import com.google.api.client.http.HttpRequestFactory;
+    import com.google.api.client.http.HttpResponse;
+    import com.google.api.client.http.apache.ApacheHttpTransport;
+    import com.google.api.client.http.javanet.NetHttpTransport;
 
-        import java.io.IOException;
+    import java.io.IOException;
 
 /**
  * Author: davecahill
