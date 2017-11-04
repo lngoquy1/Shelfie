@@ -1,7 +1,10 @@
 package edu.swarthmore.cs.cs71.shelved;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+
+import java.lang.annotation.Annotation;
 
 
 public class HibUtil {
@@ -9,7 +12,7 @@ public class HibUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            return new Configuration().configure().buildSessionFactory();
+            return new AnnotationConfiguration().configure().buildSessionFactory();
         }
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
@@ -22,10 +25,6 @@ public class HibUtil {
         return sessionFactory;
     }
 
-    public static void shutdown() {
-        // Close caches and connection pools
-        getSessionFactory().close();
-    }
 
 
 }

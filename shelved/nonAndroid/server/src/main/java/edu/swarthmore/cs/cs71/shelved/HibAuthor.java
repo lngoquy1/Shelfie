@@ -6,9 +6,14 @@ import javax.persistence.*;
 @Table(name="author")
 public class HibAuthor implements Author{
     @Id
+    @Column(name="author_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name="fullName")
     private String fullName;
+
+    @Column(name="lastName")
     private String lastName;
 
     public HibAuthor(String authorName) {

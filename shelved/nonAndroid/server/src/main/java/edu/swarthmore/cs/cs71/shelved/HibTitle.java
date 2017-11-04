@@ -1,13 +1,16 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="book_title")
 public class HibTitle implements Title {
+    @Id
+    @Column(name="title_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name="title")
     private String title;
 
     public HibTitle(String title) {

@@ -1,13 +1,16 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name="genre")
 public class HibGenre implements Genre {
     @Id
+    @Column(name="genre_id")
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+
+    @Column(name="genre")
     private String genre;
 
     public HibGenre(String genre) {

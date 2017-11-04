@@ -11,10 +11,24 @@ public class HibBook implements Book {
     @Column(name="book_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn
     private HibAuthor author;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn
     private HibGenre genre;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn
     private HibTitle title;
+
+    @Column(name="pages")
     private int pages;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn
     private HibPublisher publisher;
 
     public HibBook(){
