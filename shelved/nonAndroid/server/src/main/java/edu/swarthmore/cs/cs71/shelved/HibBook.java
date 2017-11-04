@@ -1,22 +1,15 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import edu.swarthmore.cs.cs71.group_shelved.common.*;
-
 import javax.persistence.*;
 import java.util.Dictionary;
 import java.util.List;
 
 @Entity
-@Table(name="tbl_book")
+@Table(name="book")
 public class HibBook implements Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne
     private Author author;
-    @OneToOne
     private Genre genre;
-    @OneToOne
     private Title title;
     private int pages;
     private Publisher publisher;
@@ -29,35 +22,40 @@ public class HibBook implements Book {
         this.publisher = publisher;
     }
 
-    @Override
     @Id
+    @Column(name="book_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public Author getAuthor() {
-        return this.author;
+        return null;
     }
 
     @Override
     public Genre getGenre() {
-        return this.genre;
+        return null;
     }
 
     @Override
     public Title getTitle() {
-        return this.title;
+        return null;
     }
 
     @Override
     public int getPages() {
-        return this.pages;
+        return 0;
     }
 
     @Override
     public Publisher getPublisher() {
-        return this.publisher;
+        return null;
     }
 
     @Override
@@ -69,6 +67,4 @@ public class HibBook implements Book {
     public Dictionary<String, Double> getPrices() {
         return null;
     }
-
-
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class ReadingList implements CreatedList {
     private String name = "Untitled";
     private boolean publicStatus = false;
-    private List<ShelvedBook> list = new ArrayList<>();
+    private List<SimpleShelvedBook> list = new ArrayList<>();
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;
@@ -22,7 +22,7 @@ public class ReadingList implements CreatedList {
         return publicStatus;
     }
 
-    public List<ShelvedBook> getList() {
+    public ArrayList<SimpleShelvedBook> getList() {
         return list;
     }
 
@@ -35,13 +35,11 @@ public class ReadingList implements CreatedList {
         this.publicStatus = publicStatus;
     }
 
-    @Override
-    public void addBook(ShelvedBook shelvedBook) {
+    public void addBook(SimpleShelvedBook shelvedBook) {
         this.list.add(shelvedBook);
     }
 
-    @Override
-    public void removeBook(ShelvedBook shelvedBook) {
+    public void removeBook(SimpleShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
 

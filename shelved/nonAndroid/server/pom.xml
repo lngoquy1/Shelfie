@@ -71,7 +71,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Hibernate library dependecy end -->
+        <!-- Hibernate library dependency end -->
 
         <dependency>
             <groupId>javax.transaction</groupId>

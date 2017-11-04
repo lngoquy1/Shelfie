@@ -1,13 +1,9 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-public class Author {
-    private String fullName;
-    private String lastName;
+public interface Author {
 
-    public Author(String authorName) {
-        this.fullName = authorName;
-        this.lastName = authorName.substring(authorName.lastIndexOf(" ") +1);
-    }
+    String getFullName();
+    String getLastName();
 
     public String getAuthorName() {
         return fullName;

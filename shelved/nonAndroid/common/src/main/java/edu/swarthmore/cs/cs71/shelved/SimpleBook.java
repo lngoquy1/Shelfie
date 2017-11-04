@@ -4,20 +4,37 @@ import java.util.Dictionary;
 import java.util.List;
 
 public class SimpleBook implements Book {
-    private int id;
-    private Author author;
-    private Genre genre;
-    private Title title;
+
+    private SimpleAuthor author;
+    private SimpleGenre genre;
+    private SimpleTitle title;
     private int pages;
     private Publisher publisher;
 
-    public SimpleBook(String author, String genre, String title, int pages, String publisher) {
-        this.author = new Author(author);
-        this.genre = new Genre(genre);
-        this.title = new Title(title);
-        this.pages = pages;
-        this.publisher = new Publisher(publisher);
+    public SimpleBook(){
     }
+
+
+    public void setAuthor(String author) {
+        this.author = new SimpleAuthor(author);
+    }
+
+    public void setGenre(String genre) {
+        this.genre = new SimpleGenre(genre);
+    }
+
+    public void setTitle(String title) {
+        this.title = new SimpleTitle(title);
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     public Author getAuthor() {
         return author;
     }
@@ -38,19 +55,15 @@ public class SimpleBook implements Book {
         return publisher;
     }
 
-    @Override
-    public int getId() {
-        return this.id;
-    }
 
-    @Override
+
     public List<Book> getRecBooks() {
         //query Amazon's API
         //http://docs.aws.amazon.com/AWSECommerceService/latest/DG/SuggestingSimilarItemstoBuy.html
         return null;
     }
 
-    @Override
+
     public Dictionary<String, Double> getPrices() {
         //query Amazon's API (and more)
         //http://docs.aws.amazon.com/AWSECommerceService/latest/DG/EX_RetrievingPriceInformation.html
