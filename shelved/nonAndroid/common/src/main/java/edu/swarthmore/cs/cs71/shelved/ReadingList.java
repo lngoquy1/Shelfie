@@ -22,7 +22,7 @@ public class ReadingList implements CreatedList {
         return publicStatus;
     }
 
-    public ArrayList<SimpleShelvedBook> getList() {
+    public List<SimpleShelvedBook> getList() {
         return list;
     }
 
