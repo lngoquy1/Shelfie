@@ -14,7 +14,7 @@ public class ContactList {
     }
 
     public void addContact(User user) {
-        contactList.add(user);
+        this.contactList.add(user);
     }
 
     public Set<User> getContactList() {
