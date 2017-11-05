@@ -1,6 +1,5 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
-import edu.swarthmore.cs.cs71.shelved.Genre;
 import edu.swarthmore.cs.cs71.shelved.SimpleAuthor;
 import edu.swarthmore.cs.cs71.shelved.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.SimpleGenre;
