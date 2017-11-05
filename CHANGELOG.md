@@ -6,22 +6,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.0] - 2017-11-03
+### Started this file on November 3rd because we didn't realize we needed a changelog before.
+### However, we did work before Nov. 3rd! Here is everything we did before then:
+### Set up
+- Got IntelliJ set up (took most of our time)
+
+### Added
+- Author class
+- Genre class
+- Position class
+- Book class
+- RowShelf class
+- BookShelf class
+- HibBook class
+
+## 2017-11-03
 ### Added
 - AllShelves interface
-- Author class
 - Book interface
 - BookShelf interface
 - CreatedList interface
-- Genre class
-- Position class
 - Publisher class
 - ReadingList class
 - RowShelf interface
 - ShelvedBook interface
-- SimpleBook class
-- SimpleBookShelf class
-- SimpleRow class
 - SimpleShelvedBook class
 - SortType class
 - Title class
@@ -33,13 +41,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ItemThree Fragment class
 - MainActivity class
 
-### Removed
-- Position class
-
-### Renamed
+### renamed
+- Book class to SimpleBook class
+- BookShelf class to  SimpleBookShelf class
+- Row class to SimpleRowShelf class
 - HibernateTest class to HibTest
 - HibernateUtil class to HibUtil
 - renamed Title, Author, Genre, Publisher to SimpleTitle, SimpleAuthor, SimpleGenre, SimplePublisher
+
+### Removed
+- Position class
 
 ### Current classes as of 2017-11-3, 9pm
 - AllShelves interface
@@ -77,3 +88,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ItemTwoFragment class
 - ItemThree Fragment class
 - MainActivity class
+
+### Heavily Edited
+- All Hibernate files
+
+### Created on 2017-11-4
+- Login class
+- Goodreads class
+- OAuthExample class
+- GoodreadsTests
+- HashPasswordTests
