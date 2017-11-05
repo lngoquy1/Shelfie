@@ -19,7 +19,7 @@ public class Login {
         //     createUser(username, password);
     }
 
-    public void createUser(String username, String password, String name, String bio, String location) {
+    public User createUser(String username, String password, String name, String bio, String location) {
         // if username in database {
         // println("This username is already in use");
         // } else {
@@ -27,6 +27,7 @@ public class Login {
         String hashedPassword = BCrypt.hashpw(password, salt);
         User user = new User(username, hashedPassword, name, bio, location, salt);
         // add user to database
+        return user;
     }
 
 }
