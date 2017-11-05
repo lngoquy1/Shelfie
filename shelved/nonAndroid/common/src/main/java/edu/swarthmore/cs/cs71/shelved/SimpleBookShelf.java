@@ -11,10 +11,10 @@ public class SimpleBookShelf implements BookShelf {
     }
 
 
+    @Override
     public List<RowShelf> getAllRows() {
         return this.allRows;
     }
-
 
     public int getNumRows() {
         return this.allRows.size();

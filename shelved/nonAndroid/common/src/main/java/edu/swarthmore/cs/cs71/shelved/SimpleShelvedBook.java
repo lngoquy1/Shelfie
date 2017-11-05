@@ -7,12 +7,10 @@ public class SimpleShelvedBook implements ShelvedBook {
     private boolean forLend;
     private Book book;
 
-    public SimpleShelvedBook(Book book, int bookMark, boolean forSale, boolean forLend, int position) {
-        this.bookMark = bookMark;
-        this.forSale = forSale;
-        this.forLend = forLend;
+    public SimpleShelvedBook(Book book) {
         this.book = book;
     }
+
 
     public int getBookMark() {
         return bookMark;

@@ -1,37 +1,44 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import edu.swarthmore.cs.cs71.shelved.common.*;
 
 import javax.persistence.*;
-import java.util.Dictionary;
-import java.util.List;
+
 
 @Entity
 @Table(name="shelvedBook")
 public class HibShelvedBook implements ShelvedBook {
-
-    private int id;
-    private int bookMark;
-    private boolean forSale;
-    private boolean forLend;
-    private Book book;
-
-    public HibShelvedBook(int bookMark, boolean forSale, boolean forLend, Book book) {
-        this.bookMark = bookMark;
-        this.forSale = forSale;
-        this.forLend = forLend;
-        this.book = book;
-    }
     @Id
     @Column(name="shelvedBook_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return this.id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name="bookMark")
+    private int bookMark;
+
+    @Column(name="forSale")
+    private boolean forSale;
+
+    @Column(name="forLend")
+    private boolean forLend;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn
+    private HibBook book;
+
+    public HibShelvedBook(HibBook book) {
+        this.book = book;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    @Id
+//    @Column(name="shelvedBook_id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    public int getId() {
+//        return this.id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
 
 

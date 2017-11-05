@@ -10,13 +10,13 @@ public class User {
     private String location;
     private String salt;
 
-    public User(String username, String password, String name, String bio, String location) {
+    public User(String username, String password, String name, String bio, String location, String salt) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.bio = bio;
         this.location = location;
-        this.salt = BCrypt.gensalt();
+        this.salt = salt;
 
     }
 
@@ -26,5 +26,39 @@ public class User {
         // } else {
         //      notify user to try again
         // }
+    }
+
+    // getters
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    //setters
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
