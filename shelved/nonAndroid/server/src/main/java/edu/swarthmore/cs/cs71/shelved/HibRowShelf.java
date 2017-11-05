@@ -2,6 +2,7 @@ package edu.swarthmore.cs.cs71.shelved;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="rowShelf")
@@ -11,8 +12,7 @@ public class HibRowShelf implements RowShelf{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<HibShelvedBook> rowList = new ArrayList<>();
+    private List<HibShelvedBook> rowList = new ArrayList<>();
 
     public HibRowShelf() {
     }
@@ -35,7 +35,13 @@ public class HibRowShelf implements RowShelf{
 
 
     @Override
-    public ShelvedBook getBook(int position) {
+    public HibShelvedBook getBook(int position) {
         return null;
+    }
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<HibShelvedBook> getAllBooks() {
+        return this.rowList;
     }
 }

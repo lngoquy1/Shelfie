@@ -4,7 +4,6 @@ package edu.swarthmore.cs.cs71.shelved;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 
@@ -21,10 +20,9 @@ public class HibTest {
         book.setPages(296);
         book.setPublisher("Vintage International");
         session.save(book);
-//        HibTitle title = new HibTitle("1Q84");
-//        session.save(title);
-//        transaction.commit();
+        transaction.commit();
         session.close();
+        session.flush();
         System.out.println("Transaction Completed!");
     }
 }

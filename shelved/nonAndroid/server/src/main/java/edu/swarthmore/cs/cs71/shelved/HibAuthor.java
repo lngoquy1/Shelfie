@@ -20,15 +20,7 @@ public class HibAuthor implements Author{
         this.fullName = authorName;
         this.lastName = authorName.substring(authorName.lastIndexOf(" ") +1);
     }
-//    @Id
-//    @Column(name="author_id")
-//    @GeneratedValue()
-//    public int getId(){
-//        return this.id;
-//    }
-//    public void setId(int id){
-//        this.id = id;
-//    }
+
     @Override
     public String getAuthorName() {
         return null;
