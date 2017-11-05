@@ -8,6 +8,6 @@ public class HashPasswordTests {
 
     @Test
     public void testPasswordHash() {
-//        User user = 
+//        User user =
     }
 }

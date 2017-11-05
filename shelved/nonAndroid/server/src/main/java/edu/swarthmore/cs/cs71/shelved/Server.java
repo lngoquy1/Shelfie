@@ -6,6 +6,8 @@ import org.apache.spark.api.java.function.*;
 
 
 public class Server {
-    JavaSparkContext jsc = new JavaSparkContext("spark://HOST:PORT", "Shelved");
+//    JavaSparkContext jsc = new JavaSparkContext("spark://HOST:PORT", "Shelved");
+    get("/hello", (req, res) -> "Hello world");
+
 
 }
