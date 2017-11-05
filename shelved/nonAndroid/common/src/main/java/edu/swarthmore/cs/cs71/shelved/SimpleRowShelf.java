@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleRowShelf implements RowShelf {
 
@@ -30,4 +31,8 @@ public class SimpleRowShelf implements RowShelf {
         addBook(shelvedBook, newPosition);
     }
 
+
+    public List<ShelvedBook> getAllBooks() {
+        return this.rowList;
+    }
 }

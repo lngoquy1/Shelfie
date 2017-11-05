@@ -12,23 +12,23 @@ public class HibBook implements Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="author_id")
     private HibAuthor author;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="genre_id")
     private HibGenre genre;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="title_id")
     private HibTitle title;
 
     @Column(name="pages")
     private int pages;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisher_id")
     private HibPublisher publisher;
 
     public HibBook(){

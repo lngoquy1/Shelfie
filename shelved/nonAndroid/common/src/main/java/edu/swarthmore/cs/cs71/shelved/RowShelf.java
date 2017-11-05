@@ -1,5 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved;
 
+import java.util.List;
+
 public interface RowShelf {
     // Adds a new book object to the current shelf, at the specified position.
     void addBook(ShelvedBook shelvedBook, int position);
@@ -13,4 +15,5 @@ public interface RowShelf {
     void resetPosition(int oldPosition, int newPosition);
 
     ShelvedBook getBook(int position);
+
 }

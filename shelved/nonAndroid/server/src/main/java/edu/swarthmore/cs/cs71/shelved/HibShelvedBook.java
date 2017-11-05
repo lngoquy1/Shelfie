@@ -21,8 +21,8 @@ public class HibShelvedBook implements ShelvedBook {
     @Column(name="forLend")
     private boolean forLend;
 
-    @ManyToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="book_id")
     private HibBook book;
 
     public HibShelvedBook(HibBook book) {
