@@ -8,6 +8,12 @@ public class HashPasswordTests {
 
     @Test
     public void testPasswordHash() {
-//        User user =
+        Login login = new Login();
+        User user = login.createUser("leah", "badpassword", "Leah Brumgard", "", "");
+        String salt = user.getSalt();
+        System.out.println("Salt: " + salt);
+
+        String password = user.getPassword();
+        System.out.println("Password: " + password);
     }
 }

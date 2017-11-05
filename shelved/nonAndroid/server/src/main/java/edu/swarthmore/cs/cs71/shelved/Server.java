@@ -1,13 +1,14 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import org.apache.spark.SparkContext;
-import org.apache.spark.api.java.*;
-import org.apache.spark.api.java.function.*;
-
+import spark.Service;
 
 public class Server {
-//    JavaSparkContext jsc = new JavaSparkContext("spark://HOST:PORT", "Shelved");
-    get("/hello", (req, res) -> "Hello world");
 
+    public static void main(String[] args) {
+        Service service = Service.ignite();
+        service.port(34567);
+        service.staticFiles.location("/");
+        service.init();
 
+    }
 }
