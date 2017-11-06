@@ -1,10 +1,12 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.model;
+
+import edu.swarthmore.cs.cs71.shelved.Author;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="author")
-public class HibAuthor implements Author{
+public class HibAuthor implements Author {
     @Id
     @Column(name="author_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

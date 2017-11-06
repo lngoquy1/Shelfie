@@ -1,4 +1,6 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.model;
+
+import edu.swarthmore.cs.cs71.shelved.RowShelf;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="rowShelf")
-public class HibRowShelf implements RowShelf{
+public class HibRowShelf implements RowShelf {
     @Id
     @Column(name = "rowShelf_id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)

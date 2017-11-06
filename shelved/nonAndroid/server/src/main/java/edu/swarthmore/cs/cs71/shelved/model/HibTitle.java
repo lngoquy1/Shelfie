@@ -1,4 +1,6 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.model;
+
+import edu.swarthmore.cs.cs71.shelved.Title;
 
 import javax.persistence.*;
 

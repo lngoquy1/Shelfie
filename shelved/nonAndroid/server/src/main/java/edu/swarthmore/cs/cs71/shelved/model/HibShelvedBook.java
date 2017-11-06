@@ -1,5 +1,8 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.model;
 
+
+import edu.swarthmore.cs.cs71.shelved.Book;
+import edu.swarthmore.cs.cs71.shelved.ShelvedBook;
 
 import javax.persistence.*;
 
