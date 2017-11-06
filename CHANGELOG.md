@@ -139,3 +139,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HibUtil
 
 ### General status update as of 2017-11-5
+Database is fully working. Server tries to send representation of database to webpage, but has issues (error code 100 - coming to office hours).
+Facebook login button appears but does not function. However, we have a prototype which allows login, so this behavior is concerning, and
+we will also be coming to office hours for this. Five buttons at bottom of the screen are present, and clicking on them bring up blank pages for each.
+We created almost all of the classes (including hibernate versions). We implemented some Goodreads API queries, and also used the API to scrape their page
+when their API was being belligerent. We also used JBCrypt hashing password API to hash passwords.
