@@ -23,6 +23,20 @@
 
     <include layout="@layout/fragment_shelf"/>
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:layout_marginTop="300dp"
+                android:layout_marginBottom="30dp"/>
+
+    </LinearLayout>
     <RelativeLayout
             android:id="@+id/activity_main"
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,7 +54,6 @@
                 android:animateLayoutChanges="true">
 
         </FrameLayout>
-
         <android.support.design.widget.BottomNavigationView
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
@@ -51,6 +64,7 @@
                 app:itemTextColor="@color/nav_item_state_list"
                 app:menu="@menu/bottom_navigation_items"/>
     </RelativeLayout>
+
 
 
 
