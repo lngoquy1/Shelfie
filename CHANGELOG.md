@@ -48,6 +48,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HibernateTest class to HibTest
 - HibernateUtil class to HibUtil
 - renamed Title, Author, Genre, Publisher to SimpleTitle, SimpleAuthor, SimpleGenre, SimplePublisher
+- renamed ItemOneFragment class to fragment_camera.xml
+- renamed ItemTwoFragment class to fragment_connect.xml
+- renamed ItemThreeFragment class to fragment_profile.xml
+
 
 ### Removed
 - Position class
@@ -77,6 +81,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Title class
 - User class
 - WishList class
+
+  Hibernate:
 - BookTests class
 - HibAuthor class
 - HibBook class
@@ -84,9 +90,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HibUtil class
 - HibRowShelf
 - HibShelvedBook
+
+  Android:
 - ItemOneFragment class
 - ItemTwoFragment class
-- ItemThree Fragment class
+- ItemThreeFragment class
 - MainActivity class
 
 ### Heavily Edited
@@ -97,4 +105,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Goodreads class
 - OAuthExample class
 - GoodreadsTests
-- HashPasswordTests
+- HashPasswordTests: tests hashing passwords
+
+  Hibernate/spark:
+- Server class
+
+  Android:
+- fragment_search.xml
+- fragment_shelf.xml
+
+### Created on 2017-11-5
+- ServerExample
+
+### Updated on 2017-11-5
+- HibTest class: tests hibernate classes
+- HibBook class
+- HibTitle class
+- HipAuthor class
+- Server class: essentially the code Zach walked through during class. For reference.
+- ServerExample class: attempts to use spark to post a visual representation of
+  the database on a webpage.
+
+  Updated for Facebook GUI login:
+- Strings.xml
+- AndroidManifest.xml
+- build.gradle
+- MainActivity class
+- activity_main.xml
+- activity_shelved_login_5.xml
+- content_shelved_login_5.xml
+
+### Deleted on 2017-11-5
+- HibUtil
+
+### General status update as of 2017-11-5
