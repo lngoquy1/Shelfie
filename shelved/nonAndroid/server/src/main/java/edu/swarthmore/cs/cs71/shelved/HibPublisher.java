@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class HibPublisher implements Publisher {
     @Id
     @Column(name="publisher_id")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(name="publisher")

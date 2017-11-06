@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class HibShelvedBook implements ShelvedBook {
     @Id
     @Column(name="shelvedBook_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="bookMark")

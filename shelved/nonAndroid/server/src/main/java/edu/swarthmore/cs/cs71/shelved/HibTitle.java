@@ -3,14 +3,14 @@ package edu.swarthmore.cs.cs71.shelved;
 import javax.persistence.*;
 
 @Entity
-@Table(name="book_title")
+@Table(name="title")
 public class HibTitle implements Title {
     @Id
     @Column(name="title_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="title")
+    @Column(name="titleName")
     private String title;
 
     public HibTitle(String title) {
@@ -19,6 +19,6 @@ public class HibTitle implements Title {
 
     @Override
     public String getTitle() {
-        return title;
+        return this.title;
     }
 }

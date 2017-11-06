@@ -9,39 +9,30 @@ import java.util.List;
 public class HibBook implements Book {
     @Id
     @Column(name="book_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="author_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibAuthor.class)
+    @JoinTable(name = "book_author", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "author_id") })
     private HibAuthor author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="genre_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibGenre.class)
+    @JoinTable(name = "book_genre", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "genre_id") })
     private HibGenre genre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="title_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibTitle.class)
+    @JoinTable(name = "book_title", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "title_id") })
     private HibTitle title;
 
     @Column(name="pages")
     private int pages;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "publisher_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibPublisher.class)
+    @JoinTable(name = "book_publisher", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "publisher_id") })
     private HibPublisher publisher;
 
     public HibBook(){
     }
-
-
-//    public int getId() {
-//        return this.id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
     @Override
     public void setAuthor(String author) {
@@ -68,18 +59,17 @@ public class HibBook implements Book {
         this.publisher = new HibPublisher(publisher);
     }
 
-    @Override
-    public Author getAuthor() {
+
+    public HibAuthor getAuthor() {
         return this.author;
     }
 
-    @Override
-    public Genre getGenre() {
+
+    public HibGenre getGenre() {
         return this.genre;
     }
 
-    @Override
-    public Title getTitle() {
+    public HibTitle getTitle() {
         return this.title;
     }
 
@@ -88,13 +78,13 @@ public class HibBook implements Book {
         return this.pages;
     }
 
-    @Override
-    public Publisher getPublisher() {
+    public HibPublisher getPublisher() {
         return this.publisher;
     }
+
     // TODO: What's the type of this method getRecBooks()
-    @Override
-    public List<Book> getRecBooks() {
+
+    public List<HibBook> getRecBooks() {
         return null;
     }
 

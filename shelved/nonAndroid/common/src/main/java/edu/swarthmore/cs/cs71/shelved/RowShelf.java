@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RowShelf {
     // Adds a new book object to the current shelf, at the specified position.
-    void addBook(ShelvedBook shelvedBook, int position);
+    //void addBook(ShelvedBook shelvedBook, int position);
 
     // Remove book at the specified position.
     void removeBook(int position);
@@ -14,6 +14,6 @@ public interface RowShelf {
     // position.
     void resetPosition(int oldPosition, int newPosition);
 
-    ShelvedBook getBook(int position);
+    //ShelvedBook getBook(int position);
 
 }

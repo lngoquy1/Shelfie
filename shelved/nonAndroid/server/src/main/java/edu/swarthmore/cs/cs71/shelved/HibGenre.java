@@ -7,10 +7,10 @@ import javax.persistence.*;
 public class HibGenre implements Genre {
     @Id
     @Column(name="genre_id")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="genre")
+    @Column(name="genreName")
     private String genre;
 
     public HibGenre(String genre) {
@@ -19,6 +19,6 @@ public class HibGenre implements Genre {
 
     @Override
     public String getGenre() {
-        return genre;
+        return this.genre;
     }
 }

@@ -9,38 +9,38 @@ import java.util.List;
 public class HibRowShelf implements RowShelf{
     @Id
     @Column(name = "rowShelf_id")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rowShelf")
     private List<HibShelvedBook> rowList = new ArrayList<>();
 
     public HibRowShelf() {
     }
 
 
-    @Override
-    public void addBook(ShelvedBook shelvedBook, int position) {
-
+    public void addBook(HibShelvedBook shelvedBook, int position) {
+        this.rowList.add(position, shelvedBook);
     }
 
     @Override
     public void removeBook(int position) {
-
+        this.rowList.remove(position);
     }
 
     @Override
     public void resetPosition(int oldPosition, int newPosition) {
-
+        HibShelvedBook book = this.rowList.get(oldPosition);
+        this.rowList.remove(oldPosition);
+        this.rowList.add(newPosition, book);
     }
 
 
-    @Override
     public HibShelvedBook getBook(int position) {
-        return null;
+        return this.rowList.get(position);
     }
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<HibShelvedBook> getAllBooks() {
         return this.rowList;
     }

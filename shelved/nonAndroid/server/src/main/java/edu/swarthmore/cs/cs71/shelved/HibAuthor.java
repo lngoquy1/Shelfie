@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class HibAuthor implements Author{
     @Id
     @Column(name="author_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="fullName")
@@ -23,11 +23,11 @@ public class HibAuthor implements Author{
 
     @Override
     public String getAuthorName() {
-        return null;
+        return this.fullName;
     }
 
     @Override
     public String getLastName() {
-        return null;
+        return this.lastName;
     }
 }
