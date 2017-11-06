@@ -1,0 +1,18 @@
+<resources>
+    <!--Lan-->
+    <string name="username">lngoquy1</string>
+    <string name="password">eVOxBSaPT4CmyqXY</string>
+    <!--Leah-->
+    <string name="username">lbrumga1</string>
+    <string name="password">XOgJshmqwIZ6sVKG</string>
+    <!--Nicki-->
+    <string name="username">nfeldba1</string>
+    <string name="password">9e5hAQ6SxTiRrQyF</string>
+    <!--Kellie-->
+
+
+
+    <!--these don't change-->
+    <string name="port">3306</string>
+    <string name="hostname">chocolate.cs.swarthmore.edu</string>
+</resources>
