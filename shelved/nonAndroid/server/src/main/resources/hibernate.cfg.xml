@@ -22,13 +22,13 @@
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
         <!-- Mapping With Model Class Containing Annotations -->
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibBook" />
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibShelvedBook" />
-        <!--<mapping class="edu.swarthmore.cs.cs71.shelved.HibRowShelf" />-->
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibPublisher"/>
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibAuthor"/>
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibGenre"/>
-        <mapping class="edu.swarthmore.cs.cs71.shelved.HibTitle"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibBook" />
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibShelvedBook" />
+        <!--<mapping class="edu.swarthmore.cs.cs71.shelved.model.HibRowShelf" />-->
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibPublisher"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibAuthor"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibGenre"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.HibTitle"/>
 
     </session-factory>
 </hibernate-configuration>

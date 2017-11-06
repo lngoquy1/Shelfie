@@ -1,4 +1,6 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.model;
+
+import edu.swarthmore.cs.cs71.shelved.Book;
 
 import javax.persistence.*;
 import java.util.Dictionary;
@@ -59,6 +61,10 @@ public class HibBook implements Book {
         this.publisher = new HibPublisher(publisher);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public HibAuthor getAuthor() {
         return this.author;
@@ -71,6 +77,14 @@ public class HibBook implements Book {
 
     public HibTitle getTitle() {
         return this.title;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return "book";
     }
 
     @Override
