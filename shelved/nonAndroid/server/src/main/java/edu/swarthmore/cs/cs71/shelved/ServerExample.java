@@ -16,48 +16,14 @@ public class ServerExample {
 
     public static void main(String[] argv) {
 
+
+
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
         staticFiles.location("/public");
 
-        post("/api/book", (req, res) -> {
 
-            EntityManager session = sf.createEntityManager();
-            try {
-                System.out.println("enter try");
-                req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement(""));
-
-
-                Integer id = Integer.parseInt(req.queryParams("id"));
-                String author = req.queryParams("Haruki Murakami");
-
-                HibBook book = new HibBook();
-                book.setId(id);
-                book.setAuthor("Haruki Murakami");
-//                book.setGenre("Fiction");
-//                book.setTitle("Norweigian Wood");
-//                book.setPages(296);
-//                book.setPublisher("Vintage International");
-
-
-
-                session.getTransaction().begin();
-                session.persist(book);
-
-                session.getTransaction().commit();
-                res.redirect("/list");
-                return "";
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                return "Error: " + e.getMessage();
-            } finally {
-                if (session.isOpen()) {
-                    //System.out.println("Error1");
-                    session.close();
-                }
-                //System.out.println("Error2");
-            }
-        });
+        initializeDatabase(sf);
 
 
         get("/list", (req, res) -> {
@@ -82,7 +48,7 @@ public class ServerExample {
 
                 builder.append("<table><tr><th>HibBook Id</th><th>HibBook Title</th></tr>\n");
                 for (HibBook book : books) {
-                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle() + "</td></tr> +\n");
+                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td></tr> +\n");
                 }
                 builder.append("</table>\n");
 
@@ -96,6 +62,35 @@ public class ServerExample {
             }
 
         });
+    }
+
+    private static void initializeDatabase(SessionFactory sf) {
+        EntityManager session = sf.createEntityManager();
+        try {
+            System.out.println("enter try");
+
+            HibBook book = new HibBook();
+            book.setAuthor("Haruki Murakami");
+            book.setGenre("Fiction");
+            book.setTitle("Norweigian Wood");
+            book.setPages(296);
+            book.setPublisher("Vintage International");
+
+
+
+            session.getTransaction().begin();
+            session.persist(book);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println("Error: " + e.getMessage());
+            System.exit(1);
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
     }
 
 }

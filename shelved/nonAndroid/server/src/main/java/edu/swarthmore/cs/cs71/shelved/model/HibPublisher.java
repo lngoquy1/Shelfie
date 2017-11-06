@@ -16,6 +16,9 @@ public class HibPublisher implements Publisher {
     @Column(name="publisher")
     private String publisher;
 
+    public HibPublisher() {
+    }
+
     public HibPublisher(String publisher) {
         this.publisher = publisher;
     }
