@@ -48,7 +48,6 @@ public class ServerExample {
 
                 builder.append("<table><tr><th>Id</th><th>Title</th><th>Author</th><th>Genre</th></tr>\n");
                 for (HibBook book : books) {
-//                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td></tr> +\n");
                     builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td><td>" + book.getAuthor().getAuthorName() + "</td><td>" + book.getGenre().getGenre() + "</td></tr>\n");
                 }
                 builder.append("</table>\n");
