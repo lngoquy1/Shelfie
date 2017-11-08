@@ -5,11 +5,9 @@ import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.HibBook;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.jaxb.SourceType;
 import org.hibernate.cfg.Configuration;
+
 import javax.persistence.EntityManager;
-import javax.servlet.MultipartConfigElement;
-import java.util.List;
 
 public class ServerExample {
 
@@ -25,91 +23,14 @@ public class ServerExample {
         initializeDatabase(sf);
 
 
-        get("/list", (req, res) -> {
-            EntityManager session = sf.createEntityManager();
-            try {
-                List<HibBook> books = session.createQuery("FROM HibBook").getResultList();
-
-                StringBuilder builder = new StringBuilder();
-
-                builder.append("<style>\n" +
-                        "table {\n" +
-                        "    border-collapse: collapse;\n" +
-                        "    width: 50%;\n" +
-                        "}" +
-                        "td, th {\n" +
-                        "    border: 1px solid #dddddd;\n" +
-                        "    text-align: left;\n" +
-                        "    padding: 8px;\n" +
-                        "}\n" +
-                        "</style>");
-
-                //create header
-                addTable(builder);
-                addRow(builder);
-                // get strings as variables
-                addHeaderCell(builder,"Id");
-                addHeaderCell(builder,"Title");
-                addHeaderCell(builder,"Author");
-                addHeaderCell(builder,"Genre");
-                closeRow(builder);
-                newLine(builder);
-                //fill in contents
-                for (HibBook book : books) {
-                    addRow(builder);
-                    addCell(builder, String.valueOf(book.getId()));
-                    addCell(builder, book.getTitle().getTitle());
-                    addCell(builder, book.getAuthor().getAuthorName());
-                    addCell(builder, book.getGenre().getGenre());
-                    closeRow(builder);
-                }
-
-                closeTable(builder);
-                newLine(builder);
-
-                return builder.toString();
-            } catch (Exception e) {
-                return "Error: " + e.getMessage();
-            } finally {
-                if (session.isOpen()) {
-                    session.close();
-                }
-            }
-
-        });
+        get("/list", new DisplayTestRoute(sf));
     }
 
-    private static void addTable(StringBuilder builder) {
-        builder.append("<table>");
-    }
 
-    private static void closeTable(StringBuilder builder) {
-        builder.append("</table>");
-    }
-
-    private static void addHeaderCell(StringBuilder builder, String contents) {
-        builder.append("<th>"+contents+"</th>");
-    }
-
-    private static void newLine(StringBuilder builder) {
-        builder.append("\n");
-    }
-
-    private static void addRow(StringBuilder builder){
-        builder.append("<tr>");
-    }
-    private static void closeRow(StringBuilder builder){
-        builder.append("</tr>");
-    }
-    private static void addCell(StringBuilder builder, String contents){
-        builder.append("<td>"+contents+"</td>");
-    }
 
     private static void initializeDatabase(SessionFactory sf) {
         EntityManager session = sf.createEntityManager();
         try {
-            System.out.println("enter try");
-
             HibBook book = new HibBook();
             book.setAuthor("Haruki Murakami");
             book.setGenre("Fiction");
@@ -117,10 +38,16 @@ public class ServerExample {
             book.setPages(296);
             book.setPublisher("Vintage International");
 
-
+            HibBook book2 = new HibBook();
+            book2.setAuthor("JK Rowling");
+            book2.setGenre("Fiction");
+            book2.setTitle("Harry Potter");
+            book2.setPages(300);
+            book2.setPublisher("Bloomsbury");
 
             session.getTransaction().begin();
             session.persist(book);
+            session.persist(book2);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -133,7 +60,6 @@ public class ServerExample {
             }
         }
     }
-
 
 
 }
