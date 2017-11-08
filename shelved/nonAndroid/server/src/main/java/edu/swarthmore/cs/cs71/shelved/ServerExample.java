@@ -4,6 +4,8 @@ package edu.swarthmore.cs.cs71.shelved;
 import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.HibBook;
+import edu.swarthmore.cs.cs71.shelved.model.HibShelvedBook;
+import edu.swarthmore.cs.cs71.shelved.model.HibUser;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.jaxb.SourceType;
 import org.hibernate.cfg.Configuration;
@@ -48,7 +50,6 @@ public class ServerExample {
 
                 builder.append("<table><tr><th>Id</th><th>Title</th><th>Author</th><th>Genre</th></tr>\n");
                 for (HibBook book : books) {
-//                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td></tr> +\n");
                     builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td><td>" + book.getAuthor().getAuthorName() + "</td><td>" + book.getGenre().getGenre() + "</td></tr>\n");
                 }
                 builder.append("</table>\n");
@@ -76,6 +77,12 @@ public class ServerExample {
             book.setTitle("Norweigian Wood");
             book.setPages(296);
             book.setPublisher("Vintage International");
+            HibShelvedBook shelvedBook = new HibShelvedBook();
+            shelvedBook.setBook(book);
+            shelvedBook.setBookMark(59);
+            shelvedBook.setForLend(true);
+            HibUser user1  = new HibUser();
+            user1.setUserName("Lan");
 
 
 
