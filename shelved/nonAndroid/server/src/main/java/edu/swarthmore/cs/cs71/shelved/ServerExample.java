@@ -7,12 +7,9 @@ import edu.swarthmore.cs.cs71.shelved.model.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.HibShelvedBook;
 import edu.swarthmore.cs.cs71.shelved.model.HibUser;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.jaxb.SourceType;
 import org.hibernate.cfg.Configuration;
-import javax.persistence.EntityManager;
-import javax.servlet.MultipartConfigElement;
-import java.util.List;
 
+import javax.persistence.EntityManager;
 
 public class ServerExample {
 
@@ -28,49 +25,14 @@ public class ServerExample {
         initializeDatabase(sf);
 
 
-        get("/list", (req, res) -> {
-            EntityManager session = sf.createEntityManager();
-            try {
-                List<HibBook> books = session.createQuery("FROM HibBook").getResultList();
-
-                StringBuilder builder = new StringBuilder();
-
-                builder.append("<style>\n" +
-                        "table {\n" +
-                        "    border-collapse: collapse;\n" +
-                        "    width: 50%;\n" +
-                        "}" +
-                        "td, th {\n" +
-                        "    border: 1px solid #dddddd;\n" +
-                        "    text-align: left;\n" +
-                        "    padding: 8px;\n" +
-                        "}\n" +
-                        "</style>");
-
-
-                builder.append("<table><tr><th>Id</th><th>Title</th><th>Author</th><th>Genre</th></tr>\n");
-                for (HibBook book : books) {
-                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td><td>" + book.getAuthor().getAuthorName() + "</td><td>" + book.getGenre().getGenre() + "</td></tr>\n");
-                }
-                builder.append("</table>\n");
-
-                return builder.toString();
-            } catch (Exception e) {
-                return "Error: " + e.getMessage();
-            } finally {
-                if (session.isOpen()) {
-                    session.close();
-                }
-            }
-
-        });
+        get("/list", new DisplayTestRoute(sf));
     }
+
+
 
     private static void initializeDatabase(SessionFactory sf) {
         EntityManager session = sf.createEntityManager();
         try {
-            System.out.println("enter try");
-
             HibBook book = new HibBook();
             book.setAuthor("Haruki Murakami");
             book.setGenre("Fiction");
@@ -84,10 +46,16 @@ public class ServerExample {
             HibUser user1  = new HibUser();
             user1.setUserName("Lan");
 
-
+            HibBook book2 = new HibBook();
+            book2.setAuthor("JK Rowling");
+            book2.setGenre("Fiction");
+            book2.setTitle("Harry Potter");
+            book2.setPages(300);
+            book2.setPublisher("Bloomsbury");
 
             session.getTransaction().begin();
             session.persist(book);
+            session.persist(book2);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -101,5 +69,5 @@ public class ServerExample {
         }
     }
 
-}
 
+}
