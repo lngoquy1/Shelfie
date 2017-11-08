@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.servlet.MultipartConfigElement;
 import java.util.List;
 
-
 public class ServerExample {
 
     public static void main(String[] argv) {
@@ -45,13 +44,28 @@ public class ServerExample {
                         "}\n" +
                         "</style>");
 
-
-                builder.append("<table><tr><th>Id</th><th>Title</th><th>Author</th><th>Genre</th></tr>\n");
+                //create header
+                addTable(builder);
+                addRow(builder);
+                // get strings as variables
+                addHeaderCell(builder,"Id");
+                addHeaderCell(builder,"Title");
+                addHeaderCell(builder,"Author");
+                addHeaderCell(builder,"Genre");
+                closeRow(builder);
+                newLine(builder);
+                //fill in contents
                 for (HibBook book : books) {
-                    builder.append("<tr><td>" + book.getId() + "</td><td>" + book.getTitle().getTitle() + "</td><td>" + book.getAuthor().getAuthorName() + "</td><td>" + book.getGenre().getGenre() + "</td></tr>\n");
+                    addRow(builder);
+                    addCell(builder, String.valueOf(book.getId()));
+                    addCell(builder, book.getTitle().getTitle());
+                    addCell(builder, book.getAuthor().getAuthorName());
+                    addCell(builder, book.getGenre().getGenre());
+                    closeRow(builder);
                 }
 
-                builder.append("</table>\n");
+                closeTable(builder);
+                newLine(builder);
 
                 return builder.toString();
             } catch (Exception e) {
@@ -63,6 +77,32 @@ public class ServerExample {
             }
 
         });
+    }
+
+    private static void addTable(StringBuilder builder) {
+        builder.append("<table>");
+    }
+
+    private static void closeTable(StringBuilder builder) {
+        builder.append("</table>");
+    }
+
+    private static void addHeaderCell(StringBuilder builder, String contents) {
+        builder.append("<th>"+contents+"</th>");
+    }
+
+    private static void newLine(StringBuilder builder) {
+        builder.append("\n");
+    }
+
+    private static void addRow(StringBuilder builder){
+        builder.append("<tr>");
+    }
+    private static void closeRow(StringBuilder builder){
+        builder.append("</tr>");
+    }
+    private static void addCell(StringBuilder builder, String contents){
+        builder.append("<td>"+contents+"</td>");
     }
 
     private static void initializeDatabase(SessionFactory sf) {
@@ -93,6 +133,8 @@ public class ServerExample {
             }
         }
     }
+
+
 
 }
 
