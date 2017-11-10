@@ -27,6 +27,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '[4,5)'
     compile group:'edu.swarthmore.cs.cs71.shelved', name:'common', version:'1.0-SNAPSHOT'
     testCompile 'junit:junit:4.12'

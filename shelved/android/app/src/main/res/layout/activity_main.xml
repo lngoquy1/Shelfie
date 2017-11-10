@@ -7,21 +7,7 @@
         android:layout_height="match_parent"
         tools:context="edu.swarthmore.cs.cs71.shelved.shelved.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/fragment_shelf"/>
+    <!--<include layout="@layout/fragment_shelf"/>-->
 
     <LinearLayout
             android:orientation="vertical"
@@ -44,7 +30,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.truiton.bottomnavigation.MainActivity">
+            tools:context="edu.swarthmore.cs.cs71.shelved.shelved.MainActivity">
 
         <FrameLayout
                 android:id="@+id/frame_layout"
@@ -52,6 +38,12 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/navigation"
                 android:animateLayoutChanges="true">
+
+            <!--<fragment-->
+                    <!--android:id="@+id/shelf_fragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:name="edu.swarthmore.cs.cs71.shelved.shelved.ShelfFragment"/>-->
 
         </FrameLayout>
         <android.support.design.widget.BottomNavigationView

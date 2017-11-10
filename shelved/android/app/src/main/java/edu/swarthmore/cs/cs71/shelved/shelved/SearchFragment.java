@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class SearchFragment extends Fragment{
-    public static ShelfFragment newInstance() {
-        ShelfFragment fragment = new ShelfFragment();
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
         return fragment;
     }
 

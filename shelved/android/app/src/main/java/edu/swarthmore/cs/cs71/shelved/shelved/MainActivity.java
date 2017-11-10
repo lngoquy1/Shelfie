@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,7 +21,7 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private TextView info;
     private CallbackManager callbackManager;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         
         findViewById(R.id.navigation);
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        //FrameLayout layout = (FrameLayout)findViewById(R.id.frame_layout);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

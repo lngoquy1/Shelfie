@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class ConnectFragment extends Fragment {
-    public static CameraFragment newInstance() {
-        CameraFragment fragment = new CameraFragment();
+    public static ConnectFragment newInstance() {
+        ConnectFragment fragment = new ConnectFragment();
         return fragment;
     }
 
