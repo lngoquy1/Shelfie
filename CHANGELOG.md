@@ -48,9 +48,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HibernateTest class to HibTest
 - HibernateUtil class to HibUtil
 - renamed Title, Author, Genre, Publisher to SimpleTitle, SimpleAuthor, SimpleGenre, SimplePublisher
-- renamed ItemOneFragment class to fragment_camera.xml
-- renamed ItemTwoFragment class to fragment_connect.xml
-- renamed ItemThreeFragment class to fragment_profile.xml
+- renamed ItemOneFragment class to ShelfFragment
+- renamed ItemTwoFragment class to CameraFragment
+- renamed ItemThreeFragment class to ProfileFragment
 
 
 ### Removed
@@ -92,9 +92,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HibShelvedBook
 
   Android:
-- ItemOneFragment class
-- ItemTwoFragment class
-- ItemThreeFragment class
+- ShelfFragment
+- CameraFragment
+- ProfileFragment
 - MainActivity class
 
 ### Heavily Edited
@@ -113,6 +113,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   Android:
 - fragment_search.xml
 - fragment_shelf.xml
+- SearchFragment class
+- ConnectFragment class
 
 ### Created on 2017-11-5
 - ServerExample
@@ -136,7 +138,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - content_shelved_login_5.xml
 
 ### Deleted on 2017-11-5
-- HibUtil
+- HibUtil 
 
 ### General status update as of 2017-11-5
 Database is fully working. Server tries to send representation of database to webpage, but has issues (error code 100 - coming to office hours).
