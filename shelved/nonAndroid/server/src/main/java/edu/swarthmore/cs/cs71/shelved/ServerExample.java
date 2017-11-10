@@ -5,7 +5,6 @@ import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.HibBook;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.jaxb.SourceType;
 import org.hibernate.cfg.Configuration;
 import javax.persistence.EntityManager;
 import javax.servlet.MultipartConfigElement;
