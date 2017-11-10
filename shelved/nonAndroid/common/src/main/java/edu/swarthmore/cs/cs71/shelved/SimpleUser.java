@@ -47,9 +47,11 @@ public class SimpleUser implements User {
 
 
     public void changePassword(String oldPassword, String newPassword) {
+
         if (BCrypt.hashpw(oldPassword, this.salt).equals(password)) {
 
             this.setSalt();
+
             this.setPassword(newPassword);
         }
     }
