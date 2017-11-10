@@ -38,15 +38,7 @@ public class HashPasswordTests {
         String salt = user.getSalt();
         String password = user.getPassword();
 
-        System.out.println("user pw before change: " + user.getPassword());
-        System.out.println("user salt before change: " + user.getSalt());
-
-        System.out.println("badpassword hashed: " + BCrypt.hashpw("badpassword", user.getSalt()));
-
         user.changePassword("badpassword", "newpassword");
-
-        System.out.println("user password after change: " + user.getPassword());
-        System.out.println("user salt after change: " + user.getSalt());
 
         String newPw = "newpassword";
         String newSalt = user.getSalt();
