@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
 import edu.swarthmore.cs.cs71.shelved.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 
@@ -39,7 +40,8 @@ public class HibUser implements User {
 
     @Override
     public void setPassword(String password) {
-        this.password = password;
+        String hashedPassword = BCrypt.hashpw(password, this.salt);
+        this.password = hashedPassword;
     }
 
     @Override
@@ -58,13 +60,17 @@ public class HibUser implements User {
     }
 
     @Override
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setSalt() {
+        this.salt = BCrypt.gensalt();
     }
+
 
     @Override
     public void changePassword(String oldPassword, String newPassword) {
-
+        if (BCrypt.hashpw(oldPassword, this.salt)==this.password){
+            setSalt();
+            setPassword(newPassword);
+        }
     }
 
 
