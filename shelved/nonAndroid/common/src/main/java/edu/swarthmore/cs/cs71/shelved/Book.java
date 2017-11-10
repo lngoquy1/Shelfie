@@ -13,6 +13,7 @@ public interface Book {
     void setPages(int pages);
     void setPublisher(String publisher);
     int getPages();
+
 //    Author getAuthor();
 //    Genre getGenre();
 //    Title getTitle();

@@ -20,7 +20,6 @@ public class HibRowShelf implements RowShelf {
     public HibRowShelf() {
     }
 
-
     public void addBook(HibShelvedBook shelvedBook, int position) {
         this.rowList.add(position, shelvedBook);
     }

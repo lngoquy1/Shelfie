@@ -28,11 +28,15 @@ public class HibShelvedBook implements ShelvedBook {
     @JoinColumn(name="book_id")
     private HibBook book;
 
-    public HibShelvedBook(HibBook book) {
+
+    public HibShelvedBook() {
+    }
+
+    public void setBook(HibBook book) {
         this.book = book;
     }
 
-//    @Id
+    //    @Id
 //    @Column(name="shelvedBook_id")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    public int getId() {

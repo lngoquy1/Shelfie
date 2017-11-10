@@ -15,6 +15,11 @@ public class HibTitle implements Title {
     @Column(name="titleName")
     private String title;
 
+    public HibTitle() {
+
+    }
+
+
     public HibTitle(String title) {
         this.title = title;
     }

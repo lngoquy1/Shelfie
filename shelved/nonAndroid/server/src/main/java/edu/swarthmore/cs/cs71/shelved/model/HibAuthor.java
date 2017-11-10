@@ -18,6 +18,9 @@ public class HibAuthor implements Author {
     @Column(name="lastName")
     private String lastName;
 
+    public HibAuthor() {
+    }
+
     public HibAuthor(String authorName) {
         this.fullName = authorName;
         this.lastName = authorName.substring(authorName.lastIndexOf(" ") +1);
