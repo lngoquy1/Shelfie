@@ -46,6 +46,6 @@ public class HashPasswordTests {
         String hashedNewPw = BCrypt.hashpw(newPw, newSalt);
 
         Assert.assertEquals(hashedNewPw, user.getPassword());
-//        Assert.assertNotEquals(password, user.getPassword());
+        Assert.assertNotEquals(password, user.getPassword());
     }
 }
