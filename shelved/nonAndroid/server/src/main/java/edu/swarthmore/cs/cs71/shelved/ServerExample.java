@@ -29,7 +29,6 @@ public class ServerExample {
     }
 
 
-
     private static void initializeDatabase(SessionFactory sf) {
         EntityManager session = sf.createEntityManager();
         try {
@@ -56,7 +55,8 @@ public class ServerExample {
             session.getTransaction().begin();
             session.persist(book);
             session.persist(book2);
-
+            session.persist(shelvedBook);
+            session.persist(user1);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

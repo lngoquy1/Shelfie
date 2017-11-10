@@ -1,5 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class SimpleUser implements User {
     private SimpleUserName userName;
     private String password;
@@ -28,17 +30,21 @@ public class SimpleUser implements User {
         this.userName = new SimpleUserName(userName);
     }
 
+    public void setSalt() {
+        this.salt = BCrypt.gensalt();
+    }
+
     public void setPassword(String password) {
-        this.password = password;
+        String hashedPassword = BCrypt.hashpw(password, this.salt);
+        this.password = hashedPassword;
+
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+
 
     public void changePassword(String oldPassword, String newPassword) {
         // if hash(oldPassword) = this.password {
@@ -46,7 +52,12 @@ public class SimpleUser implements User {
         // } else {
         //      notify user to try again
         // }
+        if (BCrypt.hashpw(oldPassword, this.salt)==this.password){
+            setSalt();
+            setPassword(newPassword);
+        }
     }
+
 
     // getters
     public SimpleUserName getUserName() {

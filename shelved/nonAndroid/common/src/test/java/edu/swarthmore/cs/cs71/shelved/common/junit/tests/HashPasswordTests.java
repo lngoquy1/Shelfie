@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
 import edu.swarthmore.cs.cs71.shelved.Login;
+import edu.swarthmore.cs.cs71.shelved.SimpleUser;
 import edu.swarthmore.cs.cs71.shelved.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,8 +11,10 @@ public class HashPasswordTests {
 
     @Test
     public void testPasswordHash() {
-        Login login = new Login();
-        User user = login.createUser("leah", "badpassword", "Leah Brumgard", "", "");
+        SimpleUser user = new SimpleUser();
+        user.setSalt();
+        user.setUserName("leah");
+        user.setPassword("badpassword");
         String salt = user.getSalt();
         String password = user.getPassword();
 

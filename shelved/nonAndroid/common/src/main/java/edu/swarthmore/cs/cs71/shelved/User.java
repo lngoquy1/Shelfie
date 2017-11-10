@@ -8,9 +8,9 @@ public interface User {
     void setName(String name);
     public void setBio(String bio);
     public void setLocation(String location);
-    void setSalt(String salt);
+    void setSalt();
     void changePassword(String oldPassword, String newPassword);
-
+//    void resetPassword(String newPassword);
     // getters
 
     String getPassword();
