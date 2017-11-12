@@ -1,8 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
 
-import edu.swarthmore.cs.cs71.shelved.api.Book;
-import edu.swarthmore.cs.cs71.shelved.api.ShelvedBook;
+import edu.swarthmore.cs.cs71.shelved.model.api.Book;
+import edu.swarthmore.cs.cs71.shelved.model.api.ShelvedBook;
 
 import javax.persistence.*;
 

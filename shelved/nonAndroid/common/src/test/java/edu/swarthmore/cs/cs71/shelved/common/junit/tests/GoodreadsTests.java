@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
-import edu.swarthmore.cs.cs71.shelved.simple.Goodreads;
+import edu.swarthmore.cs.cs71.shelved.model.simple.Goodreads;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;

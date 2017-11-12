@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.api.Genre;
+import edu.swarthmore.cs.cs71.shelved.model.api.Genre;
 
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.api.User;
+import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;

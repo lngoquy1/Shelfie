@@ -1,8 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
-import edu.swarthmore.cs.cs71.shelved.simple.SimpleAuthor;
-import edu.swarthmore.cs.cs71.shelved.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.simple.SimpleGenre;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleGenre;
 import org.junit.Assert;
 import org.junit.Test;
 

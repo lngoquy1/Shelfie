@@ -1,7 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
 
-import edu.swarthmore.cs.cs71.shelved.api.Publisher;
+import edu.swarthmore.cs.cs71.shelved.model.api.Publisher;
 
 import javax.persistence.*;
 

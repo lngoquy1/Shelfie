@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.api.RowShelf;
+import edu.swarthmore.cs.cs71.shelved.model.api.RowShelf;
 
 import javax.persistence.*;
 import java.util.ArrayList;

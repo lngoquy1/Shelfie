@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.api.Book;
+import edu.swarthmore.cs.cs71.shelved.model.api.Book;
 
 import javax.persistence.*;
 import java.util.Dictionary;

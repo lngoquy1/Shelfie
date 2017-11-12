@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.api.UserName;
+import edu.swarthmore.cs.cs71.shelved.model.api.UserName;
 
 import javax.persistence.*;
 

@@ -1,7 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
 
-import edu.swarthmore.cs.cs71.shelved.simple.SimpleUser;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
