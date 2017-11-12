@@ -1,6 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.Author;
+import edu.swarthmore.cs.cs71.shelved.api.Author;
 
 import javax.persistence.*;
 
