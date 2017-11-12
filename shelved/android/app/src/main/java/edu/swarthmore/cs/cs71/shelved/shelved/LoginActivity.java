@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+        Intent intent = getIntent();
     }
 
     public void login() {
@@ -133,4 +134,10 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
+
+    public void loggedIn(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
