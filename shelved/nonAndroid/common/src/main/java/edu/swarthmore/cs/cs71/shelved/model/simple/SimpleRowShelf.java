@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleRowShelf implements RowShelf {
-
     private ArrayList<ShelvedBook> rowList = new ArrayList<ShelvedBook>();
-
-
+    public String header = this.getClass().getSimpleName();
 
     public SimpleRowShelf() {
     }
@@ -27,13 +25,11 @@ public class SimpleRowShelf implements RowShelf {
         return rowList.get(position);
     }
 
-
     public void resetPosition(int oldPosition, int newPosition) {
         ShelvedBook shelvedBook = getBook(oldPosition);
         removeBook(oldPosition);
         addBook(shelvedBook, newPosition);
     }
-
 
     public List<ShelvedBook> getAllBooks() {
         return this.rowList;

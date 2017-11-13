@@ -4,6 +4,7 @@ import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class SimpleUser implements User {
+    public String header = this.getClass().getSimpleName();
     private SimpleUserName userName;
     private String password;
     private String name;
@@ -23,6 +24,7 @@ public class SimpleUser implements User {
 //        this.salt = salt;
 //
 //    }
+
 
 
 

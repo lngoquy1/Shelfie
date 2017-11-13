@@ -9,6 +9,7 @@ public class SimpleShelvedBook implements ShelvedBook {
     private boolean forSale;
     private boolean forLend;
     private Book book;
+    public String header = this.getClass().getSimpleName();
 
     public SimpleShelvedBook() {
 

@@ -9,6 +9,7 @@ public class ReadingList implements CreatedList {
     private String name = "Untitled";
     private boolean publicStatus = false;
     private List<SimpleShelvedBook> list = new ArrayList<>();
+    public String header = this.getClass().getSimpleName();
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;

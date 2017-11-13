@@ -4,6 +4,7 @@ import edu.swarthmore.cs.cs71.shelved.model.api.Title;
 
 public class SimpleTitle implements Title {
     private String title;
+    public String header = this.getClass().getSimpleName();
 
     public SimpleTitle(String title) {
         this.title = title;
