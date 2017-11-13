@@ -146,3 +146,12 @@ Facebook login button appears but does not function. However, we have a prototyp
 we will also be coming to office hours for this. Five buttons at bottom of the screen are present, and clicking on them bring up blank pages for each.
 We created almost all of the classes (including hibernate versions). We implemented some Goodreads API queries, and also used the API to scrape their page
 when their API was being belligerent. We also used JBCrypt hashing password API to hash passwords.
+
+### Created on 2017-11-10
+- LoginActivity class
+- activity_login.xml
+- SignupActivity class
+- activity_signup.xml
+
+### Status update 2017-11-12
+Successfully link LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login will bring the user to the Main page. 

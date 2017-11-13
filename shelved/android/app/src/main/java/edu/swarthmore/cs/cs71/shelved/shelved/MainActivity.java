@@ -91,12 +91,12 @@ public class  MainActivity extends AppCompatActivity {
 
 
         //Manually displaying the first fragment - one time only
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frame_layout, ShelfFragment.newInstance());
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, ShelfFragment.newInstance());
         //transaction.commit();
 
         //Used to select an item programmatically
-        //bottomNavigationView.getMenu().getItem(2).setChecked(true);
+        bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
