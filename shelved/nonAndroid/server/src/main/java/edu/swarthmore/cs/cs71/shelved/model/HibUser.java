@@ -1,10 +1,12 @@
 package edu.swarthmore.cs.cs71.shelved.model;
 
-import edu.swarthmore.cs.cs71.shelved.User;
+import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name="user")
 public class HibUser implements User {
     @Id
     @Column(name="user_id")

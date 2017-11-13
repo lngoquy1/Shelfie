@@ -31,4 +31,5 @@ dependencies {
     compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '[4,5)'
     compile group:'edu.swarthmore.cs.cs71.shelved', name:'common', version:'1.0-SNAPSHOT'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.volley:volley:1.0.0'
 }

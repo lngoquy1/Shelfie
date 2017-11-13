@@ -1,8 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 import com.google.gson.Gson;
-import edu.swarthmore.cs.cs71.shelved.MessageBodyCreateUser;
-import edu.swarthmore.cs.cs71.shelved.SimpleUser;
-import edu.swarthmore.cs.cs71.shelved.User;
+import edu.swarthmore.cs.cs71.shelved.model.simple.MessageBodyCreateUser;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
+import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.junit.Assert;
 import org.junit.Test;
 
