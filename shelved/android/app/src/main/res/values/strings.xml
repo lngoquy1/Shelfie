@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Shelved</string>
     <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome to Shelved!</string>
     <string name="facebook_app_id">2002834933296400</string>
     <string name="fb_login_protocol_scheme">fb2002834933296400</string>
 </resources>

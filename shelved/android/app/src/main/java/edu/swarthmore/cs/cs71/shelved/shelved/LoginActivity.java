@@ -34,7 +34,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                login();
+
+                // Just start next activity for now, will implement real login after
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+
+                //login();
             }
         });
 
