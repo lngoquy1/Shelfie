@@ -5,6 +5,7 @@ import edu.swarthmore.cs.cs71.shelved.model.api.Author;
 public class SimpleAuthor implements Author {
     private String fullName;
     private String lastName;
+    public String header = this.getClass().getSimpleName();
 
     public SimpleAuthor(String authorName) {
         this.fullName = authorName;

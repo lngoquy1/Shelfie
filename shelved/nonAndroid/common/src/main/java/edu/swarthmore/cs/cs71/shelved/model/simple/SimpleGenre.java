@@ -4,6 +4,7 @@ import edu.swarthmore.cs.cs71.shelved.model.api.Genre;
 
 public class SimpleGenre implements Genre {
     private String genre;
+    public String header = this.getClass().getSimpleName();
 
     public SimpleGenre(String genre) {
         this.genre = genre;

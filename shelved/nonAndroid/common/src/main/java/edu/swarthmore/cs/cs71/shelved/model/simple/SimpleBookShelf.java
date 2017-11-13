@@ -8,6 +8,7 @@ import java.util.List;
 
 public class SimpleBookShelf implements BookShelf {
     private ArrayList<RowShelf> allRows;
+    public String header = this.getClass().getSimpleName();
 
     public SimpleBookShelf(int id) {
         this.allRows = new ArrayList<RowShelf>();

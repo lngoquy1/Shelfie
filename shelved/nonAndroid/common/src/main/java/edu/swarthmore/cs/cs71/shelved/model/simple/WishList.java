@@ -10,6 +10,7 @@ public class WishList implements CreatedList {
     private String name = "Wishlist";
     private boolean publicStatus;
     private List<ShelvedBook> list = new ArrayList<>();
+    public String header = this.getClass().getSimpleName();
 
     public WishList(boolean publicStatus) {
         this.publicStatus = publicStatus;
