@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved;
+package edu.swarthmore.cs.cs71.shelved.server;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import org.hibernate.SessionFactory;

@@ -14,11 +14,20 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
+    private static final String URL_FOR_LOGIN = "localhost:4567/login";
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
@@ -36,10 +45,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Just start next activity for now, will implement real login after
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(i);
 
-                //login();
+                login();
             }
         });
 
@@ -56,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
+        String cancel_req_tag = "login";
         Log.d(TAG, "Login");
 
         if (!validate()) {
@@ -71,11 +81,66 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        final String email = _emailText.getText().toString();
+        final String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_FOR_LOGIN, new Response.Listener<String>() {
 
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response.toString());
+                hideDialog(progressDialog);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    if (!error) {
+                        String user = jObj.getJSONObject("user").getString("name");
+                        //TODO: MainActivity here needs to be changed into UserActivity
+                        // Launch User activity
+                        Intent intent = new Intent(
+                                LoginActivity.this,
+                                MainActivity.class);
+
+
+                        intent.putExtra("username", user);
+                        startActivity(intent);
+                        finish();
+                    } else {
+
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog(progressDialog);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,cancel_req_tag);
+
+        //TODO: Don't know what this is doing
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -87,7 +152,10 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-
+    private void hideDialog(ProgressDialog progressDialog) {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
@@ -140,9 +208,9 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void loggedIn(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
+//    public void loggedIn(View view) {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//    }
 
 }
