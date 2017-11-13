@@ -153,5 +153,9 @@ when their API was being belligerent. We also used JBCrypt hashing password API 
 - SignupActivity class
 - activity_signup.xml
 
+### 2017-11-12
+- Created SimpleMessageBody, which converts an object to a json. The first field of this json is a header which stores the name of the class for reference by the server
+
 ### Status update 2017-11-12
-Successfully link LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login will bring the user to the Main page. 
+Successfully linked LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login (Facebook or Shelved) will bring the user to the Main page. 
+
