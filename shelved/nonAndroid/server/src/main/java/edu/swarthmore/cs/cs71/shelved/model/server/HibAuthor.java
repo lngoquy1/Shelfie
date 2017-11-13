@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model;
+package edu.swarthmore.cs.cs71.shelved.model.server;
 
 import edu.swarthmore.cs.cs71.shelved.model.api.Author;
 
@@ -24,6 +24,11 @@ public class HibAuthor implements Author {
     public HibAuthor(String authorName) {
         this.fullName = authorName;
         this.lastName = authorName.substring(authorName.lastIndexOf(" ") +1);
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     @Override

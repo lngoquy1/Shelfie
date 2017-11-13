@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model;
+package edu.swarthmore.cs.cs71.shelved.model.server;
 
 import edu.swarthmore.cs.cs71.shelved.model.api.UserName;
 
@@ -12,15 +12,18 @@ public class HibUserName implements UserName{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="userName")
+
+    @Column(name="userName_name")
     private String userName;
 
     public HibUserName() {
     }
 
+
     public HibUserName(String userName) {
         this.userName = userName;
     }
+
 
     @Override
     public String getUserName() {

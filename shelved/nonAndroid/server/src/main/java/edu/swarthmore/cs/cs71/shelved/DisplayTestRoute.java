@@ -1,14 +1,12 @@
 package edu.swarthmore.cs.cs71.shelved;
 
-import edu.swarthmore.cs.cs71.shelved.model.HibBook;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 import javax.persistence.EntityManager;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 

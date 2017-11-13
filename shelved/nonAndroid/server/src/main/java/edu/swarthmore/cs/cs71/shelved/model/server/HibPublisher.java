@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model;
+package edu.swarthmore.cs.cs71.shelved.model.server;
 
 
 import edu.swarthmore.cs.cs71.shelved.model.api.Publisher;

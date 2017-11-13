@@ -1,10 +1,10 @@
 package edu.swarthmore.cs.cs71.shelved;
 
 
-import edu.swarthmore.cs.cs71.shelved.model.HibAuthor;
-import edu.swarthmore.cs.cs71.shelved.model.HibBook;
-import edu.swarthmore.cs.cs71.shelved.model.HibGenre;
-import edu.swarthmore.cs.cs71.shelved.model.HibTitle;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibAuthor;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibGenre;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibTitle;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

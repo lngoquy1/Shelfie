@@ -3,9 +3,9 @@ package edu.swarthmore.cs.cs71.shelved;
 
 import static spark.Spark.*;
 
-import edu.swarthmore.cs.cs71.shelved.model.HibBook;
-import edu.swarthmore.cs.cs71.shelved.model.HibShelvedBook;
-import edu.swarthmore.cs.cs71.shelved.model.HibUser;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibShelvedBook;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 

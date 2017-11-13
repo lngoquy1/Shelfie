@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model;
+package edu.swarthmore.cs.cs71.shelved.model.server;
 
 import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -6,15 +6,15 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.*;
 
 @Entity
-@Table(name="user")
+@Table(name="shelvedUser")
 public class HibUser implements User {
     @Id
-    @Column(name="user_id")
+    @Column(name="shelvedUser_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibAuthor.class)
-    @JoinTable(name = "user_userName", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "userName_id") })
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = HibUserName.class)
+    @JoinColumn(name = "shelvedUser_username")
     private HibUserName userName;
 
     @Column(name="password")
@@ -69,7 +69,7 @@ public class HibUser implements User {
 
     @Override
     public void changePassword(String oldPassword, String newPassword) {
-        if (BCrypt.hashpw(oldPassword, this.salt)==this.password){
+        if (BCrypt.hashpw(oldPassword, this.salt).equals(password)){
             setSalt();
             setPassword(newPassword);
         }
