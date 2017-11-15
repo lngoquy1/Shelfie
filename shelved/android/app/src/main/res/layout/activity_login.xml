@@ -12,20 +12,21 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-        <TextView
-          android:id="@+id/welcome_id"
-          android:layout_height="match_parent"
-          android:layout_width="match_parent"
-          android:gravity="center"
-          android:text="@string/welcome"/>
-
-        <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
+        <ImageView
+                android:id="@+id/logo"
+                android:src="@drawable/shelved_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_height="150dp"
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center_horizontal" />
+        <!--<TextView-->
+          <!--android:id="@+id/welcome_id"-->
+          <!--android:layout_height="match_parent"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:gravity="center"-->
+          <!--android:text="@string/welcome"-->
+          <!--android:textSize="22dip"/>-->
+
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -51,7 +52,13 @@
                       android:inputType="textPassword"
                       android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
-
+        <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"/>
         <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_login"
                 android:layout_width="fill_parent"
