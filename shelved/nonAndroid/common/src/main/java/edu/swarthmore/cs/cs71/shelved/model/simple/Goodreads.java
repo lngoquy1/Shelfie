@@ -91,6 +91,26 @@ public class Goodreads {
         return null;
     }
 
+    public String getTitleFromISBN(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        String workId = this.getGoodreadsId(ISBN);
+        URL url = new URL("https://www.goodreads.com/book/show/" + workId);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        String html = content.toString();
+        int begIndexList = getTitleFirst(html);
+        int endIndexList = getTitleLast(html);
+        String title = html.substring(begIndexList, endIndexList);
+        return title;
+
+    }
+
     public List<String> getRecommendedBooks(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         String workId = this.getWorkId(ISBN);
         URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
@@ -113,6 +133,32 @@ public class Goodreads {
         }
         return titleList;
     }
+
+    private int getTitleFirst(String html) {
+        int i=1;
+        while (i<html.length() && i>=1) {
+            int index = html.indexOf("<title>", i);
+            if (index != -1){
+                return index+7;
+            }
+            i=index+1;
+        }
+        return 0;
+    }
+
+    private int getTitleLast(String html) {
+        int i=1;
+        while (i<html.length() && i>=1) {
+            int index = html.indexOf("</title>", i);
+            if (index != -1){
+                return index;
+            }
+            i=index+1;
+        }
+        return 0;
+    }
+
+
     private List getIndecesOfTitlesBeg(String html) {
         List<Integer> indexList= new ArrayList<>();
         int i=1;
