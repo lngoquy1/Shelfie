@@ -24,9 +24,9 @@ public class ServerExample {
 
 
         initializeDatabase(sf);
-
         post("/signup", new ServerRouteSignup(sf), json());
         get("/list", new DisplayTestRoute(sf));
+
     }
 
 

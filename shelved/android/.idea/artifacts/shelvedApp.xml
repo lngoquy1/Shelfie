@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="shelvedApp">
+    <output-path>$PROJECT_DIR$/out/artifacts/shelvedApp</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyStoreUrl" value="file://" />
+      </options>
+    </properties>
+    <root id="archive" name="shelvedApp.apk" />
+  </artifact>
+</component>
