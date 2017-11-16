@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.server;
 
 
+import static edu.swarthmore.cs.cs71.shelved.server.JsonUtil.json;
 import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
@@ -24,7 +25,7 @@ public class ServerExample {
 
         initializeDatabase(sf);
 
-
+        post("/signup", new ServerRouteSignup(sf), json());
         get("/list", new DisplayTestRoute(sf));
     }
 
