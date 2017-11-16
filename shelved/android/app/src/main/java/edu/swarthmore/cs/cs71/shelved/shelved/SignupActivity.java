@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String URL_FOR_REGISTRATION = "localhost:4567/signup";
+    private static final String URL_FOR_REGISTRATION = "/signup";
     @Bind(R.id.input_name) EditText _nameText;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
