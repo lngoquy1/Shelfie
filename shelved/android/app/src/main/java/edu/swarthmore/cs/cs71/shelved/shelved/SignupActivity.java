@@ -2,6 +2,7 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,12 +26,15 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String URL_FOR_REGISTRATION = R.string.server_url+"/signup";
     @Bind(R.id.input_name) EditText _nameText;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
+
+    private String getRegistrationUrl() {
+        return "http://"+getString((R.string.server_url))+"/signup";
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
 
         // TODO: Implement your own signup logic here.
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                URL_FOR_REGISTRATION, new Response.Listener<String>() {
+                getRegistrationUrl(), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
