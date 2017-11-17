@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.link_login) TextView _loginLink;
 
     private String getRegistrationUrl() {
-        return "http://"+getString((R.string.server_url))+"/signup";
+        return "http://"+getString((R.string.server_url))+":4567/signup";
     }
 
     @Override
