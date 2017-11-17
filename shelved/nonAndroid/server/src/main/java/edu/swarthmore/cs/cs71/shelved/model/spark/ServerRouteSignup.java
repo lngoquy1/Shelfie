@@ -1,11 +1,10 @@
-package edu.swarthmore.cs.cs71.shelved.server;
+package edu.swarthmore.cs.cs71.shelved.model.spark;
 
+import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUserService;
 import org.hibernate.SessionFactory;
 import spark.Request;
-
-import java.util.ArrayList;
-import java.util.List;
+import spark.Response;
 
 public class ServerRouteSignup extends ServerRoute {
     public ServerRouteSignup(SessionFactory sf) {
@@ -13,12 +12,11 @@ public class ServerRouteSignup extends ServerRoute {
     }
 
     @Override
-    protected List<Object> execute(Request request) {
-        List<Object> out = new ArrayList<>();
-        out.add(new HibUserService().createUser(
+    protected Object execute(Request request, Response response) {
+        HibUser newUser = new HibUserService().createUser(
                 request.queryParams("email"),
                 request.queryParams("name"),
-                request.queryParams("password")));
-        return out;
+                request.queryParams("password"));
+        return newUser;
     }
 }
