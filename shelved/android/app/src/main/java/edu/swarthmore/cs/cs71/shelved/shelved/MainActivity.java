@@ -32,30 +32,6 @@ public class  MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        
-//        findViewById(R.id.navigation);
-//        loginButton = (LoginButton)findViewById(R.id.login_button);
-//        callbackManager = CallbackManager.Factory.create();
-//
-//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-////                info.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" + "Auth Token: " + loginResult.getAccessToken().getToken());
-//            }
-//
-//            @Override
-//            public void onCancel() {
-////                info.setText("Login attempt canceled.");
-//            }
-//
-//            @Override
-//            public void onError(FacebookException e) {
-////                info.setText("Login attempt failed.");
-//            }
-//
-//        });
-
-        //FrameLayout layout = (FrameLayout)findViewById(R.id.frame_layout);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
