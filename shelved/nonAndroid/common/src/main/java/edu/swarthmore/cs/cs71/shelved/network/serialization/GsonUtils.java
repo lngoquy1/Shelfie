@@ -14,7 +14,5 @@ public class GsonUtils {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         return gson;
     }
-    public static Object getObj(){
 
-    }
 }
