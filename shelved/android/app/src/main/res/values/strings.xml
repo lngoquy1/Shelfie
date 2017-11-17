@@ -4,11 +4,4 @@
     <string name="welcome">Welcome to Shelved!</string>
     <string name="facebook_app_id">2002834933296400</string>
     <string name="fb_login_protocol_scheme">fb2002834933296400</string>
-
-    <string-array name="Books">
-        <item>Harry Potter</item>
-        <item>Norwegian Wood</item>
-        <item>Kafka by the Shore</item>
-        <item>The Book Thief</item>
-    </string-array>
 </resources>
