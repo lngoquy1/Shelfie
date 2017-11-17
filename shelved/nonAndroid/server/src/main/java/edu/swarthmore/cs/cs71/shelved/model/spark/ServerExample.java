@@ -7,6 +7,7 @@ import static spark.Spark.*;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibShelvedBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -23,7 +24,7 @@ public class ServerExample {
 
 
         initializeDatabase(sf);
-        post("/signup", new ServerRouteSignup(sf), json());
+        post("/signup", new ServerRouteSignup(sf), GsonUtils.makeMessageGson()::toJson);
         get("/list", new DisplayTestRoute(sf));
 
     }

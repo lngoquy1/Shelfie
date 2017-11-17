@@ -2,6 +2,8 @@ package edu.swarthmore.cs.cs71.shelved.model.spark;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUserService;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
+import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import org.hibernate.SessionFactory;
 import spark.Request;
@@ -19,7 +21,10 @@ public class ServerRouteSignup extends ServerRoute {
                 request.queryParams("name"),
                 request.queryParams("password"));
 
-        boolean error = false;
-        return new ResponseMessage(error, newUser);
+        SimpleUser simpleUser = new SimpleUser();
+        simpleUser.setPassword(newUser.getPassword());
+        simpleUser.setUserName(newUser.getName());
+
+        return new CreateUserResponse(simpleUser);
     }
 }

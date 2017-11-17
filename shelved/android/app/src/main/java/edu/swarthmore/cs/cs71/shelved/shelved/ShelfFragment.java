@@ -22,17 +22,20 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
 
     // Array of strings storing country names
     String[] books = new String[] {
-            "Kafka by the Shore"
+            "Kafka by the Shore",
+            "Harry Potter"
     };
 
     // Array of integers points to images stored in /res/drawable/
     int[] imgs = new int[]{
+            R.drawable.shelved_logo,
             R.drawable.shelved_logo
     };
 
     // Array of strings to store currencies
     String[] author = new String[]{
-            "Haruki Murakami"
+            "Haruki Murakami",
+            "J.K. Rowling"
     };
 
     @Override
@@ -41,7 +44,7 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
         // Each row in the list stores country name, author and flag
         List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
-        for(int i=0;i<10;i++){
+        for(int i=0;i<books.length;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
             hm.put("txt", "Book : " + books[i]);
             hm.put("cur","Author : " + author[i]);

@@ -1,5 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model.spark;
 
+import edu.swarthmore.cs.cs71.shelved.network.FailureResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import org.hibernate.SessionFactory;
 import spark.Request;
@@ -28,7 +29,8 @@ public abstract class ServerRoute implements Route{
             return o;
         } catch (Exception e) {
             session.getTransaction().rollback();
-            return new ResponseMessage(false, e.getMessage());
+            // new object to represent failure messages
+            return new FailureResponse();
         } finally {
             if (session.isOpen()) {
                 session.close();

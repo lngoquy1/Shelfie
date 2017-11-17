@@ -1,13 +1,9 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
-import com.google.gson.Gson;
+
 import com.google.gson.reflect.TypeToken;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleMessageBody;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
-import edu.swarthmore.cs.cs71.shelved.model.api.User;
-import org.apache.avro.test.Simple;
-import org.junit.Assert;
 import org.junit.Test;
-import scala.tools.nsc.doc.model.Object$class;
 
 import java.lang.reflect.Type;
 

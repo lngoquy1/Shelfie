@@ -5,6 +5,8 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "edu.swarthmore.cs.cs71.shelved.shelved"
+//        targetCompatibility = '1.7'
+//        sourceCompatibility = '1.7'
         minSdkVersion 23
         targetSdkVersion 25
         versionCode 1

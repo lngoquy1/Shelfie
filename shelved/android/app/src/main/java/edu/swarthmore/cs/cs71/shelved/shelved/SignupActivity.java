@@ -18,6 +18,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONObject;
 import org.json.JSONException;
 
@@ -89,6 +92,11 @@ public class SignupActivity extends AppCompatActivity {
                 hideDialog(progressDialog);
 
                 try {
+                    ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                    if (message.isResult()) {
+                        CreateUserResponse createUserResponse = (CreateUserResponse)message;
+                    }
+
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 

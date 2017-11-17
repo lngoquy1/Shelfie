@@ -17,8 +17,8 @@ public class Main {
         ResponseMessage message = new CreateUserResponse(user);
         Gson gson = new GsonUtils().makeMessageGson();
         String s = gson.toJson(message);
-        Type listType = new TypeToken<ResponseMessage>(){}.getType();
-        ResponseMessage deserialized = gson.fromJson(s, listType);
+        //Type listType = new TypeToken<ResponseMessage>(){}.getType();
+        ResponseMessage deserialized = gson.fromJson(s, ResponseMessage.class);
         System.out.println(deserialized);
     }
 }

@@ -4,13 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
+import edu.swarthmore.cs.cs71.shelved.network.FailureResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 
 public class GsonUtils {
     public static Gson makeMessageGson(){
         RuntimeTypeAdapterFactory<ResponseMessage> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(ResponseMessage.class, "type")
-                .registerSubtype(CreateUserResponse.class, "createUserResponse");
+                .registerSubtype(CreateUserResponse.class, "createUserResponse")
+                .registerSubtype(FailureResponse.class, "failureResponse");
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         return gson;
     }
