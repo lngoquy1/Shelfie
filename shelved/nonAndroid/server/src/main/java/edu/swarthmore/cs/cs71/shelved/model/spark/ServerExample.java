@@ -1,7 +1,7 @@
-package edu.swarthmore.cs.cs71.shelved.server;
+package edu.swarthmore.cs.cs71.shelved.model.spark;
 
 
-import static edu.swarthmore.cs.cs71.shelved.server.JsonUtil.json;
+import static edu.swarthmore.cs.cs71.shelved.model.spark.JsonUtil.json;
 import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 public class ServerExample {
 
     public static void main(String[] argv) {
-
 
 
         SessionFactory sf = new Configuration().configure().buildSessionFactory();

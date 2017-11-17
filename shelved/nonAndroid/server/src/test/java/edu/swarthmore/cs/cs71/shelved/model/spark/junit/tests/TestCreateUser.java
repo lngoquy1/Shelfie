@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.server.junit.tests;
+package edu.swarthmore.cs.cs71.shelved.model.spark.junit.tests;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleGenre;

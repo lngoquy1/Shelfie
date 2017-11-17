@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.server;
+package edu.swarthmore.cs.cs71.shelved.model.spark;
 
 import spark.Service;
 
