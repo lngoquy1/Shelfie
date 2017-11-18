@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+
 import org.json.JSONObject;
 import org.json.JSONException;
 
@@ -38,7 +39,6 @@ public class SignupActivity extends AppCompatActivity {
     private String getRegistrationUrl() {
         return "http://"+getString((R.string.server_url))+":4567/signup";
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
