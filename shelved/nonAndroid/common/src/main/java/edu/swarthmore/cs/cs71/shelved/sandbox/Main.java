@@ -15,11 +15,10 @@ public class Main {
         SimpleUser user = new SimpleUser();
         user.setUserName("lan");
         ResponseMessage message = new CreateUserResponse(user);
-        Gson gson = new GsonUtils().makeMessageGson();
-        String s = gson.toJson(message);
+        String s = new GsonUtils().makeMessageGson().toJson(message);
         System.out.println(s);
-        //Type listType = new TypeToken<ResponseMessage>(){}.getType();
-//        ResponseMessage deserialized = new Gson().fromJson(s, ResponseMessage.class);
-//        System.out.println(deserialized);
+//        Type listType = new TypeToken<ResponseMessage>(){}.getType();
+        ResponseMessage deserialized = new Gson().fromJson(s, ResponseMessage.class);
+
     }
 }

@@ -90,6 +90,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response);
+                Log.i(TAG, response);
                 hideDialog(progressDialog);
 
                 try {
