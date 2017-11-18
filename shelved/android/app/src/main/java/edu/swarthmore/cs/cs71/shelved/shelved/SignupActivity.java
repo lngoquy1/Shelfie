@@ -2,7 +2,6 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.reflect.TypeToken;
 import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
@@ -25,6 +25,7 @@ import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,11 +89,13 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
+                Log.d(TAG, "Register Response: " + response);
                 hideDialog(progressDialog);
 
                 try {
+//                    Type typeOfT = new TypeToken<ResponseMessage>() { }.getType();
                     ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                    Log.w(TAG, "/n/n/nWE ARE HERE. I REPEAT, WE ARE HERE!!/n/n/n");
                     if (message.isResult()) {
                         CreateUserResponse createUserResponse = (CreateUserResponse)message;
                     }
@@ -118,6 +121,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    System.out.println(e.toString());
                 }
 
             }
