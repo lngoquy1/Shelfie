@@ -22,10 +22,9 @@ public class HibUserService {
 
     public boolean checkUserValid(SessionFactory sf, int userName_id, String password) {
         EntityManager session = sf.createEntityManager();
-        String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
-        Query query = session.createQuery(hql);
         try{
-            List<HibUser> users = query.getResultList();
+            String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
+            List<HibUser> users = session.createQuery(hql).getResultList();
             if (users.size() != 1 ){
                 throw new RuntimeException("Duplicate username");
             }
@@ -45,14 +44,13 @@ public class HibUserService {
 
     public int getUserNameId(SessionFactory sf, String userName) {
         EntityManager session = sf.createEntityManager();
-        System.out.println("line 1");
-//        String hql = "SELECT userName_id FROM userName S WHERE S.userName_name ="+userName;
-        String hql = "SELECT userName_id FROM userName WHERE userName_name = \""+userName+"\"";
-        System.out.println("line 2");
-        System.out.println(hql);
-        Query query = session.createQuery(hql);
-        System.out.println("line 3");
         try {
+            System.out.println("line 1");
+            String hql = "SELECT userName_id FROM userName WHERE userName_name = \""+userName+"\"";
+            System.out.println("line 2");
+            System.out.println(hql);
+            Query query = session.createQuery(hql);
+            System.out.println("line 3");
             List<Integer> userIds = query.getResultList();
             System.out.println("line 4");
             if (userIds.size() != 1){
