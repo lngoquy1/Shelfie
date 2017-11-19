@@ -6,23 +6,34 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal" android:id="@+id/linearLayout2">
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Shelves"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"/>
-
-        <ListView
-                android:id="@+id/list"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
-        </ListView>
     </LinearLayout>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:id="@+id/linearLayout3">
+    </LinearLayout>
+    <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayout2" android:layout_alignParentStart="true">
+    </ListView>
+    <ImageButton
+            android:id="@+id/add_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_black_24dp"
+            android:onClick="showPopup"
+            android:layout_below="@+id/linearLayout3" android:layout_alignParentEnd="true"/>
 </RelativeLayout>

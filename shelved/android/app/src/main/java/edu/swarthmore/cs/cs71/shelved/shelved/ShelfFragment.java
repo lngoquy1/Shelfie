@@ -1,13 +1,18 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import edu.swarthmore.cs.cs71.shelved.model.api.Book;
+import butterknife.ButterKnife;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 import java.util.ArrayList;
@@ -26,6 +31,9 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
             R.mipmap.logo
     };
     private String[] authors = new String[BOOKS_AMOUNT];
+
+    private ListView bookList;
+    private ImageButton addBook;
 
 
     public void initializeBooks(SimpleBook[] books) {
@@ -58,7 +66,21 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         initializeBooks(books);
+        // Sets view to fragment_shelf
+        View view = inflater.inflate(R.layout.fragment_shelf, container, false);
+        ButterKnife.bind(this, view);
 
+        // Sets the ListView item in fragment shelf to our custom list item, bookList
+        bookList = (ListView)view.findViewById(android.R.id.list);
+        SimpleAdapter adapter = adaptBookList();
+        bookList.setAdapter(adapter);
+
+        addBook = (ImageButton)view.findViewById(R.id.add_book);
+
+        return view;
+    }
+
+    private SimpleAdapter adaptBookList() {
         List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 
         for(int i=0;i<books.length;i++){
@@ -76,16 +98,27 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
         int[] to = {R.id.title,R.id.author,R.id.cover};
 
         // Instantiating an adapter to store each items
-        // R.layout.listview_layout defines the layout of each item
-        SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.book_list_item, from, to);
+        // R.layout.book_list_item defines the layout of each item
+        return new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.book_list_item, from, to);
+    }
 
-        setListAdapter(adapter);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        addBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create and show AddBookDialog
+                AddBookDialog alert = new AddBookDialog(getContext());
+                AddBookDialog alert1 = alert.newInstance();
+                alert1.show();
+            }
+        });
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        // Show book info on click
     }
 }
