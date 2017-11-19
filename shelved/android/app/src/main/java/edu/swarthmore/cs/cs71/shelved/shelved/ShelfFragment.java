@@ -31,38 +31,23 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
     public void initializeBooks(SimpleBook[] books) {
 
         // Manual creation of SimpleBook objects - will later populate from database
-        books[0] = new SimpleBook();
-        books[1] = new SimpleBook();
+        for (int j = 0; j < books.length; j++) {
+            books[j] = new SimpleBook();
+        }
 
-        // manually setting book fields for now
+        // Manually setting book fields for now
         books[0].setTitle("Kafka by the Shore");
         books[0].setAuthor("Haruki Murakami");
 
         books[1].setTitle("Harry Potter and the Sorcerer's Stone");
         books[1].setAuthor("J.K. Rowling");
 
+        // Add book fields to separate String arrays to populate the list adapter
         for (int i = 0; i < books.length; i++) {
             titles[i] = books[i].getTitle().getTitle();
             authors[i] = books[i].getAuthor().getAuthorName();
         }
     }
-
-//    String[] titles = new String[] {
-//            "Kafka by the Shore",
-//            "Harry Potter"
-//    };
-//
-//    // Array of integers points to images stored in /res/drawable/
-//    int[] covers = new int[]{
-//            R.mipmap.logo,
-//            R.mipmap.logo
-//    };
-//
-//    // Array of strings to store currencies
-//    String[] authors = new String[]{
-//            "Haruki Murakami",
-//            "J.K. Rowling"
-//    };
 
     public static ShelfFragment newInstance() {
         ShelfFragment fragment = new ShelfFragment();
