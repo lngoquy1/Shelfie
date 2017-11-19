@@ -29,6 +29,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+
+//from https://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     @Bind(R.id.input_name) EditText _nameText;
