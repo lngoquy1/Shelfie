@@ -31,12 +31,6 @@
                 android:layout_above="@+id/navigation"
                 android:animateLayoutChanges="true">
 
-            <!--<fragment-->
-                    <!--android:id="@+id/shelf_fragment"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:name="edu.swarthmore.cs.cs71.shelved.shelved.ShelfFragment"/>-->
-
         </FrameLayout>
         <android.support.design.widget.BottomNavigationView
                 android:id="@+id/navigation"

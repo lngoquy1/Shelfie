@@ -15,6 +15,7 @@ public class SimpleBook implements Book {
     public String header = this.getClass().getSimpleName();
 
     public SimpleBook(){
+
     }
 
 

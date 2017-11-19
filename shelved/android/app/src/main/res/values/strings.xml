@@ -4,4 +4,9 @@
     <string name="welcome">Welcome to Shelved!</string>
     <string name="facebook_app_id">2002834933296400</string>
     <string name="fb_login_protocol_scheme">fb2002834933296400</string>
+    <string name="descr_overflow_button"></string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="account">Account Settings</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
 </resources>

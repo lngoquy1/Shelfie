@@ -22,6 +22,7 @@ public class ServerRouteSignup extends ServerRoute {
                 request.queryParams("password"));
 
         SimpleUser simpleUser = new SimpleUser();
+        simpleUser.setSalt();
         simpleUser.setPassword(newUser.getPassword());
         simpleUser.setUserName(newUser.getName());
 

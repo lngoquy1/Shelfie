@@ -22,8 +22,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 public class  MainActivity extends AppCompatActivity {
-    private LoginButton loginButton;
-    private TextView info;
     private CallbackManager callbackManager;
 
     @Override
@@ -87,20 +85,6 @@ public class  MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
