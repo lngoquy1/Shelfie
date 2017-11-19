@@ -19,6 +19,9 @@ public class HibUserName implements UserName{
     public HibUserName() {
     }
 
+    public int getId() {
+        return id;
+    }
 
     public HibUserName(String userName) {
         this.userName = userName;

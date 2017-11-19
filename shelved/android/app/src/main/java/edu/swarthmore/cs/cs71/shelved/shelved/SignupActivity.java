@@ -93,16 +93,24 @@ public class SignupActivity extends AppCompatActivity {
                 Log.i(TAG, response);
                 hideDialog(progressDialog);
 
+                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                Log.w(TAG, "/n/n/nWE ARE HERE. I REPEAT, WE ARE HERE!!/n/n/n");
+                if (message.isResult()) {
+                    CreateUserResponse createUserResponse = (CreateUserResponse)message;
+                }
+
                 try {
 //                    Type typeOfT = new TypeToken<ResponseMessage>() { }.getType();
-                    ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                    Log.w(TAG, "/n/n/nWE ARE HERE. I REPEAT, WE ARE HERE!!/n/n/n");
-                    if (message.isResult()) {
-                        CreateUserResponse createUserResponse = (CreateUserResponse)message;
-                    }
+
 
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+//
+//                    boolean error = true;
+//                    if (jObj.has("error")){
+//                        error = jObj.getBoolean("error");
+//                    }
+
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("name");
@@ -155,7 +163,7 @@ public class SignupActivity extends AppCompatActivity {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
                         onSignupSuccess();
-                        // onSignupFailed();
+                        //onSignupFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
