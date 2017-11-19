@@ -1,7 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model.spark;
 
 
-import static edu.swarthmore.cs.cs71.shelved.model.spark.JsonUtil.json;
 import static spark.Spark.*;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
@@ -44,7 +43,7 @@ public class ServerExample {
             shelvedBook.setBookMark(59);
             shelvedBook.setForLend(true);
             HibUser user1  = new HibUser();
-            user1.setUserName("Lan");
+            user1.setEmail("Lan");
 
             HibBook book2 = new HibBook();
             book2.setAuthor("JK Rowling");

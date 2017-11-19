@@ -29,7 +29,7 @@
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibAuthor"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibGenre"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibTitle"/>
-        <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibUserName"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibEmail"/>
         <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibUser"/>
     </session-factory>
 </hibernate-configuration>

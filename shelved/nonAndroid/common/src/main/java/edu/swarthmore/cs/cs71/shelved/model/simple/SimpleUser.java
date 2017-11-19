@@ -5,7 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class SimpleUser implements User {
     public String header = this.getClass().getSimpleName();
-    private SimpleUserName userName;
+    private SimpleEmail simpleEmail;
     private String password;
     private String name;
     private String bio;
@@ -29,8 +29,8 @@ public class SimpleUser implements User {
 
 
     @Override
-    public void setUserName(String userName) {
-        this.userName = new SimpleUserName(userName);
+    public void setEmail(String userName) {
+        this.simpleEmail = new SimpleEmail(userName);
     }
 
     public void setSalt() {
@@ -61,8 +61,8 @@ public class SimpleUser implements User {
 
 
     // getters
-    public SimpleUserName getUserName() {
-        return userName;
+    public SimpleEmail getSimpleEmail() {
+        return simpleEmail;
     }
 
     public String getPassword() {

@@ -24,7 +24,7 @@ public class ServerRouteSignup extends ServerRoute {
         SimpleUser simpleUser = new SimpleUser();
         simpleUser.setSalt();
         simpleUser.setPassword(newUser.getPassword());
-        simpleUser.setUserName(newUser.getName());
+        simpleUser.setEmail(newUser.getName());
 
         return new CreateUserResponse(simpleUser);
     }

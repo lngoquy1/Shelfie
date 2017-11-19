@@ -12,7 +12,7 @@ public class MessageBodyTests {
     public void testMessageCreateUser(){
         SimpleUser user = new SimpleUser();
         user.setSalt();
-        user.setUserName("leah");
+        user.setEmail("leah");
         user.setPassword("badpassword");
         user.setName("leah B");
 
@@ -33,7 +33,7 @@ public class MessageBodyTests {
 //        Assert.assertEquals(userFromJSON.getBio(), user.getBio());
 //        Assert.assertEquals(userFromJSON.getLocation(), user.getLocation());
 //        Assert.assertEquals(userFromJSON.getName(), user.getName());
-//        Assert.assertEquals(userFromJSON.getUserName().getUserName(), user.getUserName().getUserName());
+//        Assert.assertEquals(userFromJSON.getEmail().getEmail(), user.getEmail().getEmail());
 
 
 
@@ -43,7 +43,7 @@ public class MessageBodyTests {
 //    public void testReadUserObject() {
 //        SimpleUser user = new SimpleUser();
 //        user.setSalt();
-//        user.setUserName("leah");
+//        user.setEmail("leah");
 //        user.setPassword("badpassword");
 //        user.setName("leah B");
 
@@ -62,7 +62,7 @@ public class MessageBodyTests {
 //        Assert.assertEquals(firstJsonNowUser.getBio(), user.getBio());
 //        Assert.assertEquals(firstJsonNowUser.getLocation(), user.getLocation());
 //        Assert.assertEquals(firstJsonNowUser.getName(), user.getName());
-//        Assert.assertEquals(firstJsonNowUser.getUserName().getUserName(), user.getUserName().getUserName());
+//        Assert.assertEquals(firstJsonNowUser.getEmail().getEmail(), user.getEmail().getEmail());
 
 
 
