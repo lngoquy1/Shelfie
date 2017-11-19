@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,14 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import butterknife.ButterKnife;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class ShelfFragment extends ListFragment implements OnItemClickListener {
+public class ShelfFragment extends ListFragment {
 
     private static final int BOOKS_AMOUNT = 2;
 
@@ -68,12 +70,18 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
         initializeBooks(books);
         // Sets view to fragment_shelf
         View view = inflater.inflate(R.layout.fragment_shelf, container, false);
-        ButterKnife.bind(this, view);
 
         // Sets the ListView item in fragment shelf to our custom list item, bookList
         bookList = (ListView)view.findViewById(android.R.id.list);
         SimpleAdapter adapter = adaptBookList();
         bookList.setAdapter(adapter);
+
+        bookList.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "You click on position: "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         addBook = (ImageButton)view.findViewById(R.id.add_book);
 
@@ -117,8 +125,25 @@ public class ShelfFragment extends ListFragment implements OnItemClickListener {
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        // Show book info on click
+    private AlertDialog.Builder bookInfoDialog () {
+        Context context = getContext();
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Book");
+
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final TextView titleBox = new TextView(context);
+        titleBox.setText("Title");
+        layout.addView(titleBox);
+
+        final TextView authorBox = new TextView(context);
+        authorBox.setText("Author");
+        layout.addView(authorBox);
+
+        alert.setView(layout);
+
+        return alert;
     }
+
 }
