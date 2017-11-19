@@ -26,7 +26,7 @@ public class ServerExample {
         initializeDatabase(sf);
         post("/signup", new ServerRouteSignup(sf), GsonUtils.makeMessageGson()::toJson);
         get("/list", new DisplayTestRoute(sf));
-
+        post("/login", new ServerRouteLogin(sf), GsonUtils.makeMessageGson()::toJson);
     }
 
 

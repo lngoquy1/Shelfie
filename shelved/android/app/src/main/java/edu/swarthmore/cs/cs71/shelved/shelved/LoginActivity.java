@@ -24,12 +24,16 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    private static final String URL_FOR_LOGIN = "http://localhost:4567/login";
+//    private static final String URL_FOR_LOGIN = "http://localhost:4567/login";
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
     @Bind(R.id.logo) ImageView _logo;
+
+    private String getLoginUrl() {
+        return "http://"+getString((R.string.server_url))+":4567/login";
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                URL_FOR_LOGIN, new Response.Listener<String>() {
+                getLoginUrl(), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

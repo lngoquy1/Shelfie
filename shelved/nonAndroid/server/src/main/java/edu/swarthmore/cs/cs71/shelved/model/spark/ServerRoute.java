@@ -24,8 +24,11 @@ public abstract class ServerRoute implements Route{
         session.getTransaction().begin();
         try {
             // Do stuffs
+            System.out.println("Start execution");
             ResponseMessage o = execute(request, response);
+            System.out.println("End execution");
             session.getTransaction().commit();
+            System.out.println("Finish transaction");
             return o;
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -36,6 +39,10 @@ public abstract class ServerRoute implements Route{
                 session.close();
             }
         }
+    }
+
+    public SessionFactory getSf() {
+        return sf;
     }
 }
 
