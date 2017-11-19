@@ -1,12 +1,12 @@
 package edu.swarthmore.cs.cs71.shelved.network;
 
-public class LoginUserResponse extends ResponseMessage {
+public class ValidLoginUserResponse extends ResponseMessage {
     private int id;
-    public LoginUserResponse() {
+    public ValidLoginUserResponse() {
         super(true);
     }
 
-    public LoginUserResponse( int id) {
+    public ValidLoginUserResponse(int id) {
         super(true);
         this.id = id;
     }

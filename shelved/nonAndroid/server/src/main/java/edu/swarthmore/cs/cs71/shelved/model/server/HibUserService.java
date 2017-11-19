@@ -13,29 +13,40 @@ public class HibUserService {
     public HibUser createUser(String userName, String name, String password){
         HibUser newUser = new HibUser();
         newUser.setSalt();
-        newUser.setUserName(userName);
+        newUser.setEmail(userName);
         newUser.setName(name);
         newUser.setPassword(password);
         PersistenceUtils.ENTITY_MANAGER.get().persist(newUser);
         return newUser;
     }
 
-    public boolean checkUserValid(SessionFactory sf, int userName_id, String password) {
+    public int checkUserValid(SessionFactory sf, String userName, String password) {
+        //returns -1 if no username found
+        //returns -2 if incorrect password
+        //returns -3 if ArrayStoreException: i.e. createQuery created a list
+                    //of a different type than we were expecting
         EntityManager session = sf.createEntityManager();
-        String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
-        Query query = session.createQuery(hql);
-        try{
-            List<HibUser> users = query.getResultList();
-            if (users.size() != 1 ){
-                throw new RuntimeException("Duplicate username");
+        try {
+//            String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
+            List<HibUser> users = session.createQuery("FROM HibUser").getResultList();
+            for (HibUser hibuser:users){
+                System.out.println("line LOOP");
+                if (userName.equals(hibuser.getEmail())){
+                    System.out.println("line 4");
+                    String salt = hibuser.getSalt();
+                    String hashedPassword = hibuser.getPassword();
+                    String checkingPassword = BCrypt.hashpw(password, salt);
+                    if (hashedPassword.equals(checkingPassword)){
+                        return hibuser.getId();
+                    } else {
+                        return -2;
+                    }
+                }
             }
-            String salt = users.get(0).getSalt();
-            String hashedPassword = users.get(0).getPassword();
-            String checkingPassword = BCrypt.hashpw(password, salt);
-            return (hashedPassword.equals(checkingPassword));
+            return -1;
         } catch (ArrayStoreException e) {
             System.out.println(e.toString());
-            return false;
+            return -3;
         } finally {
             if (session.isOpen()){
                 session.close();
@@ -45,22 +56,22 @@ public class HibUserService {
 
     public int getUserNameId(SessionFactory sf, String userName) {
         EntityManager session = sf.createEntityManager();
-        System.out.println("line 1");
-//        String hql = "SELECT userName_id FROM userName S WHERE S.userName_name ="+userName;
-        String hql = "SELECT userName_id FROM userName WHERE userName_name = \""+userName+"\"";
-        System.out.println("line 2");
-        System.out.println(hql);
-        Query query = session.createQuery(hql);
-        System.out.println("line 3");
         try {
-            List<Integer> userIds = query.getResultList();
-            System.out.println("line 4");
-            if (userIds.size() != 1){
-                System.out.println("line 5");
-                throw new RuntimeException("Duplicate username_id");
+//            String hql = "SELECT userName_id FROM userName WHERE userName_name = \""+userName+"\"";
+            System.out.println("line 1");
+            Query query = session.createQuery("FROM HibUserName");
+            System.out.println("line 2");
+            List<HibEmail> usernames = query.getResultList();
+            System.out.println("line 3");
+            for (HibEmail hibusername:usernames){
+                System.out.println("line LOOP");
+                if (userName.equals(hibusername.getEmail())){
+                    System.out.println("line 4");
+                    return hibusername.getId();
+                }
             }
-            System.out.println("line 6");
-            return userIds.get(0);
+            System.out.println("line 5");
+            throw new RuntimeException("No username found");
         } catch (ArrayStoreException e){
             System.out.println(e.toString());
             return -1;

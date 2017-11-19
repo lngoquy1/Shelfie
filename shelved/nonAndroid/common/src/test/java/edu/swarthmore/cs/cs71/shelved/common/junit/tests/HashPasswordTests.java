@@ -12,7 +12,7 @@ public class HashPasswordTests {
     public void testPasswordHash() {
         SimpleUser user = new SimpleUser();
         user.setSalt();
-        user.setUserName("leah");
+        user.setEmail("leah");
         user.setPassword("badpassword");
         String salt = user.getSalt();
         String password = user.getPassword();
@@ -33,7 +33,7 @@ public class HashPasswordTests {
     public void testChangePassword() {
         SimpleUser user = new SimpleUser();
         user.setSalt();
-        user.setUserName("leah");
+        user.setEmail("leah");
         user.setPassword("badpassword");
         String salt = user.getSalt();
         String password = user.getPassword();

@@ -13,9 +13,9 @@ public class HibUser implements User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = HibUserName.class)
-    @JoinColumn(name = "shelvedUser_username")
-    private HibUserName userName;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = HibEmail.class)
+    @JoinColumn(name = "shelvedUser_email")
+    private HibEmail email;
 
     @Column(name="password")
     private String password;
@@ -33,11 +33,12 @@ public class HibUser implements User {
     private String salt;
 
     public HibUser() {
+//        this.salt = BCrypt.gensalt();
     }
 
     @Override
-    public void setUserName(String userName) {
-        this.userName = new HibUserName(userName);
+    public void setEmail(String email) {
+        this.email = new HibEmail(email);
     }
 
     @Override
@@ -76,8 +77,12 @@ public class HibUser implements User {
     }
 
 
-    public HibUserName getUsername() {
-        return this.userName;
+    public int getId() {
+        return id;
+    }
+
+    public HibEmail getEmail() {
+        return this.email;
     }
 
     @Override
