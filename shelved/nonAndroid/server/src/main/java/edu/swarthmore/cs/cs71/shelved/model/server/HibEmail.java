@@ -30,6 +30,6 @@ public class HibEmail implements Email {
 
     @Override
     public String getEmail() {
-        return null;
+        return this.email;
     }
 }

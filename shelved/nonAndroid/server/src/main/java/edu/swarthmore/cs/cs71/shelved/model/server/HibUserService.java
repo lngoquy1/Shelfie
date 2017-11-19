@@ -31,7 +31,8 @@ public class HibUserService {
             List<HibUser> users = session.createQuery("FROM HibUser").getResultList();
             for (HibUser hibuser:users){
                 System.out.println("line LOOP");
-                if (userName.equals(hibuser.getEmail())){
+                System.out.println("email: " + hibuser.getEmail().getEmail());
+                if (userName.equals(hibuser.getEmail().getEmail())){
                     System.out.println("line 4");
                     String salt = hibuser.getSalt();
                     String hashedPassword = hibuser.getPassword();
