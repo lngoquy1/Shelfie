@@ -83,10 +83,6 @@ public class HibBook implements Book {
         return this.id;
     }
 
-    public String getName() {
-        return "book";
-    }
-
     @Override
     public int getPages() {
         return this.pages;
