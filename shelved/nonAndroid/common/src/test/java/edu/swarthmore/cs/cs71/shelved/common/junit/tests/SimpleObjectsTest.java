@@ -112,4 +112,3 @@ public class SimpleObjectsTest {
 
 
 }
->>>>>>> dcd911a9875897e3639492aa9a19fbe0ef79734c
