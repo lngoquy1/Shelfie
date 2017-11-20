@@ -164,3 +164,34 @@ Created list view of book objects that appears when a user taps the Shelf icon i
 
 ### 2017-11-19
 Added an add book button on the shelf page that popups a dialog to manually input a book by entering a Title and Author.
+
+### Created as of 2017-11-19
+- ServerRouteAddBook
+- HibBookService
+- BookAddedResponse
+- SimpleObjectsTest
+- GsonUtils
+- CreateUserResponse
+- FailureResponse
+- InvalidLoginUserResponse
+- ResponseMessage
+- ValidLoginUserResponse
+- HibUserService 
+- HibBookShelf
+- HibAllShelves
+- DisplayTestRoute
+- ExtendedStringBuilder
+- HibTest
+- JsonUtil
+- PersistenceUtils
+- Server
+- ServerExample
+- ServerRoute
+- ServerRouteLogin
+- ServerRouteSearchBook
+- ServerRouteSignup
+
+
+## Deleted as of 2017-11-19
+- Deleted SimpleMessageBody
+- Deleted Server class and renamed working ExampleServer.java to Server.java
