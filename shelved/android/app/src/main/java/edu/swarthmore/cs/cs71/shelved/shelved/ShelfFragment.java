@@ -15,6 +15,8 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import butterknife.ButterKnife;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ShelfFragment extends ListFragment {
 
     private ListView bookList;
     private ImageButton addBook;
+
+    // In order to populate the individual book view
+    private String book;
 
 
     public void initializeBooks(SimpleBook[] books) {
@@ -119,6 +124,7 @@ public class ShelfFragment extends ListFragment {
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                book = adapterView.getItemAtPosition(position).toString(); // String object of cover, title, and author values for book object
                 AlertDialog.Builder alert = bookInfoDialog();
                 alert.show();
             }
@@ -133,13 +139,14 @@ public class ShelfFragment extends ListFragment {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
+
         final TextView titleBox = new TextView(context);
-        titleBox.setText("Title");
+        titleBox.setText(book);
         layout.addView(titleBox);
 
-        final TextView authorBox = new TextView(context);
-        authorBox.setText("Author");
-        layout.addView(authorBox);
+//        final TextView authorBox = new TextView(context);
+//        authorBox.setText("author");
+//        layout.addView(authorBox);
 
         alert.setView(layout);
 
