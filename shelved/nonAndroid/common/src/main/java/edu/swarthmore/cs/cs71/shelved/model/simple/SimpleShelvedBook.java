@@ -8,7 +8,7 @@ public class SimpleShelvedBook implements ShelvedBook {
     private int bookMark;
     private boolean forSale;
     private boolean forLend;
-    private Book book;
+    private SimpleBook book;
     public String header = this.getClass().getSimpleName();
 
     public SimpleShelvedBook() {
@@ -45,7 +45,7 @@ public class SimpleShelvedBook implements ShelvedBook {
         this.bookMark = page;
     }
 
-    public Book getBook() {
+    public SimpleBook getBook() {
         return this.book;
     }
 }
