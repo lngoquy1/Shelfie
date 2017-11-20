@@ -47,7 +47,9 @@ public class GoodreadsTests {
     }
     @Test
     public void testScrapeLink() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        //this tests that "Harry Potter and the Sorcerer's Stone" returns all **possible** book isbns (some goodreads sources don't list the isbns easily)
         Goodreads goodreads = new Goodreads();
+        List<String> listOfISBNs = goodreads.getISBNFromQuery("Harry Potter and the Sorcerer's Stone");
         List<String> customListOfISBNs = new ArrayList<>();
         customListOfISBNs.add("9780439554930");
         customListOfISBNs.add("2940000829790");
@@ -62,7 +64,6 @@ public class GoodreadsTests {
         customListOfISBNs.add("2940012085788");
         customListOfISBNs.add("9781602491793");
         customListOfISBNs.add("9781934840573");
-        List<String> listOfISBNs = goodreads.getISBNFromQuery("Harry Potter and the Sorcerer's Stone");
         Assert.assertEquals(listOfISBNs, customListOfISBNs);
     }
 

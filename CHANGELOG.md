@@ -138,7 +138,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - content_shelved_login_5.xml
 
 ### Deleted on 2017-11-5
-- HibUtil 
+- HibUtil
 
 ### General status update as of 2017-11-5
 Database is fully working. Server tries to send representation of database to webpage, but has issues (error code 100 - coming to office hours).
@@ -157,15 +157,15 @@ when their API was being belligerent. We also used JBCrypt hashing password API 
 - Created SimpleMessageBody, which converts an object to a json. The first field of this json is a header which stores the name of the class for reference by the server
 
 ### Status update 2017-11-12
-Successfully linked LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login (Facebook or Shelved) will bring the user to the Main page. 
+Successfully linked LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login (Facebook or Shelved) will bring the user to the Main page.
 
 ### 2017-11-18
-Created list view of book objects that appears when a user taps the Shelf icon in the bottom navigation bar. The items have a Title and Author text field. Working UI layout of the Profile page with name, bio, picture, and settings. 
+Created list view of book objects that appears when a user taps the Shelf icon in the bottom navigation bar. The items have a Title and Author text field. Working UI layout of the Profile page with name, bio, picture, and settings.
 
 ### 2017-11-19
 Added an add book button on the shelf page that popups a dialog to manually input a book by entering a Title and Author.
 
-### Created as of 2017-11-19
+### Created (default) or heavily modified (noted) as of 2017-11-19
 - ServerRouteAddBook
 - HibBookService
 - BookAddedResponse
@@ -176,7 +176,7 @@ Added an add book button on the shelf page that popups a dialog to manually inpu
 - InvalidLoginUserResponse
 - ResponseMessage
 - ValidLoginUserResponse
-- HibUserService 
+- HibUserService
 - HibBookShelf
 - HibAllShelves
 - DisplayTestRoute
@@ -190,6 +190,8 @@ Added an add book button on the shelf page that popups a dialog to manually inpu
 - ServerRouteLogin
 - ServerRouteSearchBook
 - ServerRouteSignup
+- Goodreads, heavily modified
+In general, these classes describe how the server interacts with hibernate/mysql and gives information back to the model. We have also created new tests (SimpleObjectsTest) and heavily modified the goodreads class (it was refactored, and methods were added)
 
 
 ## Deleted as of 2017-11-19
