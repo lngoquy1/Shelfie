@@ -8,17 +8,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SimpleBookShelf implements BookShelf {
-    private ArrayList<SimpleRowShelf> allRows;
+    private List<SimpleRowShelf> allRows = new ArrayList<>();
 
     public SimpleBookShelf() {
     }
-    @Override
-    public void configureBookShelf(int numRows){
-        this.allRows = new ArrayList<>();
-        for (int i=0;i<numRows;i++){
-            this.allRows.add(new SimpleRowShelf());
-        }
-    }
+
+//    public void configureBookShelf(int numRows){
+//        this.allRows = new ArrayList<>();
+//        for (int i=0;i<numRows;i++){
+//            this.allRows.add(new SimpleRowShelf());
+//        }
+//    }
 
     public List<SimpleRowShelf> getAllRows() {
         return this.allRows;

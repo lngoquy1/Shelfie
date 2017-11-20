@@ -6,7 +6,7 @@ public interface BookShelf {
 //    List<RowShelf> getAllRows();
 
     int getNumRows();
-    void configureBookShelf(int numRows);
+//    void configureBookShelf(int numRows);
 //    void addRowShelf(int index, RowShelf rowShelf);
 //    void removeRowShelf(RowShelf rowShelf);
 }
