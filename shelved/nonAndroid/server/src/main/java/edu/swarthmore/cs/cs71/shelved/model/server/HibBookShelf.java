@@ -17,7 +17,7 @@ public class HibBookShelf implements BookShelf{
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookShelf")
-    private ArrayList<HibRowShelf> allRows;
+    private ArrayList<HibRowShelf> allRows = new ArrayList<>();
 
     public HibBookShelf() {
     }
