@@ -43,8 +43,10 @@ public class ServerExample {
             shelvedBook.setBookMark(59);
             shelvedBook.setForLend(true);
             HibUser user1  = new HibUser();
-            user1.setEmail("Lan");
-
+            user1.setEmail("lan@swat.edu");
+            user1.setName("Lan");
+            user1.setSalt();
+            user1.setPassword("aaaa123");
             HibBook book2 = new HibBook();
             book2.setAuthor("JK Rowling");
             book2.setGenre("Fiction");

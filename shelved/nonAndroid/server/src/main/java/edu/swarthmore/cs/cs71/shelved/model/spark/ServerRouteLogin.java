@@ -18,9 +18,7 @@ public class ServerRouteLogin extends ServerRoute{
     protected ResponseMessage execute(Request request, Response response) {
 
         HibUserService service = new HibUserService();
-//        System.out.println("getting user id");
-//        int id = service.getUserNameId(getSf(),request.queryParams("email"));
-//        System.out.println("got user id");
+
         int result = service.checkUserValid(getSf(),
                 request.queryParams("email"),
                 request.queryParams("password")
@@ -30,6 +28,6 @@ public class ServerRouteLogin extends ServerRoute{
             System.out.println("-1 if no username found. -2 if incorrect password. -3 if ArrayStoreException. We returned: "+String.valueOf(result));
             return new InvalidLoginUserResponse("Invalid user login");
         }
-        return new ValidLoginUserResponse();
+        return new ValidLoginUserResponse(result);
     }
 }
