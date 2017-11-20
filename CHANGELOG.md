@@ -159,3 +159,8 @@ when their API was being belligerent. We also used JBCrypt hashing password API 
 ### Status update 2017-11-12
 Successfully linked LoginActivity to MainActivity. Login page is the first to appear upon opening the app, and a successful login (Facebook or Shelved) will bring the user to the Main page. 
 
+### 2017-11-18
+Created list view of book objects that appears when a user taps the Shelf icon in the bottom navigation bar. The items have a Title and Author text field. Working UI layout of the Profile page with name, bio, picture, and settings. 
+
+### 2017-11-19
+Added an add book button on the shelf page that popups a dialog to manually input a book by entering a Title and Author.
