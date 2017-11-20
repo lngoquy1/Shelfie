@@ -30,7 +30,6 @@ public class HibUserService {
 //            String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
             List<HibUser> users = session.createQuery("FROM HibUser").getResultList();
             for (HibUser hibuser:users){
-                System.out.println("line LOOP");
                 System.out.println("email: " + hibuser.getEmail().getEmail());
                 if (userName.equals(hibuser.getEmail().getEmail())){
                     System.out.println("line 4");

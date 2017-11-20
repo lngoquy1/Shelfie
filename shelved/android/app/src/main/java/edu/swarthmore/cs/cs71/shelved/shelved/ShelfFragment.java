@@ -76,13 +76,6 @@ public class ShelfFragment extends ListFragment {
         SimpleAdapter adapter = adaptBookList();
         bookList.setAdapter(adapter);
 
-        bookList.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "You click on position: "+position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         addBook = (ImageButton)view.findViewById(R.id.add_book);
 
         return view;
@@ -100,10 +93,10 @@ public class ShelfFragment extends ListFragment {
         }
 
         // Keys used in Hashmap
-        String[] from = { "title","author","cover" };
+        String[] from = {"title","author","cover"};
 
         // Ids of views in listview_layout
-        int[] to = {R.id.title,R.id.author,R.id.cover};
+        int[] to = {R.id.title_book, R.id.author_book, R.id.cover};
 
         // Instantiating an adapter to store each items
         // R.layout.book_list_item defines the layout of each item
@@ -121,6 +114,13 @@ public class ShelfFragment extends ListFragment {
                 AddBookDialog alert = new AddBookDialog(getContext());
                 AddBookDialog alert1 = alert.newInstance();
                 alert1.show();
+            }
+        });
+        bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                AlertDialog.Builder alert = bookInfoDialog();
+                alert.show();
             }
         });
     }

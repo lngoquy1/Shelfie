@@ -45,5 +45,26 @@ public class GoodreadsTests {
         actualList.add("Heir Apparent (Rasmussem Corporation, #2)");
         Assert.assertEquals(listOfRecs, actualList);
     }
+    @Test
+    public void testScrapeLink() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        //this tests that "Harry Potter and the Sorcerer's Stone" returns all **possible** book isbns (some goodreads sources don't list the isbns easily)
+        Goodreads goodreads = new Goodreads();
+        List<String> listOfISBNs = goodreads.getISBNFromQuery("Harry Potter and the Sorcerer's Stone");
+        List<String> customListOfISBNs = new ArrayList<>();
+        customListOfISBNs.add("9780439554930");
+        customListOfISBNs.add("2940000829790");
+        customListOfISBNs.add("B005E0QXGG");
+        customListOfISBNs.add("9780439211161");
+        customListOfISBNs.add("9781548602642");
+        customListOfISBNs.add("9780439294829");
+        customListOfISBNs.add("9785550118191");
+        customListOfISBNs.add("2940000052372");
+        customListOfISBNs.add("9780757991714");
+        customListOfISBNs.add("9780887246586");
+        customListOfISBNs.add("2940012085788");
+        customListOfISBNs.add("9781602491793");
+        customListOfISBNs.add("9781934840573");
+        Assert.assertEquals(listOfISBNs, customListOfISBNs);
+    }
 
 }

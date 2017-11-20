@@ -22,7 +22,6 @@ allprojects {
         targetCompatibility = "1.7"
     }
 
-
 }
 
 task clean(type: Delete) {

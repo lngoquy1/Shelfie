@@ -27,7 +27,9 @@ public class ServerRouteLogin extends ServerRoute{
         if (result < 0){
             System.out.println("-1 if no username found. -2 if incorrect password. -3 if ArrayStoreException. We returned: "+String.valueOf(result));
             return new InvalidLoginUserResponse("Invalid user login");
+        } else {
+            return new ValidLoginUserResponse(result);
         }
-        return new ValidLoginUserResponse(result);
+
     }
 }
