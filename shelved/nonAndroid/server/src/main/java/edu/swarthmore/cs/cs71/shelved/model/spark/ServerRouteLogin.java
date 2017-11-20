@@ -18,9 +18,7 @@ public class ServerRouteLogin extends ServerRoute{
     protected ResponseMessage execute(Request request, Response response) {
 
         HibUserService service = new HibUserService();
-//        System.out.println("getting user id");
-//        int id = service.getUserNameId(getSf(),request.queryParams("email"));
-//        System.out.println("got user id");
+
         int result = service.checkUserValid(getSf(),
                 request.queryParams("email"),
                 request.queryParams("password")
@@ -32,5 +30,6 @@ public class ServerRouteLogin extends ServerRoute{
         } else {
             return new ValidLoginUserResponse(result);
         }
+
     }
 }
