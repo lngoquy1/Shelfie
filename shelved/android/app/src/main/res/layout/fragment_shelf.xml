@@ -21,14 +21,16 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" android:id="@+id/linearLayout3">
+            android:orientation="vertical" android:id="@+id/linearLayout3"
+            android:descendantFocusability="blocksDescendants">
     </LinearLayout>
     <ListView
             android:id="@android:id/list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@+id/linearLayout2"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:clickable="false">
     </ListView>
     <ImageButton
             android:id="@+id/add_book"
