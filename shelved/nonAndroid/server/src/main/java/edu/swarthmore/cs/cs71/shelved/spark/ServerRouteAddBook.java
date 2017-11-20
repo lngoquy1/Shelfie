@@ -1,12 +1,9 @@
-package edu.swarthmore.cs.cs71.shelved.model.spark;
+package edu.swarthmore.cs.cs71.shelved.spark;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibAuthor;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBookService;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibUserService;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleGenre;
 import edu.swarthmore.cs.cs71.shelved.network.BookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import org.hibernate.SessionFactory;

@@ -1,7 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model.server;
 
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
-import edu.swarthmore.cs.cs71.shelved.model.spark.PersistenceUtils;
+import edu.swarthmore.cs.cs71.shelved.spark.PersistenceUtils;
 
 public class HibBookService {
     public HibBook createBook(String author, String title, String genre, int pages, String publisher){

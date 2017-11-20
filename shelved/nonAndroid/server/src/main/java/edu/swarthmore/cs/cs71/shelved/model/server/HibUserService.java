@@ -1,7 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model.server;
 
 
-import edu.swarthmore.cs.cs71.shelved.model.spark.PersistenceUtils;
+import edu.swarthmore.cs.cs71.shelved.spark.PersistenceUtils;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
 

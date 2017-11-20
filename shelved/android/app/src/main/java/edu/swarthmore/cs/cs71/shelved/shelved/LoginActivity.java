@@ -75,36 +75,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         String cancel_req_tag = "login";
-        Log.d(TAG, "Login");
-        Log.d(TAG, "line 1");
         if (!validate()) {
             onLoginFailed();
-            Log.d(TAG, "line 2");
             return;
         }
-        Log.d(TAG, "line 3");
 
         _loginButton.setEnabled(false);
-        Log.d(TAG, "line 4");
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
-        Log.d(TAG, "line 5");
         progressDialog.setIndeterminate(true);
-        Log.d(TAG, "line 6");
         progressDialog.setMessage("Authenticating...");
-        Log.d(TAG, "line 7");
         progressDialog.show();
-        Log.d(TAG, "line 8");
         final String email = _emailText.getText().toString();
         final String password = _passwordText.getText().toString();
-        Log.d(TAG, "line 9");
+
 
         // TODO: Implement your own authentication logic here.
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 getLoginUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "line 10");
                 Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog(progressDialog);
                 try {
@@ -114,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (!error) {
 
-                        String user = jObj.getString("id");
+                        String userId = jObj.getString("id");
                         //TODO: MainActivity here needs to be changed into UserActivity
                         // Launch User activity
                         Intent intent = new Intent(
@@ -122,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                 MainActivity.class);
 
 
-                        intent.putExtra("username", user);
+                        intent.putExtra("userId", userId);
                         startActivity(intent);
                         finish();
                     } else {
