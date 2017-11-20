@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +40,76 @@ public class Goodreads {
         return content.toString();
     }
 
-    //    public String searchForBook() throws IOException {
-    //        URL url = new URL("https://www.goodreads.com/search/index.xml/"+this.isbn+"?key="+GOODREADS_KEY);
-    //        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    //        connection.setRequestMethod("GET");
-    //        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-    //        String inputLine;
-    //        StringBuffer content = new StringBuffer();
-    //        while ((inputLine = in.readLine()) != null) {
-    //            content.append(inputLine);
-    //        }
-    //        in.close();
-    //        return content.toString();
-    //    }
+    private List getAllPossibleBookURLs(String query) throws IOException {
+        URL url = new URL("https://www.goodreads.com/search?q="+query.replace(" ","+"));
+        String html = getHTML(url);
+        List<Integer> begIndexList = getIndexBegList(html,"<a title=");
+        List<Integer> extraEndIndexList = getIndecesEndList(html, "<img alt=\"");
+        List<Integer> endIndexList = new ArrayList<>();
+
+        for (Integer index:extraEndIndexList) {
+            String substr = html.substring(index+("<img alt=").length());
+            substr = substr.substring(1,("saving".length()+1));
+            if (!substr.equals("saving")){
+                endIndexList.add(index);
+            }
+        }
+        List<String> suggWebLinkList = new ArrayList<>();
+        for (int i=0;i<begIndexList.size();i++){
+            String longHTMLParse = html.substring(begIndexList.get(i), endIndexList.get(i));
+            int index = longHTMLParse.indexOf("href=\"");
+            String suggWebLink = "https://www.goodreads.com" + longHTMLParse.substring(index+("href=\"").length(),longHTMLParse.length()-12);
+            suggWebLinkList.add(suggWebLink);
+        }
+        return suggWebLinkList;
+
+    }
+    public List getISBNFromQuery(String query) throws IOException {
+        List<String> urlList = getAllPossibleBookURLs(query);
+        List<String> isbnList = new ArrayList<>();
+        for (String url:urlList){
+            String isbn = getISBN(url);
+            if (isbn.length()>0){
+                isbnList.add(isbn);
+            }
+        }
+        return isbnList;
+    }
+
+    private String getISBN(String strUrl) throws IOException {
+        String html = getHTML(new URL(strUrl));
+        String initialSearch = "<span itemprop='isbn'>";
+        String finalSearch = "</span>)</span>";
+        int begIndex = getIndexBegInt(html,initialSearch);
+        int endIndex = getIndexEndInt(html,finalSearch);
+        String longHTMLParse;
+        if (begIndex != 0 && endIndex != 0) {
+            initialSearch = "<span itemprop='isbn'>";
+            begIndex = getIndexBegInt(html, initialSearch);
+            longHTMLParse = html.substring(begIndex, endIndex);
+        } else {
+            initialSearch = "itemprop='isbn'>";
+            begIndex = getIndexBegInt(html,initialSearch);
+            longHTMLParse = html.substring(begIndex, begIndex+13);
+        }
+        if (longHTMLParse.contains("<")){
+            longHTMLParse = longHTMLParse.substring(0,longHTMLParse.indexOf("<"));
+        }
+        return longHTMLParse;
+    }
+
+    private String getHTML(URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        return content.toString();
+    }
 
     public String getWorkId(String isbn) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         Goodreads goodreads = new Goodreads();
@@ -104,8 +162,8 @@ public class Goodreads {
         }
         in.close();
         String html = content.toString();
-        int begIndexList = getTitleFirst(html);
-        int endIndexList = getTitleLast(html);
+        int begIndexList = getIndexBegInt(html, "<title>");
+        int endIndexList = getIndexEndInt(html,"</title>");
         String title = html.substring(begIndexList, endIndexList);
         return title;
 
@@ -124,8 +182,8 @@ public class Goodreads {
         }
         in.close();
         String html = content.toString();
-        List<Integer> begIndexList = getIndecesOfTitlesBeg(html);
-        List<Integer> endIndexList = getIndecesOfTitlesEnd(html);
+        List<Integer> begIndexList = getIndexBegList(html,"'name'>");
+        List<Integer> endIndexList = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
         List<String> titleList = new ArrayList<>();
         for (int i=1;i<begIndexList.size();i++){
             String title = html.substring(begIndexList.get(i), endIndexList.get(i));
@@ -134,22 +192,22 @@ public class Goodreads {
         return titleList;
     }
 
-    private int getTitleFirst(String html) {
+    private int getIndexBegInt(String html, String toSearch) {
+//        "<title>"
         int i=1;
         while (i<html.length() && i>=1) {
-            int index = html.indexOf("<title>", i);
+            int index = html.indexOf(toSearch, i);
             if (index != -1){
-                return index+7;
+                return index+toSearch.length();
             }
             i=index+1;
         }
         return 0;
     }
-
-    private int getTitleLast(String html) {
+    private int getIndexEndInt(String html, String toSearch) {
         int i=1;
         while (i<html.length() && i>=1) {
-            int index = html.indexOf("</title>", i);
+            int index = html.indexOf(toSearch, i);
             if (index != -1){
                 return index;
             }
@@ -158,25 +216,26 @@ public class Goodreads {
         return 0;
     }
 
-
-    private List getIndecesOfTitlesBeg(String html) {
-        List<Integer> indexList= new ArrayList<>();
-        int i=1;
-        while (i<html.length() && i>=1) {
-            int index = html.indexOf("'name'>", i);
-            if (index != -1){
-                indexList.add(index+7);
+    private List getIndexBegList(String html, String toSearch) {
+        List<Integer> indexList = new ArrayList<>();
+        int i = 1;
+        while (i < html.length() && i >= 1) {
+            int index = html.indexOf(toSearch, i);
+            if (index != -1) {
+                indexList.add(index + toSearch.length());
             }
-            i=index+1;
+            i = index + 1;
         }
-
         return indexList;
     }
-    private List getIndecesOfTitlesEnd(String html) {
+
+
+
+    private List getIndecesEndList(String html, String toSearch) {
         List<Integer> indexList = new ArrayList<>();
         int i=1;
         while (i<html.length() && i>=1) {
-            int index = html.indexOf("</span></a>      <br/>        <span class=\'by smallText\'>", i);
+            int index = html.indexOf(toSearch, i);
             if (index != -1){
                 indexList.add(index);
             }

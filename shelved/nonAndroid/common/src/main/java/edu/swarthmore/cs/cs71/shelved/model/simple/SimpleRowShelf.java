@@ -4,36 +4,35 @@ import edu.swarthmore.cs.cs71.shelved.model.api.RowShelf;
 import edu.swarthmore.cs.cs71.shelved.model.api.ShelvedBook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class SimpleRowShelf implements RowShelf {
-    private ArrayList<SimpleShelvedBook> rowList = new ArrayList<SimpleShelvedBook>();
-    public String header = this.getClass().getSimpleName();
+    private HashMap<SimpleShelvedBook, Integer> rowList = new HashMap<>();
 
     public SimpleRowShelf() {
     }
 
+
     public void addBook(SimpleShelvedBook shelvedBook, int position) {
-        this.rowList.add(position, shelvedBook);
+        this.rowList.put(shelvedBook, position);
     }
 
-    public void removeBook(int position) {
-        this.rowList.remove(position);
+    public void removeBook(SimpleShelvedBook book) {
+        this.rowList.remove(book);
     }
 
-    public SimpleShelvedBook getBook(int position) {
-        return rowList.get(position);
+    public int getBook(SimpleShelvedBook book) {
+        return rowList.get(book);
     }
 
-    // TODO: get position of book given book?
 
-    public void resetPosition(int oldPosition, int newPosition) {
-        SimpleShelvedBook shelvedBook = getBook(oldPosition);
-        removeBook(oldPosition);
-        addBook(shelvedBook, newPosition);
+    public void resetPosition(SimpleShelvedBook book, int newPosition) {
+       this.rowList.put(book, newPosition);
     }
 
-    public List<SimpleShelvedBook> getAllBooks() {
-        return this.rowList;
+    public Set<SimpleShelvedBook> getAllBooks() {
+        return this.rowList.keySet();
     }
 }

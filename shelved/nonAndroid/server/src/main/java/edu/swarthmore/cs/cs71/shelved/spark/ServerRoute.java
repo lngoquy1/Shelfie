@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model.spark;
+package edu.swarthmore.cs.cs71.shelved.spark;
 
 import edu.swarthmore.cs.cs71.shelved.network.FailureResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;

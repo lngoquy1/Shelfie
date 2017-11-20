@@ -1,11 +1,9 @@
-package edu.swarthmore.cs.cs71.shelved.model.spark;
+package edu.swarthmore.cs.cs71.shelved.spark;
 
 
 import static spark.Spark.*;
 
-import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibShelvedBook;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
+import edu.swarthmore.cs.cs71.shelved.model.server.*;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -54,11 +52,17 @@ public class ServerExample {
             book2.setPages(300);
             book2.setPublisher("Bloomsbury");
 
+            HibBookShelf bookShelf = new HibBookShelf();
+            bookShelf.configureBookShelf(5);
+            bookShelf.getRowShelf(1).addBook(shelvedBook, 1);
+
             session.getTransaction().begin();
             session.persist(book);
             session.persist(book2);
             session.persist(shelvedBook);
             session.persist(user1);
+            session.persist(bookShelf);
+
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
