@@ -16,7 +16,7 @@ public class HibBookShelf implements BookShelf{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade=CascadeType.ALL, targetEntity=HibRowShelf.class, mappedBy = "rowShelf")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HibRowShelf> allRows = new ArrayList<>();
 
     public HibBookShelf() {

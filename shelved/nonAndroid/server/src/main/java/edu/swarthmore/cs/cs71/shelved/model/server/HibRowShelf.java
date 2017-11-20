@@ -13,7 +13,7 @@ public class HibRowShelf implements RowShelf {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HibShelvedBook> rowList = new ArrayList<>();
 
     public HibRowShelf() {
