@@ -92,30 +92,21 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response);
-                Log.i(TAG, response);
                 hideDialog(progressDialog);
 
                 ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                Log.w(TAG, "/n/n/nWE ARE HERE. I REPEAT, WE ARE HERE!!/n/n/n");
                 if (message.isResult()) {
                     CreateUserResponse createUserResponse = (CreateUserResponse)message;
                 }
 
                 try {
-//                    Type typeOfT = new TypeToken<ResponseMessage>() { }.getType();
-
-
+                    Log.d(TAG, response);
                     JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-//
-//                    boolean error = true;
-//                    if (jObj.has("error")){
-//                        error = jObj.getBoolean("error");
-//                    }
+                    boolean error = !jObj.getBoolean("result");
 
 
                     if (!error) {
-                        String user = jObj.getJSONObject("user").getString("name");
+                        String user = jObj.getJSONObject("user").getJSONObject("simpleEmail").getString("userName");
                         Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
@@ -132,7 +123,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    System.out.println(e.toString());
+                    System.out.println("Error case");
                 }
 
             }
