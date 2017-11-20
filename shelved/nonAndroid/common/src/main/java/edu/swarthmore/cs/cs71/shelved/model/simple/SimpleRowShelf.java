@@ -9,29 +9,31 @@ import java.util.List;
 import java.util.Set;
 
 public class SimpleRowShelf implements RowShelf {
-    private HashMap<SimpleShelvedBook, Integer> rowList = new HashMap<>();
+    private List<SimpleShelvedBook> rowList = new ArrayList<SimpleShelvedBook>();
 
     public SimpleRowShelf() {
     }
 
     public void addBook(SimpleShelvedBook shelvedBook, int position) {
-        this.rowList.put(shelvedBook, position);
+        this.rowList.add(position, shelvedBook);
     }
 
     public void removeBook(SimpleShelvedBook book) {
         this.rowList.remove(book);
     }
 
-    public int getBook(SimpleShelvedBook book) {
-        return rowList.get(book);
+    public SimpleShelvedBook getBook(int pos) {
+        return rowList.get(pos);
     }
 
 
-    public void resetPosition(SimpleShelvedBook book, int newPosition) {
-       this.rowList.put(book, newPosition);
+    public void resetPosition(int oldPos, int newPos) {
+        SimpleShelvedBook oldBook = this.rowList.get(oldPos);
+        this.rowList.remove(oldPos);
+        this.rowList.add(newPos, oldBook);
     }
 
-    public Set<SimpleShelvedBook> getAllBooks() {
-        return this.rowList.keySet();
+    public List<SimpleShelvedBook> getAllBooks() {
+        return this.rowList;
     }
 }
