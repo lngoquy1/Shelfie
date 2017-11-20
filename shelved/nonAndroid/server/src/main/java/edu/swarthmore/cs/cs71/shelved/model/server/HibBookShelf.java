@@ -16,8 +16,8 @@ public class HibBookShelf implements BookShelf{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bookShelf")
-    private ArrayList<HibRowShelf> allRows = new ArrayList<>();
+    @OneToMany(cascade=CascadeType.ALL, targetEntity=HibRowShelf.class, mappedBy = "rowShelf")
+    private List<HibRowShelf> allRows = new ArrayList<>();
 
     public HibBookShelf() {
     }
@@ -32,13 +32,13 @@ public class HibBookShelf implements BookShelf{
         return this.allRows.size();
     }
 
-    @Override
-    public void configureBookShelf(int numRows) {
-        this.allRows = new ArrayList<>();
-        for (int i=0;i<numRows;i++){
-            this.allRows.add(new HibRowShelf());
-        }
-    }
+//    @Override
+//    public void configureBookShelf(int numRows) {
+//        this.allRows = new ArrayList<>();
+//        for (int i=0;i<numRows;i++){
+//            this.allRows.add(new HibRowShelf());
+//        }
+//    }
 
     public HibRowShelf getRowShelf(int rowPosition){
         return this.allRows.get(rowPosition);

@@ -25,17 +25,17 @@ public class SimpleObjectsTest {
         // make bookshelf
         SimpleBookShelf bookshelf = new SimpleBookShelf();
 
-        bookshelf.configureBookShelf(5);
+//        bookshelf.configureBookShelf(5);
 
         // make one row
-        //SimpleRowShelf row1 = new SimpleRowShelf();
-        SimpleRowShelf row1 = bookshelf.getRowShelf(0);
+        SimpleRowShelf row1 = new SimpleRowShelf();
+        //SimpleRowShelf row1 = bookshelf.getRowShelf(0);
 
 //        // add row to bookshelf
-//        bookshelf.addRowShelf(0, row1);
+        bookshelf.addRowShelf(0, row1);
 
         // test that bookshelf believes it has one row
-        Assert.assertEquals(5, bookshelf.getNumRows());
+        Assert.assertEquals(1, bookshelf.getNumRows());
         Assert.assertNotEquals(0, bookshelf.getNumRows());
 
 

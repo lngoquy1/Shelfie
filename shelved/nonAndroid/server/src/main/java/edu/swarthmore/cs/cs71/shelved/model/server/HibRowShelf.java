@@ -3,10 +3,7 @@ package edu.swarthmore.cs.cs71.shelved.model.server;
 import edu.swarthmore.cs.cs71.shelved.model.api.RowShelf;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="rowShelf")
@@ -17,15 +14,14 @@ public class HibRowShelf implements RowShelf {
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @MapKey(name = "shelvedBook")
-    private HashMap<HibShelvedBook, Integer> rowList = new HashMap<>();
+    private List<HibShelvedBook> rowList = new ArrayList<>();
 
     public HibRowShelf() {
     }
 
 
     public void addBook(HibShelvedBook shelvedBook, int position) {
-        this.rowList.put(shelvedBook, position);
+        this.rowList.add(position, shelvedBook);
     }
 
 
@@ -33,16 +29,18 @@ public class HibRowShelf implements RowShelf {
         this.rowList.remove(book);
     }
 
-    public int getBook(HibShelvedBook book) {
-        return this.rowList.get(book);
+    public HibShelvedBook getBook(int position) {
+        return this.rowList.get(position);
     }
 
-    public void resetPosition(HibShelvedBook book, int newPosition) {
-        this.rowList.put(book, newPosition);
+    public void resetPosition(int oldPosition, int newPosition) {
+        HibShelvedBook currentBook = this.rowList.get(oldPosition);
+        this.rowList.remove(oldPosition);
+        this.rowList.add(newPosition, currentBook);
     }
 
 
-    public Set<HibShelvedBook> getAllBooks() {
-        return this.rowList.keySet();
+    public List<HibShelvedBook> getAllBooks() {
+        return this.rowList;
     }
 }

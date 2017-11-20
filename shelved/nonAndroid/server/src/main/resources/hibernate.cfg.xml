@@ -31,5 +31,7 @@
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibTitle"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibEmail"/>
         <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibUser"/>
+        <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibBookShelf"/>
+        <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibRowShelf"/>
     </session-factory>
 </hibernate-configuration>
