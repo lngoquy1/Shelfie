@@ -19,21 +19,23 @@ public class SimpleObjectsTest {
         Assert.assertNotEquals("fowler", author.getLastName());
     }
 
-
     // SimpleBookShelf Tests and SimpleRowShelf tests
     @Test
     public void getBookShelfFields() {
         // make bookshelf
         SimpleBookShelf bookshelf = new SimpleBookShelf();
 
-        // make one row
-        SimpleRowShelf row1 = new SimpleRowShelf();
+        bookshelf.configureBookShelf(5);
 
-        // add row to bookshelf
-        bookshelf.addRowShelf(0, row1);
+        // make one row
+        //SimpleRowShelf row1 = new SimpleRowShelf();
+        SimpleRowShelf row1 = bookshelf.getRowShelf(0);
+
+//        // add row to bookshelf
+//        bookshelf.addRowShelf(0, row1);
 
         // test that bookshelf believes it has one row
-        Assert.assertEquals(1, bookshelf.getNumRows());
+        Assert.assertEquals(5, bookshelf.getNumRows());
         Assert.assertNotEquals(0, bookshelf.getNumRows());
 
 
@@ -71,12 +73,6 @@ public class SimpleObjectsTest {
 
         // test that row is now empty
         Assert.assertEquals(0, row1.getAllBooks().size());
-
-        // remove row1 from bookshelf
-        bookshelf.removeRowShelf(row1);
-
-        // test that bookshelf is now empty
-        Assert.assertEquals(0, bookshelf.getNumRows());
     }
 
 
