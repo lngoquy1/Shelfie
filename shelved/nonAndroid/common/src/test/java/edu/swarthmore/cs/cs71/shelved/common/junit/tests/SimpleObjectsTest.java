@@ -19,19 +19,17 @@ public class SimpleObjectsTest {
         Assert.assertNotEquals("fowler", author.getLastName());
     }
 
+
     // SimpleBookShelf Tests and SimpleRowShelf tests
     @Test
     public void getBookShelfFields() {
         // make bookshelf
         SimpleBookShelf bookshelf = new SimpleBookShelf();
 
-//        bookshelf.configureBookShelf(5);
-
         // make one row
         SimpleRowShelf row1 = new SimpleRowShelf();
-        //SimpleRowShelf row1 = bookshelf.getRowShelf(0);
 
-//        // add row to bookshelf
+        // add row to bookshelf
         bookshelf.addRowShelf(0, row1);
 
         // test that bookshelf believes it has one row
@@ -59,13 +57,13 @@ public class SimpleObjectsTest {
         Assert.assertEquals(1, row1.getAllBooks().size());
         Assert.assertNotEquals(0, row1.getAllBooks().size());
 
-//        int bookPos = row1.getBook(shelvedBook);
-//
-//        SimpleBook bookFromShelvedBook = bookPos.getBook();
-//
-//        // test that the simplebook retrieved from the row is the same as the one we put on it
-//        Assert.assertEquals(book.getAuthor(), bookFromShelvedBook.getAuthor());
-//        Assert.assertEquals(book.getTitle(), bookFromShelvedBook.getTitle());
+        SimpleShelvedBook bookFromRow = row1.getBook(0);
+
+        SimpleBook bookFromShelvedBook = bookFromRow.getBook();
+
+        // test that the simplebook retrieved from the row is the same as the one we put on it
+        Assert.assertEquals(book.getAuthor(), bookFromShelvedBook.getAuthor());
+        Assert.assertEquals(book.getTitle(), bookFromShelvedBook.getTitle());
 
 
         // remove book from row
@@ -73,6 +71,12 @@ public class SimpleObjectsTest {
 
         // test that row is now empty
         Assert.assertEquals(0, row1.getAllBooks().size());
+
+        // remove row1 from bookshelf
+        bookshelf.removeRowShelf(row1);
+
+        // test that bookshelf is now empty
+        Assert.assertEquals(0, bookshelf.getNumRows());
     }
 
 
@@ -105,10 +109,5 @@ public class SimpleObjectsTest {
         Assert.assertEquals(true, shelvedBook.isForLend());
         Assert.assertEquals(true, shelvedBook.isForSale());
 
-
     }
-
-
-
-
 }
