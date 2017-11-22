@@ -14,10 +14,10 @@ public class TestHibBook {
         book.setGenre("Computer Science");
         book.setPublisher("Unknown");
 
-        Assert.assertEquals("Martin Fowler", book.getAuthor());
-        Assert.assertEquals("Refactoring", book.getTitle());
+        Assert.assertEquals("Martin Fowler", book.getAuthor().getAuthorName());
+        Assert.assertEquals("Refactoring", book.getTitle().getTitle());
         Assert.assertEquals(13, book.getPages());
-        Assert.assertEquals("Computer Science", book.getGenre());
-        Assert.assertEquals("Unknown", book.getPublisher());
+        Assert.assertEquals("Computer Science", book.getGenre().getGenre());
+        Assert.assertEquals("Unknown", book.getPublisher().getPublisher());
     }
-}
+} 
