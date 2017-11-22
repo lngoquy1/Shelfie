@@ -1,4 +1,3 @@
-
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.app.AlertDialog;
@@ -66,7 +65,6 @@ public class AddBookDialog extends AlertDialog.Builder {
 //
 //        return alert;
 //    }
-//
 
 
     public AddBookDialog(Context context) {
@@ -113,7 +111,6 @@ public class AddBookDialog extends AlertDialog.Builder {
         return alert;
     }
 
-
 //    @Override
 //    protected Map<String, String> getParams() {
 //        // Posting params to signup url
@@ -132,8 +129,6 @@ public class AddBookDialog extends AlertDialog.Builder {
 //    }
 //}
 //
-
-
     public AddBookDialog(Context context, int themeResId) {
         super(context, themeResId);
     }

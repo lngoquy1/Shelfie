@@ -7,6 +7,7 @@
 
     <ImageView
             android:layout_height="100dp" app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
+            android:contentDescription="facebook login"
             android:layout_alignParentTop="true" android:layout_alignParentStart="true"
             android:layout_marginStart="22dp" android:layout_marginTop="22dp" android:id="@+id/imageView2"
             android:layout_width="100dp"/>
