@@ -1,5 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.model.simple;
 
+import com.google.api.client.json.Json;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -13,6 +16,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,9 +153,9 @@ public class Goodreads {
         return null;
     }
 
-    public String getTitleFromISBN(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
-        String workId = this.getGoodreadsId(ISBN);
-        URL url = new URL("https://www.goodreads.com/book/show/" + workId);
+    public String getTitleFromISBNTwo(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        String goodreadsId = this.getGoodreadsId(ISBN);
+        URL url = new URL("https://www.goodreads.com/book/show/" + goodreadsId);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -190,6 +194,41 @@ public class Goodreads {
             titleList.add(title);
         }
         return titleList;
+    }
+
+    public JSONObject getJsonFromISBN(String ISBN) throws IOException, ISBNNotFoundException {
+        String key = "9NRKX2S8";
+        URL url = new URL("http://isbndb.com/api/v2/json/"+key+"/book/"+ISBN);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        int brace = content.indexOf("[");
+        if (brace > 0) {
+            content.deleteCharAt(brace);
+            brace = content.lastIndexOf("]");
+            content.deleteCharAt(brace);
+            String html = content.toString();
+            JSONObject jObj = new JSONObject(html).getJSONObject("data");
+            return jObj;
+        } else {
+            throw new ISBNNotFoundException("The isbn was not found.");
+        }
+    }
+
+    public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException {
+        try {
+            JSONObject jObj = getJsonFromISBN(ISBN);
+            return jObj.getString("title");
+        } catch (ISBNNotFoundException e){
+            return getTitleFromISBNTwo(ISBN);
+        }
+
     }
 
     private int getIndexBegInt(String html, String toSearch) {
