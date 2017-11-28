@@ -82,6 +82,8 @@ public class HibUserService {
         }
     }
 
+
+
 //    public HibUser getUserById(EntityManager session, int id){
 //        List<HibUser> user = session.createQuery
 //                ("SELECT * FROM shelvedUser WHERE shelvedUser_username ="+id)
