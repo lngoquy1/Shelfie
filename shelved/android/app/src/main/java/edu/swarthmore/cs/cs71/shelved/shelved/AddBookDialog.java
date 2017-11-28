@@ -7,12 +7,17 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 
 
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
 
+    private String getAddBookUrl() {
 
+        return "http://"+getString((R.string.server_url))+":4567/addBook";
+    }
 
     public AddBookDialog(Context context) {
         super(context);
@@ -45,6 +50,8 @@ public class AddBookDialog extends AlertDialog.Builder {
 
                 String titleString = titleBox.getText().toString();
                 String authorString = authorBox.getText().toString();
+                // TODO: This StringRequest is still under construction
+                StringRequest strReq = new StringRequest(Request.Method.POST,getAddBookUrl(),);
 
             }
         });
