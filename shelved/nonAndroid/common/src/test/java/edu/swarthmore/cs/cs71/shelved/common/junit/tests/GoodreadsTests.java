@@ -1,6 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.Goodreads;
+import edu.swarthmore.cs.cs71.shelved.model.simple.ISBNNotFoundException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -66,5 +68,14 @@ public class GoodreadsTests {
         customListOfISBNs.add("9781934840573");
         Assert.assertEquals(listOfISBNs, customListOfISBNs);
     }
-
+    @Test
+    public void testJsonISBN() throws IOException, ISBNNotFoundException, ParserConfigurationException, XPathExpressionException, SAXException {
+        Goodreads goodreads = new Goodreads();
+        String title = goodreads.getTitleFromISBN("0552547344");
+        String title2 = goodreads.getTitleFromISBN("1439171882");
+        System.out.println(title);
+        System.out.println(title2);
+        Assert.assertEquals(title, "(Un)arranged Marriage");
+        Assert.assertEquals(title2, "Breakfast with Socrates: An Extraordinary (Philosophical) Journey Through Your Ordinary Day by Robert Rowland Smith");
+    }
 }

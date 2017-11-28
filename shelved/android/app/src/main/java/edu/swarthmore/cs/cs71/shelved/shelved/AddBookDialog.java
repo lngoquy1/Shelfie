@@ -1,7 +1,9 @@
 
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,8 +33,8 @@ public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
 
     private String getAddBookUrl() {
-        AppCompatActivity act = new AppCompatActivity();
-        return "http://"+act.getString((R.string.server_url))+":4567/addBook";
+        //AppCompatActivity act = new AppCompatActivity();
+        return "http://"+String.valueOf((R.string.server_url)).toString()+":4567/addBook";
 
     }
 
@@ -44,6 +46,7 @@ public class AddBookDialog extends AlertDialog.Builder {
         Context context = getContext();
         AddBookDialog alert = new AddBookDialog(context);
         alert.setTitle("Add Book");
+        Log.d(TAG, "inside newInstance");
 
 
         LinearLayout layout = new LinearLayout(context);
@@ -87,12 +90,10 @@ public class AddBookDialog extends AlertDialog.Builder {
                                 String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
                                 Toast.makeText(getApplicationContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
 
-                                // Launch login activity
-//                                Intent intent = new Intent(
-//                                        SignupActivity.this,
-//                                        LoginActivity.class);
-//                                startActivity(intent);
-//                                finish();
+                                // Return to shelf page?
+                                //Fragment newShelfFragment = new ShelfFragment();
+                                //android.support.v4.app.FragmentTransaction transaction = newShelfFragment.getFragmentManager().beginTransaction();
+                                //transaction.replace(R.id.action_item1, newShelfFragment)
                             } else {
 
                                 String errorMsg = jObj.getString("error_msg");
