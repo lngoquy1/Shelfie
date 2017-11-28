@@ -129,7 +129,8 @@ public class AddBookDialog extends AlertDialog.Builder {
                     }
                 };
                 // Adding request to request queue
-                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
+                // TODO: Context is wrong, strReq never gets accessed
+                AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
             }
         });
 
