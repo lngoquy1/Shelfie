@@ -20,4 +20,4 @@ public class TestHibBook {
         Assert.assertEquals("Computer Science", book.getGenre().getGenre());
         Assert.assertEquals("Unknown", book.getPublisher().getPublisher());
     }
-} 
+}
