@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.*;
 import android.widget.*;
 import butterknife.ButterKnife;
@@ -44,10 +45,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.ShelvesButton:
                 fragment = new ShelfFragment();
+                //fragment = ShelfFragment.newInstance();
                 replaceFragment(fragment);
                 break;
             case R.id.ListsButton:
-                fragment = new ShelfFragment();
+                fragment = new BookListFragment();
                 replaceFragment(fragment);
                 break;
         }
