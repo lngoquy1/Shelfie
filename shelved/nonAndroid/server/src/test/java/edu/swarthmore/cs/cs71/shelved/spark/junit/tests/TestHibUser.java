@@ -18,7 +18,7 @@ public class TestHibUser {
 
         String hashedPassword = BCrypt.hashpw(password, newUser.getSalt());
 
-        Assert.assertEquals(email, newUser.getEmail());
+        Assert.assertEquals(email, newUser.getEmail().getEmail());
         Assert.assertEquals(name, newUser.getName());
         Assert.assertEquals(hashedPassword, newUser.getPassword());
 
