@@ -25,6 +25,7 @@ import java.util.List;
 
 
 public class ShelfFragment extends ListFragment {
+    private static final String TAG = "ShelfFragment";
 
     private static final int BOOKS_AMOUNT = 2;
 
@@ -117,7 +118,9 @@ public class ShelfFragment extends ListFragment {
             public void onClick(View v) {
                 // Create and show AddBookDialog
                 AddBookDialog alert = new AddBookDialog(getContext());
+                Log.d(TAG, "show add book dialog");
                 AddBookDialog alert1 = alert.newInstance();
+                Log.d(TAG, "called newInstance");
                 alert1.show();
             }
         });
