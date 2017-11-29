@@ -44,6 +44,7 @@ public class CameraFragment extends Fragment {
 
         _ISBN = (TextView)rootView.findViewById(R.id.ISBN);
         _ISBN.setText(ISBN);
+
         Log.d(TAG, "past setting ISBN text");
 
         //getActivity().finish();

@@ -53,6 +53,8 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
         Toast.makeText(this, "Contents = " + rawResult.getContents() +
                 ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
         ISBN = rawResult.getContents();
+        Log.d(TAG, "past setting isbn");
+        Log.d(TAG, ISBN);
 
         // Note:
         // * Wait 2 seconds to resume the preview.
@@ -64,6 +66,7 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
             public void run() {
                 //mScannerView.resumeCameraPreview(ScannerActivity.this);
                 mScannerView.stopCamera();
+                finish();
             }
         }, 2000);
 
