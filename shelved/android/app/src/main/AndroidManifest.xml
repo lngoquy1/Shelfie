@@ -42,6 +42,9 @@
         <activity
                 android:name=".SignupActivity"
                 android:theme="@style/AppTheme.Dark" />
+        <activity
+                android:name=".ScannerActivity"
+                android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

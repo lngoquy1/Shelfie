@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="group_shelved.cs71.cs.swarthmore.edu.scannerprototype2.ScannerActivity"
+        tools:context="edu.swarthmore.cs.cs71.shelved.shelved.ScannerActivity"
         android:id="@+id/scannerLayout">
 
 
