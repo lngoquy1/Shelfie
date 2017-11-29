@@ -71,6 +71,7 @@ public class ShelfFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         initializeBooks(books);
+
         // Sets view to fragment_shelf
         View view = inflater.inflate(R.layout.fragment_shelf, container, false);
 
