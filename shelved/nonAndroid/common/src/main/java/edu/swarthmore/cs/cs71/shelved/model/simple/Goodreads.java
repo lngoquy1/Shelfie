@@ -222,17 +222,47 @@ public class Goodreads {
     }
 
     public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException {
+        //can throw ISBNNotFoundException as well
         try {
             JSONObject jObj = getJsonFromISBN(ISBN);
             return jObj.getString("title");
         } catch (ISBNNotFoundException e){
             return getTitleFromISBNTwo(ISBN);
         }
+    }
 
+    public String getAuthorFromISBN(String ISBN) throws IOException, ISBNNotFoundException {
+        //throws ISBNNotFoundException if ISBN not found
+        JSONObject jObj = getJsonFromISBN(ISBN);
+        JSONObject newJObj = (JSONObject) jObj.getJSONArray("author_data").get(0);
+        return newJObj.getString("name");
+    }
+
+    public String getPublisherFromISBN(String ISBN) throws IOException, ISBNNotFoundException {
+        //throws ISBNNotFoundException if ISBN not found
+        JSONObject jObj = getJsonFromISBN(ISBN);
+        return jObj.getString("publisher_name");
+    }
+    public String getNumPagesFromISBN(String ISBN) throws IOException, ISBNNotFoundException {
+        //throws ISBNNotFoundException if ISBN not found
+        JSONObject jObj = getJsonFromISBN(ISBN);
+        String physDesc = jObj.getString("physical_description_text");
+        int indexOfPages = physDesc.indexOf("pages");
+        StringBuilder pagesBuilder = new StringBuilder();
+        for (int i=indexOfPages-2;i>=0;i--){
+            char c = physDesc.charAt(i);
+            boolean cIsDigit = (c >= '0' && c <= '9');
+            if (cIsDigit){
+                pagesBuilder.append(c);
+            } else {
+                break;
+            }
+        }
+        return pagesBuilder.reverse().toString();
     }
 
     private int getIndexBegInt(String html, String toSearch) {
-//        "<title>"
+    //  "<title>"
         int i=1;
         while (i<html.length() && i>=1) {
             int index = html.indexOf(toSearch, i);

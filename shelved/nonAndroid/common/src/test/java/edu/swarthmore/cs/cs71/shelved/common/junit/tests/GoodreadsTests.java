@@ -19,33 +19,33 @@ public class GoodreadsTests {
         Goodreads goodreads1 = new Goodreads();
         String id1 = goodreads1.getGoodreadsId("0152047387");
         String realId1 = "116563";
-        Assert.assertEquals(id1, realId1);
+        Assert.assertEquals(realId1, id1);
 
         Goodreads goodreads2 = new Goodreads();
         String id2 = goodreads2.getGoodreadsId("0439554934");
         String realId2 = "3";
-        Assert.assertEquals(id2, realId2);
+        Assert.assertEquals(realId2, id2);
 
     }
     @Test
     public void testGetWorkId() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         Goodreads goodreads = new Goodreads();
         String searchBuffer = goodreads.getWorkId("0152047387");
-        Assert.assertEquals(searchBuffer, "3464");
+        Assert.assertEquals("3464", searchBuffer);
     }
 
     @Test
     public void testScrapeRecs() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         Goodreads goodreads = new Goodreads();
         List<String> listOfRecs = goodreads.getRecommendedBooks("0152047387");
-        List<String> actualList = new ArrayList<>();
-        actualList.add("Deep Secret (Magids, #1)");
-        actualList.add("Sandry's Book (Circle of Magic, #1)");
-        actualList.add("Dragon's Blood (Pit Dragon Chronicles, #1)");
-        actualList.add("Calling on Dragons (Enchanted Forest Chronicles, #3)");
-        actualList.add("The Secret Country (The Secret Country, #1)");
-        actualList.add("Heir Apparent (Rasmussem Corporation, #2)");
-        Assert.assertEquals(listOfRecs, actualList);
+        List<String> expectedList = new ArrayList<>();
+        expectedList.add("Deep Secret (Magids, #1)");
+        expectedList.add("Sandry's Book (Circle of Magic, #1)");
+        expectedList.add("Dragon's Blood (Pit Dragon Chronicles, #1)");
+        expectedList.add("Calling on Dragons (Enchanted Forest Chronicles, #3)");
+        expectedList.add("The Secret Country (The Secret Country, #1)");
+        expectedList.add("Heir Apparent (Rasmussem Corporation, #2)");
+        Assert.assertEquals(expectedList, listOfRecs);
     }
     @Test
     public void testScrapeLink() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
@@ -66,16 +66,38 @@ public class GoodreadsTests {
         customListOfISBNs.add("2940012085788");
         customListOfISBNs.add("9781602491793");
         customListOfISBNs.add("9781934840573");
-        Assert.assertEquals(listOfISBNs, customListOfISBNs);
+        Assert.assertEquals(customListOfISBNs, listOfISBNs);
     }
     @Test
-    public void testJsonISBN() throws IOException, ISBNNotFoundException, ParserConfigurationException, XPathExpressionException, SAXException {
+    public void testNonExceptionGetters() throws IOException, ParserConfigurationException, XPathExpressionException, SAXException, ISBNNotFoundException {
         Goodreads goodreads = new Goodreads();
         String title = goodreads.getTitleFromISBN("0552547344");
         String title2 = goodreads.getTitleFromISBN("1439171882");
-        System.out.println(title);
-        System.out.println(title2);
-        Assert.assertEquals(title, "(Un)arranged Marriage");
-        Assert.assertEquals(title2, "Breakfast with Socrates: An Extraordinary (Philosophical) Journey Through Your Ordinary Day by Robert Rowland Smith");
+        Assert.assertEquals("(Un)arranged Marriage", title);
+        Assert.assertEquals("Breakfast with Socrates: An Extraordinary (Philosophical) Journey Through Your Ordinary Day by Robert Rowland Smith", title2);
+        String author = goodreads.getAuthorFromISBN("0552547344");
+        Assert.assertEquals("Bali Rai", author);
+        String publisher = goodreads.getPublisherFromISBN("0552547344");
+        Assert.assertEquals("Corgi Childrens", publisher);
+        String pages = goodreads.getNumPagesFromISBN("0552547344");
+        Assert.assertEquals("272", pages);
+        String pages2 = goodreads.getNumPagesFromISBN("0439554934");
+        Assert.assertEquals("320", pages2);
+    }
+
+    @Test(expected = ISBNNotFoundException.class)
+    public void testExceptionAuthor() throws IOException, ISBNNotFoundException {
+        Goodreads goodreads = new Goodreads();
+        String author2 = goodreads.getAuthorFromISBN("1439171882");
+    }
+    @Test(expected = ISBNNotFoundException.class)
+    public void testExceptionPublisher() throws IOException, ISBNNotFoundException {
+        Goodreads goodreads = new Goodreads();
+        String publisher2 = goodreads.getPublisherFromISBN("1439171882");
+    }
+    @Test(expected = ISBNNotFoundException.class)
+    public void testExceptionPages() throws IOException, ISBNNotFoundException {
+        Goodreads goodreads = new Goodreads();
+        String pages3 = goodreads.getNumPagesFromISBN("1439171882");
     }
 }
