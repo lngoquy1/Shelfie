@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 public class ScannerActivity extends Activity implements ZBarScannerView.ResultHandler {
     private static final String TAG = "ScannerActivity";
     private ZBarScannerView mScannerView;
+    private static String ISBN;
 
     @Override
     public void onCreate(Bundle state) {
@@ -24,8 +27,6 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA}, 0);
-
-
     }
 
     @Override
@@ -42,7 +43,8 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
         super.onPause();
         if (mScannerView != null) {
             mScannerView.stopCamera();
-            mScannerView.
+            mScannerView.stopCameraPreview();
+            mScannerView = null;
         }
     }
 
@@ -50,6 +52,8 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
     public void handleResult(Result rawResult) {
         Toast.makeText(this, "Contents = " + rawResult.getContents() +
                 ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
+        ISBN = rawResult.getContents();
+
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
@@ -58,11 +62,17 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mScannerView.resumeCameraPreview(ScannerActivity.this);
+                //mScannerView.resumeCameraPreview(ScannerActivity.this);
+                mScannerView.stopCamera();
             }
         }, 2000);
+
     }
 
+
+    public static String getISBN() {
+        return ISBN;
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
