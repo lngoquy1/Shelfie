@@ -42,6 +42,7 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
         super.onPause();
         if (mScannerView != null) {
             mScannerView.stopCamera();
+            mScannerView.
         }
     }
 
