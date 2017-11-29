@@ -34,7 +34,8 @@ public class AddBookDialog extends AlertDialog.Builder {
 
     private String getAddBookUrl() {
         //AppCompatActivity act = new AppCompatActivity();
-        return "http://"+String.valueOf((R.string.server_url)).toString()+":4567/addBook";
+        return "http://"+getApplicationContext().getResources().getString((R.string.server_url))+":4567/addBook";
+
 
     }
 
@@ -43,8 +44,8 @@ public class AddBookDialog extends AlertDialog.Builder {
     }
 
     public AddBookDialog newInstance() {
-        Context context = getContext();
-        AddBookDialog alert = new AddBookDialog(context);
+        final Context context = getContext();
+        final AddBookDialog alert = new AddBookDialog(context);
         alert.setTitle("Add Book");
         Log.d(TAG, "inside newInstance");
 
@@ -67,9 +68,10 @@ public class AddBookDialog extends AlertDialog.Builder {
                 Log.v("title", titleBox.getText().toString());
                 Log.v("author", authorBox.getText().toString());
 
-
+                String cancel_req_tag = "addBook";
                 String titleString = titleBox.getText().toString();
                 String authorString = authorBox.getText().toString();
+                Log.d(TAG, getAddBookUrl());
                 // TODO: This StringRequest is still under construction
                 StringRequest strReq = new StringRequest(Request.Method.POST, getAddBookUrl(), new Response.Listener<String>() {
                     @Override
@@ -87,6 +89,7 @@ public class AddBookDialog extends AlertDialog.Builder {
 
 
                             if (!error) {
+                                Log.d(TAG, "no error");
                                 String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
                                 Toast.makeText(getApplicationContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
 
@@ -95,7 +98,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                                 //android.support.v4.app.FragmentTransaction transaction = newShelfFragment.getFragmentManager().beginTransaction();
                                 //transaction.replace(R.id.action_item1, newShelfFragment)
                             } else {
-
+                                Log.d(TAG, "error");
                                 String errorMsg = jObj.getString("error_msg");
                                 Toast.makeText(getApplicationContext(),
                                         errorMsg, Toast.LENGTH_LONG).show();
@@ -125,8 +128,12 @@ public class AddBookDialog extends AlertDialog.Builder {
                         return params;
                     }
                 };
+                // Adding request to request queue
+                // TODO: Context is wrong, strReq never gets accessed
+                AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
             }
         });
+
 
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {

@@ -2,22 +2,17 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
-import butterknife.ButterKnife;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +20,8 @@ import java.util.List;
 
 
 public class ShelfFragment extends ListFragment {
+
+
     private static final String TAG = "ShelfFragment";
 
     private static final int BOOKS_AMOUNT = 2;
