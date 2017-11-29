@@ -144,10 +144,6 @@ public class AddBookDialog extends AlertDialog.Builder {
         return alert;
     }
 
-
-
-
-
     public AddBookDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
