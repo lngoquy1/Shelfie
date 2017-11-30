@@ -53,6 +53,10 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
         Toast.makeText(this, "Contents = " + rawResult.getContents() +
                 ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
         ISBN = rawResult.getContents();
+        //https://developer.android.com/training/basics/intents/result.html
+        //https://stackoverflow.com/questions/14785806/android-how-to-make-an-activity-return-results-to-the-activity-which-calls-it
+        setResult(RESULT_OK, getIntent());
+
         Log.d(TAG, "past setting isbn");
         Log.d(TAG, ISBN);
 
