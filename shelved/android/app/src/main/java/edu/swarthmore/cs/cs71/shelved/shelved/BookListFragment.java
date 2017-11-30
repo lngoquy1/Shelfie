@@ -129,19 +129,12 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
         alert.setView(layout);
 
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Log.v("title", titleBox.getText().toString());
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Log.v("title", titleBox.getText().toString());
 
-                String titleString = titleBox.getText().toString();
-
-        addList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create and show AddBookDialog
-                AddBookDialog alert = new AddBookDialog(getContext());
-
-            }
-        });
+                        String titleString = titleBox.getText().toString();
+                    }
+                });
 
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
