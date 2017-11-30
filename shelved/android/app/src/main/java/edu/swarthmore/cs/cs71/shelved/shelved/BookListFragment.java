@@ -88,8 +88,7 @@ public class BookListFragment extends ListFragment {
             public void onClick(View v) {
                 // Create and show AddBookDialog
                 AddBookDialog alert = new AddBookDialog(getContext());
-                AddBookDialog alert1 = alert.newInstance();
-                alert1.show();
+                
             }
         });
         booksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
