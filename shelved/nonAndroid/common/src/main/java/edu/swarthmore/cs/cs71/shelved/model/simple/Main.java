@@ -12,7 +12,7 @@ import java.util.List;
 //public class Main {
 //    public static void main(String[] args) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
 //        String ISBN = "0201485672";
-//        Goodreads goodreads = new Goodreads();
+//        BookInfo goodreads = new BookInfo();
 //        List<String> listOfRecs = goodreads.getRecommendedBooks(ISBN);
 //        String title = goodreads.getTitleFromISBN(ISBN);
 //        System.out.println("\nIf you liked " + title + ", we recommend:");

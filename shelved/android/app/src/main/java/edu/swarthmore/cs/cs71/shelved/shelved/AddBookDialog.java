@@ -148,8 +148,14 @@ public class AddBookDialog extends AlertDialog.Builder {
 
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+    public AddBookDialog(Context context, int themeResId) {
+        super(context, themeResId);
+    }
+>>>>>>> f0d51743cc67e5aca66338efe26ddaae74a69224
 }
 
