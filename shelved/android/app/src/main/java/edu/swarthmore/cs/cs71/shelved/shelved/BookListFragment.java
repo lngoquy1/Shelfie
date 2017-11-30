@@ -51,6 +51,7 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
             public void onClick(View view) {
                 AlertDialog.Builder alert = addListDialog();
                 alert.show();
+                // Handle what happens when a list is created
             }
         });
     }
@@ -120,6 +121,7 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
 
         final Switch status = new Switch(context);
         status.setText("Public?");
+        status.setShowText(true);
         status.setTextOn("Yes");
         status.setTextOff("No");
         layout.addView(status);
@@ -129,7 +131,6 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Log.v("title", titleBox.getText().toString());
-
 
                 String titleString = titleBox.getText().toString();
 
