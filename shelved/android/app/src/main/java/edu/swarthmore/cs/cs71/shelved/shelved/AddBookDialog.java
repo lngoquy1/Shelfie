@@ -35,12 +35,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
-
-    private String getAddBookUrl() {
-        //AppCompatActivity act = new AppCompatActivity();
-        return "http://"+getApplicationContext().getResources().getString((R.string.server_url))+":4567/addBook";
-
-
+    public AddBookDialog(Context context, int themeResId) {
+        super(context, themeResId);
     }
 
     public AddBookDialog(Context context, final Continuation<SimpleBook> positiveContinuation) {
@@ -93,10 +89,6 @@ public class AddBookDialog extends AlertDialog.Builder {
                                 String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
                                 Toast.makeText(getApplicationContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
 
-                                // Return to shelf page?
-                                //Fragment newShelfFragment = new ShelfFragment();
-                                //android.support.v4.app.FragmentTransaction transaction = newShelfFragment.getFragmentManager().beginTransaction();
-                                //transaction.replace(R.id.action_item1, newShelfFragment)
 
                             } else {
                                 Log.d(TAG, "error");
@@ -147,10 +139,22 @@ public class AddBookDialog extends AlertDialog.Builder {
         });
 
     }
+    private String getAddBookUrl() {
+        //AppCompatActivity act = new AppCompatActivity();
+        return "http://"+getApplicationContext().getResources().getString((R.string.server_url))+":4567/addBook";
 
+
+    }
+
+
+<<<<<<< HEAD
+
+
+=======
     public AddBookDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
+>>>>>>> cf9c143cea19630a8f49ed0602a1e7bbd9e36a5f
 
 }
 

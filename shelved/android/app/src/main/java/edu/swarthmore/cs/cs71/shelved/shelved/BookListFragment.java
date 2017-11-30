@@ -134,6 +134,12 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
 
                 String titleString = titleBox.getText().toString();
 
+        addList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create and show AddBookDialog
+                AddBookDialog alert = new AddBookDialog(getContext());
+
             }
         });
 

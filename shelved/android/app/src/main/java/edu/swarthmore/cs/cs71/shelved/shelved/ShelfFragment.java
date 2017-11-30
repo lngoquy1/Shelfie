@@ -19,12 +19,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class ShelfFragment extends ListFragment {
@@ -138,14 +143,36 @@ public class ShelfFragment extends ListFragment {
                     public void onResponse(String response) {
                         Log.d(TAG, "Update book response: " + response);
                         ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                        // TODO: turn Response into a list of book, update the list, tell Adapter
+
+                        if (message.isResult()){
+                            ValidBookListUpdateResponse bookListUpdateResponse = (ValidBookListUpdateResponse) message;
+                        }
+                        try {
+                            Log.d(TAG, response);
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = !jObj.getBoolean("result");
+                            if (!error) {
+                                Log.d(TAG, "no error");
+                                // TODO: turn Response into a list of book, update the list, tell Adapter
+                                ShelfFragment.this.books = (List<SimpleBook>) jObj.getJSONObject("bookList");
+                                bookListAdapter.notifyDataSetChanged();
+
+                            } else {
+                                Log.d(TAG, "error");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            System.out.println("Error case");
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e(TAG, "Update book list error: "+ error.getMessage());
             }
         });
+        AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
 
     }
     private AlertDialog.Builder bookInfoDialog () {

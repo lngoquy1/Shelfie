@@ -16,26 +16,6 @@ import java.util.List;
 
 public class BookInfoTests {
     @Test
-    public void testGetID() throws IOException {
-        BookInfo bookInfo1 = new BookInfo();
-        String id1 = bookInfo1.getGoodreadsId("0152047387");
-        String realId1 = "116563";
-        Assert.assertEquals(realId1, id1);
-
-        BookInfo bookInfo2 = new BookInfo();
-        String id2 = bookInfo2.getGoodreadsId("0439554934");
-        String realId2 = "3";
-        Assert.assertEquals(realId2, id2);
-
-    }
-    @Test
-    public void testGetWorkId() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
-        BookInfo bookInfo = new BookInfo();
-        String searchBuffer = bookInfo.getWorkId("0152047387");
-        Assert.assertEquals("3464", searchBuffer);
-    }
-
-    @Test
     public void testNonExceptionGetters() throws IOException, ParserConfigurationException, XPathExpressionException, SAXException, notFoundException, EmptyQueryException {
         BookInfo bookInfo = new BookInfo();
         String title = bookInfo.getTitleFromISBN("0552547344");
@@ -100,7 +80,7 @@ public class BookInfoTests {
     @Test
     public void testScrapeRecs() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         BookInfo bookInfo = new BookInfo();
-        List<String> listOfRecs = bookInfo.getRecommendedBooks("0152047387");
+        List<String> listOfRecs = bookInfo.getRecommendedBooksFromISBN("0152047387");
         List<String> expectedList = new ArrayList<>();
         expectedList.add("Deep Secret (Magids, #1)");
         expectedList.add("Sandry's Book (Circle of Magic, #1)");
@@ -130,6 +110,8 @@ public class BookInfoTests {
         customListOfISBNs.add("9781602491793");
         customListOfISBNs.add("9781934840573");
         Assert.assertEquals(customListOfISBNs, listOfISBNs);
+        List<String> listOfISBNs2 = bookInfo.getISBNFromQuery("So you want to be a wizard Diane Duane");
+        System.out.println(listOfISBNs2);
     }
 
 }

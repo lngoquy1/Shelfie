@@ -30,6 +30,7 @@ public class HibBookService {
             SimpleBook newSimpleBook = new SimpleBook();
             newSimpleBook.setTitle(book.getTitle().getTitle());
             newSimpleBook.setAuthor(book.getAuthor().getAuthorName());
+            simpleBooks.add(newSimpleBook);
         }
         return simpleBooks;
     }
