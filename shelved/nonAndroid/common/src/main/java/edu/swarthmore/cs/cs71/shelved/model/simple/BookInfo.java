@@ -24,25 +24,64 @@ public class BookInfo {
     public BookInfo() {
     }
 
+    //COMBINED section
+    public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
+        try { //get title from GoogleBooks
+            JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
+            return getTitleGoogleJson(jObj);
+        } catch (EmptyQueryException | notFoundException f) {
+            try { //Get title from ISBNdb
+                return getTitleFromISBNdb(ISBN);
+            } catch (notFoundException g) { //Get title from Goodreads scraper
+                return getTitleFromISBNGoodreads(ISBN);
+            }
+        }
+    }
 
 
+    public String getAuthorFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
+        try { //get author from GoogleBooks
+            JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
+            return getAuthorGoogleJson(jObj);
+        } catch (EmptyQueryException | notFoundException f) {
+            return getAuthorFromISBNdb(ISBN);
+        }
+    }
+
+
+    public String getPublisherFromISBN(String ISBN) throws IOException, notFoundException {
+        return getPublisherFromISBNdb(ISBN);
+    }
+
+    public String getNumPagesFromISBN(String ISBN) throws IOException, notFoundException {
+        return getNumPagesFromISBNdb(ISBN);
+    }
+
+
+
+    //GOODREADS section
     public String getGoodreadsId(String isbn) throws IOException {
         URL url = new URL("https://www.goodreads.com/book/isbn_to_id/"+isbn+"?key="+GOODREADS_KEY);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
+        StringBuffer content = getHTMLContent(url);
         return content.toString();
     }
 
+    public String getWorkId(String isbn) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+        BookInfo bookInfo = new BookInfo();
+        String id = bookInfo.getGoodreadsId(isbn);
+        URL url = new URL("https://www.goodreads.com/book/id_to_work_id?key="+GOODREADS_KEY+"&id="+id);
+        StringBuffer content = getHTMLContent(url);
+
+        String xml = content.toString();
+        Element rootElement = getRootElement(xml);
+        return getStringElement("item",rootElement);
+    }
+
+
+
     private List getAllPossibleBookURLs(String query) throws IOException {
         URL url = new URL("https://www.goodreads.com/search?q="+query.replace(" ","+"));
-        String html = getHTML(url);
+        String html = getHTMLContent(url).toString();
         List<Integer> begIndexList = getIndexBegList(html,"<a title=");
         List<Integer> extraEndIndexList = getIndecesEndList(html, "<img alt=\"");
         List<Integer> endIndexList = new ArrayList<>();
@@ -64,6 +103,36 @@ public class BookInfo {
         return suggWebLinkList;
 
     }
+
+
+
+    public String getTitleFromISBNGoodreads(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        String goodreadsId = this.getGoodreadsId(ISBN);
+        URL url = new URL("https://www.goodreads.com/book/show/" + goodreadsId);
+        StringBuffer content = getHTMLContent(url);
+        String html = content.toString();
+        int begIndexList = getIndexBegInt(html, "<title>");
+        int endIndexList = getIndexEndInt(html,"</title>");
+        String title = html.substring(begIndexList, endIndexList);
+        return title;
+
+    }
+
+    public List<String> getRecommendedBooks(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+        String workId = this.getWorkId(ISBN);
+        URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
+        StringBuffer content = getHTMLContent(url);
+        String html = content.toString();
+        List<Integer> begIndexList = getIndexBegList(html,"'name'>");
+        List<Integer> endIndexList = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
+        List<String> titleList = new ArrayList<>();
+        for (int i=1;i<begIndexList.size();i++){
+            String title = html.substring(begIndexList.get(i), endIndexList.get(i));
+            titleList.add(title);
+        }
+        return titleList;
+    }
+
     public List getISBNFromQuery(String query) throws IOException {
         List<String> urlList = getAllPossibleBookURLs(query);
         List<String> isbnList = new ArrayList<>();
@@ -77,7 +146,7 @@ public class BookInfo {
     }
 
     private String getISBN(String strUrl) throws IOException {
-        String html = getHTML(new URL(strUrl));
+        String html = getHTMLContent(new URL(strUrl)).toString();
         String initialSearch = "<span itemprop='isbn'>";
         String finalSearch = "</span>)</span>";
         int begIndex = getIndexBegInt(html,initialSearch);
@@ -98,112 +167,13 @@ public class BookInfo {
         return longHTMLParse;
     }
 
-    private String getHTML(URL url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        return content.toString();
-    }
 
-    public String getWorkId(String isbn) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
-        BookInfo bookInfo = new BookInfo();
-        String id = bookInfo.getGoodreadsId(isbn);
-        URL url = new URL("https://www.goodreads.com/book/id_to_work_id?key="+GOODREADS_KEY+"&id="+id);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-
-        String xml = content.toString();
-        Element rootElement = getRootElement(xml);
-        return getStringElement("item",rootElement);
-    }
-    // https://stackoverflow.com/questions/4076910/how-to-retrieve-element-value-of-xml-using-java
-    private Element getRootElement(String xml) throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new InputSource(new StringReader(xml)));
-        return document.getDocumentElement();
-    }
-    // https://stackoverflow.com/questions/4076910/how-to-retrieve-element-value-of-xml-using-java
-    private String getStringElement(String tagName, Element element) {
-        NodeList list = element.getElementsByTagName(tagName);
-        if (list != null && list.getLength() > 0) {
-            NodeList subList = list.item(0).getChildNodes();
-
-            if (subList != null && subList.getLength() > 0) {
-                return subList.item(0).getNodeValue();
-            }
-        }
-        return null;
-    }
-
-    public String getTitleFromISBNTwo(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
-        String goodreadsId = this.getGoodreadsId(ISBN);
-        URL url = new URL("https://www.goodreads.com/book/show/" + goodreadsId);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        String html = content.toString();
-        int begIndexList = getIndexBegInt(html, "<title>");
-        int endIndexList = getIndexEndInt(html,"</title>");
-        String title = html.substring(begIndexList, endIndexList);
-        return title;
-
-    }
-
-    public List<String> getRecommendedBooks(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
-        String workId = this.getWorkId(ISBN);
-        URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        String html = content.toString();
-        List<Integer> begIndexList = getIndexBegList(html,"'name'>");
-        List<Integer> endIndexList = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
-        List<String> titleList = new ArrayList<>();
-        for (int i=1;i<begIndexList.size();i++){
-            String title = html.substring(begIndexList.get(i), endIndexList.get(i));
-            titleList.add(title);
-        }
-        return titleList;
-    }
+    //ISBNDB section
 
     public JSONObject getJsonFromIsbnDb(String ISBN) throws IOException, notFoundException {
         String key = "9NRKX2S8";
         URL url = new URL("http://isbndb.com/api/v2/json/"+key+"/book/"+ISBN);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
+        StringBuffer content = getHTMLContent(url);
         int brace = content.indexOf("[");
         if (brace > 0) {
             content.deleteCharAt(brace);
@@ -217,19 +187,24 @@ public class BookInfo {
         }
     }
 
-    public String getAuthorFromISBN(String ISBN) throws IOException, notFoundException {
+    public String getTitleFromISBNdb(String ISBN) throws IOException, notFoundException {
+        JSONObject jObj = getJsonFromIsbnDb(ISBN);
+        return jObj.getString("title");
+    }
+
+    public String getAuthorFromISBNdb(String ISBN) throws IOException, notFoundException {
         //throws notFoundException if ISBN not found
         JSONObject jObj = getJsonFromIsbnDb(ISBN);
         JSONObject newJObj = (JSONObject) jObj.getJSONArray("author_data").get(0);
         return newJObj.getString("name");
     }
 
-    public String getPublisherFromISBN(String ISBN) throws IOException, notFoundException {
+    private String getPublisherFromISBNdb(String ISBN) throws IOException, notFoundException {
         //throws notFoundException if ISBN not found
         JSONObject jObj = getJsonFromIsbnDb(ISBN);
         return jObj.getString("publisher_name");
     }
-    public String getNumPagesFromISBN(String ISBN) throws IOException, notFoundException {
+    private String getNumPagesFromISBNdb(String ISBN) throws IOException, notFoundException {
         //throws notFoundException if ISBN not found
         JSONObject jObj = getJsonFromIsbnDb(ISBN);
         String physDesc = jObj.getString("physical_description_text");
@@ -252,8 +227,8 @@ public class BookInfo {
 //    }
 
 //    https://www.googleapis.com/books/v1/volumes?q=intitle:so%20you%20want%20to%20be%20a%20wizard
-
-    public JSONObject getJsonFromQuery(String title, String author, String ISBN) throws IOException, EmptyQueryException, notFoundException {
+    //GOOGLEAPIS Section
+    public JSONObject getJsonFromQueryGoogle(String title, String author, String ISBN) throws IOException, EmptyQueryException, notFoundException {
         //takes a title, author, title and author, or isbn
         if (title.isEmpty() && author.isEmpty() && ISBN.isEmpty()){
             throw new EmptyQueryException("No search terms entered");
@@ -274,6 +249,49 @@ public class BookInfo {
             }
         }
         URL url = new URL(urlStringBuffer.toString());
+        StringBuffer content = getHTMLContent(url);
+        JSONObject jObj = new JSONObject(content.toString());
+        String numFound = jObj.get("totalItems").toString();
+        if (Integer.parseInt(numFound) == 0){
+            throw new notFoundException("Not found.");
+        }
+        return jObj;
+    }
+
+    private String getTitleGoogleJson(JSONObject jObj) {
+        return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
+    }
+
+    private String getAuthorGoogleJson(JSONObject jObj) {
+        return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+    }
+
+
+    //General helpers section
+
+
+    // https://stackoverflow.com/questions/4076910/how-to-retrieve-element-value-of-xml-using-java
+    private Element getRootElement(String xml) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new InputSource(new StringReader(xml)));
+        return document.getDocumentElement();
+    }
+    // https://stackoverflow.com/questions/4076910/how-to-retrieve-element-value-of-xml-using-java
+    private String getStringElement(String tagName, Element element) {
+        NodeList list = element.getElementsByTagName(tagName);
+        if (list != null && list.getLength() > 0) {
+            NodeList subList = list.item(0).getChildNodes();
+
+            if (subList != null && subList.getLength() > 0) {
+                return subList.item(0).getNodeValue();
+            }
+        }
+        return null;
+    }
+
+
+    private StringBuffer getHTMLContent(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -283,32 +301,9 @@ public class BookInfo {
             content.append(inputLine);
         }
         in.close();
-        JSONObject jObj = new JSONObject(content.toString());
-//        String numFound = jObj.getJSONObject("totalItems").toString();
-        String numFound = jObj.get("totalItems").toString();
-        System.out.println(numFound);
-        if (Integer.parseInt(numFound) == 0){
-            throw new notFoundException("Not found.");
-        }
-        return jObj;
+        return content;
     }
 
-    public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
-        //can throw notFoundException as well
-        try {
-            JSONObject jObj = getJsonFromIsbnDb(ISBN);
-            return jObj.getString("title");
-        } catch (notFoundException e) {
-            try {
-                JSONObject jObj = getJsonFromQuery("","",ISBN);
-                return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
-            } catch (EmptyQueryException f) {
-                return getTitleFromISBNTwo(ISBN);
-            } catch (notFoundException g) {
-                return getTitleFromISBNTwo(ISBN);
-            }
-        }
-    }
 
     private int getIndexBegInt(String html, String toSearch) {
         int i=1;
