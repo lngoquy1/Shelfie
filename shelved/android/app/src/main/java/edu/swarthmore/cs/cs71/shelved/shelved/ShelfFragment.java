@@ -19,7 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
+//import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -146,7 +146,7 @@ public class ShelfFragment extends ListFragment {
                         ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
 
                         if (message.isResult()){
-                            ValidBookListUpdateResponse bookListUpdateResponse = (ValidBookListUpdateResponse) message;
+                            //ValidBookListUpdateResponse bookListUpdateResponse = (ValidBookListUpdateResponse) message;
                         }
                         try {
                             Log.d(TAG, response);

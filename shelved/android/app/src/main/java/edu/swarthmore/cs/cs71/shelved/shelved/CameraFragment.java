@@ -14,7 +14,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import org.w3c.dom.Text;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CameraFragment extends Fragment {
+    static final int PICK_CONTACT_REQUEST = 1;  // The request code
+
     private TextView _ISBN;
     private static final String TAG = "CameraFragment";
 
@@ -35,22 +39,33 @@ public class CameraFragment extends Fragment {
         Context context;
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         context = rootView.getContext();
+        _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
+
         Intent intent = new Intent(context, ScannerActivity.class);
 
         Log.d(TAG, "about to call activity start");
-        startActivity(intent);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
-        String ISBN = ScannerActivity.getISBN();
-
-        _ISBN = (TextView)rootView.findViewById(R.id.ISBN);
-        _ISBN.setText(ISBN);
-
-        Log.d(TAG, "past setting ISBN text");
-
-        //getActivity().finish();
-
-        Log.d(TAG, "past activity start");
         return rootView;
         //return inflater.inflate(R.layout.fragment_camera, container, false);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                String ISBN = ScannerActivity.getISBN();
+
+                _ISBN.setText(ISBN);
+
+                Log.d(TAG, "past setting ISBN text");
+
+                //getActivity().finish();
+
+                Log.d(TAG, "past activity start");
+            }
+        }
     }
 }
