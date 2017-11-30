@@ -12,27 +12,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class ShelfFragment extends ListFragment {
-
+    private BookListAdapter bookListAdapter;
 
     private static final String TAG = "ShelfFragment";
 
-    private static final int BOOKS_AMOUNT = 2;
+//    private static int BOOKS_AMOUNT = 2;
 
-    private SimpleBook[] books = new SimpleBook[BOOKS_AMOUNT];
+    private List<SimpleBook> books = new ArrayList<>();
 
-    private String[] titles = new String[BOOKS_AMOUNT];
-    private int[] covers = {
-            R.mipmap.logo
-    };
-    private String[] authors = new String[BOOKS_AMOUNT];
+    private List<String> titles = new ArrayList<>();
+    private List<Integer> covers = new ArrayList<>();
+    private List<String> authors = new ArrayList<>();
 
     private ListView bookList;
     private ImageButton addBook;
@@ -40,25 +46,31 @@ public class ShelfFragment extends ListFragment {
     // In order to populate the individual book view
     private String book;
 
+//    private ArrayAdapter<SimpleBook> arrayAdapter = new ArrayAdapter<SimpleBook>(this, R.layout.book_list_item, books);
 
-    public void initializeBooks(SimpleBook[] books) {
 
-        // Manual creation of SimpleBook objects - will later populate from database
-        for (int j = 0; j < books.length; j++) {
-            books[j] = new SimpleBook();
-        }
 
-        // Manually setting book fields for now
-        books[0].setTitle("Kafka by the Shore");
-        books[0].setAuthor("Haruki Murakami");
+    public void initializeBooks(List<SimpleBook> books) {
 
-        books[1].setTitle("Harry Potter and the Sorcerer's Stone");
-        books[1].setAuthor("J.K. Rowling");
+//        // Manual creation of SimpleBook objects - will later populate from database
+//        for (int j = 0; j < books.length; j++) {
+//            books[j] = new SimpleBook();
+//        }
+        SimpleBook book1 = new SimpleBook();
+        book1.setTitle("Kafka by the Shore");
+        book1.setAuthor("Haruki Murakami");
+        SimpleBook book2 = new SimpleBook();
+        book2.setTitle("Harry Potter and the Sorcerer's Stone");
+        book2.setAuthor("J.K. Rowling");
+
+
+
 
         // Add book fields to separate String arrays to populate the list adapter
-        for (int i = 0; i < books.length; i++) {
-            titles[i] = books[i].getTitle().getTitle();
-            authors[i] = books[i].getAuthor().getAuthorName();
+        for (int i = 0; i < books.size(); i++) {
+            titles.add(books.get(i).getTitle().getTitle());
+            authors.add(books.get(i).getAuthor().getAuthorName());
+            covers.add(R.mipmap.logo);
         }
     }
 
@@ -77,35 +89,13 @@ public class ShelfFragment extends ListFragment {
 
         // Sets the ListView item in fragment shelf to our custom list item, bookList
         bookList = (ListView)view.findViewById(android.R.id.list);
-        SimpleAdapter adapter = adaptBookList();
-        bookList.setAdapter(adapter);
-
+        this.bookListAdapter = new BookListAdapter(getContext(), books);
+        bookList.setAdapter(bookListAdapter);
         addBook = (ImageButton)view.findViewById(R.id.add_book);
 
         return view;
     }
 
-    private SimpleAdapter adaptBookList() {
-        List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
-
-        for(int i=0;i<books.length;i++){
-            HashMap<String, String> hm = new HashMap<String,String>();
-            hm.put("title", titles[i]);
-            hm.put("author", authors[i]);
-            hm.put("cover", Integer.toString(covers[0]) );
-            aList.add(hm);
-        }
-
-        // Keys used in Hashmap
-        String[] from = {"title","author","cover"};
-
-        // Ids of views in listview_layout
-        int[] to = {R.id.title_book, R.id.author_book, R.id.cover};
-
-        // Instantiating an adapter to store each items
-        // R.layout.book_list_item defines the layout of each item
-        return new SimpleAdapter(getActivity().getBaseContext(), aList, R.layout.book_list_item, from, to);
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -115,11 +105,18 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 // Create and show AddBookDialog
-                AddBookDialog alert = new AddBookDialog(getContext());
+                AddBookDialog alert = new AddBookDialog(getContext(), new Continuation<SimpleBook>() {
+                    @Override
+                    public void run(SimpleBook simpleBook) {
+                        // TODO: modify aList, tell Adapter, callUpdateBook, Adapter of SimpleBook
+                        ShelfFragment.this.books.add(simpleBook);
+                        bookListAdapter.notifyDataSetChanged();
+                        updateBook();
+                    }
+                });
                 Log.d(TAG, "show add book dialog");
-                AddBookDialog alert1 = alert.newInstance();
                 Log.d(TAG, "called newInstance");
-                alert1.show();
+                alert.show();
             }
         });
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -131,7 +128,29 @@ public class ShelfFragment extends ListFragment {
             }
         });
     }
+    private String getUpdateBookListUrl(){
+        return "http://"+getActivity().getApplicationContext().getResources().getString((R.string.server_url))+":4567/updateBook";
+    }
 
+    public void updateBook(){
+        final String TAG = "UpdateBook";
+        String cancel_req_tag = "updateBook";
+        StringRequest strReq = new StringRequest(Request.Method.POST, getUpdateBookListUrl(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Update book response: " + response);
+                        ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                        // TODO: turn Response into a list of book, update the list, tell Adapter
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+    }
     private AlertDialog.Builder bookInfoDialog () {
         Context context = getContext();
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -152,6 +171,31 @@ public class ShelfFragment extends ListFragment {
         alert.setView(layout);
 
         return alert;
+    }
+    private static class BookListAdapter extends ArrayAdapter<SimpleBook> {
+
+        public BookListAdapter(Context context, List<SimpleBook> bookList) {
+            super(context, R.layout.book_list_item, bookList);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+
+            if (convertView == null) {
+                LayoutInflater vi;
+                vi = LayoutInflater.from(getContext());
+                convertView = vi.inflate(R.layout.book_list_item, null);
+            }
+            SimpleBook book = getItem(position);
+            TextView title = (TextView) convertView.findViewById(R.id.title_book);
+            TextView author = (TextView) convertView.findViewById(R.id.author_book);
+            ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
+            title.setText(book.getTitle().getTitle());
+            author.setText(book.getAuthor().getAuthorName());
+            cover.setImageResource(R.mipmap.logo);
+            return convertView;
+        }
     }
 
 }
