@@ -44,11 +44,11 @@ public class BookInfoTests {
         Assert.assertEquals("Breakfast with Socrates", title2);
         String author = bookInfo.getAuthorFromISBNdb("0552547344");
         Assert.assertEquals("Bali Rai", author);
-        String publisher = bookInfo.getPublisherFromISBNdb("0552547344");
+        String publisher = bookInfo.getPublisherFromISBN("0552547344");
         Assert.assertEquals("Corgi Childrens", publisher);
-        String pages = bookInfo.getNumPagesFromISBNdb("0552547344");
+        String pages = bookInfo.getNumPagesFromISBN("0552547344");
         Assert.assertEquals("272", pages);
-        String pages2 = bookInfo.getNumPagesFromISBNdb("0439554934");
+        String pages2 = bookInfo.getNumPagesFromISBN("0439554934");
         Assert.assertEquals("320", pages2);
 
         String author2 = bookInfo.getAuthorFromISBN("0552547344");
@@ -76,12 +76,12 @@ public class BookInfoTests {
     @Test(expected = notFoundException.class)
     public void testExceptionPublisher() throws IOException, notFoundException {
         BookInfo bookInfo = new BookInfo();
-        String publisher2 = bookInfo.getPublisherFromISBNdb("1439171882");
+        String publisher2 = bookInfo.getPublisherFromISBN("1439171882");
     }
     @Test(expected = notFoundException.class)
     public void testExceptionPages() throws IOException, notFoundException {
         BookInfo bookInfo = new BookInfo();
-        String pages3 = bookInfo.getNumPagesFromISBNdb("1439171882");
+        String pages3 = bookInfo.getNumPagesFromISBN("1439171882");
     }
     @Test
     public void testJsonFromQueryGoogleBooks() throws IOException, EmptyQueryException, notFoundException {

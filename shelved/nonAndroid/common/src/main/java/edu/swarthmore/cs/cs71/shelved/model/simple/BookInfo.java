@@ -48,6 +48,17 @@ public class BookInfo {
         }
     }
 
+
+    public String getPublisherFromISBN(String ISBN) throws IOException, notFoundException {
+        return getPublisherFromISBNdb(ISBN);
+    }
+
+    public String getNumPagesFromISBN(String ISBN) throws IOException, notFoundException {
+        return getNumPagesFromISBNdb(ISBN);
+    }
+
+
+
     //GOODREADS section
     public String getGoodreadsId(String isbn) throws IOException {
         URL url = new URL("https://www.goodreads.com/book/isbn_to_id/"+isbn+"?key="+GOODREADS_KEY);
@@ -134,6 +145,27 @@ public class BookInfo {
         return isbnList;
     }
 
+    private String getISBN(String strUrl) throws IOException {
+        String html = getHTMLContent(new URL(strUrl)).toString();
+        String initialSearch = "<span itemprop='isbn'>";
+        String finalSearch = "</span>)</span>";
+        int begIndex = getIndexBegInt(html,initialSearch);
+        int endIndex = getIndexEndInt(html,finalSearch);
+        String longHTMLParse;
+        if (begIndex != 0 && endIndex != 0) {
+            initialSearch = "<span itemprop='isbn'>";
+            begIndex = getIndexBegInt(html, initialSearch);
+            longHTMLParse = html.substring(begIndex, endIndex);
+        } else {
+            initialSearch = "itemprop='isbn'>";
+            begIndex = getIndexBegInt(html,initialSearch);
+            longHTMLParse = html.substring(begIndex, begIndex+13);
+        }
+        if (longHTMLParse.contains("<")){
+            longHTMLParse = longHTMLParse.substring(0,longHTMLParse.indexOf("<"));
+        }
+        return longHTMLParse;
+    }
 
 
     //ISBNDB section
@@ -167,12 +199,12 @@ public class BookInfo {
         return newJObj.getString("name");
     }
 
-    public String getPublisherFromISBNdb(String ISBN) throws IOException, notFoundException {
+    private String getPublisherFromISBNdb(String ISBN) throws IOException, notFoundException {
         //throws notFoundException if ISBN not found
         JSONObject jObj = getJsonFromIsbnDb(ISBN);
         return jObj.getString("publisher_name");
     }
-    public String getNumPagesFromISBNdb(String ISBN) throws IOException, notFoundException {
+    private String getNumPagesFromISBNdb(String ISBN) throws IOException, notFoundException {
         //throws notFoundException if ISBN not found
         JSONObject jObj = getJsonFromIsbnDb(ISBN);
         String physDesc = jObj.getString("physical_description_text");
@@ -235,29 +267,8 @@ public class BookInfo {
     }
 
 
-    //HELPERS section
+    //General helpers section
 
-    private String getISBN(String strUrl) throws IOException {
-        String html = getHTMLContent(new URL(strUrl)).toString();
-        String initialSearch = "<span itemprop='isbn'>";
-        String finalSearch = "</span>)</span>";
-        int begIndex = getIndexBegInt(html,initialSearch);
-        int endIndex = getIndexEndInt(html,finalSearch);
-        String longHTMLParse;
-        if (begIndex != 0 && endIndex != 0) {
-            initialSearch = "<span itemprop='isbn'>";
-            begIndex = getIndexBegInt(html, initialSearch);
-            longHTMLParse = html.substring(begIndex, endIndex);
-        } else {
-            initialSearch = "itemprop='isbn'>";
-            begIndex = getIndexBegInt(html,initialSearch);
-            longHTMLParse = html.substring(begIndex, begIndex+13);
-        }
-        if (longHTMLParse.contains("<")){
-            longHTMLParse = longHTMLParse.substring(0,longHTMLParse.indexOf("<"));
-        }
-        return longHTMLParse;
-    }
 
     // https://stackoverflow.com/questions/4076910/how-to-retrieve-element-value-of-xml-using-java
     private Element getRootElement(String xml) throws ParserConfigurationException, SAXException, IOException {
