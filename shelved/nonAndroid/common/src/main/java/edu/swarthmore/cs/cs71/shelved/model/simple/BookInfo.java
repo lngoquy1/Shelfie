@@ -1,5 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.model.simple;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class BookInfo {
     private final String GOODREADS_KEY = "VCtvMQ3iSjQaSHPXlhGZQA";
@@ -25,6 +27,8 @@ public class BookInfo {
     }
 
     //COMBINED section
+
+    //ISBN-based Methods
     public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
         try { //get title from GoogleBooks
             JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
@@ -57,16 +61,71 @@ public class BookInfo {
         return getNumPagesFromISBNdb(ISBN);
     }
 
+    public List<String> getRecommendedBooksFromISBN(String ISBN) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        return getRecommendedBooksGoodreads(ISBN);
+    }
+
+    //Title-based Methods
+    public List<String> getISBNsFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
+        JSONObject jObj = getJsonFromQueryGoogle(title, author,"");
+        List<String> ISBNList = getISBNGoogleJson(jObj);
+        if (ISBNList.isEmpty()){
+            ISBNList = getISBNFromQuery(title + author);
+        }
+        return ISBNList;
+    }
+
+
+    public List<String> getAuthorFromTitle(String title) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, notFoundException {
+        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, "");
+        List<String> author = new ArrayList<>();
+        for (String isbn:isbnList){
+            author.add(getAuthorFromISBN(isbn));
+        }
+        return author;
+    }
+
+
+    public List<String> getPublisherFromTitleAndOrAuthor(String title, String author) throws IOException, notFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
+        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, author);
+        List<String> publisher = new ArrayList<>();
+        for (String isbn:isbnList){
+            publisher.add(getPublisherFromISBN(isbn));
+        }
+        return publisher;
+    }
+
+    public List<String> getNumPagesFromTitleAndOrAuthor(String title, String author) throws IOException, notFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
+        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, author);
+        List<String> NumPages = new ArrayList<>();
+        for (String isbn:isbnList){
+            NumPages.add(getNumPagesFromISBN(isbn));
+        }
+        return NumPages;
+    }
+
+//    public List<String> getRecommendedBooksFromTitleAndOrAuthor(String title, String author) throws ParserConfigurationException, IOException, XPathExpressionException, notFoundException, SAXException, EmptyQueryException {
+//        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, author);
+//        List<String> recBooksListTemp = new ArrayList<>();
+//        Set<String> recBooksList = new Set;//TODO FIX
+//        for (int i=0;i<isbnList.size();i++) {
+//            if (i<5){
+//                String isbn = isbnList.get(i);
+//                recBooksListTemp.addAll(getRecommendedBooksGoodreads(isbn));
+//            }
+//        }
+//    }
+
 
 
     //GOODREADS section
-    public String getGoodreadsId(String isbn) throws IOException {
+    private String getGoodreadsId(String isbn) throws IOException {
         URL url = new URL("https://www.goodreads.com/book/isbn_to_id/"+isbn+"?key="+GOODREADS_KEY);
         StringBuffer content = getHTMLContent(url);
         return content.toString();
     }
 
-    public String getWorkId(String isbn) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+    private String getWorkId(String isbn) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         BookInfo bookInfo = new BookInfo();
         String id = bookInfo.getGoodreadsId(isbn);
         URL url = new URL("https://www.goodreads.com/book/id_to_work_id?key="+GOODREADS_KEY+"&id="+id);
@@ -118,7 +177,7 @@ public class BookInfo {
 
     }
 
-    public List<String> getRecommendedBooks(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+    private List<String> getRecommendedBooksGoodreads(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         String workId = this.getWorkId(ISBN);
         URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
         StringBuffer content = getHTMLContent(url);
@@ -266,6 +325,14 @@ public class BookInfo {
         return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
     }
 
+    private List<String> getISBNGoogleJson(JSONObject jObj) {
+        List<String> ISBNList= new ArrayList<>();
+        JSONArray allContent = jObj.getJSONArray("items");
+        for (int i=0;i<allContent.length();i++){
+            ISBNList.add(allContent.getJSONObject(i).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier"));
+        }
+        return ISBNList;
+    }
 
     //General helpers section
 
