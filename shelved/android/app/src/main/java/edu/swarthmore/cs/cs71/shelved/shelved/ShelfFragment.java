@@ -21,6 +21,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +30,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 
 public class ShelfFragment extends ListFragment {
@@ -154,7 +155,18 @@ public class ShelfFragment extends ListFragment {
                             if (!error) {
                                 Log.d(TAG, "no error");
                                 // TODO: turn Response into a list of book, update the list, tell Adapter
-                                ShelfFragment.this.books = (List<SimpleBook>) jObj.getJSONObject("bookList");
+                                JSONArray jArr = new JSONArray();
+                                // populate the array
+                                jObj.put("bookList",jArr);
+                                ShelfFragment.this.books.clear();
+                                for (int i=0; i<jArr.length();i++){
+                                    Gson gson = new Gson();
+                                    SimpleBook book = gson.fromJson(jArr.get(i).toString(), SimpleBook.class);
+                                    Log.d(TAG, book.getTitle().getTitle());
+                                    ShelfFragment.this.books.add(book);
+                                }
+
+                                Log.d(TAG, "Should be updating books");
                                 bookListAdapter.notifyDataSetChanged();
 
                             } else {
@@ -204,8 +216,6 @@ public class ShelfFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-
             if (convertView == null) {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());
