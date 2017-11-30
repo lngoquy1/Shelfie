@@ -63,9 +63,6 @@ public class ShelfFragment extends ListFragment {
         book2.setTitle("Harry Potter and the Sorcerer's Stone");
         book2.setAuthor("J.K. Rowling");
 
-
-
-
         // Add book fields to separate String arrays to populate the list adapter
         for (int i = 0; i < books.size(); i++) {
             titles.add(books.get(i).getTitle().getTitle());
