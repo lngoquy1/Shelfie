@@ -1,8 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
-import edu.swarthmore.cs.cs71.shelved.model.simple.BookInfo;
-import edu.swarthmore.cs.cs71.shelved.model.simple.EmptyQueryException;
-import edu.swarthmore.cs.cs71.shelved.model.simple.NotFoundException;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -93,7 +93,7 @@ public class BookInfoTests {
     }
 
     @Test
-    public void testScrapeRecs() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+    public void testScrapeRecs() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException, NotFoundException, EmptyQueryException {
         BookInfo bookInfo = new BookInfo();
         List<String> listOfRecs = bookInfo.getRecommendedBooksFromISBN("0152047387");
         List<String> expectedList = new ArrayList<>();
@@ -104,10 +104,21 @@ public class BookInfoTests {
         expectedList.add("The Secret Country (The Secret Country, #1)");
         expectedList.add("Heir Apparent (Rasmussem Corporation, #2)");
         Assert.assertEquals(expectedList, listOfRecs);
+        //Not really part of test; this is an example of how you might parse the output.
+        String ISBN = "0201485672";
+        List<String> listOfRecs2 = bookInfo.getRecommendedBooksFromISBN(ISBN);
+        String title = bookInfo.getTitleFromISBN(ISBN);
+        System.out.println("\nIf you liked " + title + ", we recommend:");
+        for (String book:listOfRecs2){
+            System.out.println("    "+book);
+        }
+
     }
     @Test
     public void testScrapeLink() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
-        //this tests that "Harry Potter and the Sorcerer's Stone" returns all **possible** book isbns (some bookInfo sources don't list the isbns easily)
+        // this tests that "Harry Potter and the Sorcerer's Stone" returns all **possible** book isbns (some bookInfo sources don't
+        // list the isbns easily)
+        // Takes about 15 seconds to run. In our app, the method here only gets called if the quicker methods can't find anything.
         BookInfo bookInfo = new BookInfo();
         List<String> listOfISBNs = bookInfo.getISBNFromTitleAuthorGoodreads("Harry Potter and the Sorcerer's Stone", "");
         List<String> customListOfISBNs = new ArrayList<>();
@@ -126,5 +137,6 @@ public class BookInfoTests {
         customListOfISBNs.add("9781934840573");
         Assert.assertEquals(customListOfISBNs, listOfISBNs);
     }
+
 
 }
