@@ -2,8 +2,8 @@ package edu.swarthmore.cs.cs71.shelved.spark;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBookService;
-import edu.swarthmore.cs.cs71.shelved.model.simple.BookInfo;
-import edu.swarthmore.cs.cs71.shelved.model.simple.BookInfo.*;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo.*;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.InvalidBookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
 
-public class ServerRouteAddBookScan {
+public class ServerRouteAddBookScan extends ServerRoute {
     public ServerRouteAddBookScan(SessionFactory sf) {
         super(sf);
     }
