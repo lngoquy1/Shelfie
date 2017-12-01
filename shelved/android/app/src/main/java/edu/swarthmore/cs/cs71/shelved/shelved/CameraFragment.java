@@ -63,6 +63,8 @@ public class CameraFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         context = rootView.getContext();
         _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
+        _Author = (TextView) rootView.findViewById(R.id.Author);
+        _Title = (TextView) rootView.findViewById(R.id.Title);
 
         Intent intent = new Intent(context, ScannerActivity.class);
 
@@ -81,16 +83,9 @@ public class CameraFragment extends Fragment {
                 // The user picked a contact.
                 String ISBN = ScannerActivity.getISBN();
 
-        _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
-        _ISBN.setText(ISBN);
-
-
+                _ISBN.setText(ISBN);
                 Log.d(TAG, "past setting ISBN text");
 
-
-
-        _Author = (TextView) rootView.findViewById(R.id.Author);
-        _Title = (TextView) rootView.findViewById(R.id.Title);
 
         String cancel_req_tag = "addBookByScan";
 
