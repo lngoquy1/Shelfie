@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BookListFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class BookListFragment extends Fragment {
     private GridView gridview;
     private ImageButton addList;
 
@@ -36,7 +36,6 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
 
         gridview = (GridView) view.findViewById(R.id.list_gridview);
         gridview.setAdapter(new IconAdapter(getContext()));
-        gridview.setOnItemClickListener(this);
 
         addList = (ImageButton) view.findViewById(R.id.add_list);
         return view;
@@ -54,14 +53,15 @@ public class BookListFragment extends Fragment implements AdapterView.OnItemClic
                 // Handle what happens when a list is created
             }
         });
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
-    }
-
-    private class IconAdapter extends BaseAdapter {
+        private class IconAdapter extends BaseAdapter {
         private Context mContext;
 
         public IconAdapter(Context c) {

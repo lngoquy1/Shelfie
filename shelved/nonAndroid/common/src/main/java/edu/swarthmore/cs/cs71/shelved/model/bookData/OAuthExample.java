@@ -1,4 +1,4 @@
-package edu.swarthmore.cs.cs71.shelved.model.simple;
+package edu.swarthmore.cs.cs71.shelved.model.bookData;
 
 import com.google.api.client.auth.oauth.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
