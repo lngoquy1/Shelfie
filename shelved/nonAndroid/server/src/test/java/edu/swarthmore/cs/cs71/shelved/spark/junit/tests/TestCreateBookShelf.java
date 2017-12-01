@@ -9,8 +9,6 @@ import org.junit.Test;
 public class TestCreateBookShelf {
     @Test
     public void TestNewShelf(){
-        int shelfPos = 0;
-        int rowPos = 0;
         HibRowShelf hibRowShelf = new HibRowShelf();
         HibShelvedBook shelvedBook = new HibShelvedBook();
 
@@ -22,10 +20,10 @@ public class TestCreateBookShelf {
         hibBook.setPublisher("HPPub");
 
         shelvedBook.setBook(hibBook);
-        hibRowShelf.addBook(shelvedBook, rowPos);
+        hibRowShelf.addBook(shelvedBook);
         HibBookShelf newBookShelf = new HibBookShelf();
-        newBookShelf.addRowShelf(shelfPos, hibRowShelf);
-        Assert.assertEquals(hibRowShelf, newBookShelf.getRowShelf(shelfPos));
+        newBookShelf.addRowShelf(hibRowShelf);
+        Assert.assertEquals(hibRowShelf, newBookShelf.getRowShelf(0));
         Assert.assertEquals(1, newBookShelf.getNumRows());
         newBookShelf.removeRowShelf(hibRowShelf);
         Assert.assertEquals(0, newBookShelf.getNumRows());

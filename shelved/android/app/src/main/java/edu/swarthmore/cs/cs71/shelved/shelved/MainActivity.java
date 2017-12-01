@@ -8,18 +8,28 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.CallbackManager;
 
-public class  MainActivity extends AppCompatActivity {
-    private CallbackManager callbackManager;
+import java.util.NoSuchElementException;
 
+public class  MainActivity extends AppCompatActivity {
+
+    private String userId;
+    private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
+        try {
+            Intent intent = getIntent();
+            userId = intent.getStringExtra("userId");
+            Log.d("MainActivity", "userID: "+userId);
+        }
+        catch (Exception e){
+            throw new NoSuchElementException();
+        }
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
@@ -32,7 +42,7 @@ public class  MainActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.action_item1:
-                                selectedFragment = ShelfFragment.newInstance();
+                                selectedFragment = ShelfFragment.newInstance(userId);
                                 break;
                             case R.id.action_item2:
                                 selectedFragment = SearchFragment.newInstance();
@@ -54,10 +64,11 @@ public class  MainActivity extends AppCompatActivity {
                     }
                 });
 
+        // Getting userID from LoginActivity
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, ShelfFragment.newInstance());
+        transaction.replace(R.id.frame_layout, ShelfFragment.newInstance(userId));
         //transaction.commit();
 
         //Used to select an item programmatically
@@ -66,6 +77,9 @@ public class  MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // TODO: Try to get userID after transfering from Login
+
 
     }
 
@@ -81,4 +95,7 @@ public class  MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    public String getUserId() {
+        return userId;
+    }
 }

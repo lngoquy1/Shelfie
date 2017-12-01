@@ -35,15 +35,16 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
+    private String userID;
     public AddBookDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    public AddBookDialog(Context context, final Continuation<SimpleBook> positiveContinuation) {
+    public AddBookDialog(Context context, String userID, final Continuation<SimpleBook> positiveContinuation) {
         super(context);
 
         this.setTitle("Add Book");
-        Log.d(TAG, "inside newInstance");
+        this.userID = userID;
 
 
         LinearLayout layout = new LinearLayout(context);
@@ -67,6 +68,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                 String cancel_req_tag = "addBook";
                 String titleString = titleBox.getText().toString();
                 String authorString = authorBox.getText().toString();
+
                 Log.d(TAG, getAddBookUrl());
                 // TODO: This StringRequest is still under construction
                 StringRequest strReq = new StringRequest(Request.Method.POST, getAddBookUrl(), new Response.Listener<String>() {
@@ -116,6 +118,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
+                        params.put("userID", AddBookDialog.this.userID);
                         params.put("title", titleBox.getText().toString());
                         params.put("author", authorBox.getText().toString());
                         return params;

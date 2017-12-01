@@ -13,7 +13,6 @@ public class TestHibUser {
         HibUser newUser = new HibUser();
         newUser.setName(name);
         newUser.setEmail(email);
-        newUser.setSalt();
         newUser.setPassword(password);
 
         String hashedPassword = BCrypt.hashpw(password, newUser.getSalt());

@@ -7,6 +7,8 @@ public interface User {
     void setName(String name);
     public void setBio(String bio);
     public void setLocation(String location);
+    void setShelves(); // initialize list of all Shelf
+
     void setSalt();
     void changePassword(String oldPassword, String newPassword);
 //    void resetPassword(String newPassword);
@@ -21,6 +23,7 @@ public interface User {
     String getLocation();
 
     String getSalt();
+
 
 
 }

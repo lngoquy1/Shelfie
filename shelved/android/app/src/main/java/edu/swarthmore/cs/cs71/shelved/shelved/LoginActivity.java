@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
+
     }
 
     public void login() {

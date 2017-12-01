@@ -21,6 +21,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 //import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import edu.swarthmore.cs.cs71.shelved.sandbox.Main;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +38,6 @@ public class ShelfFragment extends ListFragment {
     private BookListAdapter bookListAdapter;
 
     private static final String TAG = "ShelfFragment";
-
 //    private static int BOOKS_AMOUNT = 2;
 
     private List<SimpleBook> books = new ArrayList<>();
@@ -51,6 +51,7 @@ public class ShelfFragment extends ListFragment {
 
     // In order to populate the individual book view
     private String book;
+    private String userID;
 
 //    private ArrayAdapter<SimpleBook> arrayAdapter = new ArrayAdapter<SimpleBook>(this, R.layout.book_list_item, books);
 
@@ -77,8 +78,12 @@ public class ShelfFragment extends ListFragment {
         }
     }
 
-    public static ShelfFragment newInstance() {
+    public static ShelfFragment newInstance(String userID) {
         ShelfFragment fragment = new ShelfFragment();
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putString("userID", userID);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -95,7 +100,8 @@ public class ShelfFragment extends ListFragment {
         this.bookListAdapter = new BookListAdapter(getContext(), books);
         bookList.setAdapter(bookListAdapter);
         addBook = (ImageButton)view.findViewById(R.id.add_book);
-
+        Bundle args = getArguments();
+        userID = args.getString("userID", "");
         return view;
     }
 
@@ -108,7 +114,7 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 // Create and show AddBookDialog
-                AddBookDialog alert = new AddBookDialog(getContext(), new Continuation<SimpleBook>() {
+                AddBookDialog alert = new AddBookDialog(getContext(), userID, new Continuation<SimpleBook>() {
                     @Override
                     public void run(SimpleBook simpleBook) {
                         // TODO: modify aList, tell Adapter, callUpdateBook, Adapter of SimpleBook

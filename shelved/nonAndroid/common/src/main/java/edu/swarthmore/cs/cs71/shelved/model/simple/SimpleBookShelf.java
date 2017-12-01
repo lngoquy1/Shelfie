@@ -32,8 +32,8 @@ public class SimpleBookShelf implements BookShelf {
     public SimpleRowShelf getRowShelf(int rowPosition){
         return this.allRows.get(rowPosition);
     }
-    public void addRowShelf(int index, SimpleRowShelf rowShelf) {
-        this.allRows.add(index, rowShelf);
+    public void addRowShelf(SimpleRowShelf rowShelf) {
+        this.allRows.add(rowShelf);
     }
 
     public void removeRowShelf(SimpleRowShelf rowShelf) {

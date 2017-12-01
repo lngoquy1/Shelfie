@@ -1,7 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.common.junit.tests;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.model.api.ShelvedBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class SimpleObjectsTest {
         SimpleRowShelf row1 = new SimpleRowShelf();
 
         // add row to bookshelf
-        bookshelf.addRowShelf(0, row1);
+        bookshelf.addRowShelf(row1);
 
         // test that bookshelf believes it has one row
         Assert.assertEquals(1, bookshelf.getNumRows());
@@ -50,7 +49,7 @@ public class SimpleObjectsTest {
         shelvedBook.setBook(book);
 
         // add this book to the row
-        row1.addBook(shelvedBook, 0);
+        row1.addBook(shelvedBook);
 
 
         // test that row believes it has one book
