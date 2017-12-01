@@ -155,19 +155,25 @@ public class ShelfFragment extends ListFragment {
                             if (!error) {
                                 Log.d(TAG, "no error");
                                 // TODO: turn Response into a list of book, update the list, tell Adapter
-                                JSONArray jArr = new JSONArray();
                                 // populate the array
-                                jObj.put("bookList",jArr);
+                                JSONArray jArr = jObj.getJSONArray("bookList");
+
+
                                 ShelfFragment.this.books.clear();
                                 for (int i=0; i<jArr.length();i++){
                                     Gson gson = new Gson();
-                                    SimpleBook book = gson.fromJson(jArr.get(i).toString(), SimpleBook.class);
+                                    SimpleBook book = gson.fromJson(jArr.getJSONObject(i).toString(), SimpleBook.class);
+                                    Log.d(TAG, "book: "+book.getTitle().getTitle());
                                     Log.d(TAG, book.getTitle().getTitle());
+//                                    if (!ShelfFragment.this.books.contains(book)) {
+//                                        ShelfFragment.this.books.add(book);
+//                                    }
                                     ShelfFragment.this.books.add(book);
-                                }
 
-                                Log.d(TAG, "Should be updating books");
+                                }
                                 bookListAdapter.notifyDataSetChanged();
+                                Log.d(TAG, "Should be updating books");
+
 
                             } else {
                                 Log.d(TAG, "error");

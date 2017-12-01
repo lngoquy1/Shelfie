@@ -79,7 +79,15 @@ public class BookInfo {
         return ISBNList;
     }
 
+    public String getGenreFromISBN(String ISBN) throws EmptyQueryException, IOException, NotFoundException {
+        JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
+        return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
+    }
 
+    public String getUrlBookCoverFromISBN(String isbn) throws EmptyQueryException, IOException, NotFoundException {
+        JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
+        return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
+    }
 //    public List<String> getAuthorFromTitle(String title) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
 //        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, "");
 //        List<String> author = new ArrayList<>();
