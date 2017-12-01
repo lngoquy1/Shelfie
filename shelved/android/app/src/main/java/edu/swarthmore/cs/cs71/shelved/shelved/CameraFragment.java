@@ -30,8 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static android.app.Activity.RESULT_OK;
 
 public class CameraFragment extends Fragment {
+    static final int PICK_CONTACT_REQUEST = 1;  // The request code
+
     private TextView _ISBN;
     private TextView _Author;
     private TextView _Title;
@@ -59,17 +62,31 @@ public class CameraFragment extends Fragment {
         Context context;
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         context = rootView.getContext();
+        _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
+
         Intent intent = new Intent(context, ScannerActivity.class);
 
         Log.d(TAG, "about to call activity start");
-        startActivity(intent);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
-        String ISBN = ScannerActivity.getISBN();
+        return rootView;
+        //return inflater.inflate(R.layout.fragment_camera, container, false);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                String ISBN = ScannerActivity.getISBN();
 
         _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
         _ISBN.setText(ISBN);
 
-        Log.d(TAG, "past setting ISBN text");
+
+                Log.d(TAG, "past setting ISBN text");
+
 
 
         _Author = (TextView) rootView.findViewById(R.id.Author);
@@ -132,4 +149,11 @@ public class CameraFragment extends Fragment {
     Log.d(TAG, "past activity start");
     return rootView;
 }
+}
+                //getActivity().finish();
+
+                Log.d(TAG, "past activity start");
+            }
+        }
+    }
 }

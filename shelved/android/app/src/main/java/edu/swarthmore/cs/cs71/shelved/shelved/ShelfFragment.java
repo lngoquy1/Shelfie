@@ -19,12 +19,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+//import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+
 
 
 public class ShelfFragment extends ListFragment {
@@ -62,9 +68,6 @@ public class ShelfFragment extends ListFragment {
         SimpleBook book2 = new SimpleBook();
         book2.setTitle("Harry Potter and the Sorcerer's Stone");
         book2.setAuthor("J.K. Rowling");
-
-
-
 
         // Add book fields to separate String arrays to populate the list adapter
         for (int i = 0; i < books.size(); i++) {
@@ -141,14 +144,47 @@ public class ShelfFragment extends ListFragment {
                     public void onResponse(String response) {
                         Log.d(TAG, "Update book response: " + response);
                         ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                        // TODO: turn Response into a list of book, update the list, tell Adapter
+
+                        if (message.isResult()){
+                            //ValidBookListUpdateResponse bookListUpdateResponse = (ValidBookListUpdateResponse) message;
+                        }
+                        try {
+                            Log.d(TAG, response);
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = !jObj.getBoolean("result");
+                            if (!error) {
+                                Log.d(TAG, "no error");
+                                // TODO: turn Response into a list of book, update the list, tell Adapter
+                                JSONArray jArr = new JSONArray();
+                                // populate the array
+                                jObj.put("bookList",jArr);
+                                ShelfFragment.this.books.clear();
+                                for (int i=0; i<jArr.length();i++){
+                                    Gson gson = new Gson();
+                                    SimpleBook book = gson.fromJson(jArr.get(i).toString(), SimpleBook.class);
+                                    Log.d(TAG, book.getTitle().getTitle());
+                                    ShelfFragment.this.books.add(book);
+                                }
+
+                                Log.d(TAG, "Should be updating books");
+                                bookListAdapter.notifyDataSetChanged();
+
+                            } else {
+                                Log.d(TAG, "error");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            System.out.println("Error case");
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e(TAG, "Update book list error: "+ error.getMessage());
             }
         });
+        AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
 
     }
     private AlertDialog.Builder bookInfoDialog () {
@@ -180,8 +216,6 @@ public class ShelfFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-
             if (convertView == null) {
                 LayoutInflater vi;
                 vi = LayoutInflater.from(getContext());

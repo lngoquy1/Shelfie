@@ -3,6 +3,7 @@ package edu.swarthmore.cs.cs71.shelved.spark;
 
 import static spark.Spark.*;
 
+import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.server.*;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.hibernate.SessionFactory;
@@ -25,6 +26,7 @@ public class Server {
         get("/list", new DisplayTestRoute(sf));
         post("/login", new ServerRouteLogin(sf), GsonUtils.makeMessageGson()::toJson);
         post("/addBook", new ServerRouteAddBook(sf), GsonUtils.makeMessageGson()::toJson);
+        post("/updateBook", new ServerRouteUpdateBookList(sf), GsonUtils.makeMessageGson()::toJson);
     }
 
 
