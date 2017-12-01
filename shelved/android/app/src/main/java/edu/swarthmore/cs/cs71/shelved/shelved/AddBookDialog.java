@@ -139,7 +139,7 @@ public class AddBookDialog extends AlertDialog.Builder {
         });
     }
 
-    }
+
     private String getAddBookUrl() {
         //AppCompatActivity act = new AppCompatActivity();
         return "http://"+getApplicationContext().getResources().getString((R.string.server_url))+":4567/addBook";
