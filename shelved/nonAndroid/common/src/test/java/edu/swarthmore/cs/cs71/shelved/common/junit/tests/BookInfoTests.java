@@ -37,7 +37,12 @@ public class BookInfoTests {
         Assert.assertEquals("Robert Rowland Smith", author3);
         String author4 = bookInfo.getAuthorFromISBNdb("0552547344");
         Assert.assertEquals("Bali Rai", author4);
+        String genre = bookInfo.getGenreFromISBN("1439171882");
+        Assert.assertEquals("Philosophy", genre);
+        String url = bookInfo.getUrlBookCoverFromISBN("1439171882");
+        Assert.assertEquals("http://books.google.com/books/content?id=Gpnk-K_yBj4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",url);
     }
+
 
     @Test
     public void testGetISBNsFromTitleAndOrAuthorNoException() throws ParserConfigurationException, IOException, XPathExpressionException, NotFoundException, SAXException, EmptyQueryException {
@@ -56,6 +61,11 @@ public class BookInfoTests {
         System.out.println(listOfISBNs);
     }
 
+    @Test(expected = NotFoundException.class)
+    public void testExceptionCover() throws EmptyQueryException, IOException, NotFoundException {
+        BookInfo bookInfo = new BookInfo();
+        String url = bookInfo.getUrlBookCoverFromISBN("143sdsaf9171882");
+    }
     @Test(expected = NotFoundException.class)
     public void getTitleFromISBNTest() throws IOException, EmptyQueryException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
