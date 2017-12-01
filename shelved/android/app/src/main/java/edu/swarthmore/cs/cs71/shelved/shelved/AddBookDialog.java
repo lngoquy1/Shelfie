@@ -30,8 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
@@ -89,13 +87,13 @@ public class AddBookDialog extends AlertDialog.Builder {
                             if (!error) {
                                 Log.d(TAG, "no error");
                                 String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
-                                Toast.makeText(getApplicationContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
 
 
                             } else {
                                 Log.d(TAG, "error");
                                 String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getApplicationContext(),
+                                Toast.makeText(getContext(),
                                         errorMsg, Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
@@ -110,7 +108,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Add book error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getContext(),
                                 error.getMessage(), Toast.LENGTH_LONG).show();
 //                        hideDialog(progressDialog);
                     }
@@ -126,7 +124,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                 };
                 // Adding request to request queue
                 // TODO: Context is wrong, strReq never gets accessed
-                AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
                 SimpleBook newBook = new SimpleBook();
                 newBook.setAuthor(authorString);
                 newBook.setTitle(titleString);
@@ -145,7 +143,7 @@ public class AddBookDialog extends AlertDialog.Builder {
 
     private String getAddBookUrl() {
         //AppCompatActivity act = new AppCompatActivity();
-        return "http://"+getApplicationContext().getResources().getString((R.string.server_url))+":4567/addBook";
+        return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/addBook";
 
 
     }

@@ -29,7 +29,6 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static android.app.Activity.RESULT_OK;
 
 public class CameraFragment extends Fragment {
@@ -42,7 +41,7 @@ public class CameraFragment extends Fragment {
 
     private String getAddBookByScanUrl() {
         //AppCompatActivity act = new AppCompatActivity();
-        return "http://" + getApplicationContext().getResources().getString((R.string.server_url)) + ":4567/addBookByScan";
+        return "http://" + getContext().getResources().getString((R.string.server_url)) + ":4567/addBookByScan";
     }
 
     public static CameraFragment newInstance() {
@@ -78,7 +77,7 @@ public class CameraFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == PICK_CONTACT_REQUEST) {
+        if (requestCode == PICK_CONTACT_REQUEST && data!=null) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 // The user picked a contact.
@@ -110,7 +109,7 @@ public class CameraFragment extends Fragment {
                             } else {
                                 Log.d(TAG, "error");
                                 String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getApplicationContext(),
+                                Toast.makeText(getContext(),
                                         errorMsg, Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
@@ -123,7 +122,7 @@ public class CameraFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Add book error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getContext(),
                                 error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -137,7 +136,7 @@ public class CameraFragment extends Fragment {
                 };
                 // Adding request to request queue
                 // TODO: Context is wrong, strReq never gets accessed
-                AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
+                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
 
 
                 Log.d(TAG, "past activity start");

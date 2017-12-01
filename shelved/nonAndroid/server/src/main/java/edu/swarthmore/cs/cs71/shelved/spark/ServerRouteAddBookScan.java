@@ -25,25 +25,30 @@ public class ServerRouteAddBookScan extends ServerRoute {
             //        request.queryParams("title"),
             //        request.queryParams("author"));
             String ISBN = request.queryParams("ISBN");
+            System.out.println("ISBN: " + ISBN);
 
             BookInfo bookInfo = new BookInfo();
+
             String author = bookInfo.getAuthorFromISBN(ISBN);
             String title = bookInfo.getTitleFromISBN(ISBN);
+            HibBook newBook = new HibBookService().createBook(title, author);
+
             //String publisher = bookInfo.getPublisherFromISBN(ISBN);
             //String numPages = bookInfo.getNumPagesFromISBN(ISBN);
             //int pages = Integer.parseInt(numPages);
 
 
             SimpleBook simpleBook = new SimpleBook();
+            simpleBook.setTitle(newBook.getTitle().getTitle());
+            simpleBook.setAuthor(newBook.getAuthor().getAuthorName());
 
-            simpleBook.setTitle(title);
-            simpleBook.setAuthor(author);
+
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
             //        simpleBook.setPages(pages);
             //        simpleBook.setPublisher(publisher);
             return new ValidBookAddedResponse(simpleBook);
         } catch (Exception e){
-            return new InvalidBookAddedResponse("Invalid book added response");
+            return new InvalidBookAddedResponse("Invalid ISBN search response");
         }
 
     }

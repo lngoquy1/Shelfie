@@ -11,11 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.facebook.CallbackManager;
+//import com.facebook.CallbackManager;
 
 import java.util.NoSuchElementException;
 
 public class  MainActivity extends AppCompatActivity {
+//    private CallbackManager callbackManager;
 
     private String userId;
     private CallbackManager callbackManager;
@@ -92,7 +93,8 @@ public class  MainActivity extends AppCompatActivity {
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public String getUserId() {

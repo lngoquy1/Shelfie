@@ -26,6 +26,7 @@ public class Server {
         get("/list", new DisplayTestRoute(sf));
         post("/login", new ServerRouteLogin(sf), GsonUtils.makeMessageGson()::toJson);
         post("/addBook", new ServerRouteAddBook(sf), GsonUtils.makeMessageGson()::toJson);
+        post("/addBookByScan", new ServerRouteAddBookScan(sf), GsonUtils.makeMessageGson()::toJson);
         post("/updateBook", new ServerRouteUpdateBookList(sf), GsonUtils.makeMessageGson()::toJson);
     }
 
