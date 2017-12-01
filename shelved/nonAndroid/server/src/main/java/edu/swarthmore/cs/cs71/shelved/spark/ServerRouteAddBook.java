@@ -19,7 +19,6 @@ public class ServerRouteAddBook extends ServerRoute {
 
     @Override
     protected ResponseMessage execute(Request request, Response response) {
-        
         try {
             HibBook newBook = new HibBookService().createBook(
                     request.queryParams("title"),
@@ -39,5 +38,4 @@ public class ServerRouteAddBook extends ServerRoute {
         }
 
     }
-
 }

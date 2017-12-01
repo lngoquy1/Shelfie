@@ -25,10 +25,11 @@ public class ServerRouteAddBookScan extends ServerRoute {
             //        request.queryParams("title"),
             //        request.queryParams("author"));
             String ISBN = request.queryParams("ISBN");
+            System.out.println("ISBN: " + ISBN);
 
-            BookInfo bookInfo = new BookInfo();
-            String author = bookInfo.getAuthorFromISBN(ISBN);
-            String title = bookInfo.getTitleFromISBN(ISBN);
+            //BookInfo bookInfo = new BookInfo();
+            //String author = bookInfo.getAuthorFromISBN(ISBN);
+            //String title = bookInfo.getTitleFromISBN(ISBN);
             //String publisher = bookInfo.getPublisherFromISBN(ISBN);
             //String numPages = bookInfo.getNumPagesFromISBN(ISBN);
             //int pages = Integer.parseInt(numPages);
@@ -36,8 +37,8 @@ public class ServerRouteAddBookScan extends ServerRoute {
 
             SimpleBook simpleBook = new SimpleBook();
 
-            simpleBook.setTitle(title);
-            simpleBook.setAuthor(author);
+            //simpleBook.setTitle(title);
+            //simpleBook.setAuthor(author);
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
             //        simpleBook.setPages(pages);
             //        simpleBook.setPublisher(publisher);
