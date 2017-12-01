@@ -147,11 +147,6 @@ public class AddBookDialog extends AlertDialog.Builder {
     }
 
 
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> dd037bd24a5cca45d17dcba1b1b3de654a1a3e8d
 }
 
