@@ -15,12 +15,14 @@ import spark.Response;
 public class ServerRouteAddBookScan extends ServerRoute {
     public ServerRouteAddBookScan(SessionFactory sf) {
         super(sf);
+        System.out.println("INSIDE ADBOOKSCAN SUPER CALL");
     }
 
     @Override
     protected ResponseMessage execute(Request request, Response response) {
-
+        System.out.println("RIGHT BEFORE TRY IN RESPONSE MESSAGE");
         try {
+            System.out.println("WE ARE HERE");
             //HibBook newBook = new HibBookService().createBook(
             //        request.queryParams("title"),
             //        request.queryParams("author"));

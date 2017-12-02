@@ -20,6 +20,7 @@ public class Server {
 
         staticFiles.location("/public");
 
+        System.out.println("GETTING PATH");
 
         initializeDatabase(sf);
         post("/signup", new ServerRouteSignup(sf), GsonUtils.makeMessageGson()::toJson);

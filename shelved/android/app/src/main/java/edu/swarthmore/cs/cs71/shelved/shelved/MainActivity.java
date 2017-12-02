@@ -19,7 +19,6 @@ public class  MainActivity extends AppCompatActivity {
 //    private CallbackManager callbackManager;
 
     private String userId;
-    private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

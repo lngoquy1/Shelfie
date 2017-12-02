@@ -137,6 +137,10 @@ public class CameraFragment extends Fragment {
                 // Adding request to request queue
                 // TODO: Context is wrong, strReq never gets accessed
                 AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
+                //SimpleBook newBook = new SimpleBook();
+                //newBook.setAuthor(ISBN);
+                //newBook.setTitle(ISBN);
+                //positiveContinuation.run(newBook);
 
 
                 Log.d(TAG, "past activity start");
