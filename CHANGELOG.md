@@ -204,4 +204,9 @@ In general, these classes describe how the server interacts with hibernate/mysql
 
 ## Updated as of 2017-11-30
 - Changed BookListFragment from a ListView to a GridView
-- Updated AddBookDialog and AddListDialog constructors to the behavior in newInstance() and made the data structure a List of SimpleBook objects rather than using a SimpleAdapter and String and Integer arrays. 
+- Updated AddBookDialog and AddListDialog constructors to the behavior in newInstance() and made the data structure a List of SimpleBook objects rather than using a SimpleAdapter and String and Integer arrays.
+- Cleaned up and finished defining all methods to get book information from sites like Google Books, isbndb, and Goodreads.
+
+## Update as of 2017-12-01
+- Turned on the wifi on Android phone. This was an accomplishment.
+- Implemented more of the functionality regarding getting book information from the server to the phone
