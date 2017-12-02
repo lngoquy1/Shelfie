@@ -1,3 +1,4 @@
 <resources>
-    <string name="server_url">130.58.68.114</string>
+    <string name="server_url">130.58.68.124</string>
+    <!--emulator ip address: 10.0.2.2 -->
 </resources>

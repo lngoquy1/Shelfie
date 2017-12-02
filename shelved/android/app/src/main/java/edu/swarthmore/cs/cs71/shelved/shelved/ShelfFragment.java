@@ -25,6 +25,7 @@ import edu.swarthmore.cs.cs71.shelved.sandbox.Main;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +51,7 @@ public class ShelfFragment extends ListFragment {
     private ImageButton addBook;
 
     // In order to populate the individual book view
-    private String book;
+    private SimpleBook book;
     private String userID;
 
 //    private ArrayAdapter<SimpleBook> arrayAdapter = new ArrayAdapter<SimpleBook>(this, R.layout.book_list_item, books);
@@ -131,7 +132,7 @@ public class ShelfFragment extends ListFragment {
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                book = adapterView.getItemAtPosition(position).toString(); // String object of cover, title, and author values for book object
+                book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
                 AlertDialog.Builder alert = bookInfoDialog();
                 alert.show();
             }
@@ -207,10 +208,27 @@ public class ShelfFragment extends ListFragment {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
+        // getting info from book object
+        String bookTitle = book.getTitle().getTitle();
+        String bookAuthor = book.getAuthor().getAuthorName();
+        //String bookGenre = book.getGenre().getGenre();
+        //int bookPages = book.getPages();
+        //String bookPublisher = book.getPublisher().getPublisher();
 
+        // create text views for each item
         final TextView titleBox = new TextView(context);
-        titleBox.setText(book);
+        //titleBox.setText(book);
+        final TextView authorBox = new TextView(context);
+        //final TextView genreBox = new TextView(context);
+        //final TextView pagesBox = new TextView(context);
+        //final TextView publisherBox = new TextView(context);
+
+        // set text views to book info
+        titleBox.setText(bookTitle);
+        authorBox.setText(bookAuthor);
+
         layout.addView(titleBox);
+        layout.addView(authorBox);
 
 //        final TextView authorBox = new TextView(context);
 //        authorBox.setText("author");
