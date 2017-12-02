@@ -20,5 +20,5 @@ This project is made with a maven project - **nonAndroid**, and an Android proje
   </resources>
   ```
 3. In order to start using the app (for now), you will need either a connected device, or choose an emulator. The steps to run are:
-* Run ServerExample in **nonAndroid**
+* Run Server in **nonAndroid**
 * Run app in **android**

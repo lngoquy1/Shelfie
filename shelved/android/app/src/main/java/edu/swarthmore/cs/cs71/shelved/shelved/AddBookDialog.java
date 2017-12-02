@@ -1,99 +1,49 @@
-<<<<<<< HEAD
-//
-//package edu.swarthmore.cs.cs71.shelved.shelved;
-//
-//import android.app.AlertDialog;
-//import android.content.Context;
-//import android.content.DialogInterface;
-//import android.util.Log;
-//import android.widget.EditText;
-//import android.widget.LinearLayout;
-//import butterknife.Bind;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//public class AddBookDialog extends AlertDialog.Builder {
-//    private static final String TAG = "AddBookDialog";
-=======
+
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.app.FragmentTransaction;
+import android.content.ClipData;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import butterknife.Bind;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import edu.swarthmore.cs.cs71.shelved.model.api.Book;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
->>>>>>> 7b38db6ba0f7b1e8f86460789336898b82569138
-//    @Bind(R.id.input_author) EditText _authorText;
-//    @Bind(R.id.input_title) EditText _titleText;
-//    @Bind(R.id.input_genre) EditText _genreText;
-//    @Bind(R.id.input_pages) EditText _pagesText;
-//    @Bind(R.id.input_publisher) EditText _publisherText;
-//    //@Bind(R.id.btn_signup) Button _signupButton;
-//    //@Bind(R.id.link_login) TextView _loginLink;
-<<<<<<< HEAD
-//
-//    public AddBookDialog(Context context) {
-//        super(context);
-//    }
-//
-//    public AddBookDialog newInstance() {
-//        Context context = getContext();
-//        AddBookDialog alert = new AddBookDialog(context);
-//        alert.setTitle("Add Book");
-//
-//        LinearLayout layout = new LinearLayout(context);
-//        layout.setOrientation(LinearLayout.VERTICAL);
-//
-//        final EditText titleBox = new EditText(context);
-//        titleBox.setHint("Title");
-//        layout.addView(titleBox);
-//
-//        final EditText authorBox = new EditText(context);
-//        authorBox.setHint("Author");
-//        layout.addView(authorBox);
-//
-//        alert.setView(layout);
-//
-//        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                Log.v("title", titleBox.getText().toString());
-//                Log.v("author", authorBox.getText().toString());
-//
-//
-//                String titleString = titleBox.getText().toString();
-//                String authoString = authorBox.getText().toString();
-//
-//            }
-//        });
-//
-//        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                // Canceled.
-//            }
-//        });
-//
-//        return alert;
-//    }
-//
-=======
-
-    public AddBookDialog(Context context) {
-        super(context);
+    private String userID;
+    public AddBookDialog(Context context, int themeResId) {
+        super(context, themeResId);
     }
 
-    public AddBookDialog newInstance() {
-        Context context = getContext();
-        AddBookDialog alert = new AddBookDialog(context);
-        alert.setTitle("Add Book");
+    public AddBookDialog(Context context, String userID, final Continuation<SimpleBook> positiveContinuation) {
+        super(context);
+
+        this.setTitle("Add Book");
+        this.userID = userID;
+
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -106,52 +56,98 @@ public class AddBookDialog extends AlertDialog.Builder {
         authorBox.setHint("Author");
         layout.addView(authorBox);
 
-        alert.setView(layout);
+        this.setView(layout);
 
-        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        this.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Log.v("title", titleBox.getText().toString());
                 Log.v("author", authorBox.getText().toString());
 
-
+                String cancel_req_tag = "addBook";
                 String titleString = titleBox.getText().toString();
                 String authorString = authorBox.getText().toString();
 
+                Log.d(TAG, getAddBookUrl());
+                // TODO: This StringRequest is still under construction
+                StringRequest strReq = new StringRequest(Request.Method.POST, getAddBookUrl(), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response){
+                        Log.d(TAG, "Add book response: " + response);
+
+                        ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                        if (message.isResult()){
+                            ValidBookAddedResponse bookAddedResponse = (ValidBookAddedResponse) message;
+                        }
+                        try {
+                            Log.d(TAG, response);
+                            JSONObject jObj = new JSONObject(response);
+                            boolean error = !jObj.getBoolean("result");
+
+
+                            if (!error) {
+                                Log.d(TAG, "no error");
+                                String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
+                                Toast.makeText(getContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
+
+
+                            } else {
+                                Log.d(TAG, "error");
+                                String errorMsg = jObj.getString("error_msg");
+                                Toast.makeText(getContext(),
+                                        errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            System.out.println("Error case");
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Add book error: " + error.getMessage());
+                        Toast.makeText(getContext(),
+                                error.getMessage(), Toast.LENGTH_LONG).show();
+//                        hideDialog(progressDialog);
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("userID", AddBookDialog.this.userID);
+                        params.put("title", titleBox.getText().toString());
+                        params.put("author", authorBox.getText().toString());
+                        return params;
+                    }
+                };
+                // Adding request to request queue
+                // TODO: Context is wrong, strReq never gets accessed
+                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
+                SimpleBook newBook = new SimpleBook();
+                newBook.setAuthor(authorString);
+                newBook.setTitle(titleString);
+                positiveContinuation.run(newBook);
             }
         });
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+        this.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Canceled.
             }
         });
-
-        return alert;
     }
 
->>>>>>> 7b38db6ba0f7b1e8f86460789336898b82569138
-//    @Override
-//    protected Map<String, String> getParams() {
-//        // Posting params to signup url
-//        Map<String, String> params = new HashMap<String, String>();
-//        params.put("title", titleBox);
-//        params.put("author", authorBox);
-//        params.put("genre", genre);
-//        params.put("pages", pages);
-//        params.put("publisher", publisher);
-//        return params;
-//    }
-<<<<<<< HEAD
-//
-//    public AddBookDialog(Context context, int themeResId) {
-//        super(context, themeResId);
-//    }
-//}
-//
-=======
 
-    public AddBookDialog(Context context, int themeResId) {
-        super(context, themeResId);
+    private String getAddBookUrl() {
+        //AppCompatActivity act = new AppCompatActivity();
+        return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/addBook";
+
+
     }
+
+
+
 }
->>>>>>> 7b38db6ba0f7b1e8f86460789336898b82569138

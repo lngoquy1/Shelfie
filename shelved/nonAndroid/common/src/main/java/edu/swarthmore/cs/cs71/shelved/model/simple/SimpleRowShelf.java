@@ -14,8 +14,8 @@ public class SimpleRowShelf implements RowShelf {
     public SimpleRowShelf() {
     }
 
-    public void addBook(SimpleShelvedBook shelvedBook, int position) {
-        this.rowList.add(position, shelvedBook);
+    public void addBook(SimpleShelvedBook shelvedBook) {
+        this.rowList.add(shelvedBook);
     }
 
     public void removeBook(SimpleShelvedBook book) {

@@ -4,7 +4,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:windowSoftInputMode="stateAlwaysHidden">
 
     <LinearLayout
             android:orientation="vertical"
@@ -16,6 +17,7 @@
 
         <ImageView
                 android:id="@+id/logo"
+                android:contentDescription="shelved logo"
                 android:src="@drawable/shelved_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"

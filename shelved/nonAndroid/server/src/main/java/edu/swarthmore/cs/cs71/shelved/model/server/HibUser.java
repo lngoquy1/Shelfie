@@ -4,6 +4,8 @@ import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="shelvedUser")
@@ -32,8 +34,11 @@ public class HibUser implements User {
     @Column(name="salt")
     private String salt;
 
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HibBookShelf> allShelves;
+
     public HibUser() {
-//        this.salt = BCrypt.gensalt();
+        setSalt();
     }
 
     @Override
@@ -67,6 +72,10 @@ public class HibUser implements User {
         this.salt = BCrypt.gensalt();
     }
 
+    @Override
+    public void setShelves(){
+        this.allShelves = new ArrayList<HibBookShelf>();
+    }
 
     @Override
     public void changePassword(String oldPassword, String newPassword) {
@@ -108,5 +117,9 @@ public class HibUser implements User {
     @Override
     public String getSalt() {
         return this.salt;
+    }
+
+    public List<HibBookShelf> getAllShelves() {
+        return allShelves;
     }
 }

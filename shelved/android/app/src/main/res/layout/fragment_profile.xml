@@ -7,6 +7,7 @@
 
     <ImageView
             android:layout_height="100dp" app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
+            android:contentDescription="facebook login"
             android:layout_alignParentTop="true" android:layout_alignParentStart="true"
             android:layout_marginStart="22dp" android:layout_marginTop="22dp" android:id="@+id/imageView2"
             android:layout_width="100dp"/>
@@ -54,22 +55,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:id="@+id/ShelvesButton"
-                android:layout_alignParentBottom="true" android:layout_toEndOf="@+id/space2"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/space2"
                 android:layout_weight="1"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:clickable="true"/>
         <Button
                 android:text="Lists"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:id="@+id/ListsButton" android:layout_below="@+id/imageView2"
+                android:id="@+id/ListsButton"
+                android:layout_below="@+id/imageView2"
                 android:layout_weight="1"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:clickable="true"/>
     </LinearLayout>
-    <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/linearLayout" android:layout_below="@+id/linearLayout"
-            android:id="@+id/ScrollableLists"/>
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    </LinearLayout>
     <ImageButton
             android:id="@+id/popup_settings"
             android:layout_width="wrap_content"
@@ -78,5 +82,13 @@
             android:contentDescription="@string/descr_overflow_button"
             android:onClick="showPopup" android:layout_alignParentTop="true"
             android:layout_alignEnd="@+id/linearLayout"/>
+    <FrameLayout
+            android:id="@+id/shelf_list_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:layout_alignParentEnd="true" android:layout_below="@+id/linearLayout">
+
+    </FrameLayout>
 
 </RelativeLayout>

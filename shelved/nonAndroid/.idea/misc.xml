@@ -7,6 +7,10 @@
           <option name="goal" value="install" />
           <option name="projectPath" value="$PROJECT_DIR$/common/pom.xml" />
         </MavenCompilerTask>
+        <MavenCompilerTask>
+          <option name="goal" value="install" />
+          <option name="projectPath" value="$PROJECT_DIR$/server/pom.xml" />
+        </MavenCompilerTask>
       </set>
     </option>
   </component>

@@ -3,6 +3,9 @@ package edu.swarthmore.cs.cs71.shelved.model.simple;
 import edu.swarthmore.cs.cs71.shelved.model.api.User;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SimpleUser implements User {
     public String header = this.getClass().getSimpleName();
     private SimpleEmail simpleEmail;
@@ -11,8 +14,9 @@ public class SimpleUser implements User {
     private String bio;
     private String location;
     private String salt;
-
+    private List<SimpleBookShelf> allShelves;
     public SimpleUser() {
+        setSalt();
     }
 
 //    public User(String username, String password, String name, String bio, String location, String salt) {
@@ -46,8 +50,10 @@ public class SimpleUser implements User {
     public void setName(String name) {
         this.name = name;
     }
-
-
+    @Override
+    public void setShelves() {
+        this.allShelves = new ArrayList<SimpleBookShelf>();
+    }
 
     public void changePassword(String oldPassword, String newPassword) {
 
@@ -92,5 +98,9 @@ public class SimpleUser implements User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<SimpleBookShelf> getAllShelves() {
+        return allShelves;
     }
 }

@@ -44,8 +44,8 @@ public class HibBookShelf implements BookShelf{
         return this.allRows.get(rowPosition);
     }
 
-    public void addRowShelf(int index, HibRowShelf rowShelf) {
-        this.allRows.add(index, rowShelf);
+    public void addRowShelf(HibRowShelf rowShelf) {
+        this.allRows.add(rowShelf);
     }
 
     public void removeRowShelf(HibRowShelf rowShelf) {
