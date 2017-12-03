@@ -5,9 +5,7 @@ import edu.swarthmore.cs.cs71.shelved.model.server.HibBookService;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo.*;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.network.InvalidBookAddedResponse;
-import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
+import edu.swarthmore.cs.cs71.shelved.network.*;
 import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
@@ -15,14 +13,13 @@ import spark.Response;
 public class ServerRouteAddBookScan extends ServerRoute {
     public ServerRouteAddBookScan(SessionFactory sf) {
         super(sf);
-        System.out.println("INSIDE ADBOOKSCAN SUPER CALL");
+        System.out.println("INSIDE ServerRouteAddBookScan SUPER CALL");
     }
 
     @Override
     protected ResponseMessage execute(Request request, Response response) {
         System.out.println("RIGHT BEFORE TRY IN RESPONSE MESSAGE");
         try {
-            System.out.println("WE ARE HERE");
             //HibBook newBook = new HibBookService().createBook(
             //        request.queryParams("title"),
             //        request.queryParams("author"));
@@ -48,9 +45,9 @@ public class ServerRouteAddBookScan extends ServerRoute {
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
             //        simpleBook.setPages(pages);
             //        simpleBook.setPublisher(publisher);
-            return new ValidBookAddedResponse(simpleBook);
+            return new ValidBookInfoReqResponse(ISBN);
         } catch (Exception e){
-            return new InvalidBookAddedResponse("Invalid ISBN search response");
+            return new InvalidBookInfoReqResponse("Invalid ISBN search response");
         }
 
     }
