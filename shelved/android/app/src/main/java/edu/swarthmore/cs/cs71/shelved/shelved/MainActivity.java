@@ -82,11 +82,7 @@ public class  MainActivity extends AppCompatActivity {
         //Used to select an item programmatically
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // TODO: Try to get userID after transfering from Login
+        // TODO: Try to get userID after transferring from Login
 
 
     }
