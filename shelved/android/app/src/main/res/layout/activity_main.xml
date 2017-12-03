@@ -7,15 +7,6 @@
         android:layout_height="match_parent"
         tools:context="edu.swarthmore.cs.cs71.shelved.shelved.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>>
-
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -36,8 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
-                android:layout_alignParentTop="true" android:layout_alignParentStart="true"
-                android:layout_marginTop="53dp">
+                android:layout_alignParentTop="true" android:layout_alignParentStart="true">
 
         </FrameLayout>
         <android.support.design.widget.BottomNavigationView
@@ -50,8 +40,5 @@
                 app:itemTextColor="@color/nav_item_state_list"
                 app:menu="@menu/bottom_navigation_items"/>
     </RelativeLayout>
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>
