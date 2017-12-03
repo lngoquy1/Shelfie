@@ -5,11 +5,12 @@
             android:id="@+id/action_item1"
             android:icon="@drawable/ic_view_list_black_24dp"
             android:title="Shelf"/>
-    <item
-            android:id="@+id/action_item2"
-            android:title="@string/app_name"
-            android:icon="@drawable/ic_search_black_24dp"
-            app:showAsAction="collapseActionView|ifRoom"/>
+
+    <item android:id="@+id/action_item2"
+          android:title="Search"
+          android:icon="@drawable/ic_search_black_24dp"
+          app:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
     <item
             android:id="@+id/action_item3"
             android:icon="@drawable/ic_camera_black_24dp"

@@ -27,7 +27,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this, rootView);
 
         settingsBtn = (ImageButton)rootView.findViewById(R.id.popup_settings);
         Button shelvesBtn = (Button) rootView.findViewById(R.id.ShelvesButton);

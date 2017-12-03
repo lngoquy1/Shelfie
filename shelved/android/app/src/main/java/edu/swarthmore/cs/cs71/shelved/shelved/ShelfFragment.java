@@ -50,7 +50,7 @@ public class ShelfFragment extends ListFragment {
     private ImageButton addBook;
 
     // In order to populate the individual book view
-    private String book;
+    private String  book;
     private String userID;
 
 //    private ArrayAdapter<SimpleBook> arrayAdapter = new ArrayAdapter<SimpleBook>(this, R.layout.book_list_item, books);

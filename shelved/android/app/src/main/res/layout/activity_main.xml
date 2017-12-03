@@ -7,7 +7,14 @@
         android:layout_height="match_parent"
         tools:context="edu.swarthmore.cs.cs71.shelved.shelved.MainActivity">
 
-    <!--<include layout="@layout/fragment_shelf"/>-->
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>>
 
     <LinearLayout
             android:orientation="vertical"
@@ -28,8 +35,9 @@
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/navigation"
-                android:animateLayoutChanges="true">
+                android:animateLayoutChanges="true"
+                android:layout_alignParentTop="true" android:layout_alignParentStart="true"
+                android:layout_marginTop="53dp">
 
         </FrameLayout>
         <android.support.design.widget.BottomNavigationView
