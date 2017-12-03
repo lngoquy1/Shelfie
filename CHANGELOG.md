@@ -210,3 +210,6 @@ In general, these classes describe how the server interacts with hibernate/mysql
 ## Update as of 2017-12-01
 - Turned on the wifi on Android phone. This was an accomplishment.
 - Implemented more of the functionality regarding getting book information from the server to the phone
+
+## Created as of 2017-12-02
+- Created a SearchView element in SearchFragment with a Listener for when a user changes text and when a user clicks submit, to be linked with the Goodreads/Google Books API calls
