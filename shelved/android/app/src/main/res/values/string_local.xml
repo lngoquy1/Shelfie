@@ -1,13 +1,10 @@
 <resources>
     <!--computer ip-->
-<<<<<<< HEAD
     <!--<string name="server_url">130.58.68.124</string>-->
     <string name="server_url">130.58.68.114</string>
-=======
     <!--<string name="server_url">chocolate.cs.swarthmore.edu</string>-->
     <!--<string name="server_url">130.58.68.124</string>-->
-    <string name="server_url">130.58.68.106</string>
->>>>>>> 790a5447bc6d2bd7b2d7179ff3c4c982e27ae239
+    <!--<string name="server_url">130.58.68.106</string>-->
     <!--<string name="server_url">130.58.68.124:3306</string>-->
     <!--<string name="server_url">3306</string>-->
 
