@@ -228,3 +228,14 @@ In general, these classes describe how the server interacts with hibernate/mysql
 
 ## Updated as of 2017-12-4
 - SearchView Listener requires the user to click a button corresponding with ISBN, Title, or Author. Currently only have ISBN search implemented. When a user submits a search query, the bookInfo class from the server is called, namely getAuthorfromISBN and getTitleFromISBN. These results are placed in a book item, fed into a BookListAdapter, and set to the ListView of SearchResultsFragment
+
+## New as of 2017-12-4
+- Created a model package inside of the android package.
+- Created a ShelvedModel inside of this model package.
+- Created String request classes in the model package for addBook and getBookList. Created corresponding listener classes.
+- Created ShelvedUrls class that generically creates the url needed for a Post, given an enum value for each type needed.
+
+## Updated as of 2017-12-4 evening 
+- Moved a lot of the application logic from inside of ShelfFragment to inside the corresponding ShelvedModel classes.
+- Moved a lot of the application logic from inside of AddBookDialog to inside the corresponding ShelvedModel classes.
+- Added a method to get a ShelvedModel inside of AppSingleton.
