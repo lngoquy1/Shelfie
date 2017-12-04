@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="book")
+@Table(name="readingList")
 public class HibReadingList implements CreatedList {
     @Id
-    @Column
+    @Column(name="readingList_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HibShelvedBook> list = new ArrayList<>();
+    private List<HibShelvedBook> list = new ArrayList<HibShelvedBook>();
 
     @Column(name="listName")
     private String listName;

@@ -22,7 +22,7 @@ public class HibWishList implements CreatedList{
     private boolean publicStatus;
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HibShelvedBook> list = new ArrayList<>();
+    private List<HibShelvedBook> list = new ArrayList<HibShelvedBook>();
 
     public HibWishList() {
     }
