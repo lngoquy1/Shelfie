@@ -1,12 +1,13 @@
 package edu.swarthmore.cs.cs71.shelved.network;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleTitle;
 
 public class ValidBookInfoReqResponse extends ResponseMessage {
 //    private SimpleAuthor author;
 //    private SimpleTitle title;
-    private String ISBN;
+    private SimpleBook book;
     private ValidBookInfoReqResponse() { super(true); }
 
 //    public ValidBookInfoReqResponse(SimpleTitle title, SimpleAuthor author) {
@@ -15,9 +16,9 @@ public class ValidBookInfoReqResponse extends ResponseMessage {
 //        this.title = title;
 //    }
 
-    public ValidBookInfoReqResponse(String ISBN) {
+    public ValidBookInfoReqResponse(SimpleBook book) {
         super(true);
-        this.ISBN = ISBN;
+        this.book = book;
     }
 
 //    public SimpleAuthor getAuthor() {
@@ -28,7 +29,7 @@ public class ValidBookInfoReqResponse extends ResponseMessage {
 //        return title;
 //    }
 
-    public String getISBN() {
-        return ISBN;
+    public SimpleBook getBook() {
+        return book;
     }
 }

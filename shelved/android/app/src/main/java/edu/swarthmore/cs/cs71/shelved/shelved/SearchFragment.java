@@ -102,6 +102,12 @@ public class SearchFragment extends Fragment {
         }
     }
 
+
+
+
+
+
+
     // Instances of this class are fragments representing a single
     // object in our collection.
     public static class ObjectFragment extends Fragment {

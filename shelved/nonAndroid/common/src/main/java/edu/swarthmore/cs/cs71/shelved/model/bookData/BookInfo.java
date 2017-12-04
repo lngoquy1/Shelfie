@@ -79,6 +79,7 @@ public class BookInfo {
         return ISBNList;
     }
 
+
     public String getGenreFromISBN(String ISBN) throws EmptyQueryException, IOException, NotFoundException {
         JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
         return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("categories").getString(0);
@@ -215,6 +216,8 @@ public class BookInfo {
         }
         return isbnList;
     }
+
+
 
     private String getISBN(String strUrl) throws IOException {
         String html = getHTMLContent(new URL(strUrl)).toString();

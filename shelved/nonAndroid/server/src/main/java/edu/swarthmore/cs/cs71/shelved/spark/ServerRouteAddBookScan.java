@@ -45,7 +45,7 @@ public class ServerRouteAddBookScan extends ServerRoute {
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
             //        simpleBook.setPages(pages);
             //        simpleBook.setPublisher(publisher);
-            return new ValidBookInfoReqResponse(ISBN);
+            return new ValidBookInfoReqResponse(simpleBook);
         } catch (Exception e){
             return new InvalidBookInfoReqResponse("Invalid ISBN search response");
         }
