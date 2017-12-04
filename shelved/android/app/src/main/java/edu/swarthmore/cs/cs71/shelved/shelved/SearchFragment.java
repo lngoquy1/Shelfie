@@ -23,23 +23,35 @@ import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
+import edu.swarthmore.cs.cs71.shelved.network.ValidSearchResponseISBN;
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
     // Started on creating the different views for the 3 types of searches
     // Will probably start with first one search working
-
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -53,7 +65,7 @@ public class SearchFragment extends Fragment {
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
 
-    private List<SimpleBook> books = new ArrayList();
+    private List<SimpleBook> books = new ArrayList<>();
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -98,6 +110,7 @@ public class SearchFragment extends Fragment {
                 CHOSEN = ISBN;
                 Fragment fragment = SearchResultsFragment.newInstance();
                 replaceFragment(fragment);
+
             }
         });
 
@@ -129,24 +142,26 @@ public class SearchFragment extends Fragment {
                     BookInfo bookInfo = new BookInfo();
                     switch (CHOSEN) {
                         case ISBN:
-                            try {
-                                SimpleBook bookResult = null;
-                                bookResult.setAuthor(bookInfo.getAuthorFromISBN(s));
-                                bookResult.setTitle(bookInfo.getTitleFromISBN(s));
-                                books.add(bookResult);
-                            } catch (IOException e){
-                                Toast.makeText(getContext(), "IOException", Toast.LENGTH_SHORT).show();
-                            } catch (XPathExpressionException e) {
-                                Toast.makeText(getContext(), "XPathExpressionException", Toast.LENGTH_SHORT).show();
-                            } catch (SAXException e) {
-                                Toast.makeText(getContext(), "SAXException", Toast.LENGTH_SHORT).show();
-                            } catch (ParserConfigurationException e) {
-                                Toast.makeText(getContext(), "ParserConfigurationException", Toast.LENGTH_SHORT).show();
-                            } catch (EmptyQueryException e) {
-                                Toast.makeText(getContext(), "EmptyQueryException", Toast.LENGTH_SHORT).show();
-                            } catch (NotFoundException e) {
-                                Toast.makeText(getContext(), "NotFoundException", Toast.LENGTH_SHORT).show();
-                            }
+//                            try {
+////                                SimpleBook bookResult = null;
+////                                bookResult.setAuthor(bookInfo.getAuthorFromISBN(s));
+////                                bookResult.setTitle(bookInfo.getTitleFromISBN(s));
+////                                books.add(bookResult);
+//                                searchByISBN(s);
+//                            } catch (IOException e){
+//                                Toast.makeText(getContext(), "IOException", Toast.LENGTH_SHORT).show();
+//                            } catch (XPathExpressionException e) {
+//                                Toast.makeText(getContext(), "XPathExpressionException", Toast.LENGTH_SHORT).show();
+//                            } catch (SAXException e) {
+//                                Toast.makeText(getContext(), "SAXException", Toast.LENGTH_SHORT).show();
+//                            } catch (ParserConfigurationException e) {
+//                                Toast.makeText(getContext(), "ParserConfigurationException", Toast.LENGTH_SHORT).show();
+//                            } catch (EmptyQueryException e) {
+//                                Toast.makeText(getContext(), "EmptyQueryException", Toast.LENGTH_SHORT).show();
+//                            } catch (NotFoundException e) {
+//                                Toast.makeText(getContext(), "NotFoundException", Toast.LENGTH_SHORT).show();
+//                            }
+                            searchByISBN(s);
                         case TITLE:
                             // TODO
                         case AUTHOR:
@@ -166,7 +181,7 @@ public class SearchFragment extends Fragment {
     }
 
     public List<SimpleBook> returnBooks() {
-        return books;
+        return this.books;
     }
 
     public void replaceFragment(Fragment someFragment) {
@@ -176,6 +191,66 @@ public class SearchFragment extends Fragment {
         transaction.commit();
     }
 
+    private String getSearchByISBN(){
+        return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/searchByISBN";
+    }
+
+    private void searchByISBN(final String ISBN) {
+        final String TAG = "SearchByISBN";
+        String cancel_req_tag = "SearchByISBN";
+        StringRequest strReq = new StringRequest(Request.Method.POST, getSearchByISBN(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response){
+                Log.d(TAG, "Search by response: " + response);
+
+                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+                if (message.isResult()){
+                    ValidSearchResponseISBN searchResponseISBN = (ValidSearchResponseISBN) message;
+                }
+                try {
+                    Log.d(TAG, response);
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = !jObj.getBoolean("result");
+
+
+                    if (!error) {
+                        Log.d(TAG, "no error");
+                        Toast.makeText(getContext(), "Results for ISBN "+ISBN, Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
+                        books.add(book);
+
+                    } else {
+                        Log.d(TAG, "error");
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    System.out.println("Error case");
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Add book error: " + error.getMessage());
+                Toast.makeText(getContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+//                        hideDialog(progressDialog);
+            }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("isbn", ISBN);
+                return params;
+            }
+        };
+    }
 
 //    @Override
 //    public void onClick(View view) {
@@ -197,8 +272,8 @@ public class SearchFragment extends Fragment {
 //        fragment = SearchResultsFragment.newInstance();
 //        replaceFragment(fragment);
 //    }
-
-
+//
+//
 //    // Since this is an object collection, use a FragmentStatePagerAdapter,
 //    // and NOT a FragmentPagerAdapter.
 //    private class PagerAdapter extends FragmentStatePagerAdapter {
@@ -228,9 +303,9 @@ public class SearchFragment extends Fragment {
 //            return "OBJECT " + (position + 1);
 //        }
 //    }
-
-    // Instances of this class are fragments representing a single
-    // object in our collection.
+//
+////     Instances of this class are fragments representing a single
+////     object in our collection.
 //    public static class ObjectFragment extends Fragment {
 //        public static final String ARG_OBJECT = "object";
 //
