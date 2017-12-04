@@ -1,8 +1,8 @@
 package edu.swarthmore.cs.cs71.shelved.spark;
 
-import edu.swarthmore.cs.cs71.shelved.model.server.HibList;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibReadingList;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibListService;
-import edu.swarthmore.cs.cs71.shelved.model.simple.ReadingList;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.InvalidListAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
@@ -27,9 +27,9 @@ public class ServerRouteAddList extends ServerRoute {
                 publicStatusBool = false;
             }
 
-            HibList newList = new HibListService().createList(listName, publicStatusBool);
+            HibReadingList newList = new HibListService().createList(listName, publicStatusBool);
 
-            ReadingList readingList = new ReadingList(newList.getName(), newList.isPublicStatus());
+            SimpleReadingList readingList = new SimpleReadingList(newList.getName(), newList.isPublicStatus());
 
             return new ValidListAddedResponse(readingList);
             //ReadingList readingList = new ReadingList("myList", true);

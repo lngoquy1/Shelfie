@@ -10,14 +10,14 @@ import java.util.List;
 
 @Entity
 @Table(name="book")
-public class HibList implements CreatedList {
+public class HibReadingList implements CreatedList {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ShelvedBook> list = new ArrayList<>();
+    private List<HibShelvedBook> list = new ArrayList<>();
 
     @Column(name="listName")
     private String listName;
@@ -25,7 +25,7 @@ public class HibList implements CreatedList {
     @Column(name="publicStatus")
     private boolean publicStatus;
 
-    public HibList() {
+    public HibReadingList() {
     }
 
     // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
@@ -35,11 +35,11 @@ public class HibList implements CreatedList {
     // HibShelvedBook, but our RowShelf interface is literally empty so im guessing
     // you didnt encounter this mismatched type problem like I am????
 
-    @Override
-    public void addBook(ShelvedBook shelvedBook) { this.list.add(shelvedBook); }
 
-    @Override
-    public void removeBook(ShelvedBook shelvedBook) { this.list.remove(shelvedBook); }
+    public void addBook(HibShelvedBook shelvedBook) { this.list.add(shelvedBook); }
+
+
+    public void removeBook(HibShelvedBook shelvedBook) { this.list.remove(shelvedBook); }
 
 
     // setters

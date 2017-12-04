@@ -22,9 +22,10 @@ public class ServerRouteSignup extends ServerRoute {
                 request.queryParams("password"));
 
         SimpleUser simpleUser = new SimpleUser();
-        simpleUser.setSalt();
         simpleUser.setPassword(newUser.getPassword());
         simpleUser.setEmail(newUser.getName());
+        simpleUser.setShelves();
+        simpleUser.setReadingLists();
 
         return new CreateUserResponse(simpleUser);
     }

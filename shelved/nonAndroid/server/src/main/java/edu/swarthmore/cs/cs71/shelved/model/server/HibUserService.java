@@ -12,10 +12,11 @@ import java.util.List;
 public class HibUserService {
     public HibUser createUser(String userName, String name, String password){
         HibUser newUser = new HibUser();
-        newUser.setSalt();
         newUser.setEmail(userName);
         newUser.setName(name);
         newUser.setPassword(password);
+        newUser.setShelves();
+        newUser.setReadingLists();
         PersistenceUtils.ENTITY_MANAGER.get().persist(newUser);
         return newUser;
     }
