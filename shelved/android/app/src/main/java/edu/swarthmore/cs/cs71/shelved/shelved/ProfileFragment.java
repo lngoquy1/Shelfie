@@ -43,8 +43,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         Fragment fragment = null;
         switch (view.getId()) {
             case R.id.ShelvesButton:
-                fragment = new ShelfFragment();
-                //fragment = ShelfFragment.newInstance();
+                fragment = ShelfFragment.newInstance(null);
                 replaceFragment(fragment);
                 break;
             case R.id.ListsButton:
