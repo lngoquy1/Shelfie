@@ -4,12 +4,12 @@ import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibShelvedBook;
 import org.junit.Assert;
 import org.junit.Test;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibList;
+import edu.swarthmore.cs.cs71.shelved.model.server.HibReadingList;
 
 public class TestHibList {
     @Test
     public void TestNewHibList() {
-        HibList list = new HibList();
+        HibReadingList list = new HibReadingList();
         list.setPublicStatus(true);
         list.resetName("My List");
 
@@ -20,7 +20,7 @@ public class TestHibList {
 
     @Test
     public void TestAddBook() {
-        HibList list = new HibList();
+        HibReadingList list = new HibReadingList();
         list.setPublicStatus(true);
         list.resetName("My List");
 
@@ -39,7 +39,7 @@ public class TestHibList {
 
     @Test
     public void TestAddRemoveBook() {
-        HibList list = new HibList();
+        HibReadingList list = new HibReadingList();
         list.setPublicStatus(true);
         list.resetName("My List");
 
