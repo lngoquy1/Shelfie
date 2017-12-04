@@ -39,6 +39,9 @@ public class HibRowShelf implements RowShelf {
         this.rowList.add(newPosition, currentBook);
     }
 
+    //TODO: @Lan why arent there getters and setter for id in this class?
+    //TODO: also why do some getter/setters in hibernate classes have an @Override tag
+    //TODO: but others don't? I dont understand hibernate but seems like it might be an issue
 
     public List<HibShelvedBook> getAllBooks() {
         return this.rowList;

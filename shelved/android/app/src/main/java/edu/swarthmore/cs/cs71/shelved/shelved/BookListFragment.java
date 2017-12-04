@@ -115,9 +115,9 @@ public class BookListFragment extends Fragment {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        final EditText titleBox = new EditText(context);
-        titleBox.setHint("List Name");
-        layout.addView(titleBox);
+        final EditText listNameBox = new EditText(context);
+        listNameBox.setHint("List Name");
+        layout.addView(listNameBox);
 
         final Switch status = new Switch(context);
         status.setText("Public?");
@@ -130,9 +130,9 @@ public class BookListFragment extends Fragment {
 
         alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        Log.v("title", titleBox.getText().toString());
+                        Log.v("listName", listNameBox.getText().toString());
 
-                        String titleString = titleBox.getText().toString();
+                        String listNameString = listNameBox.getText().toString();
                     }
                 });
 

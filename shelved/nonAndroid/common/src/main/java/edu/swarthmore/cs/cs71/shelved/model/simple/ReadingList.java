@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model.simple;
 
 import edu.swarthmore.cs.cs71.shelved.model.api.CreatedList;
+import edu.swarthmore.cs.cs71.shelved.model.api.ShelvedBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,14 @@ import java.util.List;
 public class ReadingList implements CreatedList {
     private String name = "Untitled";
     private boolean publicStatus = false;
-    private List<SimpleShelvedBook> list = new ArrayList<>();
+    private List<ShelvedBook> list = new ArrayList<>();
     public String header = this.getClass().getSimpleName();
 
     public ReadingList(String name, boolean publicStatus) {
         this.name = name;
         this.publicStatus = publicStatus;
     }
+
 
     //getters
     public String getName() {
@@ -25,7 +27,7 @@ public class ReadingList implements CreatedList {
         return publicStatus;
     }
 
-    public List<SimpleShelvedBook> getList() {
+    public List<ShelvedBook> getList() {
         return list;
     }
 
@@ -39,12 +41,12 @@ public class ReadingList implements CreatedList {
     }
 
     @Override
-    public void addBook(SimpleShelvedBook shelvedBook) {
+    public void addBook(ShelvedBook shelvedBook) {
         this.list.add(shelvedBook);
     }
 
     @Override
-    public void removeBook(SimpleShelvedBook shelvedBook) {
+    public void removeBook(ShelvedBook shelvedBook) {
         this.list.remove(shelvedBook);
     }
 

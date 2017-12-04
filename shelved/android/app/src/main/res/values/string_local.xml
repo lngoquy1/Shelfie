@@ -1,7 +1,7 @@
 <resources>
     <!--computer ip-->
-    <!--<string name="server_url">chocolate.cs.swarthmore.edu</string>-->
-    <string name="server_url">130.58.68.124</string>
+    <!--<string name="server_url">130.58.68.124</string>-->
+    <string name="server_url">130.58.68.114</string>
     <!--<string name="server_url">130.58.68.124:3306</string>-->
     <!--<string name="server_url">3306</string>-->
 
