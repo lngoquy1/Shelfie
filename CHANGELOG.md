@@ -224,3 +224,4 @@ In general, these classes describe how the server interacts with hibernate/mysql
 ## Created as of 2017-12-3
 - Wrote hibernate classes for lists (HibList and HibListService)
 - Wrote server/networking classes that add a list to the database after adding a list in the profile fragment
+- Created tests for HibShelvedBook, HibList, HibRowShelf
