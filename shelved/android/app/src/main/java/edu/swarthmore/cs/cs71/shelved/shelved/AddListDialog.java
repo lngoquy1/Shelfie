@@ -12,7 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
+//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;

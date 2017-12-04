@@ -19,16 +19,25 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-public class SearchFragment extends Fragment implements View.OnClickListener{
+public class SearchFragment extends Fragment{
 
     // Started on creating the different views for the 3 types of searches
     // Will probably start with first one search working
 
     private SearchView searchView;
+    public static final int ISBN = 1;
+    public static final int TITLE = 2;
+    public static final int AUTHOR = 3;
+    int CHOSEN = 0;
+
+    private Button ISBNBtn;
+    private Button titleBtn;
+    private Button authorBtn;
 
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
@@ -40,12 +49,24 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
+
+        ISBNBtn = (Button) view.findViewById(R.id.ISBN_button);
+        titleBtn = (Button) view.findViewById(R.id.Title_button);
+        authorBtn = (Button) view.findViewById(R.id.Author_button);
+
         searchView = (SearchView) view.findViewById(R.id.search_view);
         searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Search books");
 
 //        mPagerAdapter = new PagerAdapter(getFragmentManager());
 //
@@ -58,10 +79,43 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ISBNBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CHOSEN = ISBN;
+                Fragment fragment = SearchResultsFragment.newInstance();
+                replaceFragment(fragment);
+            }
+        });
+
+        titleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CHOSEN = TITLE;
+                Fragment fragment = SearchResultsFragment.newInstance();
+                replaceFragment(fragment);
+            }
+        });
+
+        authorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CHOSEN = AUTHOR;
+                Fragment fragment = SearchResultsFragment.newInstance();
+                replaceFragment(fragment);
+            }
+        });
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Log.d("SearchFragment", "text submit");
+                if (ISBN == 0) {
+                    Toast.makeText(getContext(), "Please choose a category", Toast.LENGTH_SHORT).show();
+                } else {
+                    return true;
+                }
                 return false;
             }
 
@@ -73,31 +127,35 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        Fragment fragment = null;
-        switch (view.getId()) {
-            case R.id.ISBN_button:
-                fragment = ShelfFragment.newInstance(null);
-                replaceFragment(fragment);
-                break;
-            case R.id.Title_button:
-                fragment = new BookListFragment();
-                replaceFragment(fragment);
-                break;
-            case R.id.Author_button:
-                fragment = new BookListFragment();
-                replaceFragment(fragment);
-                break;
-        }
-    }
-
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.shelf_list_frame, someFragment);
+        transaction.replace(R.id.search_results_view, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+//    @Override
+//    public void onClick(View view) {
+//        Fragment fragment = null;
+//        switch (view.getId()) {
+//            case R.id.ISBN_button:
+//                CHOSEN = ISBN;
+//                Log.d("Search click", "ISBN");
+//                break;
+//            case R.id.Title_button:
+//                CHOSEN = TITLE;
+//                Log.d("Search click", "Title");
+//                break;
+//            case R.id.Author_button:
+//                CHOSEN = AUTHOR;
+//                Log.d("Search click", "Author");
+//                break;
+//        }
+//        fragment = SearchResultsFragment.newInstance();
+//        replaceFragment(fragment);
+//    }
+
 
 //    // Since this is an object collection, use a FragmentStatePagerAdapter,
 //    // and NOT a FragmentPagerAdapter.
