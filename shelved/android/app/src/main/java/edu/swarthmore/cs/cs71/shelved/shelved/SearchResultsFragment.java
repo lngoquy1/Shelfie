@@ -1,19 +1,27 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultsFragment extends Fragment {
 
     private ListView listView;
     private BookListAdapter bookListAdapter;
+    private List<SimpleBook> books = new ArrayList<>();
 
     public static SearchResultsFragment newInstance() {
         SearchResultsFragment fragment = new SearchResultsFragment();
@@ -35,12 +43,26 @@ public class SearchResultsFragment extends Fragment {
 
         listView = (ListView) view.findViewById(android.R.id.list);
 
-        this.bookListAdapter = new BookListAdapter(getContext(), ((SearchFragment)
-                getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks());
+        return view;
+    }
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
+                BookInfoDialog dialog = new BookInfoDialog();
+                AlertDialog.Builder alert = dialog.newInstance(getContext(), book);
+                alert.show();
+            }
+        });
+
+        books = ((SearchFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks();
+        this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);
-
-        return view;
     }
 
 }
