@@ -37,6 +37,9 @@ public class HibUser implements User {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HibBookShelf> allShelves;
 
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HibReadingList> allReadingLists;
+
     public HibUser() {
         setSalt();
     }
@@ -77,6 +80,7 @@ public class HibUser implements User {
         this.allShelves = new ArrayList<HibBookShelf>();
     }
 
+    public void setReadingLists(){ this.allReadingLists = new ArrayList<HibReadingList>();}
     @Override
     public void changePassword(String oldPassword, String newPassword) {
         if (BCrypt.hashpw(oldPassword, this.salt).equals(password)){
@@ -121,5 +125,11 @@ public class HibUser implements User {
 
     public List<HibBookShelf> getAllShelves() {
         return allShelves;
+    }
+
+    public void addBookShelf(HibBookShelf bookShelf){ allShelves.add(bookShelf);}
+
+    public void addReadingList(HibReadingList readingList){
+        this.allReadingLists.add(readingList);
     }
 }

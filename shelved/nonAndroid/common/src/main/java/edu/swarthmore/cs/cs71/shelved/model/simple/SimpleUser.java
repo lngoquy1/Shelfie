@@ -15,9 +15,11 @@ public class SimpleUser implements User {
     private String location;
     private String salt;
     private List<SimpleBookShelf> allShelves;
+    private List<SimpleReadingList> allReadingLists;
     public SimpleUser() {
         setSalt();
     }
+
 
 //    public User(String username, String password, String name, String bio, String location, String salt) {
 //        this.username = username;
@@ -53,6 +55,10 @@ public class SimpleUser implements User {
     @Override
     public void setShelves() {
         this.allShelves = new ArrayList<SimpleBookShelf>();
+    }
+
+    public void setReadingLists() {
+        this.allReadingLists = new ArrayList<SimpleReadingList>();
     }
 
     public void changePassword(String oldPassword, String newPassword) {
@@ -102,5 +108,10 @@ public class SimpleUser implements User {
 
     public List<SimpleBookShelf> getAllShelves() {
         return allShelves;
+    }
+    public void addBookShelf(SimpleBookShelf bookShelf){ allShelves.add(bookShelf);}
+
+    public void addReadingList(SimpleReadingList readingList){
+        this.allReadingLists.add(readingList);
     }
 }
