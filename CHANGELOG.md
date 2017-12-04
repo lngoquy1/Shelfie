@@ -225,3 +225,6 @@ In general, these classes describe how the server interacts with hibernate/mysql
 - Wrote hibernate classes for lists (HibList and HibListService)
 - Wrote server/networking classes that add a list to the database after adding a list in the profile fragment
 - Created tests for HibShelvedBook, HibList, HibRowShelf
+
+## Updated as of 2017-12-4
+- SearchView Listener requires the user to click a button corresponding with ISBN, Title, or Author. Currently only have ISBN search implemented. When a user submits a search query, the bookInfo class from the server is called, namely getAuthorfromISBN and getTitleFromISBN. These results are placed in a book item, fed into a BookListAdapter, and set to the ListView of SearchResultsFragment

@@ -134,7 +134,8 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
-                AlertDialog.Builder alert = bookInfoDialog();
+                BookInfoDialog dialog = new BookInfoDialog();
+                AlertDialog.Builder alert = dialog.newInstance(getContext(), book);
                 alert.show();
             }
         });
@@ -200,44 +201,6 @@ public class ShelfFragment extends ListFragment {
         });
         AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
 
-    }
-    private AlertDialog.Builder bookInfoDialog () {
-        Context context = getContext();
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle("Book");
-
-        LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        // getting info from book object
-        String bookTitle = book.getTitle().getTitle();
-        String bookAuthor = book.getAuthor().getAuthorName();
-        //String bookGenre = book.getGenre().getGenre();
-        //int bookPages = book.getPages();
-        //String bookPublisher = book.getPublisher().getPublisher();
-
-        // create text views for each item
-        final TextView titleBox = new TextView(context);
-        //titleBox.setText(book);
-        final TextView authorBox = new TextView(context);
-        //final TextView genreBox = new TextView(context);
-        //final TextView pagesBox = new TextView(context);
-        //final TextView publisherBox = new TextView(context);
-
-        // set text views to book info
-        titleBox.setText(bookTitle);
-        authorBox.setText(bookAuthor);
-
-        layout.addView(titleBox);
-        layout.addView(authorBox);
-
-//        final TextView authorBox = new TextView(context);
-//        authorBox.setText("author");
-//        layout.addView(authorBox);
-
-        alert.setView(layout);
-
-        return alert;
     }
 
 }
