@@ -40,6 +40,7 @@ public class HibUser implements User {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HibReadingList> allReadingLists;
 
+
     public HibUser() {
         setSalt();
     }

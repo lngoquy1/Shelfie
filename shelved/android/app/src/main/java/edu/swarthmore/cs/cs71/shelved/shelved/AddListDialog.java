@@ -136,9 +136,7 @@ public class AddListDialog extends AlertDialog.Builder {
     // TODO: need userID in the constructor
 //    public AddListDialog(Context context, final Continuation<SimpleReadingList> positiveContinuation) {
 //        super(context);
-//        AddListDialog alert = new AddListDialog(context);
-//        alert.setTitle("Add List");
-//
+//        this.setTitle("Add List");
 //
 //        LinearLayout layout = new LinearLayout(context);
 //        layout.setOrientation(LinearLayout.VERTICAL);
