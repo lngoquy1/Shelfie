@@ -14,6 +14,17 @@ public class SearchResultsFragment extends Fragment {
 
     private ListView listView;
 
+    public static SearchResultsFragment newInstance() {
+        SearchResultsFragment fragment = new SearchResultsFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
