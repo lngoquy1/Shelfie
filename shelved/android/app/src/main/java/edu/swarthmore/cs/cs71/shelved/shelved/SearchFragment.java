@@ -1,67 +1,139 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+
+import android.Manifest;
+import android.content.Intent;
+
+import android.database.Cursor;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
+import android.support.annotation.Nullable;
+import android.support.v4.app.*;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.*;
-import android.widget.SearchView;
+import android.widget.*;
 
 public class SearchFragment extends Fragment {
+
+    // Started on creating the different views for the 3 types of searches
+    // Will probably start with first one search working
+
+    private SearchView searchView;
+
+    PagerAdapter mPagerAdapter;
+    ViewPager mViewPager;
+
+
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        menu.clear();
-//        inflater.inflate(R.menu.bottom_navigation_items, menu);
-//        MenuItem item = menu.findItem(R.id.action_item2);
-//        SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
-//        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-//        MenuItemCompat.setActionView(item, searchView);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
-//        searchView.setOnClickListener(new View.OnClickListener() {
-//                                          @Override
-//                                          public void onClick(View v) {
-//
-//                                          }
-//                                      }
-//        );
-//    }
+        searchView = (SearchView) view.findViewById(R.id.search_view);
+        searchView.setSubmitButtonEnabled(true);
+
+        mPagerAdapter = new PagerAdapter(getFragmentManager());
+
+        mViewPager = (ViewPager) view.findViewById(R.id.pager);
+        mViewPager.setAdapter(mPagerAdapter);
+
+        return view;
+    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle item selection
-        switch (item.getItemId()) {
-            case R.id.search_bar:
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d("SearchFragment", "text submit");
+                return false;
+            }
 
-                //       onCall();   //your logic
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d("SearchFragment", "change text");
+                return false;
+            }
+        });
+    }
 
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    // Since this is an object collection, use a FragmentStatePagerAdapter,
+    // and NOT a FragmentPagerAdapter.
+    private class PagerAdapter extends FragmentStatePagerAdapter {
+
+        public PagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = new ObjectFragment();
+            Bundle args = new Bundle();
+
+            //Example object is an integer
+            args.putInt(ObjectFragment.ARG_OBJECT, position+1);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 100;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "OBJECT " + (position + 1);
         }
     }
+
+
+
+
+
+
+
+    // Instances of this class are fragments representing a single
+    // object in our collection.
+    public static class ObjectFragment extends Fragment {
+        public static final String ARG_OBJECT = "object";
+
+        @Override
+        public View onCreateView(LayoutInflater inflater,
+                                 ViewGroup container, Bundle savedInstanceState) {
+            // The last two arguments ensure LayoutParams are inflated
+            // properly.
+
+
+            //TODO Create layout xml for the category fragments (Search by ISBN, Title, Author)
+            //https://developer.android.com/training/implementing-navigation/lateral.html
+
+//            View rootView = inflater.inflate(
+//                    R.layout.fragment_collection_object, container, false);
+//            Bundle args = getArguments();
+//            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
+//                    Integer.toString(args.getInt(ARG_OBJECT)));
+//            return rootView;
+
+            View view = null;
+            return view;
+        }
+
+    }
+
 }

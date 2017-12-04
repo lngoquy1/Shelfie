@@ -194,7 +194,7 @@ public class ShelfFragment extends ListFragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Update book list error: "+ error.getMessage());
+                Log.e(TAG, "Update book list error: "+ error.getMessage() + "caused by:" + error.getCause());
             }
         });
         AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);

@@ -94,5 +94,4 @@ public class ScannerActivity extends Activity implements ZBarScannerView.ResultH
             Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
