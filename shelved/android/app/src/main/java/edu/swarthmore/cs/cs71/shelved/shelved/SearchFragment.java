@@ -78,15 +78,15 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
         Fragment fragment = null;
         switch (view.getId()) {
             case R.id.ISBN_button:
-                fragment = ShelfFragment.newInstance(null);
+                fragment = new SearchResultsFragment();
                 replaceFragment(fragment);
                 break;
             case R.id.Title_button:
-                fragment = new BookListFragment();
+                fragment = new SearchResultsFragment();
                 replaceFragment(fragment);
                 break;
             case R.id.Author_button:
-                fragment = new BookListFragment();
+                fragment = new SearchResultsFragment();
                 replaceFragment(fragment);
                 break;
         }
@@ -94,7 +94,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener{
 
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.shelf_list_frame, someFragment);
+        transaction.replace(R.id.search_results_view, someFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
