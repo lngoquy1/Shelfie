@@ -100,6 +100,7 @@ public class ShelfFragment extends ListFragment {
         bookList = (ListView)view.findViewById(android.R.id.list);
         this.bookListAdapter = new BookListAdapter(getContext(), books);
         bookList.setAdapter(bookListAdapter);
+
         addBook = (ImageButton)view.findViewById(R.id.add_book);
         Bundle args = getArguments();
         userID = args.getString("userID", "");

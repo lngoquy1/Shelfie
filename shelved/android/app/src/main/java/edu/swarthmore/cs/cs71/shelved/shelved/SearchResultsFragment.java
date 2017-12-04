@@ -13,6 +13,7 @@ import android.widget.ListView;
 public class SearchResultsFragment extends Fragment {
 
     private ListView listView;
+    private BookListAdapter bookListAdapter;
 
     public static SearchResultsFragment newInstance() {
         SearchResultsFragment fragment = new SearchResultsFragment();
@@ -33,6 +34,11 @@ public class SearchResultsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         listView = (ListView) view.findViewById(android.R.id.list);
+
+        this.bookListAdapter = new BookListAdapter(getContext(), ((SearchFragment)
+                getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks());
+
+        listView.setAdapter(bookListAdapter);
 
         return view;
     }

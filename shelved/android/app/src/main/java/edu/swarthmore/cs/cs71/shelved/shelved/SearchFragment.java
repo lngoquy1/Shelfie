@@ -23,8 +23,19 @@ import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import org.xml.sax.SAXException;
 
-public class SearchFragment extends Fragment{
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchFragment extends Fragment {
 
     // Started on creating the different views for the 3 types of searches
     // Will probably start with first one search working
@@ -42,6 +53,7 @@ public class SearchFragment extends Fragment{
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
 
+    private List<SimpleBook> books = new ArrayList();
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -111,11 +123,37 @@ public class SearchFragment extends Fragment{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (ISBN == 0) {
+                if (CHOSEN == 0) {
                     Toast.makeText(getContext(), "Please choose a category", Toast.LENGTH_SHORT).show();
                 } else {
-                    return true;
+                    BookInfo bookInfo = new BookInfo();
+                    switch (CHOSEN) {
+                        case ISBN:
+                            try {
+                                SimpleBook bookResult = null;
+                                bookResult.setAuthor(bookInfo.getAuthorFromISBN(s));
+                                bookResult.setTitle(bookInfo.getTitleFromISBN(s));
+                                books.add(bookResult);
+                            } catch (IOException e){
+                                Toast.makeText(getContext(), "IOException", Toast.LENGTH_SHORT).show();
+                            } catch (XPathExpressionException e) {
+                                Toast.makeText(getContext(), "XPathExpressionException", Toast.LENGTH_SHORT).show();
+                            } catch (SAXException e) {
+                                Toast.makeText(getContext(), "SAXException", Toast.LENGTH_SHORT).show();
+                            } catch (ParserConfigurationException e) {
+                                Toast.makeText(getContext(), "ParserConfigurationException", Toast.LENGTH_SHORT).show();
+                            } catch (EmptyQueryException e) {
+                                Toast.makeText(getContext(), "EmptyQueryException", Toast.LENGTH_SHORT).show();
+                            } catch (NotFoundException e) {
+                                Toast.makeText(getContext(), "NotFoundException", Toast.LENGTH_SHORT).show();
+                            }
+                        case TITLE:
+                            // TODO
+                        case AUTHOR:
+                            //TODO
+                    }
                 }
+                Log.d("SearchFragment", "submit text: " + CHOSEN);
                 return false;
             }
 
@@ -125,6 +163,10 @@ public class SearchFragment extends Fragment{
                 return false;
             }
         });
+    }
+
+    public List<SimpleBook> returnBooks() {
+        return books;
     }
 
     public void replaceFragment(Fragment someFragment) {
