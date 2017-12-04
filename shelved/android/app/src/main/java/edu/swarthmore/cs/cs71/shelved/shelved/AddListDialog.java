@@ -12,17 +12,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
-import edu.swarthmore.cs.cs71.shelved.network.InvalidListAddedResponse;
-
+import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
 public class AddListDialog extends AlertDialog.Builder {
     private static final String TAG = "AddListDialog";

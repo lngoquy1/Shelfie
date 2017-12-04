@@ -12,22 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.gson.reflect.TypeToken;
 import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
-
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 

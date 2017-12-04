@@ -3,24 +3,16 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
 public class BookListFragment extends Fragment {
     private GridView gridview;

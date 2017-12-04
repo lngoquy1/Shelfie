@@ -1,48 +1,32 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
 
-import android.Manifest;
-import android.content.Intent;
-
-import android.database.Cursor;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.Contacts;
 import android.support.annotation.Nullable;
-import android.support.v4.app.*;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.text.style.TtsSpan;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
-import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
-import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ValidSearchResponseISBN;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
