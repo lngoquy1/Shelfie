@@ -238,28 +238,5 @@ public class ShelfFragment extends ListFragment {
 
         return alert;
     }
-    private static class BookListAdapter extends ArrayAdapter<SimpleBook> {
-
-        public BookListAdapter(Context context, List<SimpleBook> bookList) {
-            super(context, R.layout.book_list_item, bookList);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater vi;
-                vi = LayoutInflater.from(getContext());
-                convertView = vi.inflate(R.layout.book_list_item, null);
-            }
-            SimpleBook book = getItem(position);
-            TextView title = (TextView) convertView.findViewById(R.id.title_book);
-            TextView author = (TextView) convertView.findViewById(R.id.author_book);
-            ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
-            title.setText(book.getTitle().getTitle());
-            author.setText(book.getAuthor().getAuthorName());
-            cover.setImageResource(R.mipmap.logo);
-            return convertView;
-        }
-    }
 
 }
