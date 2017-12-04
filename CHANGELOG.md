@@ -206,6 +206,10 @@ In general, these classes describe how the server interacts with hibernate/mysql
 - Changed BookListFragment from a ListView to a GridView
 - Updated AddBookDialog and AddListDialog constructors to the behavior in newInstance() and made the data structure a List of SimpleBook objects rather than using a SimpleAdapter and String and Integer arrays.
 - Cleaned up and finished defining all methods to get book information from sites like Google Books, isbndb, and Goodreads.
+- Wrote server/networking classes that add a book to the database after adding a book through the AddBookDialog on shelf fragment
+
+## Created as of 2017-11-30
+- Wrote server/networking classes that add a book to the database after retrieving the ISBN from the barcode scanner in the camera fragment
 
 ## Update as of 2017-12-01
 - Turned on the wifi on Android phone. This was an accomplishment.
@@ -213,3 +217,10 @@ In general, these classes describe how the server interacts with hibernate/mysql
 
 ## Created as of 2017-12-02
 - Created a SearchView element in SearchFragment with a Listener for when a user changes text and when a user clicks submit, to be linked with the Goodreads/Google Books API calls
+
+## Updated as of 2017-12-02
+- Added code to the individual book view dialog so that it displays the book title and author
+
+## Created as of 2017-12-3
+- Wrote hibernate classes for lists (HibList and HibListService)
+- Wrote server/networking classes that add a list to the database after adding a list in the profile fragment
