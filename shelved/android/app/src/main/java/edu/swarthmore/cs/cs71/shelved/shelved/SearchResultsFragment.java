@@ -57,7 +57,7 @@ public class SearchResultsFragment extends Fragment {
             }
         });
 
-        books = ((SearchFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks();
+        books = AppSingleton.getInstance(getContext()).getModel(getContext()).getBookList();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);

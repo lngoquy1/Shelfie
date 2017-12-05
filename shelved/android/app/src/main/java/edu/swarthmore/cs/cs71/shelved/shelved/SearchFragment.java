@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment {
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
 
-    private List<SimpleBook> books = new ArrayList<>();
+    //private List<SimpleBook> books = new ArrayList<>();
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -162,10 +162,6 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    public List<SimpleBook> returnBooks() {
-        return this.books;
     }
 
     public void replaceFragment(Fragment someFragment) {
