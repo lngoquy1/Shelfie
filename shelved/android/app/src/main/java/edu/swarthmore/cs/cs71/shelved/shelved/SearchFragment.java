@@ -36,6 +36,9 @@ public class SearchFragment extends Fragment {
 
     // Started on creating the different views for the 3 types of searches
     // Will probably start with first one search working
+
+    private SearchViewModel searchViewModel;
+
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -49,9 +52,10 @@ public class SearchFragment extends Fragment {
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
 
-    //private List<SimpleBook> books = new ArrayList<>();
+    private List<SimpleBook> books = new ArrayList<>();
 
-    public static SearchFragment newInstance() {
+    public SearchFragment newInstance(SearchViewModel searchViewModel) {
+        searchViewModel = this.searchViewModel;
         SearchFragment fragment = new SearchFragment();
         return fragment;
     }
@@ -175,6 +179,7 @@ public class SearchFragment extends Fragment {
         return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/searchByISBN";
     }
 
+
     private void searchByISBN(final String ISBN) {
         final String TAG = "SearchByISBN";
         String cancel_req_tag = "SearchByISBN";
@@ -198,6 +203,7 @@ public class SearchFragment extends Fragment {
                         Toast.makeText(getContext(), "Results for ISBN "+ISBN, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
+                        books.clear();
                         books.add(book);
 
                     } else {

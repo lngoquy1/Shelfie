@@ -17,6 +17,9 @@ import java.util.List;
 
 public class SearchResultsFragment extends Fragment {
 
+    // takes in same view model as SearchFragment
+    //
+
     private ListView listView;
     private BookListAdapter bookListAdapter;
     private List<SimpleBook> books = new ArrayList<>();
@@ -57,7 +60,7 @@ public class SearchResultsFragment extends Fragment {
             }
         });
 
-        books = AppSingleton.getInstance(getContext()).getModel(getContext()).getBookList();
+        //books = ((SearchFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);
