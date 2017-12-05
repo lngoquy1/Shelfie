@@ -18,15 +18,21 @@ import java.util.List;
 public class SearchResultsFragment extends Fragment {
 
     // takes in same view model as SearchFragment
-    //
+
+    private SearchViewModel searchViewModel;
 
     private ListView listView;
     private BookListAdapter bookListAdapter;
     private List<SimpleBook> books = new ArrayList<>();
 
-    public static SearchResultsFragment newInstance() {
+    public SearchResultsFragment newInstance(SearchViewModel searchViewModel) {
+        this.searchViewModel = searchViewModel;
         SearchResultsFragment fragment = new SearchResultsFragment();
         return fragment;
+    }
+
+    public BookListAdapter getBookListAdapter() {
+        return bookListAdapter;
     }
 
     @Override
@@ -60,10 +66,11 @@ public class SearchResultsFragment extends Fragment {
             }
         });
 
-        //books = ((SearchFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.search_results_container)).returnBooks();
+        books = searchViewModel.getBooklist();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);
+        // TODO where to put notifyDataSetChanged?
     }
 
 }

@@ -34,9 +34,6 @@ import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
-    // Started on creating the different views for the 3 types of searches
-    // Will probably start with first one search working
-
     private SearchViewModel searchViewModel;
 
     private SearchView searchView;
@@ -52,10 +49,7 @@ public class SearchFragment extends Fragment {
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
 
-    private List<SimpleBook> books = new ArrayList<>();
-
-    public SearchFragment newInstance(SearchViewModel searchViewModel) {
-        searchViewModel = this.searchViewModel;
+    public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         return fragment;
     }
@@ -88,6 +82,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -96,7 +91,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = ISBN;
-                Fragment fragment = SearchResultsFragment.newInstance();
+                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
                 replaceFragment(fragment);
 
             }
@@ -106,7 +101,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = TITLE;
-                Fragment fragment = SearchResultsFragment.newInstance();
+                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
                 replaceFragment(fragment);
             }
         });
@@ -115,7 +110,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = AUTHOR;
-                Fragment fragment = SearchResultsFragment.newInstance();
+                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
                 replaceFragment(fragment);
             }
         });
@@ -200,11 +195,18 @@ public class SearchFragment extends Fragment {
 
                     if (!error) {
                         Log.d(TAG, "no error");
-                        Toast.makeText(getContext(), "Results for ISBN "+ISBN, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-                        books.clear();
-                        books.add(book);
+                        searchViewModel.clearBooks();
+                        searchViewModel.addBook(book);
+                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
+                            @Override
+                            public void searchResultsChanged() {
+                                // SearchResultsFragment bookListAdapter
+                                // TODO notifyDataSetChanged??
+                            }
+                        });
 
                     } else {
                         Log.d(TAG, "error");
@@ -302,7 +304,7 @@ public class SearchFragment extends Fragment {
 //            // properly.
 //
 //
-//            //TODO Create layout xml for the category fragments (Search by ISBN, Title, Author)
+//
 //            //https://developer.android.com/training/implementing-navigation/lateral.html
 //
 ////            View rootView = inflater.inflate(
