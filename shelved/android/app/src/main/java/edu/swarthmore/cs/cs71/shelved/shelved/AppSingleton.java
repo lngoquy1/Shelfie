@@ -55,7 +55,6 @@ public class AppSingleton {
             public void bookAdded(final SimpleBook book) {
                 StringRequest strReq = new AddBookStringRequest(context, shelvedModel, book);
                 // Adding request to request queue
-                // TODO: Context is wrong, strReq never gets accessed
                 AppSingleton.getInstance(context).addToRequestQueue(strReq, "addBook");
             }
         });
