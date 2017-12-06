@@ -1,7 +1,9 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
-import android.app.Activity;
 import android.content.Context;
+
 import android.content.Intent;
+
+import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -10,8 +12,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.*;
 import android.app.ProgressDialog;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class AppSingleton {
     private static AppSingleton mAppSingletonInstance;
@@ -49,13 +50,12 @@ public class AppSingleton {
         if (model == null) {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
-//            addScanNetworkListeners(context, model);
         }
         return model;
     }
 
     public SearchViewModel setupSearchViewModel(Context context, SearchViewModel searchViewModel) {
-        addScanNetworkListeners(context, searchViewModel);
+        addSearchByISBNNetworkListeners(context, searchViewModel);
         return searchViewModel;
     }
 
@@ -65,19 +65,25 @@ public class AppSingleton {
             public void bookAdded(final SimpleBook book) {
                 StringRequest strReq = new AddBookStringRequest(context, shelvedModel, book);
                 // Adding request to request queue
-                AppSingleton.getInstance(context).addToRequestQueue(strReq, "addBook");
+                addToRequestQueue(strReq, "addBook");
             }
         });
     }
 
 
-    public void addScanNetworkListeners(final Context context, final SearchViewModel searchViewModel) {
+
+
+    public void addSearchByISBNNetworkListeners(final Context context, final SearchViewModel searchViewModel) {
+
         searchViewModel.addScanListener(new ScanAddedListener() {
             @Override
             public void scanAdded(String ISBN) {
+                Log.d("testing","got into add search by isbn network listeners");
                 StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, searchViewModel);
                 // Adding request to request queue
-                AppSingleton.getInstance(context).addToRequestQueue(strReq, "addScan");
+                Log.d("testing","about to add to queue");
+                addToRequestQueue(strReq, "addSearchByISBN");
+                Log.d("testing","Finished adding to queue");
             }
         });
     }

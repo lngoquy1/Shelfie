@@ -1,5 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
+import android.util.Log;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.SearchViewModelListener;
 
@@ -40,14 +41,18 @@ public class SearchViewModel {
     //////////// SCANNER STUFF ? :( //////////////
 
     public void addScan(String ISBN) {
+        Log.d("ADDSCAN", "IN ADD SCAN");
         notifyScanAddedListeners(ISBN);
     }
 
     public void addScanListener(ScanAddedListener newScanAddedListener) {
+        Log.d("ADDSCANLISTENER", "IN ADD SCAN LISTENER");
+
         scanAddedListeners.add(newScanAddedListener);
     }
 
     public void notifyScanAddedListeners(String ISBN) {
+        Log.d("NOTIFY LISTENERS SCAN", "IN NOTIFY ADD SCAN LISTENERS");
         for (ScanAddedListener listener:this.scanAddedListeners) {
             listener.scanAdded(ISBN);
         }
