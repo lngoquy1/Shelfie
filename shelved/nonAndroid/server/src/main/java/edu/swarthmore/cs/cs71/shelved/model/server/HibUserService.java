@@ -8,10 +8,12 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.UUID;
 
 public class HibUserService {
     public HibUser createUser(String userName, String name, String password){
         HibUser newUser = new HibUser();
+        String token = UUID.randomUUID().toString();
         newUser.setEmail(userName);
         newUser.setName(name);
         newUser.setPassword(password);
@@ -83,13 +85,33 @@ public class HibUserService {
         }
     }
 
+    public void setUserLoginToken(HibUser user){
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+        PersistenceUtils.ENTITY_MANAGER.get().persist(user);
+    }
 
 
-//    public HibUser getUserById(EntityManager session, int id){
-//        List<HibUser> user = session.createQuery
-//                ("SELECT * FROM shelvedUser WHERE shelvedUser_username ="+id)
-//                .getResultList();
-//        return user.get(0);
-//    }
+
+    public HibUser getUserByID(SessionFactory sf, Integer userID){
+        EntityManager session = sf.createEntityManager();
+        try {
+            Query query = session.createQuery("FROM HibUser");
+            List<HibUser> users = query.getResultList();
+            for (HibUser user:users){
+                if (user.getId()==userID){
+                    return user;
+                }
+            }
+            throw new RuntimeException("No user with such ID found");
+        } catch (ArrayStoreException e){
+            System.out.println(e.toString());
+            return null;
+        } finally {
+            if (session.isOpen()){
+                session.close();
+            }
+        }
+    }
 
 }

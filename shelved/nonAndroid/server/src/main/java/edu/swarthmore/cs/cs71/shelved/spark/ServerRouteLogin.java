@@ -1,5 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.spark;
 
+import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUserService;
 import edu.swarthmore.cs.cs71.shelved.network.InvalidLoginUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ValidLoginUserResponse;
@@ -28,7 +29,10 @@ public class ServerRouteLogin extends ServerRoute{
             System.out.println("-1 if no username found. -2 if incorrect password. -3 if ArrayStoreException. We returned: "+String.valueOf(result));
             return new InvalidLoginUserResponse("Invalid user login");
         } else {
-            return new ValidLoginUserResponse(result);
+            // Now set a login token
+            HibUser user = service.getUserByID(getSf(), result);
+            service.setUserLoginToken(user);
+            return new ValidLoginUserResponse(result, user.getToken());
         }
 
     }
