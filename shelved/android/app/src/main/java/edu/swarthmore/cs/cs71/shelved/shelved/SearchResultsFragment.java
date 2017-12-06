@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 import java.util.ArrayList;
@@ -19,14 +20,11 @@ public class SearchResultsFragment extends Fragment {
 
     // takes in same view model as SearchFragment
 
-    private SearchViewModel searchViewModel;
-
     private ListView listView;
     private BookListAdapter bookListAdapter;
     private List<SimpleBook> books = new ArrayList<>();
 
-    public SearchResultsFragment newInstance(SearchViewModel searchViewModel) {
-        this.searchViewModel = searchViewModel;
+    public static SearchResultsFragment newInstance() {
         SearchResultsFragment fragment = new SearchResultsFragment();
         return fragment;
     }
@@ -66,7 +64,7 @@ public class SearchResultsFragment extends Fragment {
             }
         });
 
-        books = searchViewModel.getBooklist();
+        //books = searchViewModel.getBooklist();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);

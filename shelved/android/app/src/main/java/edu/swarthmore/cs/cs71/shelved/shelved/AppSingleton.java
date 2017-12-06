@@ -14,6 +14,7 @@ public class AppSingleton {
     private RequestQueue mRequestQueue;
     private static Context mContext;
     private ShelvedModel model;
+    private SearchViewModel searchViewModel;
 
     private AppSingleton(Context context) {
         mContext = context;
@@ -47,6 +48,14 @@ public class AppSingleton {
             addBookNetworkListeners(context, model);
         }
         return model;
+    }
+
+    public SearchViewModel getSearchViewModel() {
+        if (searchViewModel == null) {
+            searchViewModel = new SearchViewModel();
+            searchViewModel.notifySearchViewModelListeners();
+        }
+        return searchViewModel;
     }
 
     private void addBookNetworkListeners(final Context context, final ShelvedModel shelvedModel) {

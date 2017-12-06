@@ -34,8 +34,6 @@ import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
-    private SearchViewModel searchViewModel;
-
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -91,7 +89,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = ISBN;
-                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
+                Fragment fragment = SearchResultsFragment.newInstance();
                 replaceFragment(fragment);
 
             }
@@ -101,7 +99,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = TITLE;
-                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
+                Fragment fragment = SearchResultsFragment.newInstance();
                 replaceFragment(fragment);
             }
         });
@@ -110,7 +108,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 CHOSEN = AUTHOR;
-                Fragment fragment = SearchResultsFragment.newInstance(searchViewModel);
+                Fragment fragment = SearchResultsFragment.newInstance();
                 replaceFragment(fragment);
             }
         });
@@ -198,15 +196,15 @@ public class SearchFragment extends Fragment {
                         Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-                        searchViewModel.clearBooks();
-                        searchViewModel.addBook(book);
-                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
-                            @Override
-                            public void searchResultsChanged() {
-                                // SearchResultsFragment bookListAdapter
-                                // TODO notifyDataSetChanged??
-                            }
-                        });
+//                        searchViewModel.clearBooks();
+//                        searchViewModel.addBook(book);
+//                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
+//                            @Override
+//                            public void searchResultsChanged() {
+//                                // SearchResultsFragment bookListAdapter
+//                                // TODO notifyDataSetChanged??
+//                            }
+//                        });
 
                     } else {
                         Log.d(TAG, "error");
