@@ -34,8 +34,6 @@ import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
-    // Started on creating the different views for the 3 types of searches
-    // Will probably start with first one search working
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -48,8 +46,6 @@ public class SearchFragment extends Fragment {
 
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
-
-    private List<SimpleBook> books = new ArrayList<>();
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -83,6 +79,7 @@ public class SearchFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -164,10 +161,6 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    public List<SimpleBook> returnBooks() {
-        return this.books;
-    }
-
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.search_results_view, someFragment);
@@ -178,6 +171,7 @@ public class SearchFragment extends Fragment {
     private String getSearchByISBN(){
         return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/searchByISBN";
     }
+
 
     private void searchByISBN(final String ISBN) {
         final String TAG = "SearchByISBN";
@@ -199,10 +193,18 @@ public class SearchFragment extends Fragment {
 
                     if (!error) {
                         Log.d(TAG, "no error");
-                        Toast.makeText(getContext(), "Results for ISBN "+ISBN, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-                        books.add(book);
+//                        searchViewModel.clearBooks();
+//                        searchViewModel.addBook(book);
+//                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
+//                            @Override
+//                            public void searchResultsChanged() {
+//                                // SearchResultsFragment bookListAdapter
+//                                // TODO notifyDataSetChanged??
+//                            }
+//                        });
 
                     } else {
                         Log.d(TAG, "error");
@@ -300,7 +302,7 @@ public class SearchFragment extends Fragment {
 //            // properly.
 //
 //
-//            //TODO Create layout xml for the category fragments (Search by ISBN, Title, Author)
+//
 //            //https://developer.android.com/training/implementing-navigation/lateral.html
 //
 ////            View rootView = inflater.inflate(
