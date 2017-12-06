@@ -90,67 +90,14 @@ public class CameraFragment extends Fragment {
                 Log.d(TAG, "past setting ISBN text");
 
 
-                String cancel_req_tag = "addBookByScan";
-                StringRequest strReq = new StringRequest(Request.Method.POST, getAddBookByScanUrl(), new Response.Listener<String>() {
-                    public void onResponse(String response) {
-                        Log.d(TAG, "past creating message from Gson class");
-                        ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                        if (message.isResult()) {
-                            ValidBookInfoReqResponse bookInfoReqResponse = (ValidBookInfoReqResponse) message;
-                            Log.d(TAG, "creating validbookinforeqresponse");
-                        }
-                        try {
-                            Log.d(TAG, response);
-                            JSONObject jObj = new JSONObject(response);
-                            boolean error = !jObj.getBoolean("result");
 
-
-                            if (!error) {
-                                Log.d(TAG, "no error");
-                                String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
-                                String bookAuthor = jObj.getJSONObject("book").getJSONObject("author").getString("title");
-                                _Author.setText(bookAuthor);
-                                _Title.setText(bookTitle);
-
-                            } else {
-                                Log.d(TAG, "error");
-                                String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getContext(),
-                                        errorMsg, Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            System.out.println("Error case");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Get book info error: " + error.getMessage());
-                        Toast.makeText(getContext(),
-                                error.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("ISBN", _ISBN.getText().toString());
-                        return params;
-                    }
-
-                };
-                // Adding request to request queue
-                Log.d(TAG, "WE ARE HERE");
-                // TODO: Context is wrong, strReq never gets accessed
-                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
                 SimpleBook newBook = new SimpleBook();
 
-                newBook.setAuthor(ISBN);
-                newBook.setTitle(ISBN);
+//                newBook.setAuthor(ISBN);
+//                newBook.setTitle(ISBN);
 
-//                positiveContinuation.run(newBook);
 
+                AppSingleton.getInstance(getContext()).getModel(getContext()).addScan();
 
                 Log.d(TAG, "past activity start");
 

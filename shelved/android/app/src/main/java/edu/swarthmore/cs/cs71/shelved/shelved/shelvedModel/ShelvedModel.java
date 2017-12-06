@@ -11,6 +11,7 @@ public class ShelvedModel {
     // listener fields
     Set<ShelfUpdatedListener> shelfUpdatedListeners = new HashSet<ShelfUpdatedListener>();
     Set<BookAddedListener> bookAddedListeners = new HashSet<BookAddedListener>();
+    Set<ScanAddedListener> scanAddedListeners = new HashSet<ScanAddedListener>();
 
     // TODO: Need to make a method to login
 
@@ -31,6 +32,13 @@ public class ShelvedModel {
         notifyShelfUpdatedListeners();
     }
 
+    public void addScan() {
+        notifyScanAddedListeners();
+    }
+
+
+    ///////////////// Shelf Listeners/ updaters /////////////////
+
     public void addShelfUpdatedListener(ShelfUpdatedListener newShelfUpdatedListener) {
         shelfUpdatedListeners.add(newShelfUpdatedListener);
     }
@@ -41,6 +49,9 @@ public class ShelvedModel {
         }
     }
 
+
+    ///////////////// Add book Listeners/ updaters /////////////////
+
     public void addBookAddedListener(BookAddedListener newBookAddedListener) {
         bookAddedListeners.add(newBookAddedListener);
     }
@@ -50,6 +61,20 @@ public class ShelvedModel {
             listener.bookAdded(book);
         }
     }
+
+
+    ///////////////// Scan Listeners/ updaters /////////////////
+
+    public void addScanListener(ScanAddedListener newScanAddedListener) {
+        scanAddedListeners.add(newScanAddedListener);
+    }
+
+    public void notifyScanAddedListeners() {
+        for (ScanAddedListener listener:this.scanAddedListeners) {
+            listener.scanAdded();
+        }
+    }
+
 
     // getters
 

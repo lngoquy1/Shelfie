@@ -25,12 +25,12 @@ import java.util.Map;
 // probably rename this class because its not actually adding the book
 
 
-public class AddBookScanStringRequest extends StringRequest {
+public class GetBookFromISBNRequest extends StringRequest {
     private final ShelvedModel shelvedModel;
-    private final SimpleBook book;
+//    private final SimpleBook book;
     private static final String TAG = "Add scan string request";
 
-    public AddBookScanStringRequest(final Context context, final ShelvedModel shelvedModel, SimpleBook book) {
+    public GetBookFromISBNRequest(final Context context, final ShelvedModel shelvedModel) {
         super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_BOOK_SCAN), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -48,10 +48,11 @@ public class AddBookScanStringRequest extends StringRequest {
                     // TODO: move Toasts ?
                     if (!error) {
                         Log.d(TAG, "no error");
-                        String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
-                        String bookAuthor = jObj.getJSONObject("book").getJSONObject("author").getString("title");
+                        //String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
+                        //String bookAuthor = jObj.getJSONObject("book").getJSONObject("author").getString("title");
                         //_Author.setText(bookAuthor);
                         //_Title.setText(bookTitle);
+//                        SimpleBook book = (SimpleBook)jObj.getJSONObject("book"));
 
                         GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, shelvedModel);
                         AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
@@ -76,7 +77,7 @@ public class AddBookScanStringRequest extends StringRequest {
             }
         });
         this.shelvedModel = shelvedModel;
-        this.book = book;
+//        this.book = book;
     }
 
     @Override

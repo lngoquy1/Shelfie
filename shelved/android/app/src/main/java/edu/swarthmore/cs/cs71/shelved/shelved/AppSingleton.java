@@ -5,9 +5,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.AddBookStringRequest;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.BookAddedListener;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ShelvedModel;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.*;
 
 public class AppSingleton {
     private static AppSingleton mAppSingletonInstance;
@@ -45,6 +43,7 @@ public class AppSingleton {
         if (model == null) {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
+            addScanNetworkListeners(context, model);
         }
         return model;
     }
@@ -56,6 +55,17 @@ public class AppSingleton {
                 StringRequest strReq = new AddBookStringRequest(context, shelvedModel, book);
                 // Adding request to request queue
                 AppSingleton.getInstance(context).addToRequestQueue(strReq, "addBook");
+            }
+        });
+    }
+
+    public void addScanNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
+        shelvedModel.addScanListener(new ScanAddedListener() {
+            @Override
+            public void scanAdded() {
+                StringRequest strReq = new GetBookFromISBNRequest(context, shelvedModel);
+                // Adding request to request queue
+                AppSingleton.getInstance(context).addToRequestQueue(strReq, "addScan");
             }
         });
     }
