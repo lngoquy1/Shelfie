@@ -5,6 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SimpleUser implements User {
     public String header = this.getClass().getSimpleName();
@@ -16,6 +17,7 @@ public class SimpleUser implements User {
     private String salt;
     private List<SimpleBookShelf> allShelves;
     private List<SimpleReadingList> allReadingLists;
+    private String token;
     public SimpleUser() {
         setSalt();
     }
@@ -32,7 +34,10 @@ public class SimpleUser implements User {
 //    }
 
 
-
+    @Override
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     @Override
     public void setEmail(String userName) {

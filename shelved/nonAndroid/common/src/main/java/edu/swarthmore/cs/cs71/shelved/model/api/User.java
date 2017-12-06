@@ -1,7 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model.api;
 
 public interface User {
-
+    void setToken(String token);
     void setEmail(String email);
     void setPassword(String password);
     void setName(String name);

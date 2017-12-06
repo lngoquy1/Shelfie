@@ -40,11 +40,15 @@ public class HibUser implements User {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HibReadingList> allReadingLists;
 
+    @Column(name="token")
+    private String token;
+
 
     public HibUser() {
         setSalt();
     }
-
+    @Override
+    public void setToken(String token){ this.token = token;}
     @Override
     public void setEmail(String email) {
         this.email = new HibEmail(email);
@@ -94,7 +98,7 @@ public class HibUser implements User {
     public int getId() {
         return id;
     }
-
+    public String getToken(){return token;}
     public HibEmail getEmail() {
         return this.email;
     }
