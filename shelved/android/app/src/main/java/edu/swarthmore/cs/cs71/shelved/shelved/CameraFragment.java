@@ -3,11 +3,13 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SearchViewModel;
@@ -22,17 +24,9 @@ public class CameraFragment extends Fragment {
     private TextView _ISBN;
     private TextView _Author;
     private TextView _Title;
+    private Button _AddBook;
+    private SimpleBook foundBook;
     private static final String TAG = "CameraFragment";
-//    final Continuation<SimpleBook> positiveContinuation = new Continuation<SimpleBook>() {
-//        @Override
-//        public void run(SimpleBook simpleBook) {
-//            // TODO: modify aList, tell Adapter, callUpdateBook, Adapter of SimpleBook
-//            ShelfFragment.books.add(simpleBook);
-//            bookListAdapter.notifyDataSetChanged();
-//            ShelfFragment.updateBook();
-//        }
-//    };
-
 
     public static CameraFragment newInstance() {
         CameraFragment fragment = new CameraFragment();
@@ -54,6 +48,7 @@ public class CameraFragment extends Fragment {
         _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
         _Author = (TextView) rootView.findViewById(R.id.Author);
         _Title = (TextView) rootView.findViewById(R.id.Title);
+        _AddBook = (Button) rootView.findViewById(R.id.add_book_button);
 
         Intent intent = new Intent(context, ScannerActivity.class);
 
@@ -61,7 +56,6 @@ public class CameraFragment extends Fragment {
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
 
         return rootView;
-        //return inflater.inflate(R.layout.fragment_camera, container, false);
     }
 
     @Override
@@ -73,21 +67,27 @@ public class CameraFragment extends Fragment {
                 // The user picked a contact.
                 String ISBN = ScannerActivity.getISBN();
                 _ISBN.setText(ISBN);
-                Log.d(TAG, "past setting ISBN text");
 
-                SearchViewModel searchViewModel = new SearchViewModel();
+                AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), ISBN,
+                        new Continuation<SimpleBook>() {
+                            @Override
+                            public void run(SimpleBook book) {
+                                _Author.setText(book.getAuthor().getAuthorName());
+                                _Title.setText(book.getTitle().getTitle());
+                                foundBook = book;
+                            }
+                        }
+                );
 
-                AppSingleton.getInstance(getContext())
-                        .setupSearchViewModel(getContext(),searchViewModel)
-                        .addScan(ISBN);
-
-                List<SimpleBook> searchResults = searchViewModel.getBooklist();
-                SimpleBook book = searchResults.get(0);
-
-                _Author.setText(book.getAuthor().getAuthorName());
-                _Title.setText(book.getTitle().getTitle());
-
-                Log.d(TAG, "past activity start");
+                _AddBook.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(foundBook);
+                    }
+                });
+            } else {
+                _Author.setText("Unknown author");
+                _Title.setText("Unknown title");
             }
         }
     }

@@ -1,8 +1,13 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.util.Log;
+import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
+import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
+import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
 
 import java.util.*;
 
@@ -90,5 +95,13 @@ public class ShelvedModel {
 
     public Integer getUserID() {
         return userID;
+    }
+
+    public void searchByISBN(Context context, String ISBN, Continuation<SimpleBook> continuation) {
+        StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, continuation);
+        // Adding request to request queue
+        Log.d("testing","about to add to queue");
+        AppSingleton.getInstance(context).addToRequestQueue(strReq, "addSearchByISBN");
+        Log.d("testing","Finished adding to queue");
     }
 }
