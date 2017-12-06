@@ -33,10 +33,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" android:visibility="visible"/>
 
     <Button
-            android:text="OK"
+            android:text="Add Book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_below="@+id/ISBN"
-            android:layout_centerHorizontal="true" android:layout_marginTop="90dp" android:id="@+id/button2"/>
+            android:layout_centerHorizontal="true" android:layout_marginTop="90dp" android:id="@+id/add_book_button"/>
 
 
 </RelativeLayout>
