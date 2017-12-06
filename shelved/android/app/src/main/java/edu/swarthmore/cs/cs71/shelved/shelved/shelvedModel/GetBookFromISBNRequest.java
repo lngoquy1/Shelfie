@@ -13,10 +13,12 @@ import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.ValidBookInfoReqResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
+import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // TODO TODO TODO TODO
@@ -29,7 +31,7 @@ public class GetBookFromISBNRequest extends StringRequest {
     private static final String TAG = "Add scan string request";
     private String ISBN;
 
-    public GetBookFromISBNRequest(final Context context, final String ISBN, final SearchViewModel searchViewModel) {
+    public GetBookFromISBNRequest(final Context context, final String ISBN, final Continuation<SimpleBook> continuation) {
         super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SEARCH_ISBN), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -47,7 +49,7 @@ public class GetBookFromISBNRequest extends StringRequest {
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
 
                         // hold on to this book object in the searchViewModel
-                        searchViewModel.addBook(book);
+                        continuation.run(book);
 
                     } else {
                         Log.d(TAG, "error");

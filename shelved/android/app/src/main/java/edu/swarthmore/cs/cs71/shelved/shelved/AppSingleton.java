@@ -19,6 +19,7 @@ public class AppSingleton {
     private RequestQueue mRequestQueue;
     private static Context mContext;
     private ShelvedModel model;
+    private SearchViewModel searchViewModel;
 
     private AppSingleton(Context context) {
         mContext = context;
@@ -54,8 +55,10 @@ public class AppSingleton {
         return model;
     }
 
-    public SearchViewModel setupSearchViewModel(Context context, SearchViewModel searchViewModel) {
-        addSearchByISBNNetworkListeners(context, searchViewModel);
+    public SearchViewModel getSearchViewModel(Context context) {
+        if (searchViewModel == null) {
+            searchViewModel = new SearchViewModel();
+        }
         return searchViewModel;
     }
 
@@ -66,24 +69,6 @@ public class AppSingleton {
                 StringRequest strReq = new AddBookStringRequest(context, shelvedModel, book);
                 // Adding request to request queue
                 addToRequestQueue(strReq, "addBook");
-            }
-        });
-    }
-
-
-
-
-    public void addSearchByISBNNetworkListeners(final Context context, final SearchViewModel searchViewModel) {
-
-        searchViewModel.addScanListener(new ScanAddedListener() {
-            @Override
-            public void scanAdded(String ISBN) {
-                Log.d("testing","got into add search by isbn network listeners");
-                StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, searchViewModel);
-                // Adding request to request queue
-                Log.d("testing","about to add to queue");
-                addToRequestQueue(strReq, "addSearchByISBN");
-                Log.d("testing","Finished adding to queue");
             }
         });
     }

@@ -75,17 +75,15 @@ public class CameraFragment extends Fragment {
                 _ISBN.setText(ISBN);
                 Log.d(TAG, "past setting ISBN text");
 
-                SearchViewModel searchViewModel = new SearchViewModel();
-
-                AppSingleton.getInstance(getContext())
-                        .setupSearchViewModel(getContext(),searchViewModel)
-                        .addScan(ISBN);
-
-                List<SimpleBook> searchResults = searchViewModel.getBooklist();
-                SimpleBook book = searchResults.get(0);
-
-                _Author.setText(book.getAuthor().getAuthorName());
-                _Title.setText(book.getTitle().getTitle());
+                AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), ISBN,
+                        new Continuation<SimpleBook>() {
+                            @Override
+                            public void run(SimpleBook book) {
+                                _Author.setText(book.getAuthor().getAuthorName());
+                                _Title.setText(book.getTitle().getTitle());
+                            }
+                        }
+                );
 
                 Log.d(TAG, "past activity start");
             }
