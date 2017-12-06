@@ -1,17 +1,18 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
+import com.google.zxing.client.result.ISBNParsedResult;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 import java.util.*;
 
 public class ShelvedModel {
-    List<SimpleBook> bookList = new ArrayList<SimpleBook>();
-    Integer userID = null;
+    private List<SimpleBook> bookList = new ArrayList<SimpleBook>();
+    private Integer userID = null;
 
     // listener fields
     Set<ShelfUpdatedListener> shelfUpdatedListeners = new HashSet<ShelfUpdatedListener>();
     Set<BookAddedListener> bookAddedListeners = new HashSet<BookAddedListener>();
-    Set<ScanAddedListener> scanAddedListeners = new HashSet<ScanAddedListener>();
+
 
     // TODO: Need to make a method to login
 
@@ -32,9 +33,6 @@ public class ShelvedModel {
         notifyShelfUpdatedListeners();
     }
 
-    public void addScan() {
-        notifyScanAddedListeners();
-    }
 
 
     ///////////////// Shelf Listeners/ updaters /////////////////
@@ -65,15 +63,7 @@ public class ShelvedModel {
 
     ///////////////// Scan Listeners/ updaters /////////////////
 
-    public void addScanListener(ScanAddedListener newScanAddedListener) {
-        scanAddedListeners.add(newScanAddedListener);
-    }
 
-    public void notifyScanAddedListeners() {
-        for (ScanAddedListener listener:this.scanAddedListeners) {
-            listener.scanAdded();
-        }
-    }
 
 
     // getters

@@ -12,7 +12,6 @@ public class AppSingleton {
     private RequestQueue mRequestQueue;
     private static Context mContext;
     private ShelvedModel model;
-    private SearchViewModel searchViewModel;
 
     private AppSingleton(Context context) {
         mContext = context;
@@ -44,16 +43,13 @@ public class AppSingleton {
         if (model == null) {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
-            addScanNetworkListeners(context, model);
+//            addScanNetworkListeners(context, model);
         }
         return model;
     }
 
-    public SearchViewModel getSearchViewModel() {
-        if (searchViewModel == null) {
-            searchViewModel = new SearchViewModel();
-            searchViewModel.notifySearchViewModelListeners();
-        }
+    public SearchViewModel setupSearchViewModel(Context context, SearchViewModel searchViewModel) {
+        addScanNetworkListeners(context, searchViewModel);
         return searchViewModel;
     }
 
@@ -68,11 +64,11 @@ public class AppSingleton {
         });
     }
 
-    public void addScanNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
-        shelvedModel.addScanListener(new ScanAddedListener() {
+    public void addScanNetworkListeners(final Context context, final SearchViewModel searchViewModel) {
+        searchViewModel.addScanListener(new ScanAddedListener() {
             @Override
-            public void scanAdded() {
-                StringRequest strReq = new GetBookFromISBNRequest(context, shelvedModel);
+            public void scanAdded(String ISBN) {
+                StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, searchViewModel);
                 // Adding request to request queue
                 AppSingleton.getInstance(context).addToRequestQueue(strReq, "addScan");
             }

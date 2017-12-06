@@ -9,20 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookInfoReqResponse;
-import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SearchViewModel;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,7 +35,7 @@ public class CameraFragment extends Fragment {
 
     private String getAddBookByScanUrl() {
         //AppCompatActivity act = new AppCompatActivity();
-        return "http://" + getContext().getResources().getString((R.string.server_url)) + ":4567/addBookByScan";
+        return "http://" + getContext().getResources().getString((R.string.server_url)) + ":4567/searchByISBN";
     }
 
     public static CameraFragment newInstance() {
@@ -89,21 +79,20 @@ public class CameraFragment extends Fragment {
                 _ISBN.setText(ISBN);
                 Log.d(TAG, "past setting ISBN text");
 
+                SearchViewModel searchViewModel = new SearchViewModel();
 
+                AppSingleton.getInstance(getContext())
+                        .setupSearchViewModel(getContext(),searchViewModel)
+                        .addScan(ISBN);
 
-                SimpleBook newBook = new SimpleBook();
+                List<SimpleBook> searchResults = searchViewModel.getBooklist();
+                SimpleBook book = searchResults.get(0);
 
-//                newBook.setAuthor(ISBN);
-//                newBook.setTitle(ISBN);
-
-
-                AppSingleton.getInstance(getContext()).getModel(getContext()).addScan();
+                _Author.setText(book.getAuthor().getAuthorName());
+                _Title.setText(book.getTitle().getTitle());
 
                 Log.d(TAG, "past activity start");
-
-
             }
         }
-
     }
 }
