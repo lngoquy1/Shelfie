@@ -50,6 +50,7 @@ public class AppSingleton {
         if (model == null) {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
+            addSignUpSuccessNetworkListeners(context, model);
         }
         return model;
     }

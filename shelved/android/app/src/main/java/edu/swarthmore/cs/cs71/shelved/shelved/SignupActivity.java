@@ -160,8 +160,12 @@ public class SignupActivity extends AppCompatActivity {
         AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
             @Override
             public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
-                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllSignUpSuccessListeners();
-                finish();
+                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
+                    @Override
+                    public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
+                        finish();
+                    }
+                });
             }
         });
     }
