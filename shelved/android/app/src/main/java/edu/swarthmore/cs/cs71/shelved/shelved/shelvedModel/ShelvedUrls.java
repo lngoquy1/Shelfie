@@ -7,6 +7,7 @@ public class ShelvedUrls {
     public static final ShelvedUrls SINGLETON = new ShelvedUrls();
 
     public static enum Name {
+        SIGN_UP("/signup"),
         ADD_BOOK("/addBook"),
         GET_BOOK_LIST("/updateBook"),
         ADD_BOOK_SCAN("/addBookByScan");

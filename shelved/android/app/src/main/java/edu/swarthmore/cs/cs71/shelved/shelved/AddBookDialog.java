@@ -13,6 +13,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 public class AddBookDialog extends AlertDialog.Builder {
     private static final String TAG = "AddBookDialog";
     private String userID;
+
     public AddBookDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
@@ -51,8 +52,7 @@ public class AddBookDialog extends AlertDialog.Builder {
                 newBook.setTitle(titleString);
                 AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(newBook);
 
-                Log.d(TAG, getAddBookUrl());
-                // TODO: This StringRequest is still under construction
+
             }
         });
 
@@ -65,10 +65,7 @@ public class AddBookDialog extends AlertDialog.Builder {
     }
 
 
-    private String getAddBookUrl() {
-        //AppCompatActivity act = new AppCompatActivity();
-        return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/addBook";
-    }
+
 
 
 

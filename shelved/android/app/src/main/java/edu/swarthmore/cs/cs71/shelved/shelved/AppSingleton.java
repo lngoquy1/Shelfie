@@ -1,11 +1,17 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.*;
+import android.app.ProgressDialog;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class AppSingleton {
     private static AppSingleton mAppSingletonInstance;
@@ -64,6 +70,7 @@ public class AppSingleton {
         });
     }
 
+
     public void addScanNetworkListeners(final Context context, final SearchViewModel searchViewModel) {
         searchViewModel.addScanListener(new ScanAddedListener() {
             @Override
@@ -75,4 +82,25 @@ public class AppSingleton {
         });
     }
 
+
+    ///////////////// Sign up success Listeners /////////////////
+
+    public void addSignUpSuccessNetworkListeners(final Context context, final ShelvedModel shelvedModel){
+        shelvedModel.addSignUpSuccessListeners(new SignUpSuccessListener() {
+            @Override
+            public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
+                StringRequest strReq = new UserSignUpRequest(context, shelvedModel, userName, email, password, progressDialog);
+                AppSingleton.getInstance(context).addToRequestQueue(strReq, "signUp");
+                Intent intent = new Intent(
+                        context,
+                        LoginActivity.class);
+                context.startActivity(intent);
+            }
+        });
+    }
+    //////////////// Hide progress dialog /////////
+    public void hideDialog(ProgressDialog progressDialog) {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
 }

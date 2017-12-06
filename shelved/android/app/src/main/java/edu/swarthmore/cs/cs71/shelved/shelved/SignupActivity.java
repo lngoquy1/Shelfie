@@ -21,11 +21,14 @@ import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SignUpSuccessListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 //from https://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/
@@ -37,9 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
 
-    private String getRegistrationUrl() {
-        return "http://"+getString((R.string.server_url))+":4567/signup";
-    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,70 +97,10 @@ public class SignupActivity extends AppCompatActivity {
         final String password = _passwordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                getRegistrationUrl(), new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response);
-                hideDialog(progressDialog);
-
-                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                if (message.isResult()) {
-                    CreateUserResponse createUserResponse = (CreateUserResponse)message;
-                }
-
-                try {
-                    Log.d(TAG, response);
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = !jObj.getBoolean("result");
-
-
-                    if (!error) {
-                        String user = jObj.getJSONObject("user").getJSONObject("simpleEmail").getString("userName");
-                        Toast.makeText(getApplicationContext(), "Hi " + user +", You are successfully Added!", Toast.LENGTH_SHORT).show();
-
-                        // Launch login activity
-                        Intent intent = new Intent(
-                                SignupActivity.this,
-                                LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    System.out.println("Error case");
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog(progressDialog);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to signup url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
-                return params;
-            }
-        };
         // Adding request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
-
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).signUp(name, email, password, progressDialog);
+        addSignUpSuccessActivityListener();
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -172,10 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-    private void hideDialog(ProgressDialog progressDialog) {
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
-    }
+
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -218,6 +156,16 @@ public class SignupActivity extends AppCompatActivity {
 
         return valid;
     }
+    public void addSignUpSuccessActivityListener(){
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
+            @Override
+            public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
+                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllSignUpSuccessListeners();
+                finish();
+            }
+        });
+    }
+
 
 
 }
