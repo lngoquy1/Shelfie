@@ -1,13 +1,17 @@
-package edu.swarthmore.cs.cs71.shelved.shelved;
+package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.shelved.SearchViewModelListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SearchViewModel {
     private List<SimpleBook> books = new ArrayList<>();
     private List<SearchViewModelListener> searchViewModelListeners = new ArrayList<>();
+    Set<ScanAddedListener> scanAddedListeners = new HashSet<ScanAddedListener>();
 
     public void addBook(SimpleBook book) {
         this.books.add(book);
@@ -31,6 +35,23 @@ public class SearchViewModel {
         }
     }
 
+
+
+    //////////// SCANNER STUFF ? :( //////////////
+
+    public void addScan(String ISBN) {
+        notifyScanAddedListeners(ISBN);
+    }
+
+    public void addScanListener(ScanAddedListener newScanAddedListener) {
+        scanAddedListeners.add(newScanAddedListener);
+    }
+
+    public void notifyScanAddedListeners(String ISBN) {
+        for (ScanAddedListener listener:this.scanAddedListeners) {
+            listener.scanAdded(ISBN);
+        }
+    }
 
 
 
