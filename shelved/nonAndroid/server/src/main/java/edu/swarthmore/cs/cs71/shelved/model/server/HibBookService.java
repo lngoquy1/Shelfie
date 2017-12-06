@@ -7,7 +7,6 @@ import edu.swarthmore.cs.cs71.shelved.spark.PersistenceUtils;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import org.hibernate.SessionFactory;
 import org.xml.sax.SAXException;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.persistence.EntityManager;
 import javax.xml.parsers.ParserConfigurationException;

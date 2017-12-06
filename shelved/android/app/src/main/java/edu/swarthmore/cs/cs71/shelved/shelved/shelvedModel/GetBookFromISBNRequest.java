@@ -30,25 +30,19 @@ public class GetBookFromISBNRequest extends StringRequest {
     private String ISBN;
 
     public GetBookFromISBNRequest(final Context context, final String ISBN, final SearchViewModel searchViewModel) {
-        super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_BOOK_SCAN), new Response.Listener<String>() {
+        super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SEARCH_ISBN), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "addScanResp: " + response);
-
-                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                if (message.isResult()) {
-                    ValidBookInfoReqResponse bookInfoReqResponse = (ValidBookInfoReqResponse) message;
-                }
                 try {
                     Log.d(TAG, response);
                     JSONObject jObj = new JSONObject(response);
                     boolean error = !jObj.getBoolean("result");
-
-                    // TODO: move Toasts ?
                     if (!error) {
                         Log.d(TAG, "no error");
 
                         Toast.makeText(context, "Results for ISBN "+ISBN, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "GETTING BOOOOOOOOOK");
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
 

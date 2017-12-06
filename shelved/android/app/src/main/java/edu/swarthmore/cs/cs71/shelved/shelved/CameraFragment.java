@@ -33,10 +33,6 @@ public class CameraFragment extends Fragment {
 //        }
 //    };
 
-    private String getAddBookByScanUrl() {
-        //AppCompatActivity act = new AppCompatActivity();
-        return "http://" + getContext().getResources().getString((R.string.server_url)) + ":4567/searchByISBN";
-    }
 
     public static CameraFragment newInstance() {
         CameraFragment fragment = new CameraFragment();
