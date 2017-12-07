@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.model.bookData;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import org.apache.http.client.utils.URIBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -268,6 +269,7 @@ public class BookInfo {
     //    https://www.googleapis.com/books/v1/volumes?q=intitle:so%20you%20want%20to%20be%20a%20wizard
     //GOOGLEAPIS Section
     public JSONObject getJsonFromQueryGoogle(String title, String author, String ISBN) throws IOException, EmptyQueryException, NotFoundException {
+        String apiKey = "AIzaSyByUzCVblZdM6fPULF1mut1iretwaXW9rY";
         //takes a title, author, title and author, or isbn
         if (title.isEmpty() && author.isEmpty() && ISBN.isEmpty()){
             throw new EmptyQueryException("No search terms entered");
@@ -275,30 +277,36 @@ public class BookInfo {
         title = title.replace(" ","+");
         author = author.replace(" ","+");
         ISBN = ISBN.replace("-","");
-        StringBuilder urlStringBuffer = new StringBuilder();
+        URIBuilder uriBuilder = new URIBuilder()
+                .setScheme("https")
+                .setHost("www.googleapis.com")
+                .setPath("/books/v1/volumes");
         if (!ISBN.isEmpty()){
-            urlStringBuffer.append("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN);
+            uriBuilder.addParameter("q", "isbn:"+ISBN);
         } else {
-            urlStringBuffer.append("https://www.googleapis.com/books/v1/volumes?q=");
-            if (!title.isEmpty()) {
-                urlStringBuffer.append("+intitle:" + title);
-            }
-            if (!author.isEmpty()) {
-                urlStringBuffer.append("+inauthor:" + author);
+//            https://www.googleapis.com/books/v1/volumes?q=intitle:flowers+inauthor:keyes&key=AIzaSyByUzCVblZdM6fPULF1mut1iretwaXW9rY
+            if (!author.isEmpty() && !title.isEmpty()) {
+                uriBuilder.addParameter("q", "intitle:" + title + "+inauthor:"+author);
+            } else if (!author.isEmpty()){
+                uriBuilder.addParameter("q", "inauthor:" + author);
+            } else {
+                uriBuilder.addParameter("q", "intitle:" + title);
             }
         }
-        URL url = new URL(urlStringBuffer.toString());
-        try {
-            StringBuffer content = getHTMLContent(url);
-            JSONObject jObj = new JSONObject(content.toString());
-            String numFound = jObj.get("totalItems").toString();
-            if (Integer.parseInt(numFound) == 0){
-                throw new NotFoundException("Not found.");
-            }
-            return jObj;
-        } catch (IOException e) {
-            throw new NotFoundException("Not found.");
+        String urlString = uriBuilder.toString();
+        urlString+="&key="+apiKey;
+        URL url = new URL(urlString);
+        System.out.println(url);
+        StringBuffer content = getHTMLContent(url);
+        JSONObject jObj = new JSONObject(content.toString());
+        String numFound = jObj.get("totalItems").toString();
+        if (Integer.parseInt(numFound) == 0){
+            throw new NotFoundException("Not found.",jObj);
         }
+        return jObj;
+//        } catch (IOException e) {
+//            throw new NotFoundException("Not found.",null);
+//        }
     }
 
     private String getTitleGoogleJson(JSONObject jObj) throws NotFoundException {
@@ -311,7 +319,7 @@ public class BookInfo {
                 continue;
             }
         }
-        throw new NotFoundException("Title not found");
+        throw new NotFoundException("Title not found", jObj);
     }
 
     private String getAuthorGoogleJson(JSONObject jObj) throws NotFoundException {
@@ -324,7 +332,7 @@ public class BookInfo {
                 continue;
             }
         }
-        throw new NotFoundException("Author not found");
+        throw new NotFoundException("Author not found",jObj);
     }
 
     private String getGenreGoogleJson(JSONObject jObj) throws NotFoundException {
@@ -337,7 +345,7 @@ public class BookInfo {
                 continue;
             }
         }
-        throw new NotFoundException("Genre not found");
+        throw new NotFoundException("Genre not found",jObj);
     }
 
 
@@ -351,7 +359,7 @@ public class BookInfo {
                 continue;
             }
         }
-        throw new NotFoundException("Publisher not found");
+        throw new NotFoundException("Publisher not found",jObj);
     }
 
     private int getNumPagesGoogleJson(JSONObject jObj) throws NotFoundException {
@@ -364,7 +372,7 @@ public class BookInfo {
                 continue;
             }
         }
-        throw new NotFoundException("Number of pages not found");
+        throw new NotFoundException("Number of pages not found",jObj);
     }
 
 
