@@ -6,9 +6,10 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
+import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import org.json.JSONException;
@@ -17,21 +18,20 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddBookStringRequest extends StringRequest {
+public class AddListStringRequest extends StringRequest {
     private final ShelvedModel shelvedModel;
-    private final SimpleBook book;
-    private static final String TAG = "Add Book string request";
+    private final SimpleReadingList list;
+    private static final String TAG = "Add list string request";
 
-    public AddBookStringRequest(final Context context, final ShelvedModel shelvedModel, SimpleBook book) {
-        super(Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_BOOK),
-                new Response.Listener<String>() {
+    public AddListStringRequest(final Context context, final ShelvedModel shelvedModel, SimpleReadingList list) {
+        super(Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_LIST), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Add book response: " + response);
+                Log.d(TAG, "Add list response: " + response);
 
                 ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
                 if (message.isResult()) {
-                    ValidBookAddedResponse bookAddedResponse = (ValidBookAddedResponse) message;
+                    ValidListAddedResponse listAddedResponse = (ValidListAddedResponse) message;
                 }
                 try {
                     Log.d(TAG, response);
@@ -41,11 +41,11 @@ public class AddBookStringRequest extends StringRequest {
                     // TODO: move Toasts ?
                     if (!error) {
                         Log.d(TAG, "no error");
-                        String bookTitle = jObj.getJSONObject("book").getJSONObject("title").getString("title");
-                        Toast.makeText(context, "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
+                        String listName = jObj.getJSONObject("list").getJSONObject("name").getString("name");
+                        Toast.makeText(context, "You successfully added " + listName, Toast.LENGTH_SHORT).show();
 
-                        GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, shelvedModel);
-                        AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
+                        //GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, shelvedModel);
+                        //AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
 
                     } else {
                         Log.d(TAG, "error");
@@ -69,15 +69,14 @@ public class AddBookStringRequest extends StringRequest {
             }
         });
         this.shelvedModel = shelvedModel;
-        this.book = book;
+        this.list = list;
     }
 
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("userID", String.valueOf(shelvedModel.getUserID()));
-        params.put("title", book.getTitle().getTitle());
-        params.put("author", book.getAuthor().getAuthorName());
+        params.put("name", list.getName());
         return params;
     }
 }
