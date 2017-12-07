@@ -54,7 +54,7 @@ public class UserSignUpRequest extends StringRequest {
                                 String userName = jObj.getJSONObject("user").getJSONObject("simpleEmail").getString("userName");
                                 Toast.makeText(getApplicationContext(), "Hi " + userName +", You have successfully signed up!", Toast.LENGTH_SHORT).show();
                                 // Switch to login page
-                                AppSingleton.getInstance(context).addSignUpSuccessNetworkListeners(context, shelvedModel);
+//                                AppSingleton.getInstance(context).addSignUpSuccessNetworkListeners(context, shelvedModel);
 
                             } else {
 

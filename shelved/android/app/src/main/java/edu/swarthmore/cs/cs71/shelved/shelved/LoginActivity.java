@@ -5,19 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.android.volley.*;
-import com.android.volley.toolbox.StringRequest;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInAttemptListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInSuccessListener;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -29,9 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.link_signup) TextView _signupLink;
     @Bind(R.id.logo) ImageView _logo;
 
-    private String getLoginUrl() {
-        return "http://"+getString((R.string.server_url))+":4567/login";
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
-        String cancel_req_tag = "login";
+
         if (!validate()) {
             onLoginFailed();
             return;
@@ -93,84 +84,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // TODO: Implement your own authentication logic here.
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                getLoginUrl(), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
-                hideDialog(progressDialog);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    Log.d(TAG, jObj.toString());
-                    boolean error = !jObj.getBoolean("result");
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).logIn(email, password, progressDialog);
+        addLogInSuccessActivityListener();
 
-                    if (!error) {
-
-                        String userId = jObj.getString("id");
-                        //TODO: MainActivity here needs to be changed into UserActivity
-                        // Launch User activity
-                        Intent intent = new Intent(
-                                LoginActivity.this,
-                                MainActivity.class);
-
-
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
-                        finish();
-                    } else {
-
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-
-                // Network error response
-                NetworkResponse networkResponse = error.networkResponse;
-                if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
-                }
-
-                if (error instanceof TimeoutError) {
-                    Log.e("Volley", "TimeoutError");
-                }else if(error instanceof NoConnectionError){
-                    Log.e("Volley", "NoConnectionError");
-                } else if (error instanceof AuthFailureError) {
-                    Log.e("Volley", "AuthFailureError");
-                } else if (error instanceof ServerError) {
-                    Log.e("Volley", "ServerError");
-                } else if (error instanceof NetworkError) {
-                    Log.e("Volley", "NetworkError");
-                } else if (error instanceof ParseError) {
-                    Log.e("Volley", "ParseError");
-                }
-
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog(progressDialog);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
-                return params;
-            }
-        };
-        // Adding request to request queue
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,cancel_req_tag);
-
-        //TODO: Don't know what this is doing
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -182,10 +98,18 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-    private void hideDialog(ProgressDialog progressDialog) {
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
+    private void addLogInSuccessActivityListener() {
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addLogInSuccessListeners(new LogInSuccessListener() {
+            @Override
+            public void onLogInSuccess() {
+                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllLogInAttemptListeners();
+                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllLogInSuccessListeners();
+                finish();
+            }
+        });
     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {

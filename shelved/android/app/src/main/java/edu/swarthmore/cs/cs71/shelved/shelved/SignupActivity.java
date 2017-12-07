@@ -76,8 +76,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() {
-        String cancel_req_tag = "signup";
-        Log.d(TAG, "Signup");
+
+
 
         if (!validate()) {
             onSignupFailed();
@@ -159,13 +159,9 @@ public class SignupActivity extends AppCompatActivity {
     public void addSignUpSuccessActivityListener(){
         AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
             @Override
-            public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
-                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
-                    @Override
-                    public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
-                        finish();
-                    }
-                });
+            public void onSignUpSuccess(String userName, String email, String password, ProgressDialog progressDialog) {
+                    finish();
+
             }
         });
     }

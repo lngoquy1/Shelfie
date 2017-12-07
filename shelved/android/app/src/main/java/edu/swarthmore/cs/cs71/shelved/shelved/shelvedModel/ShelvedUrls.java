@@ -8,9 +8,11 @@ public class ShelvedUrls {
 
     public static enum Name {
         SIGN_UP("/signup"),
+        LOG_IN("/login"),
         ADD_BOOK("/addBook"),
         GET_BOOK_LIST("/updateBook"),
         SEARCH_ISBN("/searchByISBN");
+
         // TODO: chagne update book to say getBookList
 
         private String path;

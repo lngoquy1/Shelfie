@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
 
@@ -17,6 +16,8 @@ public class ShelvedModel {
     private String token = null;
     // listener fields
     Set<SignUpSuccessListener> signUpSuccessListeners = new HashSet<SignUpSuccessListener>();
+    Set<LogInAttemptListener> logInAttemptListeners = new HashSet<LogInAttemptListener>();
+    Set<LogInSuccessListener> logInSuccessListeners = new HashSet<LogInSuccessListener>();
     Set<ShelfUpdatedListener> shelfUpdatedListeners = new HashSet<ShelfUpdatedListener>();
     Set<BookAddedListener> bookAddedListeners = new HashSet<BookAddedListener>();
 
@@ -24,6 +25,17 @@ public class ShelvedModel {
     public void signUp(String userName, String email, String password, ProgressDialog progressDialog){
         notifySignUpSuccessListeners(userName, email, password, progressDialog);
     }
+    public void logIn(String email, String password, ProgressDialog progressDialog){
+        notifyLogInAttemptListener(email, password, progressDialog);
+    }
+
+    public void logInSucceed(int userID, String token){
+        this.userID = userID;
+        this.token = token;
+        notifyLogInSuccessListener();
+    }
+
+
     public void addBook(SimpleBook book) {
         bookList.add(book);
         notifyShelfUpdatedListeners();
@@ -74,14 +86,34 @@ public class ShelvedModel {
     }
     private void notifySignUpSuccessListeners(String userName, String email, String password, ProgressDialog progressDialog){
         for (SignUpSuccessListener listener:this.signUpSuccessListeners){
-            listener.onSignUpSucceed(userName, email, password, progressDialog);
+            listener.onSignUpSuccess(userName, email, password, progressDialog);
         }
     }
     public void removeAllSignUpSuccessListeners(){
         signUpSuccessListeners.clear();
     }
 
+    ///////////////// Sign up attempt Listeners /////////////////
+    public void addLogInAttemptListeners(LogInAttemptListener logInAttemptListener){
+        logInAttemptListeners.add(logInAttemptListener);
+    }
+    public void notifyLogInAttemptListener(String email, String password, ProgressDialog progressDialog){
+        for (LogInAttemptListener listener: logInAttemptListeners){
+            listener.onLogInAttempt(email, password, progressDialog);
+        }
+    }
+    public void removeAllLogInAttemptListeners(){ logInAttemptListeners.clear();}
 
+    ///////////////// Sign up attempt Listeners /////////////////
+    public void addLogInSuccessListeners(LogInSuccessListener logInSuccessListener){
+        logInSuccessListeners.add(logInSuccessListener);
+    }
+    public void notifyLogInSuccessListener(){
+        for (LogInSuccessListener listener: logInSuccessListeners){
+            listener.onLogInSuccess();
+        }
+    }
+    public void removeAllLogInSuccessListeners(){ logInSuccessListeners.clear();}
     ///////////////// Scan Listeners/ updaters /////////////////
 
 

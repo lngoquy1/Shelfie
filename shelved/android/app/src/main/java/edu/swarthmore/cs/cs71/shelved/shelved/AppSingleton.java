@@ -3,7 +3,6 @@ import android.content.Context;
 
 import android.content.Intent;
 
-import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -52,6 +51,8 @@ public class AppSingleton {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
             addSignUpSuccessNetworkListeners(context, model);
+            addLogInAttemptNetworkListeners(context, model);
+            addLogInSuccessNetWorkListeners(context, model);
         }
         return model;
     }
@@ -80,9 +81,10 @@ public class AppSingleton {
     public void addSignUpSuccessNetworkListeners(final Context context, final ShelvedModel shelvedModel){
         shelvedModel.addSignUpSuccessListeners(new SignUpSuccessListener() {
             @Override
-            public void onSignUpSucceed(String userName, String email, String password, ProgressDialog progressDialog) {
+            public void onSignUpSuccess(String userName, String email, String password, ProgressDialog progressDialog) {
                 StringRequest strReq = new UserSignUpRequest(context, shelvedModel, userName, email, password, progressDialog);
                 AppSingleton.getInstance(context).addToRequestQueue(strReq, "signUp");
+                // Launch loginActivity
                 Intent intent = new Intent(
                         context,
                         LoginActivity.class);
@@ -90,6 +92,29 @@ public class AppSingleton {
             }
         });
     }
+    ///////////////// Log In Listeners /////////////////
+    public void addLogInAttemptNetworkListeners(final Context context, final ShelvedModel shelvedModel){
+        shelvedModel.addLogInAttemptListeners(new LogInAttemptListener() {
+            @Override
+            public void onLogInAttempt(String email, String password, ProgressDialog progressDialog) {
+                StringRequest strReq = new UserLogInRequest(context, shelvedModel, email, password, progressDialog);
+                AppSingleton.getInstance(context).addToRequestQueue(strReq, "logIn");
+            }
+        });
+    }
+    public void addLogInSuccessNetWorkListeners(final Context context, final ShelvedModel shelvedModel){
+        shelvedModel.addLogInSuccessListeners(new LogInSuccessListener() {
+            @Override
+            public void onLogInSuccess() {
+                // Launch MainActivity
+                Intent intent = new Intent(
+                        context,
+                        MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+    }
+
     //////////////// Hide progress dialog /////////
     public void hideDialog(ProgressDialog progressDialog) {
         if (progressDialog.isShowing())
