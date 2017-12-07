@@ -85,9 +85,9 @@ public class CameraFragment extends Fragment {
                         AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(foundBook);
                     }
                 });
-            } else {
-                _Author.setText("Unknown author");
-                _Title.setText("Unknown title");
+            //} else {
+            //    _Author.setText("Unknown author");
+            //    _Title.setText("Unknown title");
             }
         }
     }
