@@ -4,7 +4,7 @@
     <!--<string name="server_url">130.58.68.114</string>-->
     <!--<string name="server_url">chocolate.cs.swarthmore.edu</string>-->
     <!--<string name="server_url">130.58.68.124</string>-->
-    <string name="server_url">130.58.68.106</string>
+    <!--<string name="server_url">130.58.68.106</string>-->
     <!--<string name="server_url">130.58.68.124:3306</string>-->
     <!--<string name="server_url">3306</string>-->
 
@@ -13,8 +13,7 @@
 
     <!--emulator ip-->
     <!--<string name="server_url">10.0.2.2</string>-->
-<<<<<<< HEAD
+
     <string name="server_url">130.58.222.247</string>
-=======
->>>>>>> 7641b6fa4ede67b2d8ca2049e167732da4045376
+
 </resources>
