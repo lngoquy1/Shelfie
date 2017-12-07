@@ -4,18 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
-import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
-import edu.swarthmore.cs.cs71.shelved.shelved.LoginActivity;
-import edu.swarthmore.cs.cs71.shelved.shelved.R;
-import edu.swarthmore.cs.cs71.shelved.shelved.SignupActivity;
+import edu.swarthmore.cs.cs71.shelved.shelved.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ShelvedUrls.Name.SIGN_UP;
 
 public class UserSignUpRequest extends StringRequest {
     private final ShelvedModel shelvedModel;

@@ -1,8 +1,9 @@
-package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
+package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.util.Log;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.SearchViewModelListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ScanAddedListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
