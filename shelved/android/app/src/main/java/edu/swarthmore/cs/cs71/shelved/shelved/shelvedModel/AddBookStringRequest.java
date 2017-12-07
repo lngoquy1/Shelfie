@@ -75,7 +75,7 @@ public class AddBookStringRequest extends StringRequest {
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("userID", String.valueOf(shelvedModel.getUserID()));
+//        params.put("userID", String.valueOf(shelvedModel.getUserID()));
         params.put("title", book.getTitle().getTitle());
         params.put("author", book.getAuthor().getAuthorName());
         return params;

@@ -200,16 +200,6 @@ public class SearchFragment extends Fragment {
                         searchViewModel.clearBooks();
                         searchViewModel.getBooklist().add(book);
 
-//                        searchViewModel.clearBooks();
-//                        searchViewModel.addBook(book);
-//                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
-//                            @Override
-//                            public void searchResultsChanged() {
-//                                // SearchResultsFragment bookListAdapter
-//                                // TODO notifyDataSetChanged??
-//                            }
-//                        });
-
                     } else {
                         Log.d(TAG, "error");
                         String errorMsg = jObj.getString("error_msg");
