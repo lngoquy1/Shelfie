@@ -35,7 +35,7 @@ public class HibBookService {
         String author = bookInfo.getAuthorFromISBN(ISBN);
         String publisher = bookInfo.getPublisherFromISBN(ISBN);
         String genre = bookInfo.getGenreFromISBN(ISBN);
-        int pages = Integer.parseInt(bookInfo.getNumPagesFromISBN(ISBN));
+        int pages = bookInfo.getNumPagesFromISBN(ISBN);
         HibBook newBook = new HibBook();
         newBook.setAuthor(author);
         newBook.setTitle(title);
