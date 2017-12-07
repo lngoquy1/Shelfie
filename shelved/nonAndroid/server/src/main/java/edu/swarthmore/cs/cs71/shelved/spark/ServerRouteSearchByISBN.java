@@ -25,7 +25,7 @@ public class ServerRouteSearchByISBN extends ServerRoute {
             simpleBook.setAuthor(bookInfo.getAuthorFromISBN(isbn));
             simpleBook.setGenre(bookInfo.getGenreFromISBN(isbn));
             simpleBook.setPublisher(bookInfo.getPublisherFromISBN(isbn));
-            simpleBook.setPages(Integer.parseInt(bookInfo.getNumPagesFromISBN(isbn)));
+            simpleBook.setPages(bookInfo.getNumPagesFromISBN(isbn));
             System.out.println("WE GOT HERE. Our book has title: " + simpleBook.getTitle().getTitle());
             return new ValidSearchResponseISBN(simpleBook);
         } catch (Exception e) {

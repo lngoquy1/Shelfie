@@ -3,12 +3,12 @@ import android.content.Context;
 
 import android.content.Intent;
 
-import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.*;
 import android.app.ProgressDialog;
 
@@ -63,6 +63,9 @@ public class AppSingleton {
         return searchViewModel;
     }
 
+
+    ///////////////// Book Added Listeners /////////////////
+
     private void addBookNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
         shelvedModel.addBookAddedListener(new BookAddedListener() {
             @Override
@@ -74,6 +77,19 @@ public class AppSingleton {
         });
     }
 
+
+    ///////////////// List added Listeners /////////////////
+
+    private void addListNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
+        shelvedModel.addListAddedListener(new ListAddedListener() {
+            @Override
+            public void listAdded(SimpleReadingList list) {
+                StringRequest strReq = new AddListStringRequest(context, shelvedModel, list);
+                // Adding request to request queue
+                addToRequestQueue(strReq, "addBook");
+            }
+        });
+    }
 
     ///////////////// Sign up success Listeners /////////////////
 
