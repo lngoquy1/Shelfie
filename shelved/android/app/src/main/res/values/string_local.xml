@@ -14,6 +14,7 @@
     <!--emulator ip-->
     <!--<string name="server_url">10.0.2.2</string>-->
 
+    <!--kellie's laptop-->
     <string name="server_url">130.58.222.247</string>
 
 </resources>
