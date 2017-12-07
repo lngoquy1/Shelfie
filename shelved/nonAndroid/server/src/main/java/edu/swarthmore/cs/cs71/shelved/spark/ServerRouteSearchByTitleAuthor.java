@@ -31,7 +31,7 @@ public class ServerRouteSearchByTitleAuthor extends ServerRoute {
                 simpleBook.setTitle(bookInfo.getTitleFromISBN(isbn));
                 simpleBook.setAuthor(bookInfo.getAuthorFromISBN(isbn));
                 simpleBook.setPublisher(bookInfo.getPublisherFromISBN(isbn));
-                simpleBook.setPages(Integer.parseInt(bookInfo.getNumPagesFromISBN(isbn)));
+                simpleBook.setPages(bookInfo.getNumPagesFromISBN(isbn));
                 simpleBook.setGenre(bookInfo.getGenreFromISBN(isbn));
                 possibleBooks.add(simpleBook);
             }
