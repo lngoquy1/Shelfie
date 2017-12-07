@@ -64,11 +64,20 @@ public class SearchResultsFragment extends Fragment {
             }
         });
 
+
+
         //books = searchViewModel.getBooklist();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);
-        // TODO where to put notifyDataSetChanged?
+
+        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
+            @Override
+            public void searchResultsChanged() {
+                bookListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
 }

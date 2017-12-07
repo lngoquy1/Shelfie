@@ -1,8 +1,9 @@
-package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
+package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.util.Log;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.SearchViewModelListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ScanAddedListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ public class SearchViewModel {
 
     public void addBook(SimpleBook book) {
         this.books.add(book);
+        notifySearchViewModelListeners();
     }
 
     public List<SimpleBook> getBooklist() {
@@ -24,6 +26,7 @@ public class SearchViewModel {
 
     public void clearBooks() {
         this.books.clear();
+        notifySearchViewModelListeners();
     }
 
     public void addSearchViewModelListener (SearchViewModelListener listener) {
