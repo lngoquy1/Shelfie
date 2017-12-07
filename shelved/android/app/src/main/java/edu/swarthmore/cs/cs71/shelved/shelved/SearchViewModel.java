@@ -17,6 +17,7 @@ public class SearchViewModel {
 
     public void addBook(SimpleBook book) {
         this.books.add(book);
+        notifySearchViewModelListeners();
     }
 
     public List<SimpleBook> getBooklist() {
@@ -25,6 +26,7 @@ public class SearchViewModel {
 
     public void clearBooks() {
         this.books.clear();
+        notifySearchViewModelListeners();
     }
 
     public void addSearchViewModelListener (SearchViewModelListener listener) {

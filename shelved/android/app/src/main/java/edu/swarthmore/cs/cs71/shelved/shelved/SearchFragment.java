@@ -32,7 +32,6 @@ import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
-    private SearchViewModel searchViewModel;
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -197,15 +196,10 @@ public class SearchFragment extends Fragment {
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
 
 
-                        searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         searchViewModel.getBooklist().add(book);
-                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
-                            @Override
-                            public void searchResultsChanged() {
 
-                            }
-                        });
 //                        searchViewModel.clearBooks();
 //                        searchViewModel.addBook(book);
 //                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
