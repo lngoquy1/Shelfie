@@ -27,13 +27,12 @@ import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SearchFragment extends Fragment {
 
+    private SearchViewModel searchViewModel;
     private SearchView searchView;
     public static final int ISBN = 1;
     public static final int TITLE = 2;
@@ -196,6 +195,17 @@ public class SearchFragment extends Fragment {
                         Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
+
+
+                        searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        searchViewModel.clearBooks();
+                        searchViewModel.getBooklist().add(book);
+                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
+                            @Override
+                            public void searchResultsChanged() {
+
+                            }
+                        });
 //                        searchViewModel.clearBooks();
 //                        searchViewModel.addBook(book);
 //                        searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
@@ -237,6 +247,7 @@ public class SearchFragment extends Fragment {
             }
         };
     }
+
 
 //    @Override
 //    public void onClick(View view) {

@@ -9,6 +9,10 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.BookAddedListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.GetBookFromISBNRequest;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ShelfUpdatedListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SignUpSuccessListener;
 
 import java.util.*;
 
