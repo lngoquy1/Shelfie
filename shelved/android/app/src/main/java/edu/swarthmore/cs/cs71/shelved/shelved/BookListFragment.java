@@ -48,7 +48,7 @@ public class BookListFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alert = addListDialog();
+                AddListDialog alert = new AddListDialog(getContext(), null);
                 alert.show();
                 // Handle what happens when a list is created
             }
@@ -104,47 +104,5 @@ public class BookListFragment extends Fragment {
                 R.mipmap.logo,
                 R.mipmap.logo
         };
-    }
-
-    private AlertDialog.Builder addListDialog() {
-        Context context = getContext();
-        AddListDialog alert = new AddListDialog(context);
-        alert.setTitle("Add List");
-
-
-        LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        final EditText listNameBox = new EditText(context);
-        listNameBox.setHint("List Name");
-        layout.addView(listNameBox);
-
-        final Switch status = new Switch(context);
-        status.setText("Public");
-        status.setShowText(true);
-        status.setTextOn("Yes");
-        status.setTextOff("No");
-        layout.addView(status);
-
-        alert.setView(layout);
-
-        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Log.v("listName", listNameBox.getText().toString());
-
-                        String listNameString = listNameBox.getText().toString();
-
-                        String statusString = status.getText().toString();
-                        Log.v("STATUS STRING!!!!!!!", statusString);
-                    }
-                });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-        return alert;
     }
 }
