@@ -19,8 +19,8 @@ import java.util.*;
 public class ShelvedModel {
     private List<SimpleBook> bookList = new ArrayList<SimpleBook>();
     private List<SimpleReadingList> readingLists = new ArrayList<SimpleReadingList>();
-    private Integer userID = null;
-    private String token = null;
+    private Integer userID;
+    private String token;
     // listener fields
     Set<SignUpSuccessListener> signUpSuccessListeners = new HashSet<SignUpSuccessListener>();
     Set<LogInAttemptListener> logInAttemptListeners = new HashSet<LogInAttemptListener>();
@@ -38,11 +38,6 @@ public class ShelvedModel {
         notifyLogInAttemptListener(email, password, progressDialog);
     }
 
-    public void logInSucceed(int userID, String token){
-        this.userID = userID;
-        this.token = token;
-        notifyLogInSuccessListener();
-    }
 
 
     public void addBook(SimpleBook book) {
