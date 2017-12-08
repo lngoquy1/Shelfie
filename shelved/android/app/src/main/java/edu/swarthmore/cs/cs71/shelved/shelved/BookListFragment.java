@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ListsUpdatedListener;
 
 //import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
@@ -30,6 +31,13 @@ public class BookListFragment extends Fragment {
         gridview.setAdapter(new IconAdapter(getContext()));
 
         addList = (ImageButton) view.findViewById(R.id.add_list);
+
+        AppSingleton.getInstance(getContext()).getModel(getContext()).addListsUpdatedListener(new ListsUpdatedListener() {
+            @Override
+            public void listsUpdated() {
+//                readingListAdapter.notifyDataSetChanged();
+            }
+        });
         return view;
     }
 
@@ -112,7 +120,7 @@ public class BookListFragment extends Fragment {
         layout.addView(listNameBox);
 
         final Switch status = new Switch(context);
-        status.setText("Public?");
+        status.setText("Public");
         status.setShowText(true);
         status.setTextOn("Yes");
         status.setTextOff("No");
@@ -125,6 +133,9 @@ public class BookListFragment extends Fragment {
                         Log.v("listName", listNameBox.getText().toString());
 
                         String listNameString = listNameBox.getText().toString();
+
+                        String statusString = status.getText().toString();
+                        Log.v("STATUS STRING!!!!!!!", statusString);
                     }
                 });
 

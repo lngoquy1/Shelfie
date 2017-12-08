@@ -65,7 +65,7 @@ public class ShelvedModel {
     public void addList(SimpleReadingList list) {
         this.readingLists.add(list);
         notifyListUpdatedListeners();
-        notififyListAddedListeners(list);
+        notifyListAddedListeners(list);
     }
 
     public void removeList(SimpleReadingList list) {
@@ -109,7 +109,7 @@ public class ShelvedModel {
         listAddedListeners.add(newListAddedListener);
     }
 
-    public void notififyListAddedListeners(SimpleReadingList list) {
+    public void notifyListAddedListeners(SimpleReadingList list) {
         for (ListAddedListener listener:this.listAddedListeners) {
             listener.listAdded(list);
         }
