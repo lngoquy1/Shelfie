@@ -20,7 +20,9 @@ public class GsonUtils {
                 .registerSubtype(InvalidListAddedResponse.class, "invalidListAddedResponse")
                 .registerSubtype(ValidSearchResponseTitleAuthor.class, "validSearchResponseTitleAuthor")
                 .registerSubtype(ValidSearchResponseISBN.class, "validSearchResponseISBN")
-                .registerSubtype(InvalidSearchResponse.class, "invalidSearchResponse");
+                .registerSubtype(InvalidSearchResponse.class, "invalidSearchResponse")
+                .registerSubtype(ValidReadingListsUpdateResponse.class, "validReadingListsUpdateResponse")
+                .registerSubtype(InvalidReadingListUpdatedResponse.class, "invalidReadingListUpdatedResponse");
 
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         System.out.println("CREATING GSON");

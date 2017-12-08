@@ -30,8 +30,7 @@ public class Server {
         post("/addList", new ServerRouteAddList(sf), GsonUtils.makeMessageGson()::toJson);
         post("/searchByTitleAuthor", new ServerRouteSearchByTitleAuthor(sf), GsonUtils.makeMessageGson()::toJson);
         post("/searchByISBN", new ServerRouteSearchByISBN(sf), GsonUtils.makeMessageGson()::toJson);
-        //post("/updateList", )
-        // TODO: WE NEED TO WRITE UPDATE LIST  STUFF :(
+        post("/updateList", new ServerRouteUpdateReadingLists(sf), GsonUtils.makeMessageGson()::toJson);
     }
 
 

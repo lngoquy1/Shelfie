@@ -48,27 +48,25 @@ public class BookInfoTests {
         trueListOfISBNs.add("0547545118");
         trueListOfISBNs.add("9780152162504");
         Assert.assertEquals(trueListOfISBNs, listOfISBNs);
-        List<String> listOfISBNs2 = bookInfo.getISBNsFromTitleAndOrAuthor("So you want to be a wizard", "Diane Duane");
     }
 
     @Test(expected = NotFoundException.class)
     public void testGetISBNsFromTitleAndOrAuthorException() throws ParserConfigurationException, IOException, XPathExpressionException, NotFoundException, SAXException, EmptyQueryException {
         BookInfo bookInfo = new BookInfo();
-        List<String> listOfISBNs = bookInfo.getISBNsFromTitleAndOrAuthor("So you want to be a wizard", "Rowling");
-        System.out.println(listOfISBNs);
+        bookInfo.getISBNsFromTitleAndOrAuthor("So you want to be a wizard", "Rowling");
     }
 
     @Test(expected = NotFoundException.class)
     public void testExceptionCover() throws EmptyQueryException, IOException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
-        String url = bookInfo.getUrlBookCoverFromISBN("143sdsaf9171882");
+        bookInfo.getUrlBookCoverFromISBN("143sdsaf9171882");
     }
 
     @Test(expected = NotFoundException.class)
     public void getTitleFromISBNTest() throws IOException, EmptyQueryException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
         JSONObject jObj = bookInfo.getJsonFromQueryGoogle("", "", "05450s10225");
-        String title = jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
+        jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getString("title");
     }
 
     @Test
@@ -83,7 +81,7 @@ public class BookInfoTests {
     @Test(expected = EmptyQueryException.class)
     public void testJsonFromQueryGoogleBooksException() throws IOException, EmptyQueryException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
-        JSONObject json4 = bookInfo.getJsonFromQueryGoogle("", "", "");
+        bookInfo.getJsonFromQueryGoogle("", "", "");
     }
 
     @Test
@@ -99,14 +97,25 @@ public class BookInfoTests {
         expectedList.add("Heir Apparent (Rasmussem Corporation, #2)");
         Assert.assertEquals(expectedList, listOfRecs);
         //Not really part of test; this is an example of how you might parse the output.
-        String ISBN = "0201485672";
-        List<String> listOfRecs2 = bookInfo.getRecommendedBooksFromISBN(ISBN);
-        String title = bookInfo.getTitleFromISBN(ISBN);
-        System.out.println("\nIf you liked " + title + ", we recommend:");
-        for (String book : listOfRecs2) {
-            System.out.println("    " + book);
-        }
+        //        String ISBN = "0201485672";
+        //        List<String> listOfRecs2 = bookInfo.getRecommendedBooksFromISBN(ISBN);
+        //        String title = bookInfo.getTitleFromISBN(ISBN);
+        //        System.out.println("\nIf you liked " + title + ", we recommend:");
+        //        for (String book : listOfRecs2) {
+        //            System.out.println("    " + book);
+        //        }
 
+    }
+
+    @Test
+    public void testGoodreadsFieldsFromISBN() throws IOException, NotFoundException, XPathExpressionException, ParserConfigurationException, SAXException, EmptyQueryException {
+        BookInfo bookInfo = new BookInfo();
+        String title = bookInfo.getTitleFromISBN("0152047387");
+        String author = bookInfo.getAuthorFromISBNGoodreads("0152047387");
+        int numPages = bookInfo.getNumPagesFromISBNGoodreads("0152047387");
+        Assert.assertEquals("So You Want to Be a Wizard (Young Wizards, #1) by Diane Duane", title);
+        Assert.assertEquals("Diane Duane", author);
+        Assert.assertEquals(323, numPages);
     }
 
     @Test
@@ -132,33 +141,23 @@ public class BookInfoTests {
         customListOfISBNs.add("9781934840573");
         Assert.assertEquals(customListOfISBNs, listOfISBNs);
     }
+
     @Test
     public void testPopulateSimpleBook() throws NotFoundException, ParserConfigurationException, IOException, XPathExpressionException, SAXException, EmptyQueryException {
         BookInfo bookInfo = new BookInfo();
         SimpleBook simpleBook = bookInfo.populateSimpleBookFromISBN("1888983302");
-        SimpleBook manualSimpleBook = new SimpleBook();
-        System.out.println("Title: " + simpleBook.getTitle().getTitle());
-        System.out.println("Author: " + simpleBook.getAuthor().getAuthorName());
-        System.out.println("Genre: " + simpleBook.getGenre().getGenre());
-        System.out.println("Publisher: " + simpleBook.getPublisher().getPublisher());
-        System.out.println("Pages: " + simpleBook.getPages());
         Assert.assertEquals("The Mystery Shopper's Manual", simpleBook.getTitle().getTitle());
         Assert.assertEquals("Cathy Stucker", simpleBook.getAuthor().getAuthorName());
         Assert.assertEquals("Customer services", simpleBook.getGenre().getGenre());
         Assert.assertEquals("Special Interests Publishing", simpleBook.getPublisher().getPublisher());
         Assert.assertEquals(256, simpleBook.getPages());
-//
-        SimpleBook simpleBook2 = bookInfo.populateSimpleBookFromISBN("0439554934");
-        System.out.println("Title: " + simpleBook2.getTitle().getTitle());
-        System.out.println("Author: " + simpleBook2.getAuthor().getAuthorName());
-        System.out.println("Genre: " + simpleBook2.getGenre().getGenre());
-        System.out.println("Publisher: " + simpleBook2.getPublisher().getPublisher());
-        System.out.println("Pages: " + simpleBook2.getPages());
-//        Assert.assertEquals("The Mystery Shopper's Manual", simpleBook2.getTitle().getTitle());
-//        Assert.assertEquals("Cathy Stucker", simpleBook2.getAuthor().getAuthorName());
-//        Assert.assertEquals("Customer services", simpleBook2.getGenre().getGenre());
-//        Assert.assertEquals("Special Interests Publishing", simpleBook2.getPublisher().getPublisher());
-//        Assert.assertEquals(256, simpleBook2.getPages());
+
+        SimpleBook simpleBook2 = bookInfo.populateSimpleBookFromISBN("9780590353427");
+        Assert.assertEquals("Harry Potter and the Sorcerer's Stone", simpleBook2.getTitle().getTitle());
+        Assert.assertEquals("J. K. Rowling", simpleBook2.getAuthor().getAuthorName());
+        Assert.assertEquals("Juvenile Fiction", simpleBook2.getGenre().getGenre());
+        Assert.assertEquals("Scholastic Paperbacks", simpleBook2.getPublisher().getPublisher());
+        Assert.assertEquals(309, simpleBook2.getPages());
 
     }
 }

@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
@@ -64,62 +65,79 @@ public class AddListDialog extends AlertDialog.Builder {
                 String cancel_req_tag = "addList";
                 String listNameString = listNameBox.getText().toString();
                 String statusString = status.getText().toString();
+                //Log.d("STATUS STRING", statusString);
+                //Log.v("STATUS STRING!!!!!!!", statusString);
 
+                boolean publicBool;
+                if (statusString.equals("Public")) {
+                    publicBool = true;
+                } else {
+                    publicBool = false;
+                }
 
-                StringRequest strReq = new StringRequest(Request.Method.POST, getAddListUrl(), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(TAG, "Add list response: " + response);
+//                StringRequest strReq = new StringRequest(Request.Method.POST, getAddListUrl(), new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d(TAG, "Add list response: " + response);
+//
+//                        ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+//                        if (message.isResult()) {
+//                            ValidListAddedResponse listAddedResponse = (ValidListAddedResponse) message;
+//                        }
+//                        try {
+//                            Log.d(TAG, response);
+//                            JSONObject jObj = new JSONObject(response);
+//                            boolean error = !jObj.getBoolean("result");
+//
+//
+//                            if (!error) {
+//                                Log.d(TAG, "no error");
+//                                //String listName = jObj.getJSONObject("list").getJSONObject("name").getString("name");
+//                                //Toast.makeText(getContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
+//
+//                            } else {
+//                                Log.d(TAG, "error");
+//                                String errorMsg = jObj.getString("error_msg");
+//                                Toast.makeText(getContext(),
+//                                        errorMsg, Toast.LENGTH_LONG).show();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            System.out.println("Error case");
+//                        }
+//
+//                    }
+//
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e(TAG, "Add list error: " + error.getMessage());
+//                        Toast.makeText(getContext(),
+//                                error.getMessage(), Toast.LENGTH_LONG).show();
+////                        hideDialog(progressDialog);
+//                    }
+//                }) {
+//                    @Override
+//                    protected Map<String, String> getParams() {
+//                        Map<String, String> params = new HashMap<String, String>();
+//                        //params.put("userID", AddBookDialog.this.userID);
+//                        params.put("ListName", listNameBox.getText().toString());
+//                        params.put("publicStatus", status.getText().toString());
+//                        return params;
+//                    }
+//                };
 
-                        ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                        if (message.isResult()) {
-                            ValidListAddedResponse listAddedResponse = (ValidListAddedResponse) message;
-                        }
-                        try {
-                            Log.d(TAG, response);
-                            JSONObject jObj = new JSONObject(response);
-                            boolean error = !jObj.getBoolean("result");
+                SimpleReadingList newList = new SimpleReadingList(listNameString, publicBool);
 
+//                AppSingleton.getInstance(getContext()).getModel(getContext()).addList(newList),
+//                        new Continuation<SimpleReadingList>() {
+//                            @Override
+//                            public void run(SimpleReadingList list) {
+//                            }
+//                        };
 
-                            if (!error) {
-                                Log.d(TAG, "no error");
-                                //String listName = jObj.getJSONObject("list").getJSONObject("name").getString("name");
-                                //Toast.makeText(getContext(), "You successfully added " + bookTitle, Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Log.d(TAG, "error");
-                                String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getContext(),
-                                        errorMsg, Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            System.out.println("Error case");
-                        }
-
-                    }
-
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Add list error: " + error.getMessage());
-                        Toast.makeText(getContext(),
-                                error.getMessage(), Toast.LENGTH_LONG).show();
-//                        hideDialog(progressDialog);
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        //params.put("userID", AddBookDialog.this.userID);
-                        params.put("ListName", listNameBox.getText().toString());
-                        params.put("publicStatus", status.getText().toString());
-                        return params;
-                    }
-                };
-
-                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
+//                AppSingleton.getInstance(getContext()).addToRequestQueue(strReq, cancel_req_tag);
             }
 
         });
