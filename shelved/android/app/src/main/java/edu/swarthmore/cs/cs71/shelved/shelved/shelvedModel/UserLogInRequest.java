@@ -41,6 +41,7 @@ public class UserLogInRequest extends StringRequest {
                                 int userID = Integer.valueOf(jObj.getString("id"));
                                 String token = jObj.getString("token");
                                 //TODO: update userID and token in the shelvedModel
+                                Log.d("in str req log in", " no error i hope");
                                 LoginInfo loginInfo = new LoginInfo(userID, token);
                                 success.run(loginInfo);
 

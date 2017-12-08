@@ -37,11 +37,13 @@ public class ShelvedModel {
         return Collections.unmodifiableList(bookList);
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public static int getUserID() {
+        return userID;
     }
 
-    public void setToken(String token) { this.token = token; }
+    public static String getToken() {
+        return token;
+    }
 
     // TODO: Need to make a method to login
     public void signUp(String userName, String email, String password, ProgressDialog progressDialog){
@@ -51,11 +53,13 @@ public class ShelvedModel {
 
     public void logIn(Context context, final Continuation<LoginInfo> success,
                       final Continuation<String> failure, String email, String password){
+        Log.d("in Log in", "local success ...");
         Continuation<LoginInfo> localSuccess = new Continuation<LoginInfo>() {
             public void run(LoginInfo info) {
                 ShelvedModel.userID = info.getUserID();
                 ShelvedModel.token = info.getToken();
                 success.run(info);
+                Log.d("getting token: ", ShelvedModel.token);
                 notifyLogInSuccessListener();
             }
         };
