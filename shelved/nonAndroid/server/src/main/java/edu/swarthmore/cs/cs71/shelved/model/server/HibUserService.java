@@ -88,7 +88,7 @@ public class HibUserService {
     public void setUserLoginToken(HibUser user){
         String token = UUID.randomUUID().toString();
         user.setToken(token);
-        PersistenceUtils.ENTITY_MANAGER.get().persist(user);
+        PersistenceUtils.ENTITY_MANAGER.get().merge(user);
     }
 
 

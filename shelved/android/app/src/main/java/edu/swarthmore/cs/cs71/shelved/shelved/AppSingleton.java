@@ -79,7 +79,6 @@ public class AppSingleton {
         });
     }
 
-
     ///////////////// List added Listeners /////////////////
 
     private void addListNetworkListeners(final Context context, final ShelvedModel shelvedModel) {

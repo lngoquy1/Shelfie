@@ -39,7 +39,7 @@ public class UserLogInRequest extends StringRequest {
                                 int userId = Integer.valueOf(jObj.getString("id"));
                                 String token = jObj.getString("token");
                                 //TODO: update userId and token in the shelvedModel
-                                AppSingleton.getInstance(context).getModel(context).logInSucceed(userId, token);
+                                shelvedModel.logInSucceed(userId, token);
                             } else {
 
                                 String errorMsg = jObj.getString("error_msg");
