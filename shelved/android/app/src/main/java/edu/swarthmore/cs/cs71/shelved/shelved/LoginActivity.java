@@ -10,8 +10,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInAttemptListener;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInSuccessListener;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LoginInfo;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -82,9 +84,24 @@ public class LoginActivity extends AppCompatActivity {
         final String email = _emailText.getText().toString();
         final String password = _passwordText.getText().toString();
 
+        /////////// Continuation methods for login success and failure ///////////
+        final Continuation<LoginInfo> success = new Continuation<LoginInfo>() {
+            @Override
+            public void run(LoginInfo loginInfo) {
+                hideDialog(progressDialog);
+            }
+        };
+        final Continuation<String> failure = new Continuation<String>() {
+            @Override
+            public void run(String errorMsg) {
+                Toast.makeText(getApplicationContext(),
+                        errorMsg, Toast.LENGTH_LONG).show();
+            }
+        };
+
 
         // TODO: Implement your own authentication logic here.
-        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).logIn(email, password, progressDialog);
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).logIn(getApplicationContext(),success, failure, email, password);
         addLogInSuccessActivityListener();
 
         new android.os.Handler().postDelayed(
@@ -102,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
         AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addLogInSuccessListeners(new LogInSuccessListener() {
             @Override
             public void onLogInSuccess() {
-                AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllLogInAttemptListeners();
                 AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).removeAllLogInSuccessListeners();
                 finish();
             }
@@ -171,6 +187,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+    //////////////// Hide progress dialog /////////
+    public void hideDialog(ProgressDialog progressDialog) {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
 }
