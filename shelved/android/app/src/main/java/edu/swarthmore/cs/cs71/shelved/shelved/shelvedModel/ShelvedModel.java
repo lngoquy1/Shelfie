@@ -19,8 +19,8 @@ import java.util.*;
 public class ShelvedModel {
     private List<SimpleBook> bookList = new ArrayList<SimpleBook>();
     private List<SimpleReadingList> readingLists = new ArrayList<SimpleReadingList>();
-    private Integer userID;
-    private String token;
+    public static int userID;
+    public static String token;
     // listener fields
     Set<SignUpSuccessListener> signUpSuccessListeners = new HashSet<SignUpSuccessListener>();
     Set<LogInAttemptListener> logInAttemptListeners = new HashSet<LogInAttemptListener>();
@@ -30,13 +30,40 @@ public class ShelvedModel {
     Set<ListsUpdatedListener> listsUpdatedListeners = new HashSet<ListsUpdatedListener>();
     Set<ListAddedListener> listAddedListeners = new HashSet<ListAddedListener>();
 
+
+
+    ////////////// Getter methods ///////////////////////
+    public List<SimpleBook> getBookList() {
+        return Collections.unmodifiableList(bookList);
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setToken(String token) { this.token = token; }
+
     // TODO: Need to make a method to login
     public void signUp(String userName, String email, String password, ProgressDialog progressDialog){
         notifySignUpSuccessListeners(userName, email, password, progressDialog);
     }
-    public void logIn(String email, String password, ProgressDialog progressDialog){
-        notifyLogInAttemptListener(email, password, progressDialog);
+
+
+    public void logIn(Context context, final Continuation<LoginInfo> success,
+                      final Continuation<String> failure, String email, String password){
+        Continuation<LoginInfo> localSuccess = new Continuation<LoginInfo>() {
+            public void run(LoginInfo info) {
+                ShelvedModel.userID = info.getUserID();
+                ShelvedModel.token = info.getToken();
+                success.run(info);
+                notifyLogInSuccessListener();
+            }
+        };
+        StringRequest strReq = new UserLogInRequest(context, email, password, localSuccess, failure);
+        AppSingleton.getInstance(context).addToRequestQueue(strReq, "Log In Request");
+
     }
+
 
 
 
@@ -135,16 +162,6 @@ public class ShelvedModel {
         signUpSuccessListeners.clear();
     }
 
-    ///////////////// Sign up attempt Listeners /////////////////
-    public void addLogInAttemptListeners(LogInAttemptListener logInAttemptListener){
-        logInAttemptListeners.add(logInAttemptListener);
-    }
-    public void notifyLogInAttemptListener(String email, String password, ProgressDialog progressDialog){
-        for (LogInAttemptListener listener: logInAttemptListeners){
-            listener.onLogInAttempt(email, password, progressDialog);
-        }
-    }
-    public void removeAllLogInAttemptListeners(){ logInAttemptListeners.clear();}
 
     ///////////////// Sign up attempt Listeners /////////////////
     public void addLogInSuccessListeners(LogInSuccessListener logInSuccessListener){
@@ -161,15 +178,9 @@ public class ShelvedModel {
 
 
 
-    // getters
 
-    public List<SimpleBook> getBookList() {
-        return Collections.unmodifiableList(bookList);
-    }
 
-    public Integer getUserID() {
-        return userID;
-    }
+
 
     public void searchByISBN(Context context, String ISBN, Continuation<SimpleBook> continuation) {
         StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, continuation);
