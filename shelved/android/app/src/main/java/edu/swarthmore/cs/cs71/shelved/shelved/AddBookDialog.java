@@ -24,7 +24,6 @@ public class AddBookDialog extends AlertDialog.Builder {
         this.setTitle("Add Book");
         this.userID = userID;
 
-
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -51,11 +50,8 @@ public class AddBookDialog extends AlertDialog.Builder {
                 newBook.setAuthor(authorString);
                 newBook.setTitle(titleString);
                 AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(newBook);
-
-
             }
         });
-
 
         this.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {

@@ -36,7 +36,13 @@ public class BookListFragment extends Fragment {
         addList = (ImageButton) view.findViewById(R.id.add_list);
 
         //gridview.setAdapter(new IconAdapter(getContext()));
+
         readingLists = AppSingleton.getInstance(getContext()).getModel(getContext()).getLists();
+        readingLists.add(new SimpleReadingList("Test", true));
+        readingLists.add(new SimpleReadingList("Here", true));
+
+        gridview.setAdapter(new GridAdapter(readingLists));
+
 
         AppSingleton.getInstance(getContext()).getModel(getContext()).addListsUpdatedListener(new ListsUpdatedListener() {
             @Override
@@ -118,10 +124,10 @@ public class BookListFragment extends Fragment {
         final List<SimpleReadingList> mItems;
         final int mCount;
 
-        private GridAdapter(final ArrayList<String> items) {
+        private GridAdapter(final List<SimpleReadingList> items) {
 
             mCount = items.size() * ROW_ITEMS;
-            mItems = readingLists;
+            mItems = items;
         }
 
         @Override
