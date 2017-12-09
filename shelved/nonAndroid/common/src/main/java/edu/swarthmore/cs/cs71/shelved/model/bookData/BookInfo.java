@@ -72,6 +72,20 @@ public class BookInfo {
         }
     }
 
+    public List<SimpleBook> populateSimpleBookListFromTitleAndOrAuthor(String title, String author) throws SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException, IOException, NotFoundException {
+        List<SimpleBook> listOfBooks = new ArrayList<>();
+        try {
+            List<String> isbnList = getISBNListFromTitleAndOrAuthor(title,author);
+            for (String isbn:isbnList){
+                listOfBooks.add(populateSimpleBookFromISBN(isbn));
+            }
+        } catch (NotFoundException e) {
+            return null;
+        }
+        return listOfBooks;
+    }
+
+
 
     //ISBN-based Methods
     public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
@@ -142,6 +156,7 @@ public class BookInfo {
     //Title-based Methods
     public List<String> getISBNListFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
         JSONObject jObj = getJsonFromQueryGoogle(title, author, "");
+        System.out.println(jObj);
         return getISBNListGoogleJson(jObj);
     }
 
@@ -456,11 +471,14 @@ public class BookInfo {
     }
 
 
-    private List<String> getISBNListGoogleJson(JSONObject jObj) {
+    private List<String> getISBNListGoogleJson(JSONObject jObj) throws NotFoundException {
         List<String> ISBNList= new ArrayList<>();
         JSONArray allContent = jObj.getJSONArray("items");
         for (int i=0;i<allContent.length();i++){
             ISBNList.add(allContent.getJSONObject(i).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier"));
+//            } catch (JSONException e){
+//                throw new NotFoundException("ISBN not found", jObj);
+//            }
         }
         return ISBNList;
     }
