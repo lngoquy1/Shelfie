@@ -87,7 +87,7 @@ public class AppSingleton {
             public void listAdded(SimpleReadingList list) {
                 StringRequest strReq = new AddListStringRequest(context, shelvedModel, list);
                 // Adding request to request queue
-                addToRequestQueue(strReq, "addBook");
+                addToRequestQueue(strReq, "addList");
             }
         });
     }
