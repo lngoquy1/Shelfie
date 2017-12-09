@@ -19,6 +19,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookInfo {
@@ -60,6 +61,15 @@ public class BookInfo {
             simpleBook.setPages(-1);
         }
         return simpleBook;
+    }
+
+    public SimpleBook populateSimpleBookFromTitleAndOrAuthor(String title, String author) throws SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException, IOException, NotFoundException {
+        try {
+            String isbn = getISBNFromTitleAndOrAuthor(title,author);
+            return populateSimpleBookFromISBN(isbn);
+        } catch (NotFoundException e) {
+            return null;
+        }
     }
 
 
@@ -104,35 +114,50 @@ public class BookInfo {
     }
 
 
-    public List<String> getRecommendedBooksFromISBN(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException, NotFoundException {
+    public List<SimpleBook> getRecommendedBooksFromISBN(String ISBN) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException, NotFoundException, EmptyQueryException {
         String workId = getWorkId(ISBN);
         URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
         StringBuffer content = getHTMLContent(url);
         String html = content.toString();
-        List<Integer> begIndexList = getIndexBegList(html,"'name'>");
-        List<Integer> endIndexList = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
-        List<String> titleList = new ArrayList<>();
-        for (int i=1;i<begIndexList.size();i++){
-            String title = html.substring(begIndexList.get(i), endIndexList.get(i));
-            titleList.add(title);
+        List<Integer> begIndexListTitle = getIndexBegList(html,"'name'>");
+        List<Integer> begIndexListAuthor = getIndexBegList(html,"itemprop=\"name\">");
+        List<Integer> endIndexListTitle = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
+        List<Integer> endIndexListAuthor = new ArrayList<Integer>();
+        endIndexListAuthor.addAll(getIndecesEndList(html, "</span></a></span>"));
+        endIndexListAuthor.addAll(getIndecesEndList(html, "</span></a> <"));
+        Collections.sort(endIndexListAuthor);
+        List<SimpleBook> BookList = new ArrayList<>();
+        for (int i=1;i<begIndexListTitle.size();i++){
+            String title = html.substring(begIndexListTitle.get(i), endIndexListTitle.get(i));
+            String author = html.substring(begIndexListAuthor.get(i), endIndexListAuthor.get(i));
+            SimpleBook simpleBook = populateSimpleBookFromTitleAndOrAuthor(title, author);
+            if (simpleBook != null){
+                BookList.add(simpleBook);
+            }
         }
-        return titleList;
+        return BookList;
     }
 
 
     //Title-based Methods
-    public List<String> getISBNsFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
+    public List<String> getISBNListFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
+        JSONObject jObj = getJsonFromQueryGoogle(title, author, "");
+        return getISBNListGoogleJson(jObj);
+    }
+
+    public String getISBNFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
         JSONObject jObj = getJsonFromQueryGoogle(title, author, "");
         return getISBNGoogleJson(jObj);
     }
+
 
 
     public String getUrlBookCoverFromISBN(String isbn) throws EmptyQueryException, IOException, NotFoundException {
         JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
         return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
     }
-    public List<String> getAuthorFromTitle(String title) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
-        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, "");
+    public List<String> getAuthorListFromTitle(String title) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
+        List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, "");
         List<String> author = new ArrayList<>();
         for (String isbn:isbnList){
             author.add(getAuthorFromISBN(isbn));
@@ -140,8 +165,8 @@ public class BookInfo {
         return author;
     }
 
-    public List<String> getPublisherFromTitleAndOrAuthor(String title, String author) throws IOException, NotFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
-        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, author);
+    public List<String> getPublisherListFromTitleAndOrAuthor(String title, String author) throws IOException, NotFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
+        List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, author);
         List<String> publisher = new ArrayList<>();
         for (String isbn:isbnList){
             publisher.add(getPublisherFromISBN(isbn));
@@ -149,8 +174,8 @@ public class BookInfo {
         return publisher;
     }
 
-    public List<Integer> getNumPagesFromTitleAndOrAuthor(String title, String author) throws IOException, NotFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
-        List<String> isbnList = getISBNsFromTitleAndOrAuthor(title, author);
+    public List<Integer> getNumPagesListFromTitleAndOrAuthor(String title, String author) throws IOException, NotFoundException, SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException {
+        List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, author);
         List<Integer> NumPages = new ArrayList<>();
         for (String isbn:isbnList){
             NumPages.add(getNumPagesFromISBN(isbn));
@@ -431,7 +456,7 @@ public class BookInfo {
     }
 
 
-    private List<String> getISBNGoogleJson(JSONObject jObj) {
+    private List<String> getISBNListGoogleJson(JSONObject jObj) {
         List<String> ISBNList= new ArrayList<>();
         JSONArray allContent = jObj.getJSONArray("items");
         for (int i=0;i<allContent.length();i++){
@@ -439,6 +464,12 @@ public class BookInfo {
         }
         return ISBNList;
     }
+
+    private String getISBNGoogleJson(JSONObject jObj) {
+        JSONArray allContent = jObj.getJSONArray("items");
+        return allContent.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+    }
+
 
     //General helpers section
 
@@ -530,4 +561,11 @@ public class BookInfo {
         return indexList;
     }
 
+    public void printBookInfo(SimpleBook book) {
+        System.out.println("Title: " + book.getTitle().getTitle());
+        System.out.println("Author: " + book.getAuthor().getAuthorName());
+        System.out.println("Genre: " + book.getGenre().getGenre());
+        System.out.println("Number of pages: " + Integer.toString(book.getPages()));
+        System.out.println("Publisher: " + book.getPublisher().getPublisher() + "\n");
+    }
 }
