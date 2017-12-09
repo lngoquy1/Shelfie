@@ -20,15 +20,8 @@ public class ServerRouteAddList extends ServerRoute {
 
             String listName = request.queryParams("listName");
             String publicStatus = request.queryParams("publicStatus");
-            System.out.println("LIST NAME: " + listName);
-            System.out.println("LIST PUB STATUS: " + publicStatus);
 
             boolean publicStatusBool;
-//            if (publicStatus.equals("Yes")) {
-//                publicStatusBool = true;
-//            } else {
-//                publicStatusBool = false;
-//            }
             if (publicStatus.equals("true")) {
                 publicStatusBool = true;
             } else {
@@ -40,8 +33,6 @@ public class ServerRouteAddList extends ServerRoute {
             SimpleReadingList readingList = new SimpleReadingList(newList.getName(), newList.isPublicStatus());
 
             return new ValidListAddedResponse(readingList);
-            //ReadingList readingList = new ReadingList("myList", true);
-            //return new ValidListAddedResponse(readingList);
 
         } catch (Exception e) {
             return new InvalidListAddedResponse("Invalid list added response");

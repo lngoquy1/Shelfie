@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.koushikdutta.ion.Ion;
+//import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
