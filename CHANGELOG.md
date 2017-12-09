@@ -241,4 +241,6 @@ In general, these classes describe how the server interacts with hibernate/mysql
 - Added a method to get a ShelvedModel inside of AppSingleton.
 ## As of 2017-12-7
 - Scanning an isbn and searching for an isbn returns the correct SimpleBook result
-- Refactored BookInfo class to no longer allow injection attacks, to remove dependency on ISBNdb, and to use a key to access Google Books' API   
+- Refactored BookInfo class to no longer allow injection attacks, to remove dependency on ISBNdb, and to use a key to access Google Books' API
+## As of 2017-12-9
+- Refactored BookInfo class to query Google Books a smaller number of times to increase performance and more importantly keep us from going over our quota by running the tests in bulk
