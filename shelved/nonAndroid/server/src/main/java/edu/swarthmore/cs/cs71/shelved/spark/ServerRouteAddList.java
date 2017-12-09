@@ -20,8 +20,16 @@ public class ServerRouteAddList extends ServerRoute {
 
             String listName = request.queryParams("listName");
             String publicStatus = request.queryParams("publicStatus");
+            System.out.println("LIST NAME: " + listName);
+            System.out.println("LIST PUB STATUS: " + publicStatus);
+
             boolean publicStatusBool;
-            if (publicStatus.equals("Yes")) {
+//            if (publicStatus.equals("Yes")) {
+//                publicStatusBool = true;
+//            } else {
+//                publicStatusBool = false;
+//            }
+            if (publicStatus.equals("true")) {
                 publicStatusBool = true;
             } else {
                 publicStatusBool = false;
