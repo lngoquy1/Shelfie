@@ -133,6 +133,22 @@ public class BookInfoTests {
         Assert.assertEquals("Diane Duane", author);
         Assert.assertEquals(323, numPages);
     }
+    @Test
+    public void testPopulateSimpleBookListFromTitleAndOrAuthor() throws SAXException, ParserConfigurationException, XPathExpressionException, EmptyQueryException, IOException, NotFoundException {
+        BookInfo bookInfo = new BookInfo();
+        List<SimpleBook> simpleBookList = bookInfo.populateSimpleBookListFromTitleAndOrAuthor("Harry Potter","JK Rowling");
+        for (SimpleBook book:simpleBookList){
+            bookInfo.printBookInfo(book);
+        }
+//        Assert.assertEquals("The Mystery Shopper's Manual", simpleBook.getTitle().getTitle());
+//        Assert.assertEquals("Cathy Stucker", simpleBook.getAuthor().getAuthorName());
+//        Assert.assertEquals("Customer services", simpleBook.getGenre().getGenre());
+//        Assert.assertEquals("Special Interests Publishing", simpleBook.getPublisher().getPublisher());
+//        Assert.assertEquals(256, simpleBook.getPages());
+
+    }
+
+
 
 //    @Test
 //    public void testScrapeLink() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
