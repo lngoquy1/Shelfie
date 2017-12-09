@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         final Continuation<LoginInfo> success = new Continuation<LoginInfo>() {
             @Override
             public void run(LoginInfo loginInfo) {
-                hideDialog(progressDialog);
+                AppSingleton.getInstance(getApplicationContext()).hideDialog(progressDialog);
             }
         };
         final Continuation<String> failure = new Continuation<String>() {
@@ -188,10 +188,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
-    //////////////// Hide progress dialog /////////
-    public void hideDialog(ProgressDialog progressDialog) {
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
-    }
+
 
 }

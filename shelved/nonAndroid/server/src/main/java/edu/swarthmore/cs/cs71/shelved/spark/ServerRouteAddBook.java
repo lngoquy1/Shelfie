@@ -21,6 +21,8 @@ public class ServerRouteAddBook extends ServerRoute {
     protected ResponseMessage execute(Request request, Response response) {
         try {
             HibBook newBook = new HibBookService().createBook(
+                    this.getSf(),
+                    request.queryParams("userID"),
                     request.queryParams("title"),
                     request.queryParams("author"));
 

@@ -13,12 +13,12 @@ import java.util.UUID;
 public class HibUserService {
     public HibUser createUser(String userName, String name, String password){
         HibUser newUser = new HibUser();
-        String token = UUID.randomUUID().toString();
         newUser.setEmail(userName);
         newUser.setName(name);
         newUser.setPassword(password);
         newUser.setShelves();
         newUser.setReadingLists();
+        newUser.setUserBooks();
         PersistenceUtils.ENTITY_MANAGER.get().persist(newUser);
         return newUser;
     }

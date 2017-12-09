@@ -18,9 +18,13 @@ public class SimpleUser implements User {
     private List<SimpleBookShelf> allShelves;
     private List<SimpleReadingList> allReadingLists;
     private String token;
+    // TODO: testing userBooks for now
+    private List<SimpleBook> userBooks;
+
     public SimpleUser() {
         setSalt();
     }
+
 
 
 //    public User(String username, String password, String name, String bio, String location, String salt) {
@@ -118,5 +122,10 @@ public class SimpleUser implements User {
 
     public void addReadingList(SimpleReadingList readingList){
         this.allReadingLists.add(readingList);
+    }
+    // TODO: currently adding Book to this userBooks list
+    public void setUserBooks(){ this.userBooks = new ArrayList<SimpleBook>(); }
+    public void addBook(SimpleBook book){
+        this.userBooks.add(book);
     }
 }

@@ -43,6 +43,9 @@ public class HibUser implements User {
     @Column(name="token")
     private String token;
 
+    //TODO: Testing with making a book list for user
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HibBook> userBooks;
 
     public HibUser() {
         setSalt();
@@ -136,5 +139,11 @@ public class HibUser implements User {
 
     public void addReadingList(HibReadingList readingList){
         this.allReadingLists.add(readingList);
+    }
+
+    // TODO: currently adding Book to this userBooks list
+    public void setUserBooks(){ this.userBooks = new ArrayList<HibBook>(); }
+    public void addBook(HibBook book){
+        this.userBooks.add(book);
     }
 }

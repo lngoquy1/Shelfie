@@ -20,19 +20,17 @@ import java.util.Map;
 public class AddBookStringRequest extends StringRequest {
     private final ShelvedModel shelvedModel;
     private final SimpleBook book;
+    private int userID;
+
     private static final String TAG = "Add Book string request";
 
-    public AddBookStringRequest(final Context context, final ShelvedModel shelvedModel, SimpleBook book) {
+    public AddBookStringRequest(final Context context, final ShelvedModel shelvedModel, int userID, SimpleBook book) {
         super(Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_BOOK),
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Add book response: " + response);
 
-                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                if (message.isResult()) {
-                    ValidBookAddedResponse bookAddedResponse = (ValidBookAddedResponse) message;
-                }
                 try {
                     Log.d(TAG, response);
                     JSONObject jObj = new JSONObject(response);
@@ -70,12 +68,13 @@ public class AddBookStringRequest extends StringRequest {
         });
         this.shelvedModel = shelvedModel;
         this.book = book;
+        this.userID = userID;
     }
 
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
-//        params.put("userID", String.valueOf(shelvedModel.getUserID()));
+        params.put("userID", String.valueOf(this.userID));
         params.put("title", book.getTitle().getTitle());
         params.put("author", book.getAuthor().getAuthorName());
         return params;
