@@ -28,35 +28,36 @@ public class BookInfo {
     public BookInfo() {}
 
     //COMBINED section
-    public SimpleBook populateSimpleBookFromISBN(String isbn) throws SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException, IOException {
+    public SimpleBook populateSimpleBookFromISBN(String isbn) throws SAXException, EmptyQueryException, ParserConfigurationException, XPathExpressionException, IOException, NotFoundException {
         SimpleBook simpleBook = new SimpleBook();
+        JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
         try {
-            simpleBook.setTitle(getTitleFromISBN(isbn));
+            simpleBook.setTitle(getTitleFromISBN(jObj, isbn));
         } catch (NotFoundException e) {
             simpleBook.setTitle("");
         }
 
         try {
-            simpleBook.setAuthor(getAuthorFromISBN(isbn));
+            simpleBook.setAuthor(getAuthorFromISBN(jObj, isbn));
         } catch (NotFoundException e) {
             simpleBook.setAuthor("");
         }
 
 
         try {
-            simpleBook.setGenre(getGenreFromISBN(isbn));
+            simpleBook.setGenre(getGenreFromISBN(jObj, isbn));
         } catch (NotFoundException e) {
             simpleBook.setGenre("");
         }
 
         try {
-            simpleBook.setPublisher(getPublisherFromISBN(isbn));
+            simpleBook.setPublisher(getPublisherFromISBN(jObj, isbn));
         } catch (NotFoundException e) {
             simpleBook.setPublisher("");
         }
 
         try {
-            simpleBook.setPages(getNumPagesFromISBN(isbn));
+            simpleBook.setPages(getNumPagesFromISBN(jObj, isbn));
         } catch (NotFoundException e) {
             simpleBook.setPages(-1);
         }
@@ -86,11 +87,11 @@ public class BookInfo {
     }
 
 
-
     //ISBN-based Methods
-    public String getTitleFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
+
+
+    public String getTitleFromISBN(JSONObject jObj, String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
         try { //Google Books
-            JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
             return getTitleGoogleJson(jObj);
         } catch (NotFoundException e) { //try Goodreads. Will still throw NotFoundException if not found
             return getTitleFromISBNGoodreads(ISBN);
@@ -98,29 +99,25 @@ public class BookInfo {
     }
 
 
-    public String getAuthorFromISBN(String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
+    public String getAuthorFromISBN(JSONObject jObj, String ISBN) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
         try { //Google Books
-            JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
             return getAuthorGoogleJson(jObj);
         } catch (NotFoundException e) { //try Goodreads. Will still throw NotFoundException if not found
             return getAuthorFromISBNGoodreads(ISBN);
         }
     }
 
-    public String getGenreFromISBN(String ISBN) throws EmptyQueryException, IOException, NotFoundException {
-        JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
+    public String getGenreFromISBN(JSONObject jObj, String ISBN) throws EmptyQueryException, IOException, NotFoundException {
         return getGenreGoogleJson(jObj);
     }
 
-    public String getPublisherFromISBN(String ISBN) throws IOException, NotFoundException, EmptyQueryException {
-        JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
+    public String getPublisherFromISBN(JSONObject jObj, String ISBN) throws IOException, NotFoundException, EmptyQueryException {
         return getPublisherGoogleJson(jObj);
     }
 
 
-    public int getNumPagesFromISBN(String ISBN) throws IOException, NotFoundException, EmptyQueryException, XPathExpressionException, SAXException, ParserConfigurationException {
+    public int getNumPagesFromISBN(JSONObject jObj, String ISBN) throws IOException, NotFoundException, EmptyQueryException, XPathExpressionException, SAXException, ParserConfigurationException {
         try { //Google Books
-            JSONObject jObj = getJsonFromQueryGoogle("","",ISBN);
             return getNumPagesGoogleJson(jObj);
         } catch (NotFoundException e) { //try Goodreads. Will still throw NotFoundException if not found
             return getNumPagesFromISBNGoodreads(ISBN);
@@ -145,7 +142,7 @@ public class BookInfo {
             String title = html.substring(begIndexListTitle.get(i), endIndexListTitle.get(i));
             String author = html.substring(begIndexListAuthor.get(i), endIndexListAuthor.get(i));
             SimpleBook simpleBook = populateSimpleBookFromTitleAndOrAuthor(title, author);
-            if (simpleBook != null){
+            if (simpleBook != null && BookList.size()<6){
                 BookList.add(simpleBook);
             }
         }
@@ -156,7 +153,6 @@ public class BookInfo {
     //Title-based Methods
     public List<String> getISBNListFromTitleAndOrAuthor(String title, String author) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {
         JSONObject jObj = getJsonFromQueryGoogle(title, author, "");
-        System.out.println(jObj);
         return getISBNListGoogleJson(jObj);
     }
 
@@ -175,7 +171,8 @@ public class BookInfo {
         List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, "");
         List<String> author = new ArrayList<>();
         for (String isbn:isbnList){
-            author.add(getAuthorFromISBN(isbn));
+            JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
+            author.add(getAuthorFromISBN(jObj, isbn));
         }
         return author;
     }
@@ -184,7 +181,8 @@ public class BookInfo {
         List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, author);
         List<String> publisher = new ArrayList<>();
         for (String isbn:isbnList){
-            publisher.add(getPublisherFromISBN(isbn));
+            JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
+            publisher.add(getPublisherFromISBN(jObj, isbn));
         }
         return publisher;
     }
@@ -193,7 +191,8 @@ public class BookInfo {
         List<String> isbnList = getISBNListFromTitleAndOrAuthor(title, author);
         List<Integer> NumPages = new ArrayList<>();
         for (String isbn:isbnList){
-            NumPages.add(getNumPagesFromISBN(isbn));
+            JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
+            NumPages.add(getNumPagesFromISBN(jObj, isbn));
         }
         return NumPages;
     }
@@ -474,11 +473,17 @@ public class BookInfo {
     private List<String> getISBNListGoogleJson(JSONObject jObj) throws NotFoundException {
         List<String> ISBNList= new ArrayList<>();
         JSONArray allContent = jObj.getJSONArray("items");
-        for (int i=0;i<allContent.length();i++){
-            ISBNList.add(allContent.getJSONObject(i).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier"));
-//            } catch (JSONException e){
-//                throw new NotFoundException("ISBN not found", jObj);
-//            }
+        int numISBNs = allContent.length();
+        if (numISBNs>3){
+            numISBNs=3;
+        }
+        for (int i=0;i<numISBNs;i++){
+            try {
+                ISBNList.add(allContent.getJSONObject(i).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier"));
+            } catch (JSONException e){
+                System.out.println(e);
+                numISBNs+=1;
+            }
         }
         return ISBNList;
     }

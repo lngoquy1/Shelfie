@@ -31,11 +31,12 @@ public class HibBookService {
 
     public HibBook createBookFromISBN(String ISBN) throws NotFoundException, ParserConfigurationException, IOException, XPathExpressionException, SAXException, EmptyQueryException { //, String genre, int pages, String publisher
         BookInfo bookInfo = new BookInfo();
-        String title = bookInfo.getTitleFromISBN(ISBN);
-        String author = bookInfo.getAuthorFromISBN(ISBN);
-        String publisher = bookInfo.getPublisherFromISBN(ISBN);
-        String genre = bookInfo.getGenreFromISBN(ISBN);
-        int pages = bookInfo.getNumPagesFromISBN(ISBN);
+        SimpleBook simpleBook = bookInfo.populateSimpleBookFromISBN(ISBN);
+        String title = simpleBook.getTitle().getTitle();
+        String author = simpleBook.getAuthor().getAuthorName();
+        String publisher = simpleBook.getPublisher().getPublisher();
+        String genre = simpleBook.getGenre().getGenre();
+        int pages = simpleBook.getPages();
         HibBook newBook = new HibBook();
         newBook.setAuthor(author);
         newBook.setTitle(title);

@@ -24,17 +24,7 @@ public class ServerRouteSearchByTitleAuthor extends ServerRoute {
             String author = request.queryParams("author");
             System.out.println("Search title: "+title+"Search author: " + author);
             BookInfo bookInfo = new BookInfo();
-            List<String> ISBNs = bookInfo.getISBNListFromTitleAndOrAuthor(title,author);
-            List<SimpleBook> possibleBooks = new ArrayList<>();
-            for (String isbn:ISBNs){
-                SimpleBook simpleBook = new SimpleBook();
-                simpleBook.setTitle(bookInfo.getTitleFromISBN(isbn));
-                simpleBook.setAuthor(bookInfo.getAuthorFromISBN(isbn));
-                simpleBook.setPublisher(bookInfo.getPublisherFromISBN(isbn));
-                simpleBook.setPages(bookInfo.getNumPagesFromISBN(isbn));
-                simpleBook.setGenre(bookInfo.getGenreFromISBN(isbn));
-                possibleBooks.add(simpleBook);
-            }
+            List<SimpleBook> possibleBooks = bookInfo.populateSimpleBookListFromTitleAndOrAuthor(title, author);
             return new ValidSearchResponseTitleAuthor(possibleBooks);
 
         } catch (Exception e) {
