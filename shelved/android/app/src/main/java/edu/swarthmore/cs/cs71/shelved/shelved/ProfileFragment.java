@@ -1,5 +1,6 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+import com.facebook.login.Login;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
     private ImageButton settingsBtn;
@@ -77,6 +79,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle() == "Edit Profile") {
+                            Intent i = new Intent(getContext(), LoginActivity.class);
+                            startActivity(i);
+                        }
                         Toast.makeText(getContext()
                                 ,
                                 "You Clicked : " + menuItem.getTitle(),
