@@ -52,7 +52,6 @@ public class AppSingleton {
             model = new ShelvedModel();
             addBookNetworkListeners(context, model);
             addListNetworkListeners(context, model);
-            addSignUpSuccessNetworkListeners(context, model);
             addLogInSuccessNetWorkListeners(context, model);
         }
         return model;
@@ -71,8 +70,8 @@ public class AppSingleton {
     private void addBookNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
         shelvedModel.addBookAddedListener(new BookAddedListener() {
             @Override
-            public void bookAdded(final SimpleBook book) {
-                StringRequest strReq = new AddBookStringRequest(context, shelvedModel, book);
+            public void bookAdded(final int userID, final SimpleBook book) {
+                StringRequest strReq = new AddBookStringRequest(context, shelvedModel, userID, book);
                 // Adding request to request queue
                 addToRequestQueue(strReq, "addBook");
             }
@@ -94,20 +93,20 @@ public class AppSingleton {
 
     ///////////////// Sign up success Listeners /////////////////
 
-    public void addSignUpSuccessNetworkListeners(final Context context, final ShelvedModel shelvedModel){
-        shelvedModel.addSignUpSuccessListeners(new SignUpSuccessListener() {
-            @Override
-            public void onSignUpSuccess(String userName, String email, String password, ProgressDialog progressDialog) {
-                StringRequest strReq = new UserSignUpRequest(context, shelvedModel, userName, email, password, progressDialog);
-                AppSingleton.getInstance(context).addToRequestQueue(strReq, "signUp");
-                // Launch loginActivity
-                Intent intent = new Intent(
-                        context,
-                        LoginActivity.class);
-                context.startActivity(intent);
-            }
-        });
-    }
+//    public void addSignUpSuccessNetworkListeners(final Context context, final ShelvedModel shelvedModel){
+//        shelvedModel.addSignUpSuccessListeners(new SignUpSuccessListener() {
+//            @Override
+//            public void onSignUpSuccess(String userName, String email, String password, ProgressDialog progressDialog) {
+//                StringRequest strReq = new UserSignUpRequest(context, userName, email, password, progressDialog);
+//                AppSingleton.getInstance(context).addToRequestQueue(strReq, "signUp");
+//                // Launch loginActivity
+//                Intent intent = new Intent(
+//                        context,
+//                        LoginActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
+//    }
 
     public void addLogInSuccessNetWorkListeners(final Context context, final ShelvedModel shelvedModel){
         shelvedModel.addLogInSuccessListeners(new LogInSuccessListener() {
@@ -122,20 +121,6 @@ public class AppSingleton {
         });
     }
 
-    //////////////// Log In ///////////////////////
-//    public void logIn(final Context context, final Continuation<LoginInfo> success,
-//                      final Continuation<String> failure, String email, String password){
-//        Continuation<LoginInfo> localSuccess = new Continuation<LoginInfo>() {
-//            public void run(LoginInfo info) {
-//                ShelvedModel.userID = info.getUserID();
-//                ShelvedModel.token = info.getToken();
-//                success.run(info);
-//            }
-//        };
-//        StringRequest strReq = new UserLogInRequest(context, email, password, localSuccess, failure);
-//        addToRequestQueue(strReq, "Log In Request");
-//
-//    }
     public void hideDialog(ProgressDialog progressDialog) {
         if (progressDialog.isShowing())
             progressDialog.dismiss();

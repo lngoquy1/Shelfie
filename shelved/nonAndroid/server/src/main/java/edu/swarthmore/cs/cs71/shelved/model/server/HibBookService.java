@@ -16,16 +16,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HibBookService {
-    public HibBook createBook(String title, String author){ //, String genre, int pages, String publisher
-        // TODO: Add
+    public HibBook createBook(SessionFactory sf, String userID, String title, String author) throws NotFoundException, ParserConfigurationException, IOException, XPathExpressionException, SAXException, EmptyQueryException { //, String genre, int pages, String publisher
         HibBook newBook = new HibBook();
-        newBook.setAuthor(author);
         newBook.setTitle(title);
-//        newBook.setGenre(genre);
-//        newBook.setPages(pages);
-//        newBook.setPublisher(publisher);
-        System.out.println("start");
+        newBook.setAuthor(author);
+//        BookInfo bookInfo = new BookInfo();
+//        SimpleBook book = bookInfo.populateSimpleBookFromTitleAndOrAuthor(title, author);
+//        newBook.setTitle(book.getTitle().getTitle());
+//        newBook.setAuthor(book.getAuthor().getAuthorName());
+//        newBook.setGenre(book.getGenre().getGenre());
+//        newBook.setPages(book.getPages());
+//        newBook.setPublisher(book.getPublisher().getPublisher());
+        // TODO: Adding this book to an user
+        HibUser currentUser = new HibUserService().getUserByID(sf, Integer.valueOf(userID));
+        currentUser.addBook(newBook);
         PersistenceUtils.ENTITY_MANAGER.get().persist(newBook);
+        System.out.println("finish persisting newBook");
+        PersistenceUtils.ENTITY_MANAGER.get().merge(currentUser);
+        System.out.println("finish merging currentUser");
         return newBook;
     }
 
@@ -42,7 +50,6 @@ public class HibBookService {
         newBook.setGenre(genre);
         newBook.setPages(pages);
         newBook.setPublisher(publisher);
-        System.out.println("start");
         PersistenceUtils.ENTITY_MANAGER.get().persist(newBook);
         return newBook;
     }

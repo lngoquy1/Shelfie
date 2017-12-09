@@ -2,10 +2,8 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -14,21 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import edu.swarthmore.cs.cs71.shelved.network.CreateUserResponse;
-import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SignUpSuccessListener;
-import org.json.JSONException;
-import org.json.JSONObject;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SignupInfo;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 //from https://sourcey.com/beautiful-android-login-and-signup-screens-with-material-design/
@@ -78,7 +65,6 @@ public class SignupActivity extends AppCompatActivity {
     public void signup() {
 
 
-
         if (!validate()) {
             onSignupFailed();
             return;
@@ -96,11 +82,28 @@ public class SignupActivity extends AppCompatActivity {
         final String email = _emailText.getText().toString();
         final String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
 
-        // Adding request to request queue
-        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).signUp(name, email, password, progressDialog);
-        addSignUpSuccessActivityListener();
+        Continuation<SignupInfo> success = new Continuation<SignupInfo>() {
+            @Override
+            public void run(SignupInfo signupInfo) {
+                Toast.makeText(getApplicationContext(), "Hi " + signupInfo.getName() +", You have successfully signed up!", Toast.LENGTH_SHORT).show();
+                AppSingleton.getInstance(getApplicationContext()).hideDialog(progressDialog);
+            }
+        };
+
+        Continuation<String> failure = new Continuation<String>() {
+            @Override
+            public void run(String errorMsg) {
+                Toast.makeText(getApplicationContext(),
+                        errorMsg, Toast.LENGTH_LONG).show();
+                AppSingleton.getInstance(getApplicationContext()).hideDialog(progressDialog);
+            }
+        };
+
+        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).signUp(getApplicationContext(), success,
+                failure, name, email, password);
+        finish();
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -108,7 +111,7 @@ public class SignupActivity extends AppCompatActivity {
                         // depending on success
                         onSignupSuccess();
                         //onSignupFailed();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                     }
                 }, 3000);
     }
@@ -156,15 +159,7 @@ public class SignupActivity extends AppCompatActivity {
 
         return valid;
     }
-    public void addSignUpSuccessActivityListener(){
-        AppSingleton.getInstance(getApplicationContext()).getModel(getApplicationContext()).addSignUpSuccessListeners(new SignUpSuccessListener() {
-            @Override
-            public void onSignUpSuccess(String userName, String email, String password, ProgressDialog progressDialog) {
-                    finish();
 
-            }
-        });
-    }
 
 
 

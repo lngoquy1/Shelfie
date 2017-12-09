@@ -115,40 +115,24 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                Continuation<SimpleBook> continuation = new Continuation<SimpleBook>() {
+                    @Override
+                    public void run(SimpleBook book) {
+                        Log.d("book got back is: ", book.getTitle().getTitle());
+                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        searchViewModel.clearBooks();
+                        searchViewModel.getBooklist().add(book);
+                        searchViewModel.notifySearchViewModelListeners();
+                    }
+                };
                 if (CHOSEN == 0) {
                     Toast.makeText(getContext(), "Please choose a category", Toast.LENGTH_SHORT).show();
                 } else {
-                    BookInfo bookInfo = new BookInfo();
                     switch (CHOSEN) {
                         case ISBN:
-//                            try {
-////                                SimpleBook bookResult = null;
-////                                bookResult.setAuthor(bookInfo.getAuthorFromISBN(s));
-////                                bookResult.setTitle(bookInfo.getTitleFromISBN(s));
-////                                books.add(bookResult);
-//                                searchByISBN(s);
-//                            } catch (IOException e){
-//                                Toast.makeText(getContext(), "IOException", Toast.LENGTH_SHORT).show();
-//                            } catch (XPathExpressionException e) {
-//                                Toast.makeText(getContext(), "XPathExpressionException", Toast.LENGTH_SHORT).show();
-//                            } catch (SAXException e) {
-//                                Toast.makeText(getContext(), "SAXException", Toast.LENGTH_SHORT).show();
-//                            } catch (ParserConfigurationException e) {
-//                                Toast.makeText(getContext(), "ParserConfigurationException", Toast.LENGTH_SHORT).show();
-//                            } catch (EmptyQueryException e) {
-//                                Toast.makeText(getContext(), "EmptyQueryException", Toast.LENGTH_SHORT).show();
-//                            } catch (NotFoundException e) {
-//                                Toast.makeText(getContext(), "NotFoundException", Toast.LENGTH_SHORT).show();
-//                            }
-                            Continuation<SimpleBook> success = new Continuation<SimpleBook>() {
-                                @Override
-                                public void run(SimpleBook simpleBook) {
-                                    Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
-                                }
-                            };
-                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(),  );
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), s, continuation);
                         case TITLE:
-                            // TODO
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitle(getContext(), s, continuation);
                         case AUTHOR:
                             //TODO
                     }
@@ -177,66 +161,66 @@ public class SearchFragment extends Fragment {
     }
 
 
-    private void searchByISBN(final String ISBN) {
-        final String TAG = "SearchByISBN";
-        String cancel_req_tag = "SearchByISBN";
-        StringRequest strReq = new StringRequest(Request.Method.POST, getSearchByISBN(), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response){
-                Log.d(TAG, "Search by response: " + response);
-
-                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-                if (message.isResult()){
-                    ValidSearchResponseISBN searchResponseISBN = (ValidSearchResponseISBN) message;
-                }
-                try {
-                    Log.d(TAG, response);
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = !jObj.getBoolean("result");
-
-
-                    if (!error) {
-                        Log.d(TAG, "no error");
-                        Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
-                        Gson gson = new Gson();
-                        SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-
-
-                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
-                        searchViewModel.clearBooks();
-                        searchViewModel.getBooklist().add(book);
-
-                    } else {
-                        Log.d(TAG, "error");
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    System.out.println("Error case");
-                }
-
-            }
-
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Add book error: " + error.getMessage());
-                Toast.makeText(getContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-//                        hideDialog(progressDialog);
-            }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("isbn", ISBN);
-                return params;
-            }
-        };
-    }
+//    private void searchByISBN(final String ISBN) {
+//        final String TAG = "SearchByISBN";
+//        String cancel_req_tag = "SearchByISBN";
+//        StringRequest strReq = new StringRequest(Request.Method.POST, getSearchByISBN(), new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response){
+//                Log.d(TAG, "Search by response: " + response);
+//
+//                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
+//                if (message.isResult()){
+//                    ValidSearchResponseISBN searchResponseISBN = (ValidSearchResponseISBN) message;
+//                }
+//                try {
+//                    Log.d(TAG, response);
+//                    JSONObject jObj = new JSONObject(response);
+//                    boolean error = !jObj.getBoolean("result");
+//
+//
+//                    if (!error) {
+//                        Log.d(TAG, "no error");
+//                        Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
+//                        Gson gson = new Gson();
+//                        SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
+//
+//
+//                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+//                        searchViewModel.clearBooks();
+//                        searchViewModel.getBooklist().add(book);
+//
+//                    } else {
+//                        Log.d(TAG, "error");
+//                        String errorMsg = jObj.getString("error_msg");
+//                        Toast.makeText(getContext(),
+//                                errorMsg, Toast.LENGTH_LONG).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    System.out.println("Error case");
+//                }
+//
+//            }
+//
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "Add book error: " + error.getMessage());
+//                Toast.makeText(getContext(),
+//                        error.getMessage(), Toast.LENGTH_LONG).show();
+////                        hideDialog(progressDialog);
+//            }
+//                }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("isbn", ISBN);
+//                return params;
+//            }
+//        };
+//    }
 
 
 //    @Override

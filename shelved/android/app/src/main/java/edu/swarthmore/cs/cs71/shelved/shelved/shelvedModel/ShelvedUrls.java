@@ -12,6 +12,8 @@ public class ShelvedUrls {
         ADD_BOOK("/addBook"),
         GET_BOOK_LIST("/updateBook"),
         SEARCH_ISBN("/searchByISBN"),
+        SEARCH_TITLE("/searchByTitle"),
+        SEARCH_AUTHOR("/searchByAuthor"),
         ADD_LIST("/addList"),
         GET_LISTS("/updateList");
         // TODO: chagne update book to say getBookList

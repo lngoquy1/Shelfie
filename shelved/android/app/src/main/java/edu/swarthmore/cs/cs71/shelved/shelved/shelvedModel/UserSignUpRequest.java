@@ -1,9 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,20 +18,20 @@ import java.util.Map;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UserSignUpRequest extends StringRequest {
-    private final ShelvedModel shelvedModel;
+
     private static final String TAG = "User request sign up";
     private String email;
     private String name;
     private String password;
 
-    public UserSignUpRequest(final Context context, final ShelvedModel shelvedModel, String name, String email, String password, final ProgressDialog progressDialog){
+    public UserSignUpRequest(final Context context, final String name, final String email, final String password,
+                             final Continuation<SignupInfo> success, final Continuation<String> failure){
         super(Request.Method.POST,
                 ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SIGN_UP), new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Sign up Response: " + response);
-                        AppSingleton.getInstance(context).hideDialog(progressDialog);
 
                         ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
 
@@ -43,18 +41,13 @@ public class UserSignUpRequest extends StringRequest {
                             JSONObject jObj = new JSONObject(response);
                             boolean error = !jObj.getBoolean("result");
 
-
                             if (!error) {
-                                String userName = jObj.getJSONObject("user").getJSONObject("simpleEmail").getString("userName");
-                                Toast.makeText(getApplicationContext(), "Hi " + userName +", You have successfully signed up!", Toast.LENGTH_SHORT).show();
-                                // Switch to login page
-//                                AppSingleton.getInstance(context).addSignUpSuccessNetworkListeners(context, shelvedModel);
+                                SignupInfo signupInfo = new SignupInfo(name, email, password);
+                                success.run(signupInfo);
 
                             } else {
-
                                 String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getApplicationContext(),
-                                        errorMsg, Toast.LENGTH_LONG).show();
+                                failure.run(errorMsg);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -66,13 +59,10 @@ public class UserSignUpRequest extends StringRequest {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Registration Error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(),
-                                error.getMessage(), Toast.LENGTH_LONG).show();
-                        AppSingleton.getInstance(context).hideDialog(progressDialog);
+                        failure.run(error.getMessage());
                     }
                 });
-            this.shelvedModel = shelvedModel;
+
 
 
             this.email = email;

@@ -3,16 +3,12 @@ package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
-import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.BookAddedListener;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.GetBookFromISBNRequest;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ShelfUpdatedListener;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.SignUpSuccessListener;
 
 import java.util.*;
 
@@ -21,6 +17,7 @@ public class ShelvedModel {
     private List<SimpleReadingList> readingLists = new ArrayList<SimpleReadingList>();
     public static int userID;
     public static String token;
+
     // listener fields
     Set<SignUpSuccessListener> signUpSuccessListeners = new HashSet<SignUpSuccessListener>();
     Set<LogInAttemptListener> logInAttemptListeners = new HashSet<LogInAttemptListener>();
@@ -51,9 +48,33 @@ public class ShelvedModel {
     }
 
     // TODO: Need to fix login: dont put progressDialog here and enable automatic signin
-    public void signUp(String userName, String email, String password, ProgressDialog progressDialog){
-        notifySignUpSuccessListeners(userName, email, password, progressDialog);
-    }
+    public void signUp(final Context context, final Continuation<SignupInfo> success,
+                       final Continuation<String> failure, String name, String email, String password){
+
+        // Login the user right after sign up success
+        Continuation<SignupInfo> localSuccess = new Continuation<SignupInfo>() {
+            Continuation<LoginInfo> proceedLoginSuccess = new Continuation<LoginInfo>() {
+                @Override
+                public void run(LoginInfo loginInfo) {
+                    Toast.makeText(context, "Logging you in...", Toast.LENGTH_LONG).show();
+                }
+            };
+            Continuation <String> proceedLoginFailure = new Continuation<String>() {
+                @Override
+                public void run(String errorMsg) {
+                    Toast.makeText(context,
+                            errorMsg, Toast.LENGTH_LONG).show();
+                }
+            };
+            @Override
+            public void run(SignupInfo signupInfo) {
+                logIn(context, proceedLoginSuccess, proceedLoginFailure, signupInfo.getEmail(), signupInfo.getPassword());
+            }
+
+        };
+        StringRequest strReq = new UserSignUpRequest(context, name, email, password, localSuccess, failure);
+        AppSingleton.getInstance(context).addToRequestQueue(strReq, "Sign Up Request");
+    };
 
 
     public void logIn(Context context, final Continuation<LoginInfo> success,
@@ -79,7 +100,7 @@ public class ShelvedModel {
     public void addBook(SimpleBook book) {
         bookList.add(book);
         notifyShelfUpdatedListeners();
-        notifyBookAddedListeners(book);
+        notifyBookAddedListeners(userID, book);
     }
 
     public void removeBook(SimpleBook book) {
@@ -152,24 +173,24 @@ public class ShelvedModel {
         bookAddedListeners.add(newBookAddedListener);
     }
 
-    private void notifyBookAddedListeners(SimpleBook book) {
+    private void notifyBookAddedListeners(int userID, SimpleBook book) {
         for (BookAddedListener listener:this.bookAddedListeners) {
-            listener.bookAdded(book);
+            listener.bookAdded(userID, book);
         }
     }
 
     ///////////////// Sign up success Listeners /////////////////
-    public void addSignUpSuccessListeners(SignUpSuccessListener signUpSuccessListener){
-        signUpSuccessListeners.add(signUpSuccessListener);
-    }
-    private void notifySignUpSuccessListeners(String userName, String email, String password, ProgressDialog progressDialog){
-        for (SignUpSuccessListener listener:this.signUpSuccessListeners){
-            listener.onSignUpSuccess(userName, email, password, progressDialog);
-        }
-    }
-    public void removeAllSignUpSuccessListeners(){
-        signUpSuccessListeners.clear();
-    }
+//    public void addSignUpSuccessListeners(SignUpSuccessListener signUpSuccessListener){
+//        signUpSuccessListeners.add(signUpSuccessListener);
+//    }
+//    private void notifySignUpSuccessListeners(String userName, String email, String password, ProgressDialog progressDialog){
+//        for (SignUpSuccessListener listener:this.signUpSuccessListeners){
+//            listener.onSignUpSuccess(userName, email, password, progressDialog);
+//        }
+//    }
+//    public void removeAllSignUpSuccessListeners(){
+//        signUpSuccessListeners.clear();
+//    }
 
 
     ///////////////// Sign up attempt Listeners /////////////////
@@ -186,16 +207,17 @@ public class ShelvedModel {
 
 
 
-
-
-
-
-
-    public void searchByISBN(Context context, String ISBN, Continuation<SimpleBook> continuation) {
+    public void searchByISBN(final Context context, String ISBN, Continuation<SimpleBook> continuation) {
         StringRequest strReq = new GetBookFromISBNRequest(context, ISBN, continuation);
         // Adding request to request queue
         Log.d("testing","about to add to queue");
         AppSingleton.getInstance(context).addToRequestQueue(strReq, "addSearchByISBN");
         Log.d("testing","Finished adding to queue");
     }
+    // TODO: Once Nicki's change BookInfo to return  list of results, change Continuation<List<SimpleBook>>
+    public void searchByTitle(final Context context, String title, Continuation<SimpleBook> continuation){
+        StringRequest strReq = new GetBookFromTitleRequest(context, title, continuation);
+        AppSingleton.getInstance(context).addToRequestQueue(strReq, "searchByTitle");
+    }
 }
+
