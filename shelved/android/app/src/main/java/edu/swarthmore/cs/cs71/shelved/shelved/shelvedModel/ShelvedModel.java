@@ -38,7 +38,8 @@ public class ShelvedModel {
     }
 
     public List<SimpleReadingList> getLists() {
-        return Collections.unmodifiableList(readingLists);
+        //return Collections.unmodifiableList(readingLists);
+        return this.readingLists;
     }
 
     public static int getUserID() {

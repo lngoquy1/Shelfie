@@ -118,7 +118,7 @@ public class BookListFragment extends Fragment {
         };
     }
 
-    private final int ROW_ITEMS = 3;
+    private final int ROW_ITEMS = 1;
     private final class GridAdapter extends BaseAdapter {
 
         final List<SimpleReadingList> mItems;
