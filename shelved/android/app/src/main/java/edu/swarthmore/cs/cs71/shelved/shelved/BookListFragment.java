@@ -11,18 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.koushikdutta.ion.Ion;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.EmptyQueryException;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.NotFoundException;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ListsUpdatedListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
 public class BookListFragment extends Fragment {
     private GridView gridview;
     private ImageButton addList;
     private List<SimpleReadingList> readingLists;
+    private BookInfo bookInfo = new BookInfo();
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,51 +78,6 @@ public class BookListFragment extends Fragment {
         });
     }
 
-    private class IconAdapter extends BaseAdapter {
-        private Context mContext;
-
-        public IconAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return mThumbIds.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        // create a new ImageView for each item referenced by the Adapter
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
-        }
-
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.mipmap.logo,
-                R.mipmap.logo,
-                R.mipmap.logo,
-                R.mipmap.logo
-        };
-    }
-
     private final int ROW_ITEMS = 1;
     private final class GridAdapter extends BaseAdapter {
 
@@ -151,12 +111,24 @@ public class BookListFragment extends Fragment {
             View view = convertView;
 
             if (view == null) {
-                view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.activity_list_item, parent, false);
             }
 
             final TextView text = (TextView) view.findViewById(android.R.id.text1);
 
             text.setText(mItems.get(position).getName());
+
+            final ImageView imageView = (ImageView) view.findViewById(android.R.id.icon);
+
+            imageView.setImageResource(R.mipmap.logo);
+
+//            try {
+//                String url = bookInfo.getUrlBookCoverFromISBN("0547545118");
+//                Log.d("URL BOOK", url);
+//                Ion.with(imageView).placeholder(R.mipmap.logo).error(R.mipmap.logo).load(url);
+//            } catch (Exception E) {
+//                Log.d("getUrlBookCover", "exception");
+//            }
 
             return view;
         }
