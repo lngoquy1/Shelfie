@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
+import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
 import edu.swarthmore.cs.cs71.shelved.shelved.LoginActivity;
 import edu.swarthmore.cs.cs71.shelved.shelved.MainActivity;
 import org.json.JSONException;
@@ -22,13 +24,13 @@ public class UserLogInRequest extends StringRequest {
     private static final String TAG = "User request log in";
     private String email;
     private String password;
-    public UserLogInRequest(final Context context, final ShelvedModel shelvedModel, String email, String password, final ProgressDialog progressDialog){
+    public UserLogInRequest(final Context context, String email, String password,
+                            final Continuation<LoginInfo> success, final Continuation<String> failure){
         super(Request.Method.POST,
                 ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.LOG_IN), new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "Register Response: " + response.toString());
-                        AppSingleton.getInstance(context).hideDialog(progressDialog);
                         try {
                             JSONObject jObj = new JSONObject(response);
                             Log.d(TAG, jObj.toString());
@@ -36,15 +38,17 @@ public class UserLogInRequest extends StringRequest {
 
                             if (!error) {
 
-                                int userId = Integer.valueOf(jObj.getString("id"));
+                                int userID = Integer.valueOf(jObj.getString("id"));
                                 String token = jObj.getString("token");
-                                //TODO: update userId and token in the shelvedModel
-                                AppSingleton.getInstance(context).getModel(context).logInSucceed(userId, token);
-                            } else {
+                                //TODO: update userID and token in the shelvedModel
+                                Log.d("in str req log in", " no error i hope");
+                                LoginInfo loginInfo = new LoginInfo(userID, token);
+                                success.run(loginInfo);
 
+                            } else {
                                 String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(context,
-                                        errorMsg, Toast.LENGTH_LONG).show();
+                                failure.run(errorMsg);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -78,7 +82,6 @@ public class UserLogInRequest extends StringRequest {
 
                         Toast.makeText(context,
                                 error.getMessage(), Toast.LENGTH_LONG).show();
-                        AppSingleton.getInstance(context).hideDialog(progressDialog);
                     }
                 });
         this.email = email;

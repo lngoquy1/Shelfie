@@ -25,17 +25,20 @@ import java.util.Map;
 //import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
 public class AddListDialog extends AlertDialog.Builder {
+
     private static final String TAG = "AddListDialog";
-    public AddListDialog(Context context) {
-        super(context);
+    private String userID;
+
+    public AddListDialog(Context context, int themeResId) {
+        super(context, themeResId);
     }
 
 
-    public AddListDialog newInstance() {
-        Context context = getContext();
-        AddListDialog alert = new AddListDialog(context);
-        alert.setTitle("Add List");
+    public AddListDialog (Context context, String userID) {
+        super(context);
 
+        this.setTitle("Add List");
+        this.userID = userID;
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -55,25 +58,25 @@ public class AddListDialog extends AlertDialog.Builder {
         status.setTextOff("No");
         layout.addView(status);
 
-        alert.setView(layout);
+        this.setView(layout);
 
-        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        this.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                Log.v("name", listNameBox.getText().toString());
-                Log.v("public", status.getText().toString());
-
-                String cancel_req_tag = "addList";
-                String listNameString = listNameBox.getText().toString();
-                String statusString = status.getText().toString();
-                //Log.d("STATUS STRING", statusString);
-                //Log.v("STATUS STRING!!!!!!!", statusString);
-
-                boolean publicBool;
-                if (statusString.equals("Public")) {
-                    publicBool = true;
-                } else {
-                    publicBool = false;
-                }
+//                Log.v("name", listNameBox.getText().toString());
+//                Log.v("public", status.getText().toString());
+//
+//                String cancel_req_tag = "addList";
+//                String listNameString = listNameBox.getText().toString();
+//                String statusString = status.getText().toString();
+//                //Log.d("STATUS STRING", statusString);
+//                //Log.v("STATUS STRING!!!!!!!", statusString);
+//
+//                boolean publicBool;
+//                if (statusString.equals("Public")) {
+//                    publicBool = true;
+//                } else {
+//                    publicBool = false;
+//                }
 
 //                StringRequest strReq = new StringRequest(Request.Method.POST, getAddListUrl(), new Response.Listener<String>() {
 //                    @Override
@@ -128,7 +131,7 @@ public class AddListDialog extends AlertDialog.Builder {
 //                    }
 //                };
 
-                SimpleReadingList newList = new SimpleReadingList(listNameString, publicBool);
+                //SimpleReadingList newList = new SimpleReadingList(listNameString, publicBool);
 
 //                AppSingleton.getInstance(getContext()).getModel(getContext()).addList(newList),
 //                        new Continuation<SimpleReadingList>() {
@@ -142,13 +145,11 @@ public class AddListDialog extends AlertDialog.Builder {
 
         });
 
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        this.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Canceled.
             }
         });
-
-        return alert;
     }
     // TODO: need userID in the constructor
 //    public AddListDialog(Context context, final Continuation<SimpleReadingList> positiveContinuation) {
@@ -256,8 +257,4 @@ public class AddListDialog extends AlertDialog.Builder {
         return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/addList";
     }
 
-
-    public AddListDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
 }

@@ -53,7 +53,6 @@ public class AppSingleton {
             addBookNetworkListeners(context, model);
             addListNetworkListeners(context, model);
             addSignUpSuccessNetworkListeners(context, model);
-            addLogInAttemptNetworkListeners(context, model);
             addLogInSuccessNetWorkListeners(context, model);
         }
         return model;
@@ -79,7 +78,6 @@ public class AppSingleton {
             }
         });
     }
-
 
     ///////////////// List added Listeners /////////////////
 
@@ -110,16 +108,7 @@ public class AppSingleton {
             }
         });
     }
-    ///////////////// Log In Listeners /////////////////
-    public void addLogInAttemptNetworkListeners(final Context context, final ShelvedModel shelvedModel){
-        shelvedModel.addLogInAttemptListeners(new LogInAttemptListener() {
-            @Override
-            public void onLogInAttempt(String email, String password, ProgressDialog progressDialog) {
-                StringRequest strReq = new UserLogInRequest(context, shelvedModel, email, password, progressDialog);
-                AppSingleton.getInstance(context).addToRequestQueue(strReq, "logIn");
-            }
-        });
-    }
+
     public void addLogInSuccessNetWorkListeners(final Context context, final ShelvedModel shelvedModel){
         shelvedModel.addLogInSuccessListeners(new LogInSuccessListener() {
             @Override
@@ -133,9 +122,23 @@ public class AppSingleton {
         });
     }
 
-    //////////////// Hide progress dialog /////////
+    //////////////// Log In ///////////////////////
+//    public void logIn(final Context context, final Continuation<LoginInfo> success,
+//                      final Continuation<String> failure, String email, String password){
+//        Continuation<LoginInfo> localSuccess = new Continuation<LoginInfo>() {
+//            public void run(LoginInfo info) {
+//                ShelvedModel.userID = info.getUserID();
+//                ShelvedModel.token = info.getToken();
+//                success.run(info);
+//            }
+//        };
+//        StringRequest strReq = new UserLogInRequest(context, email, password, localSuccess, failure);
+//        addToRequestQueue(strReq, "Log In Request");
+//
+//    }
     public void hideDialog(ProgressDialog progressDialog) {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
+
 }
