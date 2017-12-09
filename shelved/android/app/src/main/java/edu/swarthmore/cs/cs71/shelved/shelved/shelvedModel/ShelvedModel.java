@@ -45,7 +45,7 @@ public class ShelvedModel {
         return token;
     }
 
-    // TODO: Need to make a method to login
+    // TODO: Need to fix login: dont put progressDialog here and enable automatic signin
     public void signUp(String userName, String email, String password, ProgressDialog progressDialog){
         notifySignUpSuccessListeners(userName, email, password, progressDialog);
     }

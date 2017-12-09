@@ -140,7 +140,13 @@ public class SearchFragment extends Fragment {
 //                            } catch (NotFoundException e) {
 //                                Toast.makeText(getContext(), "NotFoundException", Toast.LENGTH_SHORT).show();
 //                            }
-                            searchByISBN(s);
+                            Continuation<SimpleBook> success = new Continuation<SimpleBook>() {
+                                @Override
+                                public void run(SimpleBook simpleBook) {
+                                    Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
+                                }
+                            };
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(),  );
                         case TITLE:
                             // TODO
                         case AUTHOR:
