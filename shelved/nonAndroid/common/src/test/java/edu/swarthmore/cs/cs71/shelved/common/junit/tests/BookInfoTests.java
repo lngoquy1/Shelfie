@@ -39,8 +39,8 @@ public class BookInfoTests {
         //TESTING GENRE
         String genre1 = bookInfo.getGenreFromISBN(jObj1,isbn1);
         String genre2 = bookInfo.getGenreFromISBN(jObj2,isbn2);
-        System.out.println("ADD: "+ genre1);
-        System.out.println("ADD: "+ genre2);
+        Assert.assertEquals("Arranged marriage", genre1);
+        Assert.assertEquals("Philosophy", genre2);
 
         //TESTING PUBLISHER
         String publisher1 = bookInfo.getPublisherFromISBN(jObj1,isbn1);
