@@ -52,6 +52,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile group: 'me.dm7.barcodescanner', name: 'zbar', version: '1.9.8'
     compile 'me.dm7.barcodescanner:zbar:1.9.8'
+    compile 'com.koushikdutta.ion:ion:2.+'
 }
 
 

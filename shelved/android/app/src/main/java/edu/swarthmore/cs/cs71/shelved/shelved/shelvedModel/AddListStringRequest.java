@@ -8,7 +8,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
@@ -44,8 +43,8 @@ public class AddListStringRequest extends StringRequest {
                         String listName = jObj.getJSONObject("list").getJSONObject("name").getString("name");
                         Toast.makeText(context, "You successfully added " + listName, Toast.LENGTH_SHORT).show();
 
-                        //GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, shelvedModel);
-                        //AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
+                        GetReadingListsStringRequest getReadingListsStringRequest = new GetReadingListsStringRequest(context, shelvedModel);
+                        AppSingleton.getInstance(context).addToRequestQueue(getReadingListsStringRequest, "get reading lists");
 
                     } else {
                         Log.d(TAG, "error");
@@ -63,7 +62,7 @@ public class AddListStringRequest extends StringRequest {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Add book error: " + error.getMessage());
+                Log.e(TAG, "Add list error: " + error.getMessage());
                 Toast.makeText(context,
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -75,8 +74,17 @@ public class AddListStringRequest extends StringRequest {
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("userID", String.valueOf(shelvedModel.getUserID()));
-        params.put("name", list.getName());
+        //params.put("userID", String.valueOf(shelvedModel.getUserID()));
+        params.put("listName", list.getName());
+
+        String publicStatusString;
+        if (list.isPublicStatus() == true) {
+            publicStatusString = "true";
+        } else {
+            publicStatusString = "false";
+        }
+
+        params.put("publicStatus", publicStatusString);
         return params;
     }
 }
