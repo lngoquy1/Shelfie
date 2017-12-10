@@ -11,6 +11,7 @@ public interface Book {
     void setTitle(String title);
     void setPages(int pages);
     void setPublisher(String publisher);
+    void setImageUrl(String imageUrl);
     int getPages();
 
 //    Author getAuthor();

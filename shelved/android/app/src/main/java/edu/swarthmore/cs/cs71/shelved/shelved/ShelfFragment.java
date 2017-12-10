@@ -43,14 +43,14 @@ public class ShelfFragment extends ListFragment {
 
     // In order to populate the individual book view
     private SimpleBook book;
-    private String userID;
+//    private String userID;
 
     public static ShelfFragment newInstance(String userID) {
         ShelfFragment fragment = new ShelfFragment();
         // Supply index input as an argument.
-        Bundle args = new Bundle();
-        args.putString("userID", userID);
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+//        args.putString("userID", userID);
+//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -67,7 +67,7 @@ public class ShelfFragment extends ListFragment {
 
         addBook = (ImageButton)view.findViewById(R.id.add_book);
         Bundle args = getArguments();
-        userID = args.getString("userID", "");
+
 
         // notifies and tells GUI to redraw shelf when book list changes
         AppSingleton.getInstance(getContext()).getModel(getContext()).addShelfUpdatedListener(new ShelfUpdatedListener() {
@@ -89,7 +89,7 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onClick(View v) {
                 // Create and show AddBookDialog
-                AddBookDialog alert = new AddBookDialog(getContext(), userID);
+                AddBookDialog alert = new AddBookDialog(getContext());
                 Log.d(TAG, "show add book dialog");
                 Log.d(TAG, "called newInstance");
                 alert.show();

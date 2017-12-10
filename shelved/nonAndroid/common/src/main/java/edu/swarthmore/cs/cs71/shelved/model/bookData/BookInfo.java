@@ -61,6 +61,13 @@ public class BookInfo {
         } catch (NotFoundException e) {
             simpleBook.setPages(-1);
         }
+
+        try {
+            simpleBook.setImageUrl(getUrlBookCoverFromISBN(jObj, isbn));
+        } catch (NotFoundException e){
+            simpleBook.setImageUrl(null);
+        }
+
         return simpleBook;
     }
 
@@ -163,8 +170,7 @@ public class BookInfo {
 
 
 
-    public String getUrlBookCoverFromISBN(String isbn) throws EmptyQueryException, IOException, NotFoundException {
-        JSONObject jObj = getJsonFromQueryGoogle("","",isbn);
+    public String getUrlBookCoverFromISBN(JSONObject jObj, String isbn) throws EmptyQueryException, IOException, NotFoundException {
         return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
     }
     public List<String> getAuthorListFromTitle(String title) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException, EmptyQueryException, NotFoundException {

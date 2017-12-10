@@ -10,18 +10,22 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class GetBookFromTitleRequest extends StringRequest{
+public class GetBookFromTitleAuthorRequest extends StringRequest{
     private static final String TAG = "Add scan string request";
     private String title;
+    private String author;
 
-    public GetBookFromTitleRequest(final Context context, final String title, final Continuation<SimpleBook> continuation) {
-        super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SEARCH_TITLE), new Response.Listener<String>() {
+    public GetBookFromTitleAuthorRequest(final Context context, final String title, final String author, final Continuation<List<SimpleBook>> continuation) {
+        super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SEARCH_TITLE_AUTHOR), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "addScanResp: " + response);
@@ -32,12 +36,15 @@ public class GetBookFromTitleRequest extends StringRequest{
                     if (!error) {
                         Log.d(TAG, "no error");
 
-                        Toast.makeText(context, "Results for title "+title, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Results for title/author "+title, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
-                        SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-
+                        JSONArray jArr = jObj.getJSONArray("possibleBooks");
+                        List<SimpleBook> books = new ArrayList<>();
+                        for (int i = 0; i < jArr.length(); i++){
+                            books.add(gson.fromJson(jArr.get(i).toString(), SimpleBook.class));
+                        }
                         // hold on to this book object in the searchViewModel
-                        continuation.run(book);
+                        continuation.run(books);
 
                     } else {
                         Log.d(TAG, "error");
@@ -54,18 +61,20 @@ public class GetBookFromTitleRequest extends StringRequest{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Search book by title error: " + error.getMessage());
+                Log.e(TAG, "Search book by title/author error: " + error.getMessage());
                 Toast.makeText(context,
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         this.title = title;
+        this.author = author;
     }
 
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("title", this.title);
+        params.put("author", this.author);
         return params;
     }
 }

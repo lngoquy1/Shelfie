@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SearchFragment extends Fragment {
@@ -115,13 +116,23 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Continuation<SimpleBook> continuation = new Continuation<SimpleBook>() {
+                Continuation<SimpleBook> continuationISBN = new Continuation<SimpleBook>() {
                     @Override
                     public void run(SimpleBook book) {
-                        Log.d("book got back is: ", book.getTitle().getTitle());
                         SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         searchViewModel.getBooklist().add(book);
+                        searchViewModel.notifySearchViewModelListeners();
+                    }
+                };
+                Continuation<List<SimpleBook>> continuationTitleAuthor = new Continuation<List<SimpleBook>>() {
+                    @Override
+                    public void run(List<SimpleBook> books) {
+                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        searchViewModel.clearBooks();
+                        for (SimpleBook book:books){
+                            searchViewModel.getBooklist().add(book);
+                        }
                         searchViewModel.notifySearchViewModelListeners();
                     }
                 };
@@ -130,11 +141,11 @@ public class SearchFragment extends Fragment {
                 } else {
                     switch (CHOSEN) {
                         case ISBN:
-                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), s, continuation);
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), s, continuationISBN);
                         case TITLE:
-                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitle(getContext(), s, continuation);
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(), s, "", continuationTitleAuthor);
                         case AUTHOR:
-                            //TODO
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(),"", s, continuationTitleAuthor);
                     }
                 }
                 Log.d("SearchFragment", "submit text: " + CHOSEN);
@@ -156,151 +167,6 @@ public class SearchFragment extends Fragment {
         transaction.commit();
     }
 
-    private String getSearchByISBN(){
-        return "http://"+getContext().getResources().getString((R.string.server_url))+":4567/searchByISBN";
-    }
 
-
-//    private void searchByISBN(final String ISBN) {
-//        final String TAG = "SearchByISBN";
-//        String cancel_req_tag = "SearchByISBN";
-//        StringRequest strReq = new StringRequest(Request.Method.POST, getSearchByISBN(), new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response){
-//                Log.d(TAG, "Search by response: " + response);
-//
-//                ResponseMessage message = GsonUtils.makeMessageGson().fromJson(response, ResponseMessage.class);
-//                if (message.isResult()){
-//                    ValidSearchResponseISBN searchResponseISBN = (ValidSearchResponseISBN) message;
-//                }
-//                try {
-//                    Log.d(TAG, response);
-//                    JSONObject jObj = new JSONObject(response);
-//                    boolean error = !jObj.getBoolean("result");
-//
-//
-//                    if (!error) {
-//                        Log.d(TAG, "no error");
-//                        Toast.makeText(getContext(), "Results for ISBN "+ ISBN, Toast.LENGTH_SHORT).show();
-//                        Gson gson = new Gson();
-//                        SimpleBook book = gson.fromJson(jObj.getJSONObject("book").toString(), SimpleBook.class);
-//
-//
-//                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
-//                        searchViewModel.clearBooks();
-//                        searchViewModel.getBooklist().add(book);
-//
-//                    } else {
-//                        Log.d(TAG, "error");
-//                        String errorMsg = jObj.getString("error_msg");
-//                        Toast.makeText(getContext(),
-//                                errorMsg, Toast.LENGTH_LONG).show();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    System.out.println("Error case");
-//                }
-//
-//            }
-//
-//        }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, "Add book error: " + error.getMessage());
-//                Toast.makeText(getContext(),
-//                        error.getMessage(), Toast.LENGTH_LONG).show();
-////                        hideDialog(progressDialog);
-//            }
-//                }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("isbn", ISBN);
-//                return params;
-//            }
-//        };
-//    }
-
-
-//    @Override
-//    public void onClick(View view) {
-//        Fragment fragment = null;
-//        switch (view.getId()) {
-//            case R.id.ISBN_button:
-//                CHOSEN = ISBN;
-//                Log.d("Search click", "ISBN");
-//                break;
-//            case R.id.Title_button:
-//                CHOSEN = TITLE;
-//                Log.d("Search click", "Title");
-//                break;
-//            case R.id.Author_button:
-//                CHOSEN = AUTHOR;
-//                Log.d("Search click", "Author");
-//                break;
-//        }
-//        fragment = SearchResultsFragment.newInstance();
-//        replaceFragment(fragment);
-//    }
-//
-//
-//    // Since this is an object collection, use a FragmentStatePagerAdapter,
-//    // and NOT a FragmentPagerAdapter.
-//    private class PagerAdapter extends FragmentStatePagerAdapter {
-//
-//        public PagerAdapter(FragmentManager fm) {
-//            super(fm);
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            Fragment fragment = new ObjectFragment();
-//            Bundle args = new Bundle();
-//
-//            //Example object is an integer
-//            args.putInt(ObjectFragment.ARG_OBJECT, position+1);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return 3;
-//        }
-//
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return "OBJECT " + (position + 1);
-//        }
-//    }
-//
-////     Instances of this class are fragments representing a single
-////     object in our collection.
-//    public static class ObjectFragment extends Fragment {
-//        public static final String ARG_OBJECT = "object";
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater,
-//                                 ViewGroup container, Bundle savedInstanceState) {
-//            // The last two arguments ensure LayoutParams are inflated
-//            // properly.
-//
-//
-//
-//            //https://developer.android.com/training/implementing-navigation/lateral.html
-//
-////            View rootView = inflater.inflate(
-////                    R.layout.fragment_collection_object, container, false);
-////            Bundle args = getArguments();
-////            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-////                    Integer.toString(args.getInt(ARG_OBJECT)));
-////            return rootView;
-//
-//            View view = null;
-//            return view;
-//        }
-//
-//    }
 
 }

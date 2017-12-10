@@ -74,7 +74,8 @@ public class BookInfoTests {
     @Test(expected = NotFoundException.class)
     public void testExceptionCover() throws EmptyQueryException, IOException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
-        bookInfo.getUrlBookCoverFromISBN("143sdsaf9171882");
+        JSONObject jObj = bookInfo.getJsonFromQueryGoogle("","","143sdsaf9171882");
+        bookInfo.getUrlBookCoverFromISBN(jObj,"143sdsaf9171882");
     }
 
     @Test(expected = NotFoundException.class)
@@ -102,7 +103,8 @@ public class BookInfoTests {
     @Test
     public void testURL() throws EmptyQueryException, IOException, NotFoundException {
         BookInfo bookInfo = new BookInfo();
-        String url = bookInfo.getUrlBookCoverFromISBN("1439171882");
+        JSONObject jObj = bookInfo.getJsonFromQueryGoogle("", "","1439171882");
+        String url = bookInfo.getUrlBookCoverFromISBN(jObj, "1439171882");
         Assert.assertEquals("http://books.google.com/books/content?id=Gpnk-K_yBj4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", url);
     }
 

@@ -1,6 +1,5 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ public class ShelvedModel {
 
     // listener fields
     Set<SignUpSuccessListener> signUpSuccessListeners = new HashSet<SignUpSuccessListener>();
-    Set<LogInAttemptListener> logInAttemptListeners = new HashSet<LogInAttemptListener>();
     Set<LogInSuccessListener> logInSuccessListeners = new HashSet<LogInSuccessListener>();
     Set<ShelfUpdatedListener> shelfUpdatedListeners = new HashSet<ShelfUpdatedListener>();
     Set<BookAddedListener> bookAddedListeners = new HashSet<BookAddedListener>();
@@ -215,8 +213,8 @@ public class ShelvedModel {
         Log.d("testing","Finished adding to queue");
     }
     // TODO: Once Nicki's change BookInfo to return  list of results, change Continuation<List<SimpleBook>>
-    public void searchByTitle(final Context context, String title, Continuation<SimpleBook> continuation){
-        StringRequest strReq = new GetBookFromTitleRequest(context, title, continuation);
+    public void searchByTitleAuthor(final Context context, String title, String author, Continuation<List<SimpleBook>> continuation){
+        StringRequest strReq = new GetBookFromTitleAuthorRequest(context, title, author, continuation);
         AppSingleton.getInstance(context).addToRequestQueue(strReq, "searchByTitle");
     }
 }

@@ -18,7 +18,7 @@ public class AddBookDialog extends AlertDialog.Builder {
         super(context, themeResId);
     }
 
-    public AddBookDialog(Context context, String userID) {
+    public AddBookDialog(Context context) {
         super(context);
 
         this.setTitle("Add Book");

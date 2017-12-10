@@ -46,12 +46,14 @@ public class HibBookService {
         String publisher = simpleBook.getPublisher().getPublisher();
         String genre = simpleBook.getGenre().getGenre();
         int pages = simpleBook.getPages();
+        String imageUrl = simpleBook.getImageUrl();
         HibBook newBook = new HibBook();
         newBook.setAuthor(author);
         newBook.setTitle(title);
         newBook.setGenre(genre);
         newBook.setPages(pages);
         newBook.setPublisher(publisher);
+        newBook.setImageUrl(imageUrl);
         PersistenceUtils.ENTITY_MANAGER.get().persist(newBook);
         return newBook;
     }

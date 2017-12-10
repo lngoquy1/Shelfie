@@ -33,6 +33,9 @@ public class HibBook implements Book {
     @JoinTable(name = "book_publisher", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "publisher_id") })
     private HibPublisher publisher;
 
+    @Column(name="imageUrl")
+    private String imageUrl;
+
     public HibBook(){
     }
 
@@ -60,11 +63,10 @@ public class HibBook implements Book {
     public void setPublisher(String publisher) {
         this.publisher = new HibPublisher(publisher);
     }
-
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
-
 
     public HibAuthor getAuthor() {
         return this.author;
@@ -101,5 +103,9 @@ public class HibBook implements Book {
     @Override
     public Dictionary<String, Double> getPrices() {
         return null;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

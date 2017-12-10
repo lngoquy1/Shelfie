@@ -12,8 +12,7 @@ public class SimpleBook implements Book {
     private SimpleTitle title;
     private int pages;
     private SimplePublisher publisher;
-    public String header = this.getClass().getSimpleName();
-
+    private String imageUrl;
     public SimpleBook(){
 
     }
@@ -39,6 +38,11 @@ public class SimpleBook implements Book {
         this.publisher = new SimplePublisher(publisher);
     }
 
+    @Override
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public SimpleAuthor getAuthor() {
         return author;
     }
@@ -59,7 +63,9 @@ public class SimpleBook implements Book {
         return publisher;
     }
 
-
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
     public List<Book> getRecBooks() {
         //query Amazon's API
