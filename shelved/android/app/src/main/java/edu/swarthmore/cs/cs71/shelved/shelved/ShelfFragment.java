@@ -109,7 +109,7 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 book = (SimpleBook)adapterView.getItemAtPosition(position);
-
+                setFieldsFromBook(book, view);
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
             }
@@ -123,7 +123,16 @@ public class ShelfFragment extends ListFragment {
         TextView author = (TextView) view.findViewById(R.id.book_author);
         author.setText(book.getAuthor().getAuthorName());
 
+        TextView genre = (TextView) view.findViewById(R.id.book_genre);
+        genre.setText(book.getGenre().getGenre());
 
+        TextView publisher = (TextView) view.findViewById(R.id.book_publisher);
+        publisher.setText(book.getPublisher().getPublisher());
+
+        TextView pages = (TextView) view.findViewById(R.id.book_pages);
+        pages.setText(book.getPages());
     }
+
+
 
 }
