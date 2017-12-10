@@ -21,7 +21,7 @@ public class SearchResultsFragment extends Fragment {
     // takes in same view model as SearchFragment
 
     private ListView listView;
-    private BookListAdapter bookListAdapter;
+    private SearchListAdapter searchListAdapter;
     private List<SimpleBook> books = new ArrayList<>();
 
     public static SearchResultsFragment newInstance() {
@@ -29,8 +29,8 @@ public class SearchResultsFragment extends Fragment {
         return fragment;
     }
 
-    public BookListAdapter getBookListAdapter() {
-        return bookListAdapter;
+    public SearchListAdapter getSearchListAdapter() {
+        return searchListAdapter;
     }
 
     @Override
@@ -67,15 +67,15 @@ public class SearchResultsFragment extends Fragment {
 
 
         books = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext()).getBooklist();
-        this.bookListAdapter = new BookListAdapter(getContext(), books);
+        this.searchListAdapter = new SearchListAdapter(getContext(), books);
 
-        listView.setAdapter(bookListAdapter);
+        listView.setAdapter(searchListAdapter);
 
         SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
         searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
             @Override
             public void searchResultsChanged() {
-                bookListAdapter.notifyDataSetChanged();
+                searchListAdapter.notifyDataSetChanged();
             }
         });
     }
