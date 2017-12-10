@@ -66,7 +66,7 @@ public class SearchResultsFragment extends Fragment {
 
 
 
-        //books = searchViewModel.getBooklist();
+        books = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext()).getBooklist();
         this.bookListAdapter = new BookListAdapter(getContext(), books);
 
         listView.setAdapter(bookListAdapter);

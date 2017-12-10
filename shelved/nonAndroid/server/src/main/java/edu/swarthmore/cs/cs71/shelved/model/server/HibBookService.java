@@ -29,6 +29,7 @@ public class HibBookService {
 //        newBook.setPublisher(book.getPublisher().getPublisher());
         // TODO: Adding this book to an user
         HibUser currentUser = new HibUserService().getUserByID(sf, Integer.valueOf(userID));
+        System.out.println("Current user: "+currentUser.getName());
         currentUser.addBook(newBook);
         PersistenceUtils.ENTITY_MANAGER.get().persist(newBook);
         System.out.println("finish persisting newBook");

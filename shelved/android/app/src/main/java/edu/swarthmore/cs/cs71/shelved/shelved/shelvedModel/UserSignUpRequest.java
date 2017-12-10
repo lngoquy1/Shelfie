@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UserSignUpRequest extends StringRequest {
 

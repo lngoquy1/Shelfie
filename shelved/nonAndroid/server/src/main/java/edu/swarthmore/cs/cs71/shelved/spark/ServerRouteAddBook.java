@@ -28,7 +28,6 @@ public class ServerRouteAddBook extends ServerRoute {
 
 
             SimpleBook simpleBook = new SimpleBook();
-
             simpleBook.setTitle(newBook.getTitle().getTitle());
             simpleBook.setAuthor(newBook.getAuthor().getAuthorName());
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
