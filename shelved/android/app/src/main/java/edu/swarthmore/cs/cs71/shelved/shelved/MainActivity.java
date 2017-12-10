@@ -60,7 +60,7 @@ public class  MainActivity extends AppCompatActivity {
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frame_layout, selectedFragment);
+                        transaction.replace(R.id.frame_layout_main, selectedFragment);
                         transaction.commit();
                         return true;
                     }
@@ -70,7 +70,7 @@ public class  MainActivity extends AppCompatActivity {
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, ShelfFragment.newInstance(userId));
+        transaction.replace(R.id.frame_layout_main, ShelfFragment.newInstance(userId));
         //transaction.commit();
 
         //Used to select an item programmatically

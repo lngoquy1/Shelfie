@@ -3,6 +3,8 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,6 +26,7 @@ import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.ShelfUpdatedListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +84,12 @@ public class ShelfFragment extends ListFragment {
         return view;
     }
 
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout_main, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -98,12 +108,22 @@ public class ShelfFragment extends ListFragment {
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
-                BookInfoDialog dialog = new BookInfoDialog();
-                AlertDialog.Builder alert = dialog.newInstance(getContext(), book);
-                alert.show();
+                book = (SimpleBook)adapterView.getItemAtPosition(position);
+
+                Fragment fragment = BookInfoFragment.newInstance(book);
+                replaceFragment(fragment);
             }
         });
+    }
+
+    public void setFieldsFromBook(SimpleBook book, View view) {
+        TextView title = (TextView) view.findViewById(R.id.book_title);
+        title.setText(book.getTitle().getTitle());
+
+        TextView author = (TextView) view.findViewById(R.id.book_author);
+        author.setText(book.getAuthor().getAuthorName());
+
+
     }
 
 }

@@ -79,15 +79,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getTitle() == "Edit Profile") {
+                        if (menuItem.getItemId() == R.id.edit_profile) {
                             Intent i = new Intent(getContext(), LoginActivity.class);
                             startActivity(i);
+                        } else {
+                            Toast.makeText(getContext()
+                                    ,
+                                    "You Clicked : " + menuItem.getTitle(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
                         }
-                        Toast.makeText(getContext()
-                                ,
-                                "You Clicked : " + menuItem.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
                         return true;
                     }
                 });

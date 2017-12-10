@@ -11,10 +11,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 public class BookInfoFragment extends Fragment {
 
-    public static BookInfoFragment newInstance() {
+    public static BookInfoFragment newInstance(SimpleBook book) {
         BookInfoFragment fragment = new BookInfoFragment();
         return fragment;
     }
