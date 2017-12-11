@@ -92,7 +92,7 @@ public class ShelfFragment extends ListFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         addBook.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +109,8 @@ public class ShelfFragment extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 book = (SimpleBook)adapterView.getItemAtPosition(position);
-                setFieldsFromBook(book, view);
+                //setFieldsFromBook(book, view);
+                Log.d("AUTHOR IN SHELF FRAG", book.getAuthor().getAuthorName());
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
             }
