@@ -1,6 +1,7 @@
-package edu.swarthmore.cs.cs71.shelved.network;
+package edu.swarthmore.cs.cs71.shelved.network.ReadingListsUpdate;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 
 import java.util.List;
 

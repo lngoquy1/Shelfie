@@ -1,4 +1,6 @@
-package edu.swarthmore.cs.cs71.shelved.network;
+package edu.swarthmore.cs.cs71.shelved.network.BookAddedToShelf;
+
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 
 public class InvalidBookAddedResponse extends ResponseMessage {
     private String error_message;

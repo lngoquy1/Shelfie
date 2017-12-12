@@ -3,6 +3,8 @@ package edu.swarthmore.cs.cs71.shelved.spark;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBookService;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.network.AddBookToReadingList.InvalidBookAddedToListResponse;
+import edu.swarthmore.cs.cs71.shelved.network.AddBookToReadingList.ValidBookAddedToListResponse;
 import edu.swarthmore.cs.cs71.shelved.network.BookAddedToShelf.InvalidBookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.BookAddedToShelf.ValidBookAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
@@ -10,11 +12,8 @@ import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
 
-public class ServerRouteAddBook extends ServerRoute {
-
-    public ServerRouteAddBook(SessionFactory sf) {
-        super(sf);
-    }
+public class ServerRouteAddBookToList extends ServerRoute {
+    public ServerRouteAddBookToList(SessionFactory sf) { super(sf); }
 
     @Override
     protected ResponseMessage execute(Request request, Response response) {
@@ -25,17 +24,15 @@ public class ServerRouteAddBook extends ServerRoute {
                     request.queryParams("title"),
                     request.queryParams("author"));
 
-
             SimpleBook simpleBook = new SimpleBook();
             simpleBook.setTitle(newBook.getTitle().getTitle());
             simpleBook.setAuthor(newBook.getAuthor().getAuthorName());
             //        simpleBook.setGenre(newBook.getGenre().getGenre());
             //        simpleBook.setPages(newBook.getPages());
             //        simpleBook.setPublisher(newBook.getPublisher().getPublisher());
-            return new ValidBookAddedResponse(simpleBook);
+            return new ValidBookAddedToListResponse(simpleBook);
         } catch (Exception e){
-            return new InvalidBookAddedResponse("Invalid book added response");
+            return new InvalidBookAddedToListResponse("Invalid book added response");
         }
-
     }
 }

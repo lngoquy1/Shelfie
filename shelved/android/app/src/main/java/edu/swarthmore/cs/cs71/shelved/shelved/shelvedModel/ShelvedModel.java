@@ -130,6 +130,12 @@ public class ShelvedModel {
     }
 
 
+    //TODO: do this by ints?? not sure
+    public void addBookToList(SimpleBook book, int position) {
+        SimpleReadingList list = readingLists.get(position);
+        list.addBook(book);
+    }
+
     ///////////////// Shelf Listeners/ updaters /////////////////
 
     public void addShelfUpdatedListener(ShelfUpdatedListener newShelfUpdatedListener) {

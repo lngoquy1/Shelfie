@@ -1,8 +1,9 @@
-package edu.swarthmore.cs.cs71.shelved.network;
+package edu.swarthmore.cs.cs71.shelved.network.BookInfoReq;
 
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleAuthor;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleTitle;
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 
 public class ValidBookInfoReqResponse extends ResponseMessage {
 //    private SimpleAuthor author;

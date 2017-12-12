@@ -14,7 +14,8 @@ public class ShelvedUrls {
         SEARCH_ISBN("/searchByISBN"),
         SEARCH_TITLE_AUTHOR("/searchByTitleAuthor"),
         ADD_LIST("/addList"),
-        GET_LISTS("/updateList");
+        GET_LISTS("/updateList"),
+        GET_SINGLE_LIST("/getSingleList");
         // TODO: chagne update book to say getBookList
 
         private String path;

@@ -2,8 +2,8 @@ package edu.swarthmore.cs.cs71.shelved.spark;
 
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUser;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibUserService;
-import edu.swarthmore.cs.cs71.shelved.network.InvalidLoginUserResponse;
-import edu.swarthmore.cs.cs71.shelved.network.ValidLoginUserResponse;
+import edu.swarthmore.cs.cs71.shelved.network.Login.InvalidLoginUserResponse;
+import edu.swarthmore.cs.cs71.shelved.network.Login.ValidLoginUserResponse;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 import org.hibernate.SessionFactory;
 import spark.Request;

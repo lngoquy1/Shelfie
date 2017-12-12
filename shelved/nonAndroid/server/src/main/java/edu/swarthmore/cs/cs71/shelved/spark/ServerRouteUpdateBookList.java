@@ -4,7 +4,7 @@ package edu.swarthmore.cs.cs71.shelved.spark;
 import edu.swarthmore.cs.cs71.shelved.model.server.HibBookService;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookListUpdateResponse;
+import edu.swarthmore.cs.cs71.shelved.network.BookListUpdate.ValidBookListUpdateResponse;
 import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;

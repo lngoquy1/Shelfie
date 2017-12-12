@@ -1,6 +1,8 @@
-package edu.swarthmore.cs.cs71.shelved.network;
+package edu.swarthmore.cs.cs71.shelved.network.ListAdded;
 
-public class InvalidListAddedResponse extends ResponseMessage{
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
+
+public class InvalidListAddedResponse extends ResponseMessage {
     private String error_message;
 
     public InvalidListAddedResponse() { super(true); }

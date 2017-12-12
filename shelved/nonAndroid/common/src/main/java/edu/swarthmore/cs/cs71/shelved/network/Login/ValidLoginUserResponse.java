@@ -1,4 +1,6 @@
-package edu.swarthmore.cs.cs71.shelved.network;
+package edu.swarthmore.cs.cs71.shelved.network.Login;
+
+import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
 
 public class ValidLoginUserResponse extends ResponseMessage {
     private int id;
