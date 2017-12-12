@@ -17,7 +17,7 @@ public class HibReadingList implements CreatedList {
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HibShelvedBook> list = new ArrayList<HibShelvedBook>();
+    private List<HibBook> list = new ArrayList<HibBook>();
 
     @Column(name="listName")
     private String listName;
@@ -28,18 +28,10 @@ public class HibReadingList implements CreatedList {
     public HibReadingList() {
     }
 
-    // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    // @ Lan these methods need to override the methods in the CreatedList interface
-    // can the list in this hibernate class be a list of ShelvedBook instead of
-    // HibShelvedBook?? because your code in HibRowShelf has list containing
-    // HibShelvedBook, but our RowShelf interface is literally empty so im guessing
-    // you didnt encounter this mismatched type problem like I am????
 
+    public void addBook(HibBook book) { this.list.add(book); }
 
-    public void addBook(HibShelvedBook shelvedBook) { this.list.add(shelvedBook); }
-
-
-    public void removeBook(HibShelvedBook shelvedBook) { this.list.remove(shelvedBook); }
+    public void removeBook(HibBook book) { this.list.remove(book); }
 
 
     // setters
