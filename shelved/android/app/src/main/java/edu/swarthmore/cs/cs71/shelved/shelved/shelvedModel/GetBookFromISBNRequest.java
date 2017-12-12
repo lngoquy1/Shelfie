@@ -10,7 +10,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidBookInfoReqResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;

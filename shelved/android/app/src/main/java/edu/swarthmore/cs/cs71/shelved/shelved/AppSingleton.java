@@ -53,6 +53,7 @@ public class AppSingleton {
             addBookNetworkListeners(context, model);
             addListNetworkListeners(context, model);
             addLogInSuccessNetWorkListeners(context, model);
+            addBookToListNetworkListeners(context, model);
         }
         return model;
     }
@@ -74,6 +75,17 @@ public class AppSingleton {
                 StringRequest strReq = new AddBookStringRequest(context, shelvedModel, userID, book);
                 // Adding request to request queue
                 addToRequestQueue(strReq, "addBook");
+            }
+        });
+    }
+
+    private void addBookToListNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
+        shelvedModel.addBookAddedToListListener(new BookAddedToListListener() {
+            @Override
+            public void bookAddedToList(final int userID, final SimpleBook book) {
+                StringRequest strReq = new AddBookToListStringRequest(context, shelvedModel, userID, book);
+                // Adding request to request queue
+                addToRequestQueue(strReq, "addBookToList");
             }
         });
     }

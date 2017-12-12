@@ -31,10 +31,7 @@ public class TestHibList {
         book.setGenre("Computer Science");
         book.setPublisher("Unknown");
 
-        HibShelvedBook shelvedBook = new HibShelvedBook();
-        shelvedBook.setBook(book);
-
-        list.addBook(shelvedBook);
+        list.addBook(book);
     }
 
     @Test
@@ -50,11 +47,8 @@ public class TestHibList {
         book.setGenre("Computer Science");
         book.setPublisher("Unknown");
 
-        HibShelvedBook shelvedBook = new HibShelvedBook();
-        shelvedBook.setBook(book);
-
-        list.addBook(shelvedBook);
-        list.removeBook(shelvedBook);
+        list.addBook(book);
+        list.removeBook(book);
     }
 
 }

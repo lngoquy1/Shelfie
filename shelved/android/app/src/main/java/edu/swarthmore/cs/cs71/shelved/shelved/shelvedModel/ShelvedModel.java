@@ -24,6 +24,7 @@ public class ShelvedModel {
     Set<BookAddedListener> bookAddedListeners = new HashSet<BookAddedListener>();
     Set<ListsUpdatedListener> listsUpdatedListeners = new HashSet<ListsUpdatedListener>();
     Set<ListAddedListener> listAddedListeners = new HashSet<ListAddedListener>();
+    Set<BookAddedToListListener> bookAddedToListListeners = new HashSet<>();
 
 
 
@@ -134,6 +135,8 @@ public class ShelvedModel {
     public void addBookToList(SimpleBook book, int position) {
         SimpleReadingList list = readingLists.get(position);
         list.addBook(book);
+        notifyListUpdatedListeners();
+        notifyBookAddedToListListeners(userID, book);
     }
 
     ///////////////// Shelf Listeners/ updaters /////////////////
@@ -180,6 +183,16 @@ public class ShelvedModel {
     private void notifyBookAddedListeners(int userID, SimpleBook book) {
         for (BookAddedListener listener:this.bookAddedListeners) {
             listener.bookAdded(userID, book);
+        }
+    }
+
+    public void addBookAddedToListListener(BookAddedToListListener newBookAddedToListListener) {
+        bookAddedToListListeners.add(newBookAddedToListListener);
+    }
+
+    public void notifyBookAddedToListListeners(int userID, SimpleBook book) {
+        for (BookAddedToListListener listener:this.bookAddedToListListeners) {
+            listener.bookAddedToList(userID, book);
         }
     }
 

@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.network.ResponseMessage;
-import edu.swarthmore.cs.cs71.shelved.network.ValidListAddedResponse;
 import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
