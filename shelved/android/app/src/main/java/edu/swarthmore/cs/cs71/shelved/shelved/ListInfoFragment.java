@@ -17,7 +17,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 public class ListInfoFragment extends ListFragment {
     private BookListAdapter bookListAdapter;
     private static final String TAG = "ListInfoFragment";
-    private ListView bookList;
+    private ListView readingList;
     private ImageButton addBook;
     private SimpleBook book;
 
@@ -30,9 +30,9 @@ public class ListInfoFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_single_list, container, false);
 
-        bookList = (ListView)view.findViewById(android.R.id.list);
-        //this.bookListAdapter = new BookListAdapter(getContext(), AppSingleton.getInstance(getContext()))
-        //booklist.setAdapter(bookListAdapter);
+        readingList = (ListView)view.findViewById(android.R.id.list);
+        this.bookListAdapter = new BookListAdapter(getContext(), AppSingleton.getInstance(getContext()).getModel(getContext()).getLists().get(0).getList());
+        readingList.setAdapter(bookListAdapter);
 
         addBook = (ImageButton)view.findViewById(R.id.add_book);
         Bundle argss = getArguments();
@@ -72,16 +72,16 @@ public class ListInfoFragment extends ListFragment {
         });
 
         //TODO: change tthis stuff once we have list stuff in shelf Model
-//        bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                book = (SimpleBook)adapterView.getItemAtPosition(position);
-//                //setFieldsFromBook(book, view);
-//                Log.d("AUTHOR IN SHELF FRAG", book.getAuthor().getAuthorName());
-//                android.support.v4.app.Fragment fragment = BookInfoFragment.newInstance(book);
-//                replaceFragment(fragment);
-//            }
-//        });
+        readingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                book = (SimpleBook)adapterView.getItemAtPosition(position);
+                //setFieldsFromBook(book, view);
+                Log.d("AUTHOR IN SHELF FRAG", book.getAuthor().getAuthorName());
+                android.support.v4.app.Fragment fragment = BookInfoFragment.newInstance(book);
+                replaceFragment(fragment);
+            }
+        });
     }
 
 

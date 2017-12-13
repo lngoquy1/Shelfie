@@ -8,6 +8,9 @@ import java.util.List;
 public class SimpleReadingList implements CreatedList {
     private String name = "Untitled";
     private boolean publicStatus = false;
+
+
+
     private List<SimpleBook> list = new ArrayList<>();
 
     public SimpleReadingList(String name, boolean publicStatus) {
@@ -25,6 +28,9 @@ public class SimpleReadingList implements CreatedList {
         return publicStatus;
     }
 
+    public List<SimpleBook> getList() {
+        return list;
+    }
 
     //setters
     public void resetName(String name) {
