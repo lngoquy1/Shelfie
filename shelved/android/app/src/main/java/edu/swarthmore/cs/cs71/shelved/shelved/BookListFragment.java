@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class BookListFragment extends Fragment {
     private GridView gridview;
     private ImageButton addList;
     private List<SimpleReadingList> readingLists;
+    private SimpleReadingList list;
     private BookInfo bookInfo = new BookInfo();
 
 
@@ -73,9 +75,19 @@ public class BookListFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+                list = (SimpleReadingList)adapterView.getItemAtPosition(i);
+                Fragment fragment = ListInfoFragment.newInstance(list, i);
+                replaceFragment(fragment);
+                //Toast.makeText(getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout_main, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private final int ROW_ITEMS = 1;

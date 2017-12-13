@@ -82,8 +82,8 @@ public class AppSingleton {
     private void addBookToListNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
         shelvedModel.addBookAddedToListListener(new BookAddedToListListener() {
             @Override
-            public void bookAddedToList(final int userID, final SimpleBook book) {
-                StringRequest strReq = new AddBookToListStringRequest(context, shelvedModel, userID, book);
+            public void bookAddedToList(final SimpleBook book) {
+                StringRequest strReq = new AddBookToListStringRequest(context, shelvedModel, book);
                 // Adding request to request queue
                 addToRequestQueue(strReq, "addBookToList");
             }

@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.BookAddedToListListener;
+
+import java.util.List;
 
 public class ListInfoFragment extends ListFragment {
     private BookListAdapter bookListAdapter;
@@ -22,14 +26,32 @@ public class ListInfoFragment extends ListFragment {
     private ImageButton addBook;
     private SimpleBook book;
     private SimpleReadingList list;
+    private String listName;
+    private boolean publicStatus;
+    private List<SimpleBook> books;
+    private int listPosition;
 
 
     //TODO: make bundle stuff like in book info fragment to pass list around
     //TODO: copy position stuff from shelffragment to listfragment
-    
-    public static ListInfoFragment newInstance(SimpleReadingList list) {
+
+    public static ListInfoFragment newInstance(SimpleReadingList list, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("listName", list.getName());
+        bundle.putBoolean("publicStatus", list.isPublicStatus());
+        bundle.putInt("position", position);
+//        bundle.put
+//        TODO: figure out how ot get books from list?
         ListInfoFragment fragment = new ListInfoFragment();
+
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public void setArguments(Bundle bundle) {
+        this.listName = bundle.getString("listName");
+        this.publicStatus = bundle.getBoolean("publicStatus");
+        this.listPosition = bundle.getInt("position");
     }
 
     @Override
@@ -37,7 +59,8 @@ public class ListInfoFragment extends ListFragment {
         View view = inflater.inflate(R.layout.fragment_single_list, container, false);
 
         readingList = (ListView)view.findViewById(android.R.id.list);
-        this.bookListAdapter = new BookListAdapter(getContext(), AppSingleton.getInstance(getContext()).getModel(getContext()).getLists().get(0).getList());
+        this.bookListAdapter = new BookListAdapter(getContext(),
+                AppSingleton.getInstance(getContext()).getModel(getContext()).getLists().get(listPosition).getList());
         readingList.setAdapter(bookListAdapter);
 
         addBook = (ImageButton)view.findViewById(R.id.add_book);
@@ -45,13 +68,14 @@ public class ListInfoFragment extends ListFragment {
 
         // notifies and tells GUI to redraw shelf when book list changes
         // TODO: chagne this to use updatelist stuff
-//        AppSingleton.getInstance(getContext()).getModel(getContext()).addShelfUpdatedListener(new ShelfUpdatedListener() {
+//        AppSingleton.getInstance(getContext()).getModel(getContext()).addBookAddedToListListener(new BookAddedToListListener() {
 //            @Override
-//            public void shelfUpdated() {
+//            public void bookAddedToList() {
 //                bookListAdapter.notifyDataSetChanged();
 //            }
 //        });
 
+        setFieldsFromList(view);
         return view;
     }
 
@@ -88,5 +112,10 @@ public class ListInfoFragment extends ListFragment {
                 replaceFragment(fragment);
             }
         });
+    }
+
+    public void setFieldsFromList(View view) {
+        TextView nameText = (TextView) view.findViewById(R.id.ListName);
+        nameText.setText(this.listName);
     }
 }

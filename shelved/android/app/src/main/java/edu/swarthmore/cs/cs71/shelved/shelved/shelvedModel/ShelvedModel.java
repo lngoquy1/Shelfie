@@ -192,7 +192,7 @@ public class ShelvedModel {
 
     public void notifyBookAddedToListListeners(int userID, SimpleBook book) {
         for (BookAddedToListListener listener:this.bookAddedToListListeners) {
-            listener.bookAddedToList(userID, book);
+            listener.bookAddedToList(book);
         }
     }
 

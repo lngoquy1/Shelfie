@@ -17,11 +17,10 @@ import java.util.Map;
 public class AddBookToListStringRequest extends StringRequest {
     private final ShelvedModel shelvedModel;
     private final SimpleBook book;
-    private int userID;
 
     private static final String TAG = "Add Book string request";
 
-    public AddBookToListStringRequest(final Context context, final ShelvedModel shelvedModel, int userID, SimpleBook book) {
+    public AddBookToListStringRequest(final Context context, final ShelvedModel shelvedModel, SimpleBook book) {
         super(Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.ADD_BOOK_TO_LIST),
                 new Response.Listener<String>() {
                     @Override
@@ -66,13 +65,11 @@ public class AddBookToListStringRequest extends StringRequest {
                 });
         this.shelvedModel = shelvedModel;
         this.book = book;
-        this.userID = userID;
     }
 
     @Override
     protected Map<String, String> getParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("userID", String.valueOf(this.userID));
         params.put("title", book.getTitle().getTitle());
         params.put("author", book.getAuthor().getAuthorName());
         return params;
