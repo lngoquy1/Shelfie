@@ -143,10 +143,13 @@ public class SearchFragment extends Fragment {
                     switch (CHOSEN) {
                         case ISBN:
                             AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), s, continuationISBN);
+                            break;
                         case TITLE:
                             AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(), s, "", continuationTitleAuthor);
+                            break;
                         case AUTHOR:
                             AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(),"", s, continuationTitleAuthor);
+                            break;
                     }
                 }
                 return false;

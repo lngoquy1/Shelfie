@@ -33,18 +33,11 @@ public class BookInfo {
         JSONObject jObj = getJsonObjectFromISBN(isbn);
         String html = getGoodreadsHTMLFromISBN(isbn);
 
-        try {
-            simpleBook.setTitle(getTitleFromISBN(jObj, html, isbn));
-        } catch (NotFoundException e) {
-            simpleBook.setTitle("");
-        }
+        simpleBook.setTitle(getTitleFromISBN(jObj, html, isbn));
+        //Purposefully throws a not found exception if there isn't a title
 
-        try {
-            simpleBook.setAuthor(getAuthorFromISBN(jObj, html, isbn));
-        } catch (NotFoundException e) {
-            simpleBook.setAuthor("");
-        }
-
+        simpleBook.setAuthor(getAuthorFromISBN(jObj, html, isbn));
+        //Purposefully throws a not found exception if there isn't an author
 
         try {
             simpleBook.setGenre(getGenreFromISBN(jObj, html, isbn));
@@ -110,7 +103,9 @@ public class BookInfo {
         try {
             List<String> isbnList = getISBNListFromTitleAndOrAuthor(title,author);
             for (String isbn:isbnList){
-                listOfBooks.add(populateSimpleBookFromISBN(isbn));
+                try {
+                    listOfBooks.add(populateSimpleBookFromISBN(isbn));
+                } catch (NotFoundException e){}
             }
         } catch (NotFoundException e) {
             return null;
