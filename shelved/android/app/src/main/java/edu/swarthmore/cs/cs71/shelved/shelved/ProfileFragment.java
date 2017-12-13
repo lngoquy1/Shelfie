@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,24 +74,39 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final View innerView = view;
                 PopupMenu popup = new PopupMenu(getContext(), view);
                 popup.getMenuInflater().inflate(R.menu.profile_popup_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getItemId() == R.id.edit_profile) {
-                            Intent i = new Intent(getContext(), LoginActivity.class);
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(getContext()
-                                    ,
+//                        MenuItem logout = (MenuItem)innerView.findViewById(R.id.logout);
+//
+//                        if (menuItem.getItemId()) {
+//                            Intent i = new Intent(getContext(), LoginActivity.class);
+//                            startActivity(i);
+//                        } else {
+//                            Toast.makeText(getContext()
+//                                    ,
+//                                    "You Clicked : " + menuItem.getTitle(),
+//                                    Toast.LENGTH_SHORT
+//                            ).show();
+//
+//                        }
+//                        return true;
+                        switch(menuItem.getItemId()) {
+                            case R.id.logout:
+                                Intent i = new Intent(getContext(), LoginActivity.class);
+                                startActivity(i);
+                                return true;
+                            default:
+                                Toast.makeText(getContext(),
                                     "You Clicked : " + menuItem.getTitle(),
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                                    Toast.LENGTH_SHORT).show();
+                                return true;
 
                         }
-                        return true;
                     }
                 });
                 popup.show();
