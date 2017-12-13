@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 
 public class ListInfoFragment extends ListFragment {
     private BookListAdapter bookListAdapter;
@@ -20,8 +21,13 @@ public class ListInfoFragment extends ListFragment {
     private ListView readingList;
     private ImageButton addBook;
     private SimpleBook book;
+    private SimpleReadingList list;
 
-    public static ListInfoFragment newInstance(String userID) {
+
+    //TODO: make bundle stuff like in book info fragment to pass list around
+    //TODO: copy position stuff from shelffragment to listfragment
+    
+    public static ListInfoFragment newInstance(SimpleReadingList list) {
         ListInfoFragment fragment = new ListInfoFragment();
         return fragment;
     }
@@ -83,6 +89,4 @@ public class ListInfoFragment extends ListFragment {
             }
         });
     }
-
-
 }
