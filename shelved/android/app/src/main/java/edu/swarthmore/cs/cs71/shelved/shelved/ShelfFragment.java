@@ -116,24 +116,4 @@ public class ShelfFragment extends ListFragment {
             }
         });
     }
-
-    public void setFieldsFromBook(SimpleBook book, View view) {
-        TextView title = (TextView) view.findViewById(R.id.book_title);
-        title.setText(book.getTitle().getTitle());
-
-        TextView author = (TextView) view.findViewById(R.id.book_author);
-        author.setText(book.getAuthor().getAuthorName());
-
-        TextView genre = (TextView) view.findViewById(R.id.book_genre);
-        genre.setText(book.getGenre().getGenre());
-
-        TextView publisher = (TextView) view.findViewById(R.id.book_publisher);
-        publisher.setText(book.getPublisher().getPublisher());
-
-        TextView pages = (TextView) view.findViewById(R.id.book_pages);
-        pages.setText(book.getPages());
-    }
-
-
-
 }

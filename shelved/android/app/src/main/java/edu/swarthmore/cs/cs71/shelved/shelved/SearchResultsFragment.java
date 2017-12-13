@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,18 +56,6 @@ public class SearchResultsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
-                BookInfoDialog dialog = new BookInfoDialog();
-                AlertDialog.Builder alert = dialog.newInstance(getContext(), book);
-                alert.show();
-            }
-        });
-
-
-
         books = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext()).getBooklist();
         this.searchListAdapter = new SearchListAdapter(getContext(), books);
 
@@ -78,6 +68,22 @@ public class SearchResultsFragment extends Fragment {
                 searchListAdapter.notifyDataSetChanged();
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
+                Log.d("book", book.getTitle().getTitle());
+                Fragment fragment = BookInfoFragment.newInstance(book);
+                replaceFragment(fragment);
+            }
+        });
+    }
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.search_results_view, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

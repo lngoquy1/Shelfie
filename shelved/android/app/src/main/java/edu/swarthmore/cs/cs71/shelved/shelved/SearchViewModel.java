@@ -40,7 +40,6 @@ public class SearchViewModel {
     }
 
 
-
     //////////// SCANNER STUFF ? :( //////////////
 
     public void addScan(String ISBN) {

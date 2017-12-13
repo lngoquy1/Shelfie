@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import org.w3c.dom.Text;
 
@@ -69,6 +70,9 @@ public class BookInfoFragment extends Fragment {
 
 //    public void setFieldsFromBook(SimpleBook book, View view) {
     public void setFieldsFromBook(View view) {
+        ImageView coverImage = (ImageView) view.findViewById(R.id.book_cover);
+        Ion.with(coverImage).placeholder(R.mipmap.logo).error(R.mipmap.logo).load(imageUrl);
+
         TextView titleText = (TextView) view.findViewById(R.id.book_title);
         //title.setText(book.getTitle().getTitle());
         titleText.setText(this.title);
@@ -79,14 +83,14 @@ public class BookInfoFragment extends Fragment {
 
         TextView genreText = (TextView) view.findViewById(R.id.book_genre);
 //        genre.setText(book.getGenre().getGenre());
-        //genreText.setText(this.genre);
+//        genreText.setText(this.genre);
 
         TextView publisherText = (TextView) view.findViewById(R.id.book_publisher);
 //        publisher.setText(book.getPublisher().getPublisher());
-        //publisherText.setText(this.publisher);
+//        publisherText.setText(this.publisher);
 
         TextView pagesText = (TextView) view.findViewById(R.id.book_pages);
 //        pages.setText(book.getPages());
-        //pagesText.setText(this.pages);
+//        pagesText.setText(this.pages);
     }
 }
