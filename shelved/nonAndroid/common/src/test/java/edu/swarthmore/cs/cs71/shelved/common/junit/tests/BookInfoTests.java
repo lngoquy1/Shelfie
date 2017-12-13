@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,33 +25,44 @@ public class BookInfoTests {
         JSONObject jObj1 = bookInfo.getJsonFromQueryGoogle("","",isbn1);
         JSONObject jObj2 = bookInfo.getJsonFromQueryGoogle("","",isbn2);
 
+        String goodreadsId = bookInfo.getGoodreadsId(isbn1);
+        URL url = new URL("https://www.goodreads.com/book/show/" + goodreadsId);
+        StringBuffer content = bookInfo.getHTMLContent(url);
+        String html1 = content.toString();
+
+        goodreadsId = bookInfo.getGoodreadsId(isbn2);
+        url = new URL("https://www.goodreads.com/book/show/" + goodreadsId);
+        content = bookInfo.getHTMLContent(url);
+        String html2 = content.toString();
+
+
         //TESTING TITLE
-        String title1 = bookInfo.getTitleFromISBN(jObj1,isbn1);
-        String title2 = bookInfo.getTitleFromISBN(jObj2,isbn2);
+        String title1 = bookInfo.getTitleFromISBN(jObj1,html1,isbn1);
+        String title2 = bookInfo.getTitleFromISBN(jObj2,html2,isbn2);
         Assert.assertEquals("(Un)arranged Marriage", title1);
         Assert.assertEquals("Breakfast with Socrates", title2);
 
         //TESTING AUTHOR
-        String author1 = bookInfo.getAuthorFromISBN(jObj1,isbn1);
-        String author2 = bookInfo.getAuthorFromISBN(jObj2,isbn2);
+        String author1 = bookInfo.getAuthorFromISBN(jObj1,html1,isbn1);
+        String author2 = bookInfo.getAuthorFromISBN(jObj2,html2,isbn2);
         Assert.assertEquals("Bali Rai", author1);
         Assert.assertEquals("Robert Rowland Smith", author2);
 
         //TESTING GENRE
-        String genre1 = bookInfo.getGenreFromISBN(jObj1,isbn1);
-        String genre2 = bookInfo.getGenreFromISBN(jObj2,isbn2);
+        String genre1 = bookInfo.getGenreFromISBN(jObj1,html1,isbn1);
+        String genre2 = bookInfo.getGenreFromISBN(jObj2,html2,isbn2);
         Assert.assertEquals("Arranged marriage", genre1);
         Assert.assertEquals("Philosophy", genre2);
 
         //TESTING PUBLISHER
-        String publisher1 = bookInfo.getPublisherFromISBN(jObj1,isbn1);
-        String publisher2 = bookInfo.getPublisherFromISBN(jObj2,isbn2);
+        String publisher1 = bookInfo.getPublisherFromISBN(jObj1,html1,isbn1);
+        String publisher2 = bookInfo.getPublisherFromISBN(jObj2,html2,isbn2);
         Assert.assertEquals("Transworld Publishers", publisher1);
         Assert.assertEquals("Simon and Schuster", publisher2);
 
         //TESTING PAGES
-        int pages1 = bookInfo.getNumPagesFromISBN(jObj1,isbn1);
-        int pages2 = bookInfo.getNumPagesFromISBN(jObj2,isbn2);
+        int pages1 = bookInfo.getNumPagesFromISBN(jObj1,html1,isbn1);
+        int pages2 = bookInfo.getNumPagesFromISBN(jObj2,html2,isbn2);
         Assert.assertEquals(271, pages1);
         Assert.assertEquals(256, pages2);
     }
@@ -126,22 +138,20 @@ public class BookInfoTests {
 
     }
 
-    public void compareBooks(SimpleBook one, SimpleBook two){
-        Assert.assertEquals(one.getTitle().getTitle(), two.getTitle().getTitle());
-        Assert.assertEquals(one.getAuthor().getAuthorName(), two.getAuthor().getAuthorName());
-        Assert.assertEquals(one.getGenre().getGenre(), two.getGenre().getGenre());
-        Assert.assertEquals(one.getPublisher().getPublisher(), two.getPublisher().getPublisher());
-        Assert.assertEquals(one.getPages(), two.getPages());
-    }
+//    public void compareBooks(SimpleBook one, SimpleBook two){
+//        Assert.assertEquals(one.getTitle().getTitle(), two.getTitle().getTitle());
+//        Assert.assertEquals(one.getAuthor().getAuthorName(), two.getAuthor().getAuthorName());
+//        Assert.assertEquals(one.getGenre().getGenre(), two.getGenre().getGenre());
+//        Assert.assertEquals(one.getPublisher().getPublisher(), two.getPublisher().getPublisher());
+//        Assert.assertEquals(one.getPages(), two.getPages());
+//    }
 
     @Test
     public void testGoodreadsFieldsFromISBN() throws IOException, NotFoundException, XPathExpressionException, ParserConfigurationException, SAXException, EmptyQueryException {
         BookInfo bookInfo = new BookInfo();
-        String isbn = "0152047387";
-        String author = bookInfo.getAuthorFromISBNGoodreads(isbn);
-        int numPages = bookInfo.getNumPagesFromISBNGoodreads(isbn);
-        Assert.assertEquals("Diane Duane", author);
-        Assert.assertEquals(323, numPages);
+        String isbn = "0786838655";
+        SimpleBook percyJackson = bookInfo.populateSimpleBookFromISBN(isbn);
+        bookInfo.printBookInfo(percyJackson);
     }
 
     @Test
