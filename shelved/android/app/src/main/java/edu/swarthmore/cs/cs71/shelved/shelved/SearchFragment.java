@@ -131,9 +131,10 @@ public class SearchFragment extends Fragment {
                         SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         for (SimpleBook book:books){
-                            searchViewModel.getBooklist().add(book);
+                            searchViewModel.addBook(book);
+                            //searchViewModel.getBooklist().add(book);
                         }
-                        searchViewModel.notifySearchViewModelListeners();
+                        //searchViewModel.notifySearchViewModelListeners();
                     }
                 };
                 if (CHOSEN == 0) {
@@ -148,13 +149,11 @@ public class SearchFragment extends Fragment {
                             AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(),"", s, continuationTitleAuthor);
                     }
                 }
-                Log.d("SearchFragment", "submit text: " + CHOSEN);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d("SearchFragment", "change text");
                 return false;
             }
         });

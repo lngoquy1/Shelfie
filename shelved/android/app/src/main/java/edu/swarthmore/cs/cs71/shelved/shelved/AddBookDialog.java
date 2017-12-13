@@ -31,9 +31,11 @@ public class AddBookDialog extends AlertDialog.Builder {
         titleBox.setHint("Title");
         layout.addView(titleBox);
 
+
         final EditText authorBox = new EditText(context);
         authorBox.setHint("Author");
         layout.addView(authorBox);
+
 
         this.setView(layout);
 
