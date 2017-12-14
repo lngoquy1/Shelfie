@@ -1,6 +1,10 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,14 +14,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.*;
 import com.facebook.login.Login;
+import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
+import org.w3c.dom.Text;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
     private ImageButton settingsBtn;
+    private SimpleUser user;
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
@@ -81,23 +85,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-//                        MenuItem logout = (MenuItem)innerView.findViewById(R.id.logout);
-//
-//                        if (menuItem.getItemId()) {
-//                            Intent i = new Intent(getContext(), LoginActivity.class);
-//                            startActivity(i);
-//                        } else {
-//                            Toast.makeText(getContext()
-//                                    ,
-//                                    "You Clicked : " + menuItem.getTitle(),
-//                                    Toast.LENGTH_SHORT
-//                            ).show();
-//
-//                        }
-//                        return true;
                         switch(menuItem.getItemId()) {
+                            case R.id.edit_profile_button:
+                                EditProfileDialog dialog = new EditProfileDialog(getContext());
+                                dialog.show();
+                                return true;
                             case R.id.logout:
                                 Intent i = new Intent(getContext(), LoginActivity.class);
+                                final ProgressDialog progressDialog = new ProgressDialog(getContext(),
+                                        R.style.AppTheme_Dark_Dialog);
+                                progressDialog.setIndeterminate(true);
+                                progressDialog.setMessage("Logging out...");
+                                progressDialog.show();
                                 startActivity(i);
                                 return true;
                             default:

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class BookListAdapter extends ArrayAdapter<SimpleBook> {
         ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
         title.setText(book.getTitle().getTitle());
         author.setText(book.getAuthor().getAuthorName());
-        cover.setImageResource(R.mipmap.logo);
+        Ion.with(cover).error(R.mipmap.logo).load(book.getImageUrl());
         return convertView;
     }
 }

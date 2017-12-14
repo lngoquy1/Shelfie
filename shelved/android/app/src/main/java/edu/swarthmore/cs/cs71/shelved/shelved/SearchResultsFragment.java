@@ -79,6 +79,7 @@ public class SearchResultsFragment extends Fragment {
             }
         });
     }
+
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.search_results_view, someFragment);
