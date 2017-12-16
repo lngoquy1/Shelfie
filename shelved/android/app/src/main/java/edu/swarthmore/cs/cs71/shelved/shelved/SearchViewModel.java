@@ -21,6 +21,7 @@ public class SearchViewModel {
     }
 
     public List<SimpleBook> getBooklist() {
+        //notifySearchViewModelListeners();
         return books;
     }
 

@@ -61,6 +61,7 @@ public class AppSingleton {
     public SearchViewModel getSearchViewModel(Context context) {
         if (searchViewModel == null) {
             searchViewModel = new SearchViewModel();
+
         }
         return searchViewModel;
     }
