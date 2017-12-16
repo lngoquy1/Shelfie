@@ -44,5 +44,13 @@
             android:layout_height="wrap_content" android:layout_below="@+id/book_publisher"
             android:layout_alignStart="@+id/book_publisher" android:layout_marginTop="5dp" android:id="@+id/book_pages"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+    <ImageButton
+            android:id="@+id/add_book"
+            android:contentDescription="add book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_black_24dp"
+            android:onClick="showPopup"
+            android:layout_below="@+id/linearLayout3" android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
