@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
+import org.w3c.dom.Text;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -20,6 +23,10 @@ public class CameraFragment extends Fragment {
     private TextView _ISBN;
     private TextView _Author;
     private TextView _Title;
+    private TextView _Genre;
+    private TextView _Publisher;
+    private TextView _Pages;
+    private ImageView _Cover;
     private Button _AddBook;
     private SimpleBook foundBook;
     private static final String TAG = "CameraFragment";
@@ -44,6 +51,10 @@ public class CameraFragment extends Fragment {
         _ISBN = (TextView) rootView.findViewById(R.id.ISBN);
         _Author = (TextView) rootView.findViewById(R.id.Author);
         _Title = (TextView) rootView.findViewById(R.id.Title);
+        _Genre = (TextView) rootView.findViewById(R.id.Genre);
+        _Publisher = (TextView) rootView.findViewById(R.id.Publisher);
+        _Pages = (TextView) rootView.findViewById(R.id.Pages);
+        _Cover = (ImageView) rootView.findViewById(R.id.Cover);
         _AddBook = (Button) rootView.findViewById(R.id.add_book_button);
 
         Intent intent = new Intent(context, ScannerActivity.class);
@@ -62,7 +73,8 @@ public class CameraFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 // The user picked a contact.
                 String ISBN = ScannerActivity.getISBN();
-                _ISBN.setText(ISBN);
+                String ISBNText = "ISBN: " + ISBN;
+                _ISBN.setText(ISBNText);
 
                 AppSingleton.getInstance(getContext()).getModel(getContext()).searchByISBN(getContext(), ISBN,
                         new Continuation<SimpleBook>() {
@@ -70,6 +82,13 @@ public class CameraFragment extends Fragment {
                             public void run(SimpleBook book) {
                                 _Author.setText(book.getAuthor().getAuthorName());
                                 _Title.setText(book.getTitle().getTitle());
+                                String genreText = "Genre: " + book.getGenre().getGenre();
+                                _Genre.setText(genreText);
+                                String pubText = "Publisher: " + book.getPublisher().getPublisher();
+                                _Publisher.setText(pubText);
+                                String pageText = "Pages: " + Integer.toString(book.getPages());
+                                _Pages.setText(pageText);
+                                Ion.with(_Cover).placeholder(R.mipmap.logo).error(R.mipmap.logo).load(book.getImageUrl());
                                 foundBook = book;
                             }
                         }

@@ -31,7 +31,7 @@ public class BookListAdapter extends ArrayAdapter<SimpleBook> {
         ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
         title.setText(book.getTitle().getTitle());
         author.setText(book.getAuthor().getAuthorName());
-        Ion.with(cover).error(R.mipmap.logo).load(book.getImageUrl());
+        Ion.with(cover).placeholder(R.mipmap.logo).error(R.mipmap.logo).load(book.getImageUrl());
         return convertView;
     }
 }
