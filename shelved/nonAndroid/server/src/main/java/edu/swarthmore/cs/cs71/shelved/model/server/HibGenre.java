@@ -15,10 +15,10 @@ public class HibGenre implements Genre {
     @Column(name="genreName")
     private String genre;
 
-    private HibGenre()
-    {
+    private HibGenre() {
 
     }
+
     public HibGenre(String genre) {
         this.genre = genre;
     }

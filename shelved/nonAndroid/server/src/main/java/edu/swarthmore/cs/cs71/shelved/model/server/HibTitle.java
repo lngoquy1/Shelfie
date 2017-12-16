@@ -19,7 +19,6 @@ public class HibTitle implements Title {
 
     }
 
-
     public HibTitle(String title) {
         this.title = title;
     }

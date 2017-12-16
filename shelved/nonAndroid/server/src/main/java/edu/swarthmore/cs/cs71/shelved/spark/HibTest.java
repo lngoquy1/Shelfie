@@ -1,10 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.spark;
 
 
-import edu.swarthmore.cs.cs71.shelved.model.server.HibAuthor;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibBook;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibGenre;
-import edu.swarthmore.cs.cs71.shelved.model.server.HibTitle;
+import edu.swarthmore.cs.cs71.shelved.model.server.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,6 +25,11 @@ public class HibTest {
         // Test title
         HibTitle title = new HibTitle("Harry Potter and the Deathly Hallows");
         session.save(title);
+
+        // Test ISBN
+        HibISBN isbn = new HibISBN("0545010225");
+        session.save(isbn);
+
 
         // Test book
         HibBook book = new HibBook();

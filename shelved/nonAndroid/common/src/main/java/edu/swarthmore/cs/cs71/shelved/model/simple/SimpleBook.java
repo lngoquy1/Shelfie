@@ -12,7 +12,9 @@ public class SimpleBook implements Book {
     private SimpleTitle title;
     private int pages;
     private SimplePublisher publisher;
+    private SimpleISBN isbn;
     private String imageUrl;
+
     public SimpleBook(){
 
     }
@@ -39,6 +41,9 @@ public class SimpleBook implements Book {
     }
 
     @Override
+    public void setISBN(String isbn) { this.isbn = new SimpleISBN(isbn);}
+
+    @Override
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
@@ -62,6 +67,8 @@ public class SimpleBook implements Book {
     public SimplePublisher getPublisher() {
         return publisher;
     }
+
+    public SimpleISBN getISBN() { return isbn; }
 
     public String getImageUrl() {
         return imageUrl;

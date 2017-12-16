@@ -131,6 +131,8 @@ public class SearchFragment extends Fragment {
                         SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         for (SimpleBook book:books){
+                            Log.d("Book:",book.getTitle().getTitle());
+                            Log.d("isbn:",book.getISBN().getISBN());
                             searchViewModel.addBook(book);
                             //searchViewModel.getBooklist().add(book);
                         }

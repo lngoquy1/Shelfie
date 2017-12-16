@@ -13,6 +13,8 @@ import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class BookInfoFragment extends Fragment {
     //private static SimpleBook book;
     private String title;
@@ -21,7 +23,6 @@ public class BookInfoFragment extends Fragment {
     private String publisher;
     private String imageUrl;
     private int pages;
-    private ImageView cover;
     private ImageButton addBook;
 
     public static BookInfoFragment newInstance(SimpleBook simpleBook) {
@@ -68,6 +69,21 @@ public class BookInfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //do a string request for rec books
+        Continuation<List<SimpleBook>> continuationRecs = new Continuation<List<SimpleBook>>() {
+            @Override
+            public void run(List<SimpleBook> books) {
+                //TODO it should have a similar format to what's below, but not exactly because this old code is dealing with search view fragment.
+//                SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+//                searchViewModel.clearBooks();
+                for (SimpleBook book : books) {
+                   Log.d("Rec books",book.getTitle().getTitle());
+//                    Log.d("Book:", book.getTitle().getTitle());
+//                    searchViewModel.addBook(book);
+                }
+            }
+        };
+        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),"0545010225", continuationRecs); //TODO FIX ISBN
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +92,7 @@ public class BookInfoFragment extends Fragment {
                 //AddBookDialog alert = new AddBookDialog(getContext());
                 Log.d("Book info fragment", "show add book dialog");
                 Log.d("Book info fragment", "called newInstance");
+
                 //alert.show();
             }
         });

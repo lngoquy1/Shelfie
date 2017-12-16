@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GetBookFromTitleAuthorRequest extends StringRequest{
-    private static final String TAG = "Add scan string request";
+    private static final String TAG = "Add title/auth request";
     private String title;
     private String author;
 

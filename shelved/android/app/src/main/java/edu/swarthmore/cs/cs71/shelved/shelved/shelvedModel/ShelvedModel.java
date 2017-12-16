@@ -231,10 +231,15 @@ public class ShelvedModel {
         AppSingleton.getInstance(context).addToRequestQueue(strReq, "addSearchByISBN");
         Log.d("testing","Finished adding to queue");
     }
-    // TODO: Once Nicki's change BookInfo to return  list of results, change Continuation<List<SimpleBook>>
     public void searchByTitleAuthor(final Context context, String title, String author, Continuation<List<SimpleBook>> continuation){
         StringRequest strReq = new GetBookFromTitleAuthorRequest(context, title, author, continuation);
         AppSingleton.getInstance(context).addToRequestQueue(strReq, "searchByTitle");
     }
+
+    public void getRecs(final Context context, String isbn, Continuation<List<SimpleBook>> continuation){
+        StringRequest strReq = new GetBookRecsFromISBNRequest(context, isbn, continuation);
+        AppSingleton.getInstance(context).addToRequestQueue(strReq, "getRecBooks");
+    }
+
 }
 

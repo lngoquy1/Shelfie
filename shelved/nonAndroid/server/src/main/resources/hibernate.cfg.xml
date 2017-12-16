@@ -29,6 +29,7 @@
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibAuthor"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibGenre"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibTitle"/>
+        <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibISBN"/>
         <mapping class="edu.swarthmore.cs.cs71.shelved.model.server.HibEmail"/>
         <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibUser"/>
         <mapping class ="edu.swarthmore.cs.cs71.shelved.model.server.HibBookShelf"/>

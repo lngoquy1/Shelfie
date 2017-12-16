@@ -13,6 +13,7 @@ public class ShelvedUrls {
         GET_BOOK_LIST("/updateBook"),
         SEARCH_ISBN("/searchByISBN"),
         SEARCH_TITLE_AUTHOR("/searchByTitleAuthor"),
+        GET_REC_BOOKS("/getRecBooks"),
         ADD_LIST("/addList"),
         GET_LISTS("/updateList"),
         ADD_BOOK_TO_LIST("/addBookToList"),

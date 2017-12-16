@@ -35,7 +35,9 @@ public class GsonUtils {
                 .registerSubtype(ValidReadingListsUpdateResponse.class, "validReadingListsUpdateResponse")
                 .registerSubtype(InvalidReadingListsUpdatedResponse.class, "invalidReadingListUpdatedResponse")
                 .registerSubtype(ValidBookAddedToListResponse.class, "validBookAddedToListResponse")
-                .registerSubtype(InvalidBookAddedToListResponse.class, "invalidBookAddedToReadingListResponse");
+                .registerSubtype(InvalidBookAddedToListResponse.class, "invalidBookAddedToReadingListResponse")
+                .registerSubtype(ValidRecBookResponse.class, "validRecBookResponse")
+                .registerSubtype(InvalidRecBookResponse.class, "invalidRecBookResponse");
 
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         System.out.println("CREATING GSON");

@@ -26,6 +26,11 @@ public class HibBook implements Book {
     @JoinTable(name = "book_title", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "title_id") })
     private HibTitle title;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = HibISBN.class)
+    @JoinTable(name = "book_isbn", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "isbn_id") })
+    private HibISBN isbn;
+
+
     @Column(name="pages")
     private int pages;
 
@@ -63,6 +68,10 @@ public class HibBook implements Book {
     public void setPublisher(String publisher) {
         this.publisher = new HibPublisher(publisher);
     }
+
+    @Override
+    public void setISBN(String isbn) {this.isbn = new HibISBN(isbn);}
+
     @Override
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -79,6 +88,10 @@ public class HibBook implements Book {
 
     public HibTitle getTitle() {
         return this.title;
+    }
+
+    public HibISBN getISBN() {
+        return this.isbn;
     }
 
     public int getId() {

@@ -24,6 +24,7 @@ import java.util.List;
 
 public class BookInfo {
     private final String GOODREADS_KEY = "VCtvMQ3iSjQaSHPXlhGZQA";
+    private final int MAX_BOOKS = 20;
 
     public BookInfo() {}
 
@@ -38,6 +39,8 @@ public class BookInfo {
 
         simpleBook.setAuthor(getAuthorFromISBN(jObj, html, isbn));
         //Purposefully throws a not found exception if there isn't an author
+
+        simpleBook.setISBN(isbn);
 
         try {
             simpleBook.setGenre(getGenreFromISBN(jObj, html, isbn));
@@ -462,6 +465,7 @@ public class BookInfo {
         }
         String urlString = uriBuilder.toString();
         urlString+="&key="+apiKey;
+        System.out.println(urlString);
         URL url = new URL(urlString);
         StringBuffer content = getHTMLContent(url);
         JSONObject jObj = new JSONObject(content.toString());
@@ -533,15 +537,15 @@ public class BookInfo {
         List<String> ISBNList= new ArrayList<>();
         JSONArray allContent = jObj.getJSONArray("items");
         int numISBNs = allContent.length();
-        if (numISBNs>3){
-            numISBNs=3;
+        if (numISBNs>MAX_BOOKS){
+            numISBNs=MAX_BOOKS;
         }
         for (int i=0;i<numISBNs;i++){
             try {
                 ISBNList.add(allContent.getJSONObject(i).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier"));
             } catch (JSONException e){
                 System.out.println(e);
-                numISBNs+=1;
+                i+=1;
             }
         }
         return ISBNList;
