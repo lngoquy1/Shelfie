@@ -76,7 +76,7 @@ public class ShelvedModel {
     };
 
 
-    public void logIn(Context context, final Continuation<LoginInfo> success,
+    public void logIn(final Context context, final Continuation<LoginInfo> success,
                       final Continuation<String> failure, String email, String password){
         Log.d("in Log in", "local success ...");
         Continuation<LoginInfo> localSuccess = new Continuation<LoginInfo>() {
@@ -85,6 +85,9 @@ public class ShelvedModel {
                 ShelvedModel.token = info.getToken();
                 success.run(info);
                 Log.d("getting token: ", ShelvedModel.token);
+                // Updating the user's book list
+//                GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, ShelvedModel.this);
+//                AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
                 notifyLogInSuccessListener();
             }
         };

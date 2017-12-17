@@ -53,12 +53,14 @@ public class Server {
             user1.setName("Lan");
             user1.setSalt();
             user1.setPassword("aaaa123");
+            user1.addBook(book);
             HibBook book2 = new HibBook();
             book2.setAuthor("JK Rowling");
             book2.setGenre("Fiction");
             book2.setTitle("Harry Potter");
             book2.setPages(300);
             book2.setPublisher("Bloomsbury");
+            user1.addBook(book2);
 
             HibBookShelf bookShelf = new HibBookShelf();
             HibRowShelf rowShelf = new HibRowShelf();

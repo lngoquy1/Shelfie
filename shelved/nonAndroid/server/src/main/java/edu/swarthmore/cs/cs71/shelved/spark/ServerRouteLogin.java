@@ -31,7 +31,6 @@ public class ServerRouteLogin extends ServerRoute{
         } else {
             // Now set a login token
             HibUser user = service.getUserByID(getSf(), result);
-            service.setUserLoginToken(user);
             return new ValidLoginUserResponse(result, user.getToken());
         }
 

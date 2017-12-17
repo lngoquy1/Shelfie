@@ -253,3 +253,6 @@ In general, these classes describe how the server interacts with hibernate/mysql
 
 ## Created on 2017-12-14
 - EditProfileDialog allows user to edit profile fields like name, bio, location
+
+## Created on 2017-12/17
+- Created progress dialog to appear when a user submits a search query

@@ -11,9 +11,7 @@ import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInAttemptListener;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LogInSuccessListener;
-import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.LoginInfo;
+import edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel.*;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -89,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run(LoginInfo loginInfo) {
                 AppSingleton.getInstance(getApplicationContext()).hideDialog(progressDialog);
+
             }
         };
         final Continuation<String> failure = new Continuation<String>() {

@@ -19,7 +19,7 @@ public class ServerRouteUpdateBookList extends ServerRoute{
     @Override
     protected ResponseMessage execute(Request request, Response response) {
         HibBookService service = new HibBookService();
-        List<SimpleBook> simpleBooks = service.getAllBooks(getSf());
+        List<SimpleBook> simpleBooks = service.getAllBooks(getSf(), request.queryParams("userID"));
         return new ValidBookListUpdateResponse(simpleBooks);
     }
 }
