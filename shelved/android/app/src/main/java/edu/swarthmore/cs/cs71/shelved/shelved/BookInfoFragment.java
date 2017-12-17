@@ -13,10 +13,11 @@ import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookInfoFragment extends Fragment {
-    //private static SimpleBook book;
+    private String isbn;
     private String title;
     private String author;
     private String genre;
@@ -24,6 +25,11 @@ public class BookInfoFragment extends Fragment {
     private String imageUrl;
     private int pages;
     private ImageButton addBook;
+
+    List<SimpleBook> recommendedBooks;
+
+    ListView recList;
+    private BookListAdapter bookListAdapter;
 
     public static BookInfoFragment newInstance(SimpleBook simpleBook) {
         Log.d("AUTHOR IN INFO FRAG", simpleBook.getAuthor().getAuthorName());
@@ -34,6 +40,7 @@ public class BookInfoFragment extends Fragment {
         bundle.putString("image_url", simpleBook.getImageUrl());
         bundle.putString("publisher", simpleBook.getPublisher().getPublisher());
         bundle.putInt("pages", simpleBook.getPages());
+        bundle.putString("isbn", simpleBook.getISBN().getISBN());
 
         BookInfoFragment fragment = new BookInfoFragment();
         fragment.setArguments(bundle);
@@ -49,6 +56,7 @@ public class BookInfoFragment extends Fragment {
         this.publisher = bundle.getString("publisher");
         this.imageUrl = bundle.getString("image_url");
         this.pages = bundle.getInt("pages");
+        this.isbn = bundle.getString("isbn");
     }
 
     @Override
@@ -63,6 +71,9 @@ public class BookInfoFragment extends Fragment {
         //Log.d("BOOK INFO", book.getAuthor().getAuthorName());
         addBook = (ImageButton)rootView.findViewById(R.id.add_book);
         setFieldsFromBook(rootView);
+
+        recList = (ListView) rootView.findViewById(android.R.id.list);
+
         return rootView;
     }
 
@@ -74,16 +85,13 @@ public class BookInfoFragment extends Fragment {
             @Override
             public void run(List<SimpleBook> books) {
                 //TODO it should have a similar format to what's below, but not exactly because this old code is dealing with search view fragment.
-//                SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
-//                searchViewModel.clearBooks();
-                for (SimpleBook book : books) {
-                   Log.d("Rec books",book.getTitle().getTitle());
-//                    Log.d("Book:", book.getTitle().getTitle());
-//                    searchViewModel.addBook(book);
-                }
+                recommendedBooks = books;
             }
         };
-        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),"0545010225", continuationRecs); //TODO FIX ISBN
+
+        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs); //TODO FIX ISBN
+        this.bookListAdapter = new BookListAdapter(getContext(), recommendedBooks);
+        recList.setAdapter(bookListAdapter);
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,32 +106,30 @@ public class BookInfoFragment extends Fragment {
         });
     }
 
-//    public void setFieldsFromBook(SimpleBook book, View view) {
     public void setFieldsFromBook(View view) {
         ImageView coverImage = (ImageView) view.findViewById(R.id.book_cover);
         Ion.with(coverImage).placeholder(R.mipmap.logo).error(R.mipmap.logo).load(imageUrl);
 
         TextView titleText = (TextView) view.findViewById(R.id.book_title);
-        //title.setText(book.getTitle().getTitle());
         titleText.setText(this.title);
 
         TextView authorText = (TextView) view.findViewById(R.id.book_author);
-//        author.setText(book.getAuthor().getAuthorName());
         authorText.setText(this.author);
 
         TextView genreText = (TextView) view.findViewById(R.id.book_genre);
-//        genre.setText(book.getGenre().getGenre());
         String genreDisplayText = "Genre: " + this.genre;
         genreText.setText(genreDisplayText);
 
         TextView publisherText = (TextView) view.findViewById(R.id.book_publisher);
-//        publisher.setText(book.getPublisher().getPublisher());
         String pubDisplayText = "Publisher: " + this.publisher;
         publisherText.setText(pubDisplayText);
 
         TextView pagesText = (TextView) view.findViewById(R.id.book_pages);
-//        pages.setText(book.getPages());
         String pageDisplayText = "Pages: " + Integer.toString(this.pages);
         pagesText.setText(pageDisplayText);
+
+        TextView isbnText = (TextView) view.findViewById(R.id.book_isbn);
+        String isbnDisplayText = "ISBN: " + this.isbn;
+        isbnText.setText(isbnDisplayText);
     }
 }
