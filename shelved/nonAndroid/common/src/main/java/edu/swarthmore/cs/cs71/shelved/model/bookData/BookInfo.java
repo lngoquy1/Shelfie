@@ -24,7 +24,10 @@ import java.util.List;
 
 public class BookInfo {
     private final String GOODREADS_KEY = "VCtvMQ3iSjQaSHPXlhGZQA";
+    private final String GOOGLE_KEY = "AIzaSyAhOYmtyu0DYSipcoZzoeYjomVqYBQjHJQ";
+    private final String GOOGLE_KEY_2 = "AIzaSyAjhcw1HxBoBsw19IE4CGN8NxMxiaxZ-Po";
     private final int MAX_BOOKS = 20;
+    private final int MAX_NUM_RECS = 6;
 
     public BookInfo() {}
 
@@ -176,19 +179,23 @@ public class BookInfo {
         URL url = new URL("https://www.goodreads.com/book/similar/"+workId);
         StringBuffer content = getHTMLContent(url);
         String html = content.toString();
-        List<Integer> begIndexListTitle = getIndexBegList(html,"'name'>");
-        List<Integer> begIndexListAuthor = getIndexBegList(html,"itemprop=\"name\">");
-        List<Integer> endIndexListTitle = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>");
+        List<Integer> begIndexListTitle = getIndexBegList(html,"'name'>", MAX_NUM_RECS);
+        List<Integer> begIndexListAuthor = getIndexBegList(html,"itemprop=\"name\">", MAX_NUM_RECS);
+        List<Integer> endIndexListTitle = getIndecesEndList(html, "</span></a>      <br/>        <span class=\'by smallText\'>", MAX_NUM_RECS);
         List<Integer> endIndexListAuthor = new ArrayList<Integer>();
         endIndexListAuthor.addAll(getIndecesEndList(html, "</span></a></span>"));
         endIndexListAuthor.addAll(getIndecesEndList(html, "</span></a> <"));
         Collections.sort(endIndexListAuthor);
         List<SimpleBook> BookList = new ArrayList<>();
-        for (int i=1;i<begIndexListTitle.size();i++){
+        int numRecs = begIndexListTitle.size();
+        if (begIndexListTitle.size()>MAX_NUM_RECS){
+            numRecs = MAX_NUM_RECS;
+        }
+        for (int i=1;i<numRecs;i++){
             String title = html.substring(begIndexListTitle.get(i), endIndexListTitle.get(i));
             String author = html.substring(begIndexListAuthor.get(i), endIndexListAuthor.get(i));
             SimpleBook simpleBook = populateSimpleBookFromTitleAndOrAuthor(title, author);
-            if (simpleBook != null && BookList.size()<6){
+            if (simpleBook != null){
                 BookList.add(simpleBook);
             }
         }
@@ -303,35 +310,35 @@ public class BookInfo {
 
 
 
-    private List<String> getAllPossibleBookURLs(String query) throws IOException {
-        URIBuilder uriBuilder = new URIBuilder()
-                .setScheme("https")
-                .setHost("www.goodreads.com")
-                .setPath("/search");
-        uriBuilder.addParameter("q", query);
-        URL url = new URL(uriBuilder.toString());
-        String html = getHTMLContent(url).toString();
-        List<Integer> begIndexList = getIndexBegList(html,"<a title=");
-        List<Integer> extraEndIndexList = getIndecesEndList(html, "<img alt=\"");
-        List<Integer> endIndexList = new ArrayList<>();
-
-        for (Integer index:extraEndIndexList) {
-            String substr = html.substring(index+("<img alt=").length());
-            substr = substr.substring(1,("saving".length()+1));
-            if (!substr.equals("saving")){
-                endIndexList.add(index);
-            }
-        }
-        List<String> suggWebLinkList = new ArrayList<>();
-        for (int i=0;i<begIndexList.size();i++){
-            String longHTMLParse = html.substring(begIndexList.get(i), endIndexList.get(i));
-            int index = longHTMLParse.indexOf("href=\"");
-            String suggWebLink = "https://www.goodreads.com" + longHTMLParse.substring(index+("href=\"").length(),longHTMLParse.length()-12);
-            suggWebLinkList.add(suggWebLink);
-        }
-        return suggWebLinkList;
-
-    }
+//    private List<String> getAllPossibleBookURLs(String query) throws IOException {
+//        URIBuilder uriBuilder = new URIBuilder()
+//                .setScheme("https")
+//                .setHost("www.goodreads.com")
+//                .setPath("/search");
+//        uriBuilder.addParameter("q", query);
+//        URL url = new URL(uriBuilder.toString());
+//        String html = getHTMLContent(url).toString();
+//        List<Integer> begIndexList = getIndexBegList(html,"<a title=");
+//        List<Integer> extraEndIndexList = getIndecesEndList(html, "<img alt=\"");
+//        List<Integer> endIndexList = new ArrayList<>();
+//
+//        for (Integer index:extraEndIndexList) {
+//            String substr = html.substring(index+("<img alt=").length());
+//            substr = substr.substring(1,("saving".length()+1));
+//            if (!substr.equals("saving")){
+//                endIndexList.add(index);
+//            }
+//        }
+//        List<String> suggWebLinkList = new ArrayList<>();
+//        for (int i=0;i<begIndexList.size();i++){
+//            String longHTMLParse = html.substring(begIndexList.get(i), endIndexList.get(i));
+//            int index = longHTMLParse.indexOf("href=\"");
+//            String suggWebLink = "https://www.goodreads.com" + longHTMLParse.substring(index+("href=\"").length(),longHTMLParse.length()-12);
+//            suggWebLinkList.add(suggWebLink);
+//        }
+//        return suggWebLinkList;
+//
+//    }
 
 
 
@@ -397,17 +404,17 @@ public class BookInfo {
     }
 
 
-    public List<String> getISBNFromTitleAuthorGoodreads(String title, String author) throws IOException {
-        List<String> urlList = getAllPossibleBookURLs(title + " " + author);
-        List<String> isbnList = new ArrayList<>();
-        for (String url:urlList){
-            String isbn = getISBN(url);
-            if (isbn.length()>0){
-                isbnList.add(isbn);
-            }
-        }
-        return isbnList;
-    }
+//    public List<String> getISBNFromTitleAuthorGoodreads(String title, String author) throws IOException {
+//        List<String> urlList = getAllPossibleBookURLs(title + " " + author);
+//        List<String> isbnList = new ArrayList<>();
+//        for (String url:urlList){
+//            String isbn = getISBN(url);
+//            if (isbn.length()>0){
+//                isbnList.add(isbn);
+//            }
+//        }
+//        return isbnList;
+//    }
 
 
 
@@ -440,7 +447,6 @@ public class BookInfo {
     //    https://www.googleapis.com/books/v1/volumes?q=intitle:so%20you%20want%20to%20be%20a%20wizard
     //GOOGLEAPIS Section
     public JSONObject getJsonFromQueryGoogle(String title, String author, String ISBN) throws IOException, EmptyQueryException, NotFoundException {
-        String apiKey = "AIzaSyAhOYmtyu0DYSipcoZzoeYjomVqYBQjHJQ";
         //takes a title, author, title and author, or isbn
         if (title.isEmpty() && author.isEmpty() && ISBN.isEmpty()){
             throw new EmptyQueryException("No search terms entered");
@@ -464,7 +470,7 @@ public class BookInfo {
             }
         }
         String urlString = uriBuilder.toString();
-        urlString+="&key="+apiKey;
+        urlString+="&key="+GOOGLE_KEY;
         System.out.println(urlString);
         URL url = new URL(urlString);
         StringBuffer content = getHTMLContent(url);
@@ -618,20 +624,38 @@ public class BookInfo {
         return 0;
     }
 
-    private List<Integer> getIndexBegList(String html, String toSearch) {
+    private List<Integer> getIndexBegList(String html, String toSearch, int maxSize) {
         List<Integer> indexList = new ArrayList<>();
         int i = 1;
-        while (i < html.length() && i >= 1) {
+        int bookCounter = 0;
+        while (i < html.length() && i >= 1 && bookCounter < maxSize) {
             int index = html.indexOf(toSearch, i);
             if (index != -1) {
                 indexList.add(index + toSearch.length());
             }
             i = index + 1;
+            bookCounter++;
         }
         return indexList;
     }
 
 
+
+    private List<Integer> getIndecesEndList(String html, String toSearch, int maxSize) {
+        List<Integer> indexList = new ArrayList<>();
+        int i=1;
+        int bookCounter = 0;
+        while (i<html.length() && i>=1 && bookCounter < maxSize) {
+            int index = html.indexOf(toSearch, i);
+            if (index != -1){
+                indexList.add(index);
+            }
+            i=index+1;
+            bookCounter++;
+        }
+
+        return indexList;
+    }
 
     private List<Integer> getIndecesEndList(String html, String toSearch) {
         List<Integer> indexList = new ArrayList<>();
