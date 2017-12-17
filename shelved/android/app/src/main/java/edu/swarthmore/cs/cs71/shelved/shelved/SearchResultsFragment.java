@@ -73,7 +73,7 @@ public class SearchResultsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
-                Log.d("book", book.getTitle().getTitle());
+                Log.d("bookTitle", book.getTitle().getTitle());
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
             }

@@ -23,6 +23,9 @@ public class SimpleUser implements User {
 
     public SimpleUser() {
         setSalt();
+        setUserBooks();
+        setShelves();
+        setReadingLists();
     }
 
 

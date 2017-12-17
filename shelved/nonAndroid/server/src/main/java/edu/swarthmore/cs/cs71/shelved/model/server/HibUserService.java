@@ -40,6 +40,9 @@ public class HibUserService {
                     String hashedPassword = hibuser.getPassword();
                     String checkingPassword = BCrypt.hashpw(password, salt);
                     if (hashedPassword.equals(checkingPassword)){
+                        String token = UUID.randomUUID().toString();
+                        hibuser.setToken(token);
+                        PersistenceUtils.ENTITY_MANAGER.get().merge(hibuser);
                         return hibuser.getId();
                     } else {
                         return -2;
@@ -95,6 +98,7 @@ public class HibUserService {
 
     public HibUser getUserByID(SessionFactory sf, Integer userID){
         EntityManager session = sf.createEntityManager();
+
         try {
             Query query = session.createQuery("FROM HibUser");
             List<HibUser> users = query.getResultList();

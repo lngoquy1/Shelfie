@@ -15,10 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetBookListStringRequest extends StringRequest {
     private static final String TAG = "Get book list str req";
+    private int userID;
 
     public GetBookListStringRequest(final Context context, final ShelvedModel shelvedModel) {
         super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.GET_BOOK_LIST),
@@ -72,6 +75,13 @@ public class GetBookListStringRequest extends StringRequest {
                         Log.e(TAG, "Update book list error: " + error.getMessage() + "caused by:" + error.getCause());
                     }
                 });
+        this.userID = shelvedModel.userID;
+    }
+    @Override
+    protected Map<String, String> getParams() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("userID", String.valueOf(this.userID));
+        return params;
     }
 
 }

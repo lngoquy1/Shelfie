@@ -45,10 +45,18 @@ public class HibUser implements User {
 
     //TODO: Testing with making a book list for user
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name="userBooks",
+            joinColumns = @JoinColumn( name="shelvedUser_id"),
+            inverseJoinColumns = @JoinColumn( name="book_id")
+    )
     private List<HibBook> userBooks;
 
     public HibUser() {
         setSalt();
+        setUserBooks();
+        setShelves();
+        setReadingLists();
     }
     @Override
     public void setToken(String token){ this.token = token;}
@@ -139,6 +147,10 @@ public class HibUser implements User {
 
     public void addReadingList(HibReadingList readingList){
         this.allReadingLists.add(readingList);
+    }
+
+    public List<HibBook> getUserBooks() {
+        return userBooks;
     }
 
     // TODO: currently adding Book to this userBooks list
