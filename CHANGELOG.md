@@ -244,3 +244,12 @@ In general, these classes describe how the server interacts with hibernate/mysql
 - Refactored BookInfo class to no longer allow injection attacks, to remove dependency on ISBNdb, and to use a key to access Google Books' API
 ## As of 2017-12-9
 - Refactored BookInfo class to query Google Books a smaller number of times to increase performance and more importantly keep us from going over our quota by running the tests in bulk
+
+## Created on 2017-12-12
+- BookInfoFragment uses the fields from the SimpleBook object. We added the book cover URL as a field of the SimpleBook object, and then on the BookInfoFragment we use the Ion library to load a url image into an ImageView android object.
+
+## Created on 2017-12-13
+- Added progress dialog that spins after a user clicks logout and before the LoginActivity is started
+
+## Created on 2017-12-14
+- EditProfileDialog allows user to edit profile fields like name, bio, location
