@@ -1,5 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.SearchViewModelListener;
@@ -14,6 +16,7 @@ public class SearchViewModel {
     private List<SimpleBook> books = new ArrayList<>();
     private List<SearchViewModelListener> searchViewModelListeners = new ArrayList<>();
     Set<ScanAddedListener> scanAddedListeners = new HashSet<ScanAddedListener>();
+    private ProgressDialog dialog;
 
     public void addBook(SimpleBook book) {
         this.books.add(book);
@@ -40,6 +43,18 @@ public class SearchViewModel {
         }
     }
 
+    public ProgressDialog newDialogInstance(Context context) {
+        this.dialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
+        return this.dialog;
+    }
+
+    public ProgressDialog getDialog() {
+        return this.dialog;
+    }
+
+    public void setDialog(ProgressDialog dialog) {
+        this.dialog = dialog;
+    }
 
     //////////// SCANNER STUFF ? :( //////////////
 
@@ -60,7 +75,6 @@ public class SearchViewModel {
             listener.scanAdded(ISBN);
         }
     }
-
 
 
 

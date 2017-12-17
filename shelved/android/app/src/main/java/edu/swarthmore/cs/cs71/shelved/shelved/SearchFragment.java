@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.shelved;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,9 +28,7 @@ import edu.swarthmore.cs.cs71.shelved.network.serialization.GsonUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SearchFragment extends Fragment {
 
@@ -45,6 +44,8 @@ public class SearchFragment extends Fragment {
 
     PagerAdapter mPagerAdapter;
     ViewPager mViewPager;
+
+    SearchViewModel searchViewModel;
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
@@ -69,7 +70,7 @@ public class SearchFragment extends Fragment {
 
         searchView = (SearchView) view.findViewById(R.id.search_view);
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("Search books");
+        searchView.setQueryHint("Search for books");
 
 //        mPagerAdapter = new PagerAdapter(getFragmentManager());
 //
@@ -116,10 +117,11 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+
                 Continuation<SimpleBook> continuationISBN = new Continuation<SimpleBook>() {
                     @Override
                     public void run(SimpleBook book) {
-                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         searchViewModel.getBooklist().add(book);
                         searchViewModel.notifySearchViewModelListeners();
@@ -128,17 +130,28 @@ public class SearchFragment extends Fragment {
                 Continuation<List<SimpleBook>> continuationTitleAuthor = new Continuation<List<SimpleBook>>() {
                     @Override
                     public void run(List<SimpleBook> books) {
-                        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                        searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                         searchViewModel.clearBooks();
                         for (SimpleBook book:books){
                             Log.d("Book:",book.getTitle().getTitle());
                             Log.d("isbn:",book.getISBN().getISBN());
                             searchViewModel.addBook(book);
-                            //searchViewModel.getBooklist().add(book);
                         }
-                        //searchViewModel.notifySearchViewModelListeners();
                     }
                 };
+
+                searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+                final ProgressDialog dialog = searchViewModel.newDialogInstance(getContext());
+                dialog.setMessage("Searching for " + s);
+                dialog.show();
+                final Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    public void run() {
+                        dialog.dismiss(); // when the task active then close the dialog
+                        t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+                    }
+                }, 5000);
+
                 if (CHOSEN == 0) {
                     Toast.makeText(getContext(), "Please choose a category", Toast.LENGTH_SHORT).show();
                 } else {
@@ -150,10 +163,11 @@ public class SearchFragment extends Fragment {
                             AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(), s, "", continuationTitleAuthor);
                             break;
                         case AUTHOR:
-                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(),"", s, continuationTitleAuthor);
+                            AppSingleton.getInstance(getContext()).getModel(getContext()).searchByTitleAuthor(getContext(), "", s, continuationTitleAuthor);
                             break;
                     }
                 }
+
                 return false;
             }
 
