@@ -31,14 +31,10 @@ public class SearchResultsFragment extends Fragment {
         return fragment;
     }
 
-    public SearchListAdapter getSearchListAdapter() {
-        return searchListAdapter;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-   
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,19 +57,20 @@ public class SearchResultsFragment extends Fragment {
 
         listView.setAdapter(searchListAdapter);
 
-        SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
+        final SearchViewModel searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
         searchViewModel.addSearchViewModelListener(new SearchViewModelListener() {
             @Override
             public void searchResultsChanged() {
                 searchListAdapter.notifyDataSetChanged();
+                searchViewModel.getDialog().dismiss();
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position); // String object of cover, title, and author values for book object
-                Log.d("bookTitle", book.getTitle().getTitle());
+                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position);
+                Log.d("book", book.getTitle().getTitle());
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
             }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import org.w3c.dom.Text;
@@ -98,6 +99,7 @@ public class CameraFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(foundBook);
+                        Toast.makeText(getContext(), "Added to Shelf", Toast.LENGTH_SHORT).show();
                     }
                 });
             //} else {
