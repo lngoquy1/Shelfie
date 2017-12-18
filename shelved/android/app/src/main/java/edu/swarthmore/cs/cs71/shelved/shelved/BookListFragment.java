@@ -45,8 +45,6 @@ public class BookListFragment extends Fragment {
         //gridview.setAdapter(new IconAdapter(getContext()));
 
         readingLists = AppSingleton.getInstance(getContext()).getModel(getContext()).getLists();
-        readingLists.add(new SimpleReadingList("Test", true));
-        readingLists.add(new SimpleReadingList("Here", true));
 
         gridview.setAdapter(new GridAdapter(readingLists));
 
