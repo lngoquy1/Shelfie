@@ -93,8 +93,8 @@ public class ShelvedModel {
                 success.run(info);
                 Log.d("getting token: ", ShelvedModel.token);
                 // Updating the user's book list
-//                GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, ShelvedModel.this);
-//                AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
+                GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, ShelvedModel.this);
+                AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
                 notifyLogInSuccessListener();
             }
         };

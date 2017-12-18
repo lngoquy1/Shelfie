@@ -23,21 +23,21 @@ public class HibUserService {
         return newUser;
     }
 
-    public int checkUserValid(SessionFactory sf, String userName, String password) {
+    public int checkUserValid(SessionFactory sf, String email, String password) {
         //returns -1 if no username found
         //returns -2 if incorrect password
         //returns -3 if ArrayStoreException: i.e. createQuery created a list
                     //of a different type than we were expecting
         EntityManager session = sf.createEntityManager();
         try {
-//            String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
+            System.out.println("current email"+email);
             @SuppressWarnings("unchecked")
             List<HibUser> user = (List<HibUser>)
                     session
-                            .createQuery("from HibUser u where u.email.email = :username")
-                            .setParameter("username", userName)
+                            .createQuery("from HibUser u where u.email.email = :email")
+                            .setParameter("email", email)
                             .getResultList();
-            if (user.size()!= 1){return -1;}
+            if (user.size() < 1){return -1;}
             else {
                 HibUser currentUser = user.get(0);
                 String salt = currentUser.getSalt();
