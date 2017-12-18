@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import edu.swarthmore.cs.cs71.shelved.model.bookData.BookInfo;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
 import org.json.JSONArray;
@@ -27,7 +28,7 @@ public class GetBookRecsFromISBNRequest  extends StringRequest {
             super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.GET_REC_BOOKS), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.d(TAG, "addScanResp: " + response);
+                    Log.d(TAG, "getRecsResp: " + response);
                     try {
                         Log.d(TAG, response);
                         JSONObject jObj = new JSONObject(response);
@@ -37,11 +38,13 @@ public class GetBookRecsFromISBNRequest  extends StringRequest {
 
                             Toast.makeText(context, "Results for isbn: "+isbn, Toast.LENGTH_SHORT).show();
                             Gson gson = new Gson();
+
                             JSONArray jArr = jObj.getJSONArray("possibleBooks");//TODO SHOULD I RENAME THIS?
                             List<SimpleBook> books = new ArrayList<>();
                             for (int i = 0; i < jArr.length(); i++){
                                 books.add(gson.fromJson(jArr.get(i).toString(), SimpleBook.class));
                             }
+                            Log.d("BOOK RECS: ", String.valueOf(books));
                             // hold on to this book object in the searchViewModel
                             continuation.run(books);
 
@@ -52,7 +55,7 @@ public class GetBookRecsFromISBNRequest  extends StringRequest {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        System.out.println("Error case");
+                        System.out.println("Error case rec books");
                     }
                 }
 

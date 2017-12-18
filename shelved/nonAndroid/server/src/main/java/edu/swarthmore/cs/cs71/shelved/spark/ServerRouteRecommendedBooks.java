@@ -22,6 +22,7 @@ public class ServerRouteRecommendedBooks extends ServerRoute {
             System.out.println("Search isbn: " + isbn);
             BookInfo bookInfo = new BookInfo();
             List<SimpleBook> simpleBookList = bookInfo.getRecommendedBooksFromISBN(isbn);
+            System.out.println("REC BOOK LIST: " + simpleBookList);
             return new ValidRecBookResponse(simpleBookList);
         } catch (Exception e) {
             System.out.println("SENDING INVALID BOOK RESPONSE!!!");
