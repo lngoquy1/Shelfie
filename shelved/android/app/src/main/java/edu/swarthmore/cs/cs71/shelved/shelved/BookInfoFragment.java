@@ -3,6 +3,7 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -78,6 +79,13 @@ public class BookInfoFragment extends Fragment {
         return rootView;
     }
 
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout_main, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -92,6 +100,19 @@ public class BookInfoFragment extends Fragment {
                 recList.setAdapter(new BookListAdapter(getContext(), recommendedBooks));
             }
         };
+
+        recList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position);
+                //setFieldsFromBook(book, view);
+                Log.d("AUTHOR Book info FRAG", book.getAuthor().getAuthorName());
+                Fragment fragment = BookInfoFragment.newInstance(book);
+                replaceFragment(fragment);
+            }
+        });
+
+
 
         AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs);
 
