@@ -88,6 +88,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                         switch(menuItem.getItemId()) {
                             case R.id.edit_profile_button:
                                 EditProfileDialog dialog = new EditProfileDialog(getContext());
+                                Button uploadPicture = (Button) dialog.uploadPicture;
+                                uploadPicture.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        // Start the Intent
+                                        startActivity(galleryIntent);
+                                    }
+                                });
                                 dialog.show();
                                 return true;
                             case R.id.logout:

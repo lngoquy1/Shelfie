@@ -3,16 +3,18 @@ package edu.swarthmore.cs.cs71.shelved.shelved;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.*;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleUser;
 
 public class EditProfileDialog extends AlertDialog.Builder {
 
     private SimpleUser user;
+    public Button uploadPicture;
 
     public EditProfileDialog(Context context, int themeResId) {
         super(context, themeResId);
@@ -23,38 +25,38 @@ public class EditProfileDialog extends AlertDialog.Builder {
         this.setTitle("Edit Profile");
 
         user = new SimpleUser();
-        user.setName("Your Full Name");
+        user.setBio("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam felis felis, porta sed elit nec, blandit laoreet sem. Nunc tempus, urna sit amet vehicula pellentesque, lorem orci porta orci, nec pulvinar ipsum risus eu lacus.");
 
         LinearLayout main = new LinearLayout(context);
         main.setOrientation(LinearLayout.VERTICAL);
 
-        LinearLayout name = new LinearLayout(context);
-        name.setOrientation(LinearLayout.HORIZONTAL);
-        main.addView(name);
+        LinearLayout bio = new LinearLayout(context);
+        bio.setOrientation(LinearLayout.HORIZONTAL);
+        main.addView(bio);
 
-        TextView nameText = new TextView(context);
-        nameText.setText("Name");
-        name.addView(nameText);
+        TextView bioText = new TextView(context);
+        bioText.setText("Bio: ");
+        bio.addView(bioText);
 
-        EditText nameEdit = new EditText(context);
-        nameEdit.setHint(user.getName());
-        name.addView(nameEdit);
-
-        LinearLayout username = new LinearLayout(context);
-        username.setOrientation(LinearLayout.HORIZONTAL);
-        main.addView(username);
-
-        TextView usernameText = new TextView(context);
-        usernameText.setText("Username");
-        username.addView(usernameText);
-
-        EditText usernameEdit = new EditText(context);
-        usernameEdit.setHint(user.getName());
-        username.addView(usernameEdit);
+        EditText bioEdit = new EditText(context);
+        bioEdit.setHint(user.getBio());
+        bio.addView(bioEdit);
 
         LinearLayout picture = new LinearLayout(context);
         picture.setOrientation(LinearLayout.HORIZONTAL);
         main.addView(picture);
+
+        TextView pictureText = new TextView(context);
+        pictureText.setText("Picture: ");
+        picture.addView(pictureText);
+
+        ImageView pictureImage = new ImageView(context);
+        pictureImage.setImageResource(R.mipmap.logo);
+        picture.addView(pictureImage);
+
+        uploadPicture = new Button(context);
+        uploadPicture.setText("UPLOAD");
+        picture.addView(uploadPicture);
 
         this.setView(main);
 
