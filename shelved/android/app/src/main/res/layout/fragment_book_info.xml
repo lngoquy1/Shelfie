@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/similar_books"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:layout_marginTop="32dp" android:layout_below="@+id/book_cover"
+            android:layout_below="@+id/book_isbn"
             android:layout_alignStart="@+id/book_cover"/>
     <ListView
             android:id="@android:id/list"

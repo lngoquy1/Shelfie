@@ -53,6 +53,7 @@ dependencies {
     compile group: 'me.dm7.barcodescanner', name: 'zbar', version: '1.9.8'
     compile 'me.dm7.barcodescanner:zbar:1.9.8'
     compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }
 
 

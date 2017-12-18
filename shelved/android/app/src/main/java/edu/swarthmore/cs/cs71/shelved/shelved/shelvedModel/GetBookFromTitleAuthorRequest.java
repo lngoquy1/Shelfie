@@ -36,7 +36,7 @@ public class GetBookFromTitleAuthorRequest extends StringRequest{
                     if (!error) {
                         Log.d(TAG, "no error");
 
-                        Toast.makeText(context, "Results for title/author: "+title, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Results for title/author: "+title, Toast.LENGTH_SHORT).show();
                         Gson gson = new Gson();
                         JSONArray jArr = jObj.getJSONArray("possibleBooks");
                         List<SimpleBook> books = new ArrayList<>();
