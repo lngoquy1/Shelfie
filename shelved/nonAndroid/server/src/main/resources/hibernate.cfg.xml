@@ -10,7 +10,7 @@
 
         <!-- Database Connection Settings -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/lbrumga1_test_db</property>
+        <property name="hibernate.connection.url">jdbc:mysql://chocolate.cs.swarthmore.edu:3306/lbrumga1_test_db</property>
         <property name="hibernate.connection.username">lbrumga1</property>
         <property name="hibernate.connection.password">XOgJshmqwIZ6sVKG</property>
         <property name="connection_poolsize">1</property>
