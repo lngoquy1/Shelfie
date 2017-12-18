@@ -218,7 +218,7 @@ public class BookInfo {
 
     public String getUrlBookCoverFromISBN(JSONObject jObj, String isbn) throws EmptyQueryException, IOException, NotFoundException {
         try {
-            return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
+            return jObj.getJSONArray("items").getJSONObject(0).getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("smallThumbnail");
         } catch (Exception e){
             throw new NotFoundException(e.toString(), jObj);
         }
