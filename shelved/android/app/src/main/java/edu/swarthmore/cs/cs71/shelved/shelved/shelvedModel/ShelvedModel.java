@@ -1,6 +1,7 @@
 package edu.swarthmore.cs.cs71.shelved.shelved.shelvedModel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 import com.android.volley.toolbox.StringRequest;
@@ -8,6 +9,7 @@ import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleReadingList;
 import edu.swarthmore.cs.cs71.shelved.shelved.AppSingleton;
 import edu.swarthmore.cs.cs71.shelved.shelved.Continuation;
+import edu.swarthmore.cs.cs71.shelved.shelved.MainActivity;
 
 import java.util.*;
 
@@ -95,7 +97,11 @@ public class ShelvedModel {
                 // Updating the user's book list
                 GetBookListStringRequest getBookListStringRequest = new GetBookListStringRequest(context, ShelvedModel.this);
                 AppSingleton.getInstance(context).addToRequestQueue(getBookListStringRequest, "get book list");
-                notifyLogInSuccessListener();
+//                notifyLogInSuccessListener();
+                Intent intent = new Intent(
+                        context,
+                        MainActivity.class);
+                context.startActivity(intent);
             }
         };
         StringRequest strReq = new UserLogInRequest(context, email, password, localSuccess, failure);

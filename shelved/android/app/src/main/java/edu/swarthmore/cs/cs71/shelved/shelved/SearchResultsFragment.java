@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SearchView;
+import android.widget.*;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
 import java.util.ArrayList;
@@ -69,10 +67,19 @@ public class SearchResultsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position);
+                final SimpleBook book = (SimpleBook)adapterView.getItemAtPosition(position);
                 Log.d("book", book.getTitle().getTitle());
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
+                ImageButton addBtn = (ImageButton) view.findViewById(R.id.add_from_search);
+                addBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onClickButton", book.getTitle().getTitle());
+                        AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(book);
+                    }
+                });
+
             }
 
         });
@@ -80,6 +87,7 @@ public class SearchResultsFragment extends Fragment {
     }
 
     public void replaceFragment(Fragment someFragment) {
+        Log.d("Replace Fragment: ", "changing to BookInfoFragment");
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.search_results_view, someFragment);
         transaction.addToBackStack(null);
