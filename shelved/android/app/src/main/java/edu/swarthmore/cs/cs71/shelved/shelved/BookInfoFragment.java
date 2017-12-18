@@ -25,11 +25,10 @@ public class BookInfoFragment extends Fragment {
     private String imageUrl;
     private int pages;
     private ImageButton addBook;
-
-    List<SimpleBook> recommendedBooks;
+    public List<SimpleBook> recommendedBooks;
 
     ListView recList;
-    private BookListAdapter bookListAdapter;
+    BookListAdapter bookListAdapter;
 
     public static BookInfoFragment newInstance(SimpleBook simpleBook) {
         Log.d("AUTHOR IN INFO FRAG", simpleBook.getAuthor().getAuthorName());
@@ -85,13 +84,16 @@ public class BookInfoFragment extends Fragment {
             @Override
             public void run(List<SimpleBook> books) {
                 //TODO it should have a similar format to what's below, but not exactly because this old code is dealing with search view fragment.
+                Log.d("Continuation",books.toString());
+
                 recommendedBooks = books;
+                Log.d("WE ARE HERE","I PROMISE");
+                Log.d("recommendedBooks:", String.valueOf(recommendedBooks));
+                recList.setAdapter(new BookListAdapter(getContext(), recommendedBooks));
             }
         };
 
-        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs); //TODO FIX ISBN
-        this.bookListAdapter = new BookListAdapter(getContext(), recommendedBooks);
-        recList.setAdapter(bookListAdapter);
+        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs);
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
