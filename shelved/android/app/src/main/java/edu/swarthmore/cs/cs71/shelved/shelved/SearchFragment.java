@@ -143,6 +143,7 @@ public class SearchFragment extends Fragment {
                 searchViewModel = AppSingleton.getInstance(getContext()).getSearchViewModel(getContext());
                 final ProgressDialog dialog = searchViewModel.newDialogInstance(getContext());
                 dialog.setMessage("Searching for " + s);
+                dialog.setCancelable(false);
                 dialog.show();
                 final Timer t = new Timer();
                 t.schedule(new TimerTask() {
