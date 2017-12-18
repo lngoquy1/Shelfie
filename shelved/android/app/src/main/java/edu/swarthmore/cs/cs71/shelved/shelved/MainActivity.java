@@ -71,7 +71,8 @@ public class  MainActivity extends AppCompatActivity {
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout_main, ShelfFragment.newInstance(userId));
-        //transaction.commit();
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         //Used to select an item programmatically
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
