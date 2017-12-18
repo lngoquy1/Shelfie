@@ -31,27 +31,58 @@ public class HibUserService {
         EntityManager session = sf.createEntityManager();
         try {
             System.out.println("current email"+email);
-            @SuppressWarnings("unchecked")
-            List<HibUser> user = (List<HibUser>)
-                    session
-                            .createQuery("from HibUser u where u.email.email = :email")
-                            .setParameter("email", email)
-                            .getResultList();
-            if (user.size() < 1){return -1;}
-            else {
-                HibUser currentUser = user.get(0);
-                String salt = currentUser.getSalt();
-                String hashedPassword = currentUser.getPassword();
-                String checkingPassword = BCrypt.hashpw(password, salt);
-                if (hashedPassword.equals(checkingPassword)){
-                    String token = UUID.randomUUID().toString();
-                    currentUser.setToken(token);
-//                    PersistenceUtils.ENTITY_MANAGER.get().merge(user);
-                    return currentUser.getId();
-                } else {
-                    return -2;
+//            @SuppressWarnings("unchecked")
+//            List<HibUser> user = (List<HibUser>)
+//                    session
+//                            .createQuery("from HibUser u where u.email.email = :email")
+//                            .setParameter("email", email)
+//                            .getResultList();
+//            System.out.println("size of query: "+String.valueOf(user.size()));
+//            if (user.size() < 1){return -1;}
+//            HibUser currentUser = user.get(0);
+//            String salt = currentUser.getSalt();
+//            String hashedPassword = currentUser.getPassword();
+//            String checkingPassword = BCrypt.hashpw(password, salt);
+//            if (hashedPassword.equals(checkingPassword)){
+//                String token = UUID.randomUUID().toString();
+//                currentUser.setToken(token);
+//                PersistenceUtils.ENTITY_MANAGER.get().merge(user);
+//                return currentUser.getId();
+//            } else {
+//                return -2;
+//            }
+//            HibUser currentUser = user.get(0);
+//            String salt = currentUser.getSalt();
+//            String hashedPassword = currentUser.getPassword();
+//            String checkingPassword = BCrypt.hashpw(password, salt);
+//            if (hashedPassword.equals(checkingPassword)){
+//                String token = UUID.randomUUID().toString();
+//                currentUser.setToken(token);
+//                PersistenceUtils.ENTITY_MANAGER.get().merge(user);
+//                return currentUser.getId();
+//            } else {
+//                return -2;
+//            }
+
+            List<HibUser> users = session.createQuery("FROM HibUser").getResultList();
+            for (HibUser user:users){
+                if (user.getEmail().getEmail().equals(email)){
+                    String salt = user.getSalt();
+                    String hashedPassword = user.getPassword();
+                    String checkingPassword = BCrypt.hashpw(password, salt);
+                    if (hashedPassword.equals(checkingPassword)){
+                        String token = UUID.randomUUID().toString();
+                        user.setToken(token);
+                        PersistenceUtils.ENTITY_MANAGER.get().merge(user);
+                        return user.getId();
+                    } else {
+                        return -2;
+                    }
+
                 }
             }
+            return -1;
+
         } catch (ArrayStoreException e) {
             System.out.println(e.toString());
             return -3;
@@ -90,34 +121,23 @@ public class HibUserService {
         }
     }
 
-    public void setUserLoginToken(HibUser user){
-        String token = UUID.randomUUID().toString();
-        user.setToken(token);
-        PersistenceUtils.ENTITY_MANAGER.get().merge(user);
-    }
 
 
 
     public HibUser getUserByID(SessionFactory sf, Integer userID){
         EntityManager session = sf.createEntityManager();
 
-        try {
-            Query query = session.createQuery("FROM HibUser");
-            List<HibUser> users = query.getResultList();
-            for (HibUser user:users){
-                if (user.getId()==userID){
-                    return user;
-                }
-            }
-            throw new RuntimeException("No user with such ID found");
-        } catch (ArrayStoreException e){
-            System.out.println(e.toString());
+        @SuppressWarnings("unchecked")
+        List<HibUser> users = (List<HibUser>)session.createQuery("FROM HibUser u where u.id = :userID")
+                .setParameter("userID", userID)
+                .getResultList();
+        if (users.size() < 1){
             return null;
-        } finally {
-            if (session.isOpen()){
-                session.close();
-            }
         }
+        if (session.isOpen()){
+            session.close();
+        }
+        return users.get(0);
     }
 
 }

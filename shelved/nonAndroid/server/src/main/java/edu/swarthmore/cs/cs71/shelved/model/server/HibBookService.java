@@ -62,9 +62,8 @@ public class HibBookService {
 
     public List<SimpleBook> getAllBooks(SessionFactory sf, String userID){
         EntityManager session = sf.createEntityManager();
-//        List<HibBook> hibBooks = (List<HibBook>)
-//                session.createQuery("from ");
-        List<HibBook> hibBooks = session.createQuery("FROM HibBook").getResultList();
+        HibUser currentUser = new HibUserService().getUserByID(sf, Integer.valueOf(userID));
+        List<HibBook> hibBooks = currentUser.getUserBooks();
         List<SimpleBook> simpleBooks = new ArrayList<>();
         for (HibBook book:hibBooks){
             // TODO: Need to get all fields in the future
