@@ -6,64 +6,67 @@
                 android:layout_height="match_parent"
                 tools:context="edu.swarthmore.cs.cs71.shelved.shelved.CameraFragment">
 
-    <ImageView
-            android:layout_width="150dp"
-            android:layout_height="180dp" app:srcCompat="@color/black"
-            android:layout_marginTop="24dp"
-            android:id="@+id/Cover"
-            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
-
-    <TextView
-            android:text="Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Cover" android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp" android:id="@+id/Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" android:visibility="visible"/>
-
-    <TextView
-            android:text="Author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp" android:id="@+id/Author"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" android:visibility="visible"/>
-
-    <TextView
-            android:text="Genre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Author"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp" android:id="@+id/Genre"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
-
-    <TextView
-            android:text="Publisher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Genre"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp" android:id="@+id/Publisher"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
-
-    <TextView
-            android:text="Pages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Publisher"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp" android:id="@+id/Pages"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
-
-    <TextView
-            android:text="ISBN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/Pages"
-            android:layout_centerHorizontal="true" android:layout_marginTop="8dp" android:id="@+id/ISBN"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
-
-    <Button
-            android:text="Add Book"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/ISBN"
-            android:layout_centerHorizontal="true" android:layout_marginTop="30dp" android:id="@+id/add_book_button"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:gravity="center">
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp" app:srcCompat="@color/black"
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/Cover"
+                    android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+            <TextView
+                    android:text="Title"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Cover"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" android:id="@+id/Title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" android:visibility="visible"/>
+            <TextView
+                    android:text="Author"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" android:id="@+id/Author"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" android:visibility="visible"/>
+            <TextView
+                    android:text="Genre"
+                    android:layout_width="194dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Author"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" android:id="@+id/Genre"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
+            <TextView
+                    android:text="Publisher"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Genre"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp" android:id="@+id/Publisher"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
+            <TextView
+                    android:text="Pages"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Publisher"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp" android:id="@+id/Pages"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
+            <TextView
+                    android:text="ISBN"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content" android:layout_below="@+id/Pages"
+                    android:layout_centerHorizontal="true" android:layout_marginTop="8dp" android:id="@+id/ISBN"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" android:visibility="visible"/>
+            <Button
+                    android:text="Add Book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_below="@+id/ISBN"
+                    android:layout_centerHorizontal="true" android:layout_marginTop="30dp"
+                    android:id="@+id/add_book_button"/>
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
