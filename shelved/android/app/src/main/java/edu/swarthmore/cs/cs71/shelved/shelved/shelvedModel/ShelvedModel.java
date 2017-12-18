@@ -13,6 +13,7 @@ import java.util.*;
 
 public class ShelvedModel {
     private List<SimpleBook> bookList = new ArrayList<SimpleBook>();
+    private List<SimpleBook> recBookList = new ArrayList<SimpleBook>();
     private List<SimpleReadingList> readingLists = new ArrayList<SimpleReadingList>();
     public static int userID;
     public static String token;
@@ -25,6 +26,7 @@ public class ShelvedModel {
     Set<ListsUpdatedListener> listsUpdatedListeners = new HashSet<ListsUpdatedListener>();
     Set<ListAddedListener> listAddedListeners = new HashSet<ListAddedListener>();
     Set<BookAddedToListListener> bookAddedToListListeners = new HashSet<>();
+    Set<RecommendedBookListListener> recommendedBookListListeners = new HashSet<>();
 
 
 
@@ -37,6 +39,11 @@ public class ShelvedModel {
         //return Collections.unmodifiableList(readingLists);
         return this.readingLists;
     }
+
+    public List<SimpleBook> recBookList() {
+        return this.recBookList;
+    }
+
 
     public static int getUserID() {
         return userID;
@@ -122,6 +129,12 @@ public class ShelvedModel {
         notifyListAddedListeners(list);
     }
 
+    public void setRecBooksList(List<SimpleBook> recBookList, String isbn){
+        this.recBookList = recBookList;
+        notifyRecommendedBookListListeners(isbn);
+    }
+
+
     public void removeList(SimpleReadingList list) {
         readingLists.remove(list);
         notifyListUpdatedListeners();
@@ -176,6 +189,14 @@ public class ShelvedModel {
             listener.listAdded(list);
         }
     }
+
+    //////////////////Rec Book /////////////////////////////////////
+    private void notifyRecommendedBookListListeners(String isbn) {
+        for (RecommendedBookListListener listener:this.recommendedBookListListeners){
+            listener.getRecommendedList(isbn);
+        }
+    }
+
 
     ///////////////// Add book Listeners/ updaters /////////////////
 

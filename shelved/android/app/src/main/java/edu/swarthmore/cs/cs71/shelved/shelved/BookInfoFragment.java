@@ -91,7 +91,7 @@ public class BookInfoFragment extends Fragment {
 
         AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs); //TODO FIX ISBN
         this.bookListAdapter = new BookListAdapter(getContext(), recommendedBooks);
-        recList.setAdapter(bookListAdapter);
+//        recList.setAdapter(bookListAdapter);
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override

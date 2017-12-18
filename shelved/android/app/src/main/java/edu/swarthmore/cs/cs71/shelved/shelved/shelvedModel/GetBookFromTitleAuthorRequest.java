@@ -28,7 +28,7 @@ public class GetBookFromTitleAuthorRequest extends StringRequest{
         super(Request.Method.POST, ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.SEARCH_TITLE_AUTHOR), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "addScanResp: " + response);
+                Log.d(TAG, "GetRecResp: " + response);
                 try {
                     Log.d(TAG, response);
                     JSONObject jObj = new JSONObject(response);
