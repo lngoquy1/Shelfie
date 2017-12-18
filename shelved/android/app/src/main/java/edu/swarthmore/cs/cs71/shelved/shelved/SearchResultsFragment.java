@@ -71,14 +71,6 @@ public class SearchResultsFragment extends Fragment {
                 Log.d("book", book.getTitle().getTitle());
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
-                ImageButton addBtn = (ImageButton) view.findViewById(R.id.add_from_search);
-                addBtn.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        Log.d("onClickButton", book.getTitle().getTitle());
-                        AppSingleton.getInstance(getContext()).getModel(getContext()).addBook(book);
-                    }
-                });
 
             }
 
