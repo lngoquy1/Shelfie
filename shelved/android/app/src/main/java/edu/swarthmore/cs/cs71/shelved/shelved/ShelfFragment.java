@@ -95,16 +95,16 @@ public class ShelfFragment extends ListFragment {
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        addBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create and show AddBookDialog
-                AddBookDialog alert = new AddBookDialog(getContext());
-                Log.d(TAG, "show add book dialog");
-                Log.d(TAG, "called newInstance");
-                alert.show();
-            }
-        });
+//        addBook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Create and show AddBookDialog
+//                AddBookDialog alert = new AddBookDialog(getContext());
+//                Log.d(TAG, "show add book dialog");
+//                Log.d(TAG, "called newInstance");
+//                alert.show();
+//            }
+//        });
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

@@ -35,7 +35,7 @@
             android:text="Book Publisher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_below="@+id/book_genre"
-            android:layout_alignStart="@+id/book_genre" android:layout_marginTop="5dp" android:id="@+id/book_publisher"
+            android:layout_alignStart="@+id/book_genre"  android:id="@+id/book_publisher"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
     <TextView
@@ -44,14 +44,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/book_pages"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:layout_above="@android:id/list" android:layout_alignStart="@+id/book_isbn"/>
+            android:layout_below="@+id/book_publisher"
+            android:layout_alignStart="@+id/book_publisher"/>
     <TextView
             android:text="Book ISBN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/book_isbn"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:layout_above="@+id/book_pages" android:layout_alignStart="@+id/book_publisher"/>
+            android:layout_below="@+id/book_pages" android:layout_alignStart="@+id/book_pages"/>
     <ImageButton
             android:id="@+id/add_book"
             android:contentDescription="add book"
@@ -60,10 +61,18 @@
             android:src="@drawable/ic_add_black_24dp"
             android:onClick="showPopup"
             android:layout_below="@+id/linearLayout3" android:layout_alignParentEnd="true"/>
+    <TextView
+            android:text="Similar Books:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/similar_books"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:layout_below="@+id/book_isbn"
+            android:layout_alignStart="@+id/book_cover"/>
     <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_below="@+id/book_cover"
+            android:layout_height="match_parent" android:layout_below="@+id/similar_books"
             android:layout_marginTop="16dp"
             android:layout_alignStart="@+id/book_cover" android:layout_alignParentEnd="true"/>
 

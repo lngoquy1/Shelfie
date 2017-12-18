@@ -31,7 +31,7 @@ public class BookInfoFragment extends Fragment {
     List<SimpleBook> recommendedBooks;
 
     ListView recList;
-    private BookListAdapter bookListAdapter;
+    BookListAdapter bookListAdapter;
 
     public static BookInfoFragment newInstance(SimpleBook simpleBook) {
         Log.d("AUTHOR IN INFO FRAG", simpleBook.getAuthor().getAuthorName());
@@ -73,9 +73,8 @@ public class BookInfoFragment extends Fragment {
         //Log.d("BOOK INFO", book.getAuthor().getAuthorName());
         addBook = (ImageButton)rootView.findViewById(R.id.add_book);
         setFieldsFromBook(rootView);
-
+        Log.d("ABOUT TO SET REC LIST", "");
         recList = (ListView) rootView.findViewById(android.R.id.list);
-
         return rootView;
     }
 
@@ -87,13 +86,14 @@ public class BookInfoFragment extends Fragment {
             @Override
             public void run(List<SimpleBook> books) {
                 //TODO it should have a similar format to what's below, but not exactly because this old code is dealing with search view fragment.
+                Log.d("Continuation",books.toString());
+
                 recommendedBooks = books;
+                recList.setAdapter(new BookListAdapter(getContext(), recommendedBooks));
             }
         };
 
-        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs); //TODO FIX ISBN
-        this.bookListAdapter = new BookListAdapter(getContext(), recommendedBooks);
-        recList.setAdapter(bookListAdapter);
+        AppSingleton.getInstance(getContext()).getModel(getContext()).getRecs(getContext(),this.isbn, continuationRecs);
 
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
