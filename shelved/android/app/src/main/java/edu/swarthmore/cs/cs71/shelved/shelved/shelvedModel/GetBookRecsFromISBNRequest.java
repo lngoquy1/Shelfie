@@ -44,9 +44,10 @@ public class GetBookRecsFromISBNRequest  extends StringRequest {
                             for (int i = 0; i < jArr.length(); i++){
                                 books.add(gson.fromJson(jArr.get(i).toString(), SimpleBook.class));
                             }
-                            Log.d("BOOK RECS: ", String.valueOf(books));
+                            Log.d("BOOK RECS 1: ", String.valueOf(books));
                             // hold on to this book object in the searchViewModel
                             continuation.run(books);
+                            Log.d("BOOK RECS 2: ", String.valueOf(books));
 
                         } else {
                             Log.d(TAG, "error");
