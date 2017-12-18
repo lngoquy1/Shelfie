@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.google.gson.Gson;
 import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 import org.w3c.dom.Text;
@@ -25,7 +26,9 @@ public class BookInfoFragment extends Fragment {
     private String imageUrl;
     private int pages;
     private ImageButton addBook;
-    public List<SimpleBook> recommendedBooks;
+    private SimpleBook simpleBook;
+
+    List<SimpleBook> recommendedBooks;
 
     ListView recList;
     BookListAdapter bookListAdapter;
@@ -40,10 +43,9 @@ public class BookInfoFragment extends Fragment {
         bundle.putString("publisher", simpleBook.getPublisher().getPublisher());
         bundle.putInt("pages", simpleBook.getPages());
         bundle.putString("isbn", simpleBook.getISBN().getISBN());
-
+        bundle.putString("simpleBook", new Gson().toJson(simpleBook));
         BookInfoFragment fragment = new BookInfoFragment();
         fragment.setArguments(bundle);
-
         return fragment;
     }
 
@@ -56,6 +58,7 @@ public class BookInfoFragment extends Fragment {
         this.imageUrl = bundle.getString("image_url");
         this.pages = bundle.getInt("pages");
         this.isbn = bundle.getString("isbn");
+        this.simpleBook = new Gson().fromJson(bundle.getString("simpleBook"), SimpleBook.class);
     }
 
     @Override
@@ -97,10 +100,11 @@ public class BookInfoFragment extends Fragment {
             public void onClick(View v) {
                 // Create and show AddBookDialog
                 //AddBookDialog alert = new AddBookDialog(getContext());
+                // TODO: Intent
                 Log.d("Book info fragment", "show add book dialog");
                 Log.d("Book info fragment", "called newInstance");
-
-                //alert.show();
+                AddBookAnywhereDialog alert = new AddBookAnywhereDialog(getContext(),simpleBook);
+                alert.show();
             }
         });
     }

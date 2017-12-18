@@ -46,8 +46,8 @@ public class HibUser implements User {
     //TODO: Testing with making a book list for user
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name="userBooks",
-            joinColumns = @JoinColumn( name="shelvedUser_id"),
+            name="userBook",
+            joinColumns = @JoinColumn(name="shelvedUser_id"),
             inverseJoinColumns = @JoinColumn( name="book_id")
     )
     private List<HibBook> userBooks;
