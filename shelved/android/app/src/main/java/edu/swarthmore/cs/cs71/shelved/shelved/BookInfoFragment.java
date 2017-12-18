@@ -86,9 +86,6 @@ public class BookInfoFragment extends Fragment {
                 Log.d("Continuation",books.toString());
 
                 recommendedBooks = books;
-                Log.d("WE ARE HERE","I PROMISE");
-                Log.d("recommendedBooks:", String.valueOf(recommendedBooks));
-                //Log.d("recList",recList.toString());
                 recList.setAdapter(new BookListAdapter(getContext(), recommendedBooks));
             }
         };
