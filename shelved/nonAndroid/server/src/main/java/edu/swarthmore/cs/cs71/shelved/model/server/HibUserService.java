@@ -31,25 +31,27 @@ public class HibUserService {
         EntityManager session = sf.createEntityManager();
         try {
 //            String hql = "FROM shelvedUser S WHERE S.shelvedUser_username ="+String.valueOf(userName_id);
-            List<HibUser> users = session.createQuery("FROM HibUser").getResultList();
-            for (HibUser hibuser:users){
-                System.out.println("email: " + hibuser.getEmail().getEmail());
-                if (userName.equals(hibuser.getEmail().getEmail())){
-                    System.out.println("line 4");
-                    String salt = hibuser.getSalt();
-                    String hashedPassword = hibuser.getPassword();
-                    String checkingPassword = BCrypt.hashpw(password, salt);
-                    if (hashedPassword.equals(checkingPassword)){
-                        String token = UUID.randomUUID().toString();
-                        hibuser.setToken(token);
-                        PersistenceUtils.ENTITY_MANAGER.get().merge(hibuser);
-                        return hibuser.getId();
-                    } else {
-                        return -2;
-                    }
+            @SuppressWarnings("unchecked")
+            List<HibUser> user = (List<HibUser>)
+                    session
+                            .createQuery("from HibUser u where u.email.email = :username")
+                            .setParameter("username", userName)
+                            .getResultList();
+            if (user.size()!= 1){return -1;}
+            else {
+                HibUser currentUser = user.get(0);
+                String salt = currentUser.getSalt();
+                String hashedPassword = currentUser.getPassword();
+                String checkingPassword = BCrypt.hashpw(password, salt);
+                if (hashedPassword.equals(checkingPassword)){
+                    String token = UUID.randomUUID().toString();
+                    currentUser.setToken(token);
+//                    PersistenceUtils.ENTITY_MANAGER.get().merge(user);
+                    return currentUser.getId();
+                } else {
+                    return -2;
                 }
             }
-            return -1;
         } catch (ArrayStoreException e) {
             System.out.println(e.toString());
             return -3;

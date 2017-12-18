@@ -19,7 +19,6 @@ public abstract class ServerRoute implements Route{
     protected abstract ResponseMessage execute(Request request, Response response);
     @Override
     public ResponseMessage handle(Request request, Response response) throws Exception {
-        System.out.println("Start execution");
         EntityManager session = sf.createEntityManager();
         PersistenceUtils.ENTITY_MANAGER.set(session);
         session.getTransaction().begin();
@@ -27,9 +26,8 @@ public abstract class ServerRoute implements Route{
             // Do stuffs
             System.out.println("Start execution");
             ResponseMessage o = execute(request, response);
-            System.out.println("End execution");
             session.getTransaction().commit();
-            System.out.println("Finish transaction");
+            System.out.println("Finish execution");
             return o;
         } catch (Exception e) {
             session.getTransaction().rollback();

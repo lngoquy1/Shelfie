@@ -54,6 +54,7 @@ public class AppSingleton {
             addListNetworkListeners(context, model);
             addLogInSuccessNetWorkListeners(context, model);
             addBookToListNetworkListeners(context, model);
+            addRecommendedBookListeners(context, model);
         }
         return model;
     }
@@ -67,8 +68,8 @@ public class AppSingleton {
     }
 
 
-    ///////////////// Book Added Listeners /////////////////
 
+    ///////////////// Book Added Listeners /////////////////
     private void addBookNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
         shelvedModel.addBookAddedListener(new BookAddedListener() {
             @Override
@@ -91,6 +92,17 @@ public class AppSingleton {
         });
     }
 
+
+    ///////////////// Rec books /////////////////////////////
+    private void addRecommendedBookListeners(final Context context, final ShelvedModel shelvedModel) {
+        shelvedModel.addListAddedListener(new RecommendedBookListListener() {
+
+            @Override
+            public void getRecommendedList(String isbn) {
+                StringRequest strReq = new GetBookRecsFromISBNRequest(context, isbn, )
+            }
+        });
+    }
     ///////////////// List added Listeners /////////////////
 
     private void addListNetworkListeners(final Context context, final ShelvedModel shelvedModel) {
