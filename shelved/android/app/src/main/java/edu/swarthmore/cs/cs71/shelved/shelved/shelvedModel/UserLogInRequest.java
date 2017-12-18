@@ -30,7 +30,7 @@ public class UserLogInRequest extends StringRequest {
                 ShelvedUrls.SINGLETON.getUrl(context, ShelvedUrls.Name.LOG_IN), new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "Register Response: " + response.toString());
+                        Log.d(TAG, "Log in Response: " + response.toString());
                         try {
                             JSONObject jObj = new JSONObject(response);
                             Log.d(TAG, jObj.toString());
