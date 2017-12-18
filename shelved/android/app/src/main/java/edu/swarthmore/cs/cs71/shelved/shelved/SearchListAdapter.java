@@ -23,7 +23,7 @@ public class SearchListAdapter extends ArrayAdapter<SimpleBook> {
             vi = LayoutInflater.from(getContext());
             convertView = vi.inflate(R.layout.search_result_item, null);
         }
-        SimpleBook book = getItem(position);
+        final SimpleBook book = getItem(position);
         TextView title = (TextView) convertView.findViewById(R.id.title_book);
         TextView author = (TextView) convertView.findViewById(R.id.author_book);
         ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
@@ -32,7 +32,8 @@ public class SearchListAdapter extends ArrayAdapter<SimpleBook> {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "here", Toast.LENGTH_SHORT).show();
+                AddBookAnywhereDialog alert = new AddBookAnywhereDialog(getContext(), book);
+                alert.show();
             }
         });
 
