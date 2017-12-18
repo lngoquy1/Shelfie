@@ -70,9 +70,8 @@ public class BookInfoFragment extends Fragment {
         //Log.d("BOOK INFO", book.getAuthor().getAuthorName());
         addBook = (ImageButton)rootView.findViewById(R.id.add_book);
         setFieldsFromBook(rootView);
-
+        Log.d("ABOUT TO SET REC LIST", "");
         recList = (ListView) rootView.findViewById(android.R.id.list);
-
         return rootView;
     }
 
@@ -89,6 +88,7 @@ public class BookInfoFragment extends Fragment {
                 recommendedBooks = books;
                 Log.d("WE ARE HERE","I PROMISE");
                 Log.d("recommendedBooks:", String.valueOf(recommendedBooks));
+                //Log.d("recList",recList.toString());
                 recList.setAdapter(new BookListAdapter(getContext(), recommendedBooks));
             }
         };
