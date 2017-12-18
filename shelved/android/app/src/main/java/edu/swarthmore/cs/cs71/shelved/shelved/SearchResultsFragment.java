@@ -74,7 +74,9 @@ public class SearchResultsFragment extends Fragment {
                 Fragment fragment = BookInfoFragment.newInstance(book);
                 replaceFragment(fragment);
             }
+
         });
+
     }
 
     public void replaceFragment(Fragment someFragment) {
