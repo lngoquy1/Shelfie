@@ -117,7 +117,7 @@ public class BookInfoTests {
         BookInfo bookInfo = new BookInfo();
         JSONObject jObj = bookInfo.getJsonFromQueryGoogle("", "","1439171882");
         String url = bookInfo.getUrlBookCoverFromISBN(jObj, "1439171882");
-        Assert.assertEquals("http://books.google.com/books/content?id=Gpnk-K_yBj4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", url);
+        Assert.assertEquals("http://books.google.com/books/content?id=Gpnk-K_yBj4C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", url);
     }
 
     @Test
