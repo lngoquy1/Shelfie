@@ -4,9 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.koushikdutta.ion.Ion;
 import edu.swarthmore.cs.cs71.shelved.model.simple.SimpleBook;
 
@@ -29,7 +27,14 @@ public class SearchListAdapter extends ArrayAdapter<SimpleBook> {
         TextView title = (TextView) convertView.findViewById(R.id.title_book);
         TextView author = (TextView) convertView.findViewById(R.id.author_book);
         ImageView cover = (ImageView) convertView.findViewById(R.id.cover);
+        ImageButton addButton = (ImageButton) convertView.findViewById(R.id.add_from_search);
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "here", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         title.setText(book.getTitle().getTitle());
         author.setText(book.getAuthor().getAuthorName());
@@ -40,4 +45,6 @@ public class SearchListAdapter extends ArrayAdapter<SimpleBook> {
         //cover.setImageResource(R.mipmap.logo);
         return convertView;
     }
+
+
 }

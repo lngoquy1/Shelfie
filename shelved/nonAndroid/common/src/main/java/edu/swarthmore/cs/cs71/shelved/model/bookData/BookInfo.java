@@ -24,8 +24,8 @@ import java.util.List;
 
 public class BookInfo {
     private final String GOODREADS_KEY = "VCtvMQ3iSjQaSHPXlhGZQA";
-//    private final String GOOGLE_KEY = "AIzaSyAhOYmtyu0DYSipcoZzoeYjomVqYBQjHJQ";
-//    private final String GOOGLE_KEY = "AIzaSyAjhcw1HxBoBsw19IE4CGN8NxMxiaxZ-Po";
+//    private final String GOOGLE_KEY_old = "AIzaSyAhOYmtyu0DYSipcoZzoeYjomVqYBQjHJQ";
+//    private final String GOOGLE_KEY_old = "AIzaSyAjhcw1HxBoBsw19IE4CGN8NxMxiaxZ-Po";
     private final String GOOGLE_KEY = "AIzaSyAowLKnhi1-ovIJoeKvuNrXyxcZ0noMJzY";
 
 
