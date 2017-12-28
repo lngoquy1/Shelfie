@@ -1,3 +1,4 @@
+
 # Shelved
 This is an Android app project for CS71. Software Engineering (Prof. Zachary Palmer)
 
@@ -22,3 +23,6 @@ This project is made with a maven project - **nonAndroid**, and an Android proje
 3. In order to start using the app (for now), you will need either a connected device, or choose an emulator. The steps to run are:
 * Run Server in **nonAndroid**
 * Run app in **android**
+=======
+# Shelfie
+
