@@ -1,6 +1,6 @@
 
 # Shelved
-This is an Android app project for CS71. Software Engineering (Prof. Zachary Palmer)
+This is an Android app project for CS71. Software Engineering (Prof. Zachary Palmer) by Lan Anh Ngo Quy, Leah Brumgard, Kellie Dinh and Nicole Feldbaum.
 
 This project is made with a maven project - **nonAndroid**, and an Android project - **android**.
 
